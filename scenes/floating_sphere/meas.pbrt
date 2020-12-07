@@ -1,0 +1,53 @@
+Film "rgb"
+    "integer xresolution" [ 400 ]
+    "integer yresolution" [ 300 ]
+    "string filename" [ "output.sub" ]
+
+PixelFilter "gaussian"
+    "float yradius" [ 2 ]
+    "float xradius" [ 2 ]
+
+Sampler "pmj02bn"
+    "integer pixelsamples" [ 256 ]
+
+Integrator "volpath"
+#Integrator "bdpt"
+#    "integer maxdepth" [ 5 ]
+
+Accelerator "bvh"
+
+LookAt  0 20 -50
+        0 5 0
+        0 1 0
+
+Camera "perspective"
+        "float fov" [ 45 ]
+        "float screenwindow" [ -1 1 -0.75 0.75 ]
+
+WorldBegin
+
+LightSource "infinite" "float scale" [ 1 ]
+
+MakeNamedMaterial "matte" "string type" "diffuse"
+    "rgb reflectance" [ 0.5 0.5 0.5 ]
+
+# Ground
+AttributeBegin
+    NamedMaterial "matte"
+    Rotate 90 1 0 0
+    Shape "disk" "float radius" [ 100 ]
+AttributeEnd
+
+MakeNamedMedium "red_medium"
+	"string type" "homogeneous"
+	"rgb sigma_a" [ 0 0.5 0.5 ]
+	"rgb sigma_s" [ 0 0 0 ]
+	"float scale" [ 2 ]
+
+# Red Glass
+AttributeBegin
+    Translate 0 10 0
+	Material "dielectric"
+	MediumInterface "red_medium" ""
+    Shape "sphere" "float radius" [ 5 ]
+AttributeEnd

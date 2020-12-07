@@ -1,0 +1,9 @@
+# Ignore all intermediate pbrt files
+dump/*.pbrt
+patterns/*
+outputs/*
+
+# Heavy scene files, obj's etc.
+scenes/dragon_subsurface/dragon.pbrt
+
+.idea/*

@@ -1,0 +1,11 @@
+# @package _group_
+name: subsurface
+label: ${material.name}
+
+sigma_s:
+  type: spectrum
+  value: [200, 100, 600, 100]
+
+sigma_a:
+  type: spectrum
+  value: [500, 200, 900, 200]

@@ -1,0 +1,62 @@
+# eye
+# look at point
+LookAt 3 0 0 # eye
+    0 0 0 # look
+    0 0 1 # up
+# up vector
+Camera "perspective"
+    "float fov" [ 60 ]
+Sampler "halton"
+    "integer pixelsamples" [ 128 ]
+Integrator "volpath"
+Film "rgb"
+    "integer yresolution" [ 600 ]
+    "integer xresolution" [ 600 ]
+    "string filename" [ "output.sub" ]
+
+
+WorldBegin
+
+# uniform blue-ish illumination from all directions
+# approximate the sun
+#LightSource "infinite"
+#    "rgb L" [ 0.4 0.45 0.5 ]
+#LightSource "distant"
+    #"float scale" [1.5]
+    #"blackbody L" [ 3000 ]
+    #"point3 from" [ -30 40 100 ]
+
+AttributeBegin
+    #Translate 2 2 0
+    #Rotate -30 0 1 0
+    #CoordSysTransform "camera"
+    LookAt 0 2.6 0 # eye
+        0 0 0 # look
+        0 0 1 # up
+    LightSource "projection"
+        "float fov" [ 80 ]
+        "string filename" [ "pattern.sub" ]
+        "float scale" [ 200 ]
+AttributeEnd
+
+AttributeBegin
+    [ material.sub ]
+    Shape "sphere"
+        "float radius" [ 1 ]
+AttributeEnd
+
+AttributeBegin
+    Texture "checks" "spectrum" "checkerboard"
+        "rgb tex2" [ 0.8 0.8 0.8 ]
+        "rgb tex1" [ 0.1 0.1 0.1 ]
+        "float vscale" [ 8 ]
+        "float uscale" [ 8 ]
+    Material "diffuse"
+        "texture reflectance" [ "checks" ]
+    Translate 0 0 -1
+    Shape "trianglemesh"
+        "point2 uv" [ 0 0 1 0 1 1 0 1 
+            ]
+        "point3 P" [ -20 -20 0 20 -20 0 20 20 0 -20 20 0 ]
+        "integer indices" [ 0 1 2 0 2 3 ]
+AttributeEnd

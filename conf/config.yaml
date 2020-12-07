@@ -1,0 +1,24 @@
+defaults:
+  - material: diffuse
+  - hydra
+  - hydra/job_logging: colorlog
+  - hydra/hydra_logging: colorlog
+  - hydra/launcher: joblib
+
+exp_name: ${pbrt.scene}
+seed: 0
+
+projector:
+  pattern: ConventionalGray
+  index: 12
+
+pbrt:
+  executable: /Users/varun/Dev/pbrt-v4/build/pbrt
+  scene: dragon_subsurface
+  type: "meas" # use "gt" for groundtruth
+
+output:
+  name: output
+
+
+

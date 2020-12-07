@@ -1,0 +1,49 @@
+# eye
+# look at point
+LookAt 3 4 1.5
+    0.5 0.5 0
+    0 0 1
+# up vector
+Camera "perspective"
+    "float fov" [ 45 ]
+Sampler "halton"
+    "integer pixelsamples" [ 128 ]
+Integrator "path"
+Film "rgb"
+    "integer yresolution" [ 400 ]
+    "integer xresolution" [ 400 ]
+    "string filename" [ "simple.png" ]
+
+
+WorldBegin
+
+# uniform blue-ish illumination from all directions
+# approximate the sun
+LightSource "infinite"
+    "rgb L" [ 0.4 0.45 0.5 ]
+LightSource "distant"
+    "float scale" [1.5]
+    "blackbody L" [ 3000 ]
+    "point3 from" [ -30 40 100 ]
+
+AttributeBegin
+    Material "dielectric"
+    Shape "sphere"
+        "float radius" [ 1 ]
+AttributeEnd
+
+AttributeBegin
+    Texture "checks" "spectrum" "checkerboard"
+        "rgb tex2" [ 0.8 0.8 0.8 ]
+        "rgb tex1" [ 0.1 0.1 0.1 ]
+        "float vscale" [ 8 ]
+        "float uscale" [ 8 ]
+    Material "diffuse"
+        "texture reflectance" [ "checks" ]
+    Translate 0 0 -1
+    Shape "trianglemesh"
+        "point2 uv" [ 0 0 1 0 1 1 0 1 
+            ]
+        "point3 P" [ -20 -20 0 20 -20 0 20 20 0 -20 20 0 ]
+        "integer indices" [ 0 1 2 0 2 3 ]
+AttributeEnd

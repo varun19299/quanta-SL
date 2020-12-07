@@ -1,0 +1,32 @@
+Sampler "paddedsobol"
+    "integer pixelsamples" [ 1024 ]
+PixelFilter "box"
+Integrator "volpath"
+#    "string pointsfile" [ "../../../subsurface.samples" ]
+Film "rgb"
+    "integer yresolution" [ 768 ]
+    "integer xresolution" [ 1024 ]
+    "string filename" [ "output.sub" ]
+Camera "perspective"
+    "float fov" [ 60 ]
+
+
+WorldBegin
+
+
+AttributeBegin
+    Translate 0.1109 0 0.029716
+    Rotate -30 0 1 0
+    LightSource "projection"
+        "float fov" [ 60 ]
+        "string filename" [ "pattern.sub" ]
+        "float scale" [ 1 ]
+AttributeEnd
+
+[ material.sub ]
+
+AttributeBegin
+    Translate 0.005879 -0.124951 0.292944
+    Rotate -15 0 1 0
+    Include "dragon.pbrt"
+AttributeEnd
