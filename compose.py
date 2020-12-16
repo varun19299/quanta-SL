@@ -93,10 +93,18 @@ def main(cfg: DictConfig):
         f.write(pbrt_file)
 
     # Render it
-    subprocess.run([cfg.pbrt.executable, str(pbrt_dump_path.resolve())])
+    cmd = [
+        cfg.pbrt.executable,
+        str(pbrt_dump_path.resolve()),
+        "--display-server",
+        str(cfg.display_server),
+    ]
+    if cfg.device == "gpu":
+        cmd = cmd + ["--gpu"]
+    subprocess.run(cmd)
 
     # Remove pbrt file
-    os.remove(pbrt_dump_path)
+    # os.remove(pbrt_dump_path)
 
 
 if __name__ == "__main__":

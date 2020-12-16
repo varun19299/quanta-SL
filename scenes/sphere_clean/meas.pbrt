@@ -13,8 +13,6 @@ Film "rgb"
     "integer yresolution" [ 600 ]
     "integer xresolution" [ 600 ]
     "string filename" [ "output.sub" ]
-CoordinateSystem "abc"
-
 WorldBegin
 
 # uniform blue-ish illumination from all directions
@@ -26,26 +24,22 @@ LightSource "distant"
     "blackbody L" [ 3000 ]
     "point3 from" [ -30 40 100 ]
 
-#AttributeBegin
-#    LightSource "point"
-#        "rgb I" [ 4 4 4 ]
-#        "point3 from" [ 4 2 0 ]
-#AttributeEnd
-
 AttributeBegin
-    #Rotate 180 0 0 1
-    CoordSysTransform "camera"
-    Translate 1 0 0
+    #CoordSysTransform "camera"
+    #LookAt 0 0 0 # eye
+    #    0 0 4 # look
+    #    0 1 0 # up
 
-    #Rotate -120 0 1 0
-    #Translate 4 0 0
-    #Rotate 90 0 0 1
-    #Rotate -60 0 0 1
+    Translate 4 0 0
+    Rotate -90 0 1 0
+    Rotate 90 0 0 1
+    #CoordSysTransform "world"
     #LookAt 4 0 0 # eye
     #    0 0 0 # look
     #    0 0 1 # up
+    #Rotate 90 0 1 0
     LightSource "projection"
-        "float fov" [ 45 ]
+        "float fov" [ 60 ]
         "string filename" [ "pattern.sub" ]
         "float scale" [ 20 ]
 AttributeEnd
@@ -63,10 +57,10 @@ AttributeBegin
         "float vscale" [ 8 ]
         "float uscale" [ 8 ]
     Material "diffuse"
-        "texture reflectance" [ "checks" ]
+       "texture reflectance" [ "checks" ]
     Translate 0 0 -1
     Shape "trianglemesh"
-        "point2 uv" [ 0 0 1 0 1 1 0 1 
+        "point2 uv" [ 0 0 1 0 1 1 0 1
             ]
         "point3 P" [ -20 -20 0 20 -20 0 20 20 0 -20 20 0 ]
         "integer indices" [ 0 1 2 0 2 3 ]

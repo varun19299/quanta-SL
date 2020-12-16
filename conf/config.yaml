@@ -7,6 +7,8 @@ defaults:
 
 exp_name: ${pbrt.scene}
 seed: 0
+device: cpu
+display_server: localhost:14158
 
 projector:
   pattern: ConventionalGray
