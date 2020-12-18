@@ -104,7 +104,8 @@ def main(cfg: DictConfig):
     subprocess.run(cmd)
 
     # Remove pbrt file
-    # os.remove(pbrt_dump_path)
+    if not cfg.pbrt.save_dump:
+        os.remove(pbrt_dump_path)
 
 
 if __name__ == "__main__":

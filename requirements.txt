@@ -1,0 +1,10 @@
+black
+einops
+hydra-ax-sweeper
+hydra-joblib-launcher
+hydra-core
+hydra_colorlog
+matplotlib
+nptyping
+numpy
+tqdm

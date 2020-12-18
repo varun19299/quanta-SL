@@ -25,21 +25,21 @@ LightSource "distant"
     "point3 from" [ -30 40 100 ]
 
 AttributeBegin
-    #CoordSysTransform "camera"
-    #LookAt 0 0 0 # eye
-    #    0 0 4 # look
-    #    0 1 0 # up
+    CoordSysTransform "camera"
+    LookAt -1 0 0 # eye
+        0 0 4 # look
+        0 1 0 # up
 
-    Translate 4 0 0
-    Rotate -90 0 1 0
-    Rotate 90 0 0 1
+    #Rotate 120 1 -1 -1
+    #Translate 4 0 0
+    #Rotate -90 0 1 0
     #CoordSysTransform "world"
     #LookAt 4 0 0 # eye
     #    0 0 0 # look
     #    0 0 1 # up
     #Rotate 90 0 1 0
     LightSource "projection"
-        "float fov" [ 60 ]
+        "float fov" [ 30 ]
         "string filename" [ "/Volumes/GoogleDrive/Shared drives/WISION drive/quanta_structured_light/pypbrt-structured-light/patterns/ConventionalGray/12.exr" ]
         "float scale" [ 20 ]
 AttributeEnd

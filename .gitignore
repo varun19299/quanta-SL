@@ -1,5 +1,4 @@
 # Ignore all intermediate pbrt files
-dump/*.pbrt
 patterns/*
 outputs/*
 
