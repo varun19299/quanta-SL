@@ -1,6 +1,8 @@
 import numpy as np
 from nptyping import NDArray
 from typing import Any, Union
+from einops import rearrange
+
 
 def normalized(a: NDArray, axis: int = -1, order: int = 2):
     """

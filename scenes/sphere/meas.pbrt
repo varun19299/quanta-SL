@@ -1,9 +1,7 @@
-# eye
 # look at point
 LookAt 4 0 0 # eye
     0 0 0 # look
     0 0 1 # up
-# up vector
 Camera "perspective"
     "float fov" [ 60 ]
 Sampler "halton"
@@ -13,39 +11,26 @@ Film "rgb"
     "integer yresolution" [ 600 ]
     "integer xresolution" [ 600 ]
     "string filename" [ "output.sub" ]
-CoordinateSystem "abc"
-
 WorldBegin
 
 # uniform blue-ish illumination from all directions
 # approximate the sun
 #LightSource "infinite"
-#    "rgb L" [ 0.2 0.2 0.4 ]
-LightSource "distant"
-    "float scale" [1.5]
-    "blackbody L" [ 3000 ]
-    "point3 from" [ -30 40 100 ]
-
-#AttributeBegin
-#    LightSource "point"
-#        "rgb I" [ 4 4 4 ]
-#        "point3 from" [ 4 2 0 ]
-#AttributeEnd
+#    "rgb L" [.4 .45 .5]
+#LightSource "distant"
+#    "float scale" [2]
+#    "blackbody L" [ 3000 ]
+#    "point3 from" [ -30 40 100 ]
 
 AttributeBegin
-    #Rotate 180 0 0 1
     CoordSysTransform "camera"
-    Translate 1 0 0
+    # directive to convert to LookAt in camera frame
+    LookAt_camcoord 4 1 0 # eye
+        0 0 0 # look
+        0 0 1 # up
 
-    #Rotate -120 0 1 0
-    #Translate 4 0 0
-    #Rotate 90 0 0 1
-    #Rotate -60 0 0 1
-    #LookAt 4 0 0 # eye
-    #    0 0 0 # look
-    #    0 0 1 # up
     LightSource "projection"
-        "float fov" [ 45 ]
+        "float fov" [ 30 ]
         "string filename" [ "pattern.sub" ]
         "float scale" [ 20 ]
 AttributeEnd
@@ -56,18 +41,18 @@ AttributeBegin
         "float radius" [ 1 ]
 AttributeEnd
 
-AttributeBegin
-    Texture "checks" "spectrum" "checkerboard"
-        "rgb tex2" [ 0.8 0.8 0.8 ]
-        "rgb tex1" [ 0.1 0.1 0.1 ]
-        "float vscale" [ 8 ]
-        "float uscale" [ 8 ]
-    Material "diffuse"
-        "texture reflectance" [ "checks" ]
-    Translate 0 0 -1
-    Shape "trianglemesh"
-        "point2 uv" [ 0 0 1 0 1 1 0 1 
-            ]
-        "point3 P" [ -20 -20 0 20 -20 0 20 20 0 -20 20 0 ]
-        "integer indices" [ 0 1 2 0 2 3 ]
-AttributeEnd
+#AttributeBegin
+#    Texture "checks" "spectrum" "checkerboard"
+#        "rgb tex2" [ 0.8 0.8 0.8 ]
+#        "rgb tex1" [ 0.1 0.1 0.1 ]
+#        "float vscale" [ 8 ]
+#        "float uscale" [ 8 ]
+#    Material "diffuse"
+#       "texture reflectance" [ "checks" ]
+#    Translate 0 0 -1
+#    Shape "trianglemesh"
+#        "point2 uv" [ 0 0 1 0 1 1 0 1
+#            ]
+#        "point3 P" [ -20 -20 0 20 -20 0 20 20 0 -20 20 0 ]
+#        "integer indices" [ 0 1 2 0 2 3 ]
+#AttributeEnd
