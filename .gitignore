@@ -6,3 +6,6 @@ outputs/*
 scenes/dragon_subsurface/dragon.pbrt
 
 .idea/*
+
+__pycache__/*
+*/__pycache__/*
