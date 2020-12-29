@@ -1,0 +1,6 @@
+# @package _group_
+name: diffuse
+label: diffuse_1.0
+reflectance:
+  type: rgb
+  value: [1.0, 1.0, 1.0]

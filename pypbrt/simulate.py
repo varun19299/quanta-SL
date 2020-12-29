@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Union
 
 import hydra
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 
 import pypbrt.pbrt_writer as pbrt_writer
 
@@ -26,13 +26,17 @@ def set_paths(cfg: DictConfig) -> Union[Path, Path, Path]:
         root_dir / "patterns" / cfg.projector.pattern / f"{cfg.projector.index}.exr"
     )
 
-    output_path = Path(f"{cfg.output.name}_{cfg.projector.index}.exr")
+    output_path = Path(
+        f"{cfg.output.name}_{cfg.projector.index}.{cfg.output.extension}"
+    )
 
     return pbrt_path, projector_path, output_path
 
 
 @hydra.main(config_path="../conf", config_name="config")
 def main(cfg: DictConfig):
+    print(OmegaConf.to_yaml(cfg))
+
     tag = cfg.pbrt.type
     pbrt_path, projector_path, output_path = set_paths(cfg)
 

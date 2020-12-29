@@ -3,10 +3,10 @@
 hydra:
 #  output_subdir: null # disable shifting output directories
   run:
-    dir: ./outputs/${exp_name}/${material.label}/${projector.pattern}/${pbrt.type}
-  sweep:
     dir: ./outputs/${exp_name}/${material.label}/${projector.pattern}
-    subdir: ${pbrt.type}
+  sweep:
+    dir: ./outputs/${exp_name}/${material.label}/
+    subdir: ${projector.pattern}
   job_logging:
     handlers:
       file:

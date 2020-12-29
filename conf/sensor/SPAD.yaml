@@ -1,0 +1,4 @@
+# @package _group_
+name: SPAD
+exposure: 100 # in seconds
+intensity_multiplier: 1e3 # Intensity to Flux approximation

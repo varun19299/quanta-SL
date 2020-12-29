@@ -10,7 +10,7 @@ Integrator "volpath"
 Film "rgb"
     "integer xresolution" [ 1024 ]
     "integer yresolution" [ 768 ]
-    "string filename" [ "output.sub" ]
+    "string filename" [ "/Volumes/GoogleDrive/Shared drives/WISION drive/quanta_structured_light/pypbrt-structured-light/outputs/sphere/diffuse/ConventionalGray/meas/output_12.exr" ]
 WorldBegin
 
 # uniform blue-ish illumination from all directions
@@ -25,18 +25,19 @@ WorldBegin
 AttributeBegin
     CoordSysTransform "camera"
     # directive to convert to LookAt in camera frame
-    LookAt_camcoord 4 -1.071796 0 # eye
-        0 0 0 # look
-        0 0 1 # up
+    LookAt 1.071796 0.0 0.0 # eye
+        0.0 0.0 4.0 # look
+        0.0 1.0 0.0 # up
 
     LightSource "projection"
-        "float fov" [ 60 ]
-        "string filename" [ "pattern.sub" ]
+        "float fov" [ 30 ]
+        "string filename" [ "/Volumes/GoogleDrive/Shared drives/WISION drive/quanta_structured_light/pypbrt-structured-light/patterns/ConventionalGray/12.exr" ]
         "float scale" [ 40 ]
 AttributeEnd
 
 AttributeBegin
-    [ material.sub ]
+    Material "diffuse"
+	"rgb reflectance" [ 0.3 0.3 0.3 ]
     Shape "sphere"
         "float radius" [ 1 ]
 AttributeEnd
