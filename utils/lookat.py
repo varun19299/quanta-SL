@@ -1,3 +1,25 @@
+"""
+Support for `LookAt_camcoord`
+
+which is a `LookAt` directive
+which can be used in the scene description
+with identical behaviour as the camera `LookAt`.
+
+So, if the camera is positioned at `cam` and
+looks at `cam_look`, with up direction `up_dir`:
+
+    ```
+    LookAt_camcoord cam_x cam_y cam_z
+        cam_look_x cam_look_y cam_look
+        up_dir_x up_dir_y up_dir_z
+    ```
+
+colocates the object & the camera!
+
+DONOT use before the scene description
+(before WorldBegin),
+will lead to unexpected behaviour.
+"""
 import logging
 from dataclasses import astuple, dataclass
 from typing import Union
@@ -22,7 +44,7 @@ class LookAt(object):
 
 
 def lookat_to_translate_rotate(
-    coords: LookAt,
+    lookat: LookAt,
 ) -> Union[NDArray[3, float], NDArray[3, float], float]:
     """
     Convert look at to translation + rotation along an axis
@@ -31,10 +53,10 @@ def lookat_to_translate_rotate(
     :param up:
     :return:
     """
-    pos, look, up = astuple(coords)
+    pos, look, up = astuple(lookat)
     dir = normalized(look - pos)
 
-    up = normalized(coords.up)
+    up = normalized(lookat.up)
 
     right = np.cross(up, dir)
     assert np.linalg.norm(right), f"Up {up} and dir {dir} are in the same direction"
@@ -57,15 +79,23 @@ def lookat_to_translate_rotate(
     return pos, rot_axis, theta
 
 
-def lookat_to_Tinv(coords: LookAt,) -> NDArray[(4, 4), float]:
+def lookat_to_Tinv(lookat: LookAt, ) -> NDArray[(4, 4), float]:
     """
     Convert look at to inverse Transformation matrix (4x4)
+
+    :param lookat:
+    :type lookat:
+    :return:
+    :rtype:
+    """
+    """
+    
     :param pos:
     :param look:
     :param up:
     :return:
     """
-    pos, look, up = astuple(coords)
+    pos, look, up = astuple(lookat)
     dir = normalized(look - pos)
 
     up = normalized(up)
@@ -95,16 +125,15 @@ def lookat_to_Tinv(coords: LookAt,) -> NDArray[(4, 4), float]:
     return Tinv
 
 
-def lookat_camcoord(obj_coords: LookAt, cam_coords: LookAt) -> LookAt:
+def lookat_camcoord(obj_lookat: LookAt, cam_lookat: LookAt) -> LookAt:
     """
-    vec in camera coord
-    :param vec:
+    Converts LookAt to camera coords
+
+    :param obj_lookat:
     :param cam_pos:
-    :param cam_look:
-    :param cam_up:
     :return:
     """
-    Tinv = lookat_to_Tinv(cam_coords)
+    Tinv = lookat_to_Tinv(cam_lookat)
 
     def _proj3d(Tmat, vec):
         vec = convert_points_to_homogeneous(vec)
@@ -114,14 +143,14 @@ def lookat_camcoord(obj_coords: LookAt, cam_coords: LookAt) -> LookAt:
         vec = convert_points_from_homogeneous(vec)
         return vec
 
-    pos = _proj3d(Tinv, obj_coords.pos)
-    look = _proj3d(Tinv, obj_coords.look)
+    pos = _proj3d(Tinv, obj_lookat.pos)
+    look = _proj3d(Tinv, obj_lookat.look)
 
     # Up vector only rotated, not translated
     Tinv_rot = np.zeros_like(Tinv)
     Tinv_rot[:3, :3] = Tinv[:3, :3]
     Tinv_rot[3, 3] = 1
-    up = _proj3d(Tinv_rot, obj_coords.up)
+    up = _proj3d(Tinv_rot, obj_lookat.up)
 
     return LookAt(pos, look, up)
 
@@ -132,10 +161,10 @@ if __name__ == "__main__":
     pos = np.array([4, 0, 0])
     look = np.array([0, 0, 0])
     up = np.array([0, 0, 1])
-    cam_coords = LookAt(pos, look, up)
-    print(f"Camera Coords {cam_coords}")
+    cam_lookat = LookAt(pos, look, up)
+    print(f"Camera Coords {cam_lookat}")
 
-    Tinv = lookat_to_Tinv(cam_coords)
+    Tinv = lookat_to_Tinv(cam_lookat)
     obj_pos = np.array([4, 1, 0])
-    obj_coords = LookAt(obj_pos, look, up)
-    print(f"Object Coords {lookat_camcoord(obj_coords, cam_coords)}")
+    obj_lookat = LookAt(obj_pos, look, up)
+    print(f"Object Coords {lookat_camcoord(obj_lookat, cam_lookat)}")

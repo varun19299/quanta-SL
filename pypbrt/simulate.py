@@ -61,8 +61,16 @@ def main(cfg: DictConfig):
         f.write(pbrt_file)
 
     # Render it
+    pbrt_executable = Path(hydra.utils.get_original_cwd()) / cfg.pbrt.executable
+
+    # resolve if symlinked
+    if pbrt_executable.is_symlink():
+        pbrt_executable = os.readlink(pbrt_executable)
+
+    pbrt_executable = str(pbrt_executable)
+
     cmd = [
-        cfg.pbrt.executable,
+        pbrt_executable,
         str(pbrt_dump_path.resolve()),
         "--display-server",
         str(cfg.display_server),

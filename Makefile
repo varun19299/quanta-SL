@@ -38,11 +38,23 @@ PROJ_INDEX := 12
 PROJ_PATTERN := ConventionalGray
 DEVICE := cpu
 EXP_NAME := $(SCENE)
-PBRT_EXEC := /Users/varun/Dev/pbrt-v4/build/pbrt
+PBRT_EXEC := pbrt
 
-## simulate: args (SCENE, MATERIAL, PROJ_INDEX, DEVICE, PBRT_EXEC)
+## simulate: Ray tracing based structured light sim.
 simulate:
-	${PYTHON} pypbrt/simulate.py pbrt.scene=$(SCENE)  material=$(MATERIAL) \
+	${PYTHON} pypbrt/simulate.py \
+	pbrt.scene=$(SCENE) material=$(MATERIAL) \
  	projector.index=$(PROJ_INDEX) projector.pattern=$(PROJ_PATTERN) \
  	exp_name=$(EXP_NAME) \
- 	device=$(DEVICE) pbrt.executable=$(PBRT_EXEC)  $(HYDRA_FLAGS)
+ 	device=$(DEVICE) pbrt.executable=$(PBRT_EXEC) $(HYDRA_FLAGS)
+
+## reconstruct: Reconstruct from multiple captures outputs/<exp_name>/<proj_pattern>.
+SENSOR := SPAD
+EXPOSURE := 100
+
+reconstruct:
+	${PYTHON} pypbrt/reconstruct.py \
+	pbrt.scene=$(SCENE) material=$(MATERIAL) \
+	projector.index=$(PROJ_INDEX) projector.pattern=$(PROJ_PATTERN) \
+ 	exp_name=$(EXP_NAME) \
+	sensor=$(SENSOR) sensor.exposure=$(EXPOSURE) $(HYDRA_FLAGS)

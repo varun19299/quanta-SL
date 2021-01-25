@@ -16,7 +16,7 @@ projector:
   index: 12
 
 pbrt:
-  executable: /Users/varun/Dev/pbrt-v4/build/pbrt
+  executable: pbrt
   scene: dragon_subsurface
   type: "meas" # use "gt" for groundtruth
   save_dump: False

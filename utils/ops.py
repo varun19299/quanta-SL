@@ -1,3 +1,6 @@
+"""
+Helper ops
+"""
 import numpy as np
 from nptyping import NDArray
 from typing import Any, Union
