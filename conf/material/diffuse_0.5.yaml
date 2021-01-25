@@ -1,4 +1,4 @@
-# @package _group_
+# @package material
 name: diffuse
 label: diffuse_0.5
 reflectance:

@@ -9,3 +9,6 @@ scenes/dragon_subsurface/dragon.pbrt
 
 __pycache__/*
 */__pycache__/*
+
+# pbrt binary
+pbrt

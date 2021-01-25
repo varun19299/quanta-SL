@@ -1,10 +1,13 @@
 black
 einops
 graycode
-hydra-ax-sweeper
-hydra-joblib-launcher
-hydra-core
-hydra_colorlog
+
+# Hydra Dependencies
+git+https://github.com/facebookresearch/hydra.git#egg=hydra_colorlog&subdirectory=plugins/hydra_colorlog
+git+https://github.com/facebookresearch/hydra.git
+git+https://github.com/facebookresearch/hydra.git#egg=hydra-joblib-launcher&subdirectory=plugins/hydra_joblib_launcher
+git+https://github.com/facebookresearch/hydra.git#egg=hydra-optuna-sweeper&subdirectory=plugins/hydra_optuna_sweeper
+
 matplotlib
 nptyping
 numpy

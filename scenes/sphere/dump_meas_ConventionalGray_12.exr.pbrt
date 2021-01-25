@@ -10,7 +10,7 @@ Integrator "volpath"
 Film "rgb"
     "integer xresolution" [ 1024 ]
     "integer yresolution" [ 768 ]
-    "string filename" [ "/Volumes/GoogleDrive/Shared drives/WISION drive/quanta_structured_light/pypbrt-structured-light/outputs/sphere/diffuse/ConventionalGray/meas/output_12.exr" ]
+    "string filename" [ "/Volumes/GoogleDrive/Shared drives/WISION drive/quanta_structured_light/pypbrt-structured-light/outputs/trial/diffuse_0.3/ConventionalGray/output_12.exr" ]
 WorldBegin
 
 # uniform blue-ish illumination from all directions
@@ -30,7 +30,7 @@ AttributeBegin
         0.0 1.0 0.0 # up
 
     LightSource "projection"
-        "float fov" [ 30 ]
+        "float fov" [ 60 ]
         "string filename" [ "/Volumes/GoogleDrive/Shared drives/WISION drive/quanta_structured_light/pypbrt-structured-light/patterns/ConventionalGray/12.exr" ]
         "float scale" [ 40 ]
 AttributeEnd

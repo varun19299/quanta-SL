@@ -43,6 +43,7 @@ def conventional_SL_threshold(captures_dict: Dict[str, List[NDArray]], cfg: Dict
     )
     binary_codes = (coded_captures > inverse_coded_captures).astype(int)
 
+    # TODO: will need a threshold
     if cfg.reconstruct.include_all_white:
         mask = (captures_dict["all_white"] > 0).astype(int)
     else:

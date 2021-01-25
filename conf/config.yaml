@@ -2,9 +2,9 @@ defaults:
   - material: diffuse_0.3
   - sensor: SPAD
   - hydra
-  - hydra/job_logging: colorlog
-  - hydra/hydra_logging: colorlog
-  - hydra/launcher: basic
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+  - override hydra/launcher: basic
 
 exp_name: ${pbrt.scene}
 seed: 0
