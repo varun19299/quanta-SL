@@ -1,13 +1,13 @@
 from copy import deepcopy
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple
 
 import cv2
 import hydra
 import logging
 from matplotlib import pyplot as plt
 import numpy as np
-from nptyping import NDArray, Float32
+from nptyping import NDArray, Float32, Int
 from omegaconf import DictConfig, ListConfig
 import pandas as pd
 
@@ -15,22 +15,26 @@ import pypbrt.decode as decode
 import pypbrt.sensor as sensor
 
 
-def exr2grayscale(path: str) -> NDArray[(Any, Any, 3), Float32]:
+def load_exr2grayscale(path: str) -> NDArray[(Any, Any, 3), Float32]:
     """
     Open exr and convert to grayscale using CV2
-    :param path:
-    :return:
+
+    :param path: EXR file path
+    :return: Image read as is
     """
     img = cv2.imread(path, -1)
     return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
 
-def conventional_SL_threshold(captures_dict: Dict[str, List[NDArray]], cfg: DictConfig):
+def conventional_SL_threshold(
+    captures_dict: Dict[str, List[NDArray]], cfg: DictConfig
+) -> Tuple[NDArray[(Any, Any, Any), Int], NDArray[(Any, Any, Any), Int]]:
     """
     Uses captures to compute binary codes
+
     :param captures_dict: Contains all_white, direct and inverse codes
-    :param cfg:
-    :return:
+    :param cfg: OmegaConf
+    :return: Binary codes (channels represent bits), Mask
     """
     # Conventional SL
     assert cfg.reconstruct.include_inverse, "More robust with inverse captures"
@@ -52,12 +56,16 @@ def conventional_SL_threshold(captures_dict: Dict[str, List[NDArray]], cfg: Dict
     return binary_codes, mask
 
 
-def quanta_SL_threshold(captures_dict: Dict[str, List[NDArray]], cfg: DictConfig):
+def quanta_SL_threshold(
+    captures_dict: Dict[str, List[NDArray]], cfg: DictConfig
+) -> Tuple[NDArray[(Any, Any, Any), Int], NDArray[(Any, Any, Any), Int]]:
     """
     Uses captures to compute binary codes
+    Transforms captures to Quanta captures
+
     :param captures_dict: Contains all_white, direct and inverse codes
-    :param cfg:
-    :return:
+    :param cfg: Omegaconf
+    :return: Binary codes (channels represent bits), Mask
     """
     # Conventional SL
     assert cfg.reconstruct.include_all_white, "Quanta SL needs all white"
@@ -91,8 +99,6 @@ def load_captures(
     All captures are stored in the same output directory
     :return:
     """
-    output_folder = Path(".")
-
     if include_inverse:
         projector_indices = list(range(1, num_codes * 2 + 1, 2))
         inverse_projector_indices = list(range(2, num_codes * 2 + 1, 2))
@@ -102,13 +108,13 @@ def load_captures(
 
     captures_dict = {}
     if include_all_white:
-        captures_dict["all_white"] = exr2grayscale(f"{name}_0.{extension}")
+        captures_dict["all_white"] = load_exr2grayscale(f"{name}_0.{extension}")
 
     captures_dict["coded"] = [
-        exr2grayscale(f"{name}_{i}.{extension}") for i in projector_indices
+        load_exr2grayscale(f"{name}_{i}.{extension}") for i in projector_indices
     ]
     captures_dict["inverse_coded"] = [
-        exr2grayscale(f"{name}_{i}.{extension}") for i in inverse_projector_indices
+        load_exr2grayscale(f"{name}_{i}.{extension}") for i in inverse_projector_indices
     ]
 
     return captures_dict

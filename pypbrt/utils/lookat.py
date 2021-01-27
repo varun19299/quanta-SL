@@ -2,8 +2,11 @@
 Support for `LookAt_camcoord`
 
 which is a `LookAt` directive
-which can be used in the scene description
-with identical behaviour as the camera `LookAt`.
+with world coordinate system.
+
+(In PBRT, other directives such as
+Rotate, Translate etc follow
+world coordinates. LookAt is the exception).
 
 So, if the camera is positioned at `cam` and
 looks at `cam_look`, with up direction `up_dir`:
@@ -29,11 +32,11 @@ from einops import rearrange
 from nptyping import NDArray
 from scipy.spatial.transform import Rotation
 
-from utils.conversions import (
+from pypbrt.utils.conversions import (
     convert_points_from_homogeneous,
     convert_points_to_homogeneous,
 )
-from utils.ops import normalized
+from pypbrt.utils.ops import normalized
 
 
 @dataclass
@@ -43,16 +46,16 @@ class LookAt(object):
     up: NDArray[3, float]
 
 
-def lookat_to_translate_rotate(
+def lookat_to_translate_rotmat(
     lookat: LookAt,
-) -> Union[NDArray[3, float], NDArray[3, float], float]:
+) -> Union[NDArray[3, float], NDArray[(3, 3), float]]:
     """
-    Convert look at to translation + rotation along an axis
-    :param pos:
-    :param look:
-    :param up:
-    :return:
+    Convert LookAt to translation vector + rotational matrix
+
+    :param lookat: LookAt instance holding position and orientation info.
+    :return: Translation vec, Rotation mat
     """
+
     pos, look, up = astuple(lookat)
     dir = normalized(look - pos)
 
@@ -70,6 +73,20 @@ def lookat_to_translate_rotate(
     right = rearrange(right, "1 n -> n 1")
 
     rot_mat = np.hstack((right, up, dir))
+
+    return pos, rot_mat
+
+
+def lookat_to_translate_rotvec(
+    lookat: LookAt,
+) -> Union[NDArray[3, float], NDArray[3, float], float]:
+    """
+    Convert LookAt to translation + rotation along an axis
+
+    :param lookat: LookAt instance holding position and orientation info.
+    :return: Translation vec, Rotation axis, Rotation angle
+    """
+    pos, rot_mat = lookat_to_translate_rotmat(lookat)
     rotation = Rotation.from_matrix(rot_mat)
     rot_vector = rotation.as_rotvec()
 
@@ -79,48 +96,39 @@ def lookat_to_translate_rotate(
     return pos, rot_axis, theta
 
 
-def lookat_to_Tinv(lookat: LookAt, ) -> NDArray[(4, 4), float]:
+def lookat_to_T(
+    lookat: LookAt,
+) -> NDArray[(4, 4), float]:
+    """
+    Convert look at to Transformation matrix (4x4)
+
+    :param lookat: Position & orientation
+        as described by a LookAt instance
+    :return: Transformation matrix (homogeneous)
+    """
+    pos, rot_mat = lookat_to_translate_rotmat(lookat)
+
+    return np.block([[rot_mat, pos], [np.zeros((1, 3)), 1]])
+
+
+def lookat_to_Tinv(
+    lookat: LookAt,
+) -> NDArray[(4, 4), float]:
     """
     Convert look at to inverse Transformation matrix (4x4)
 
-    :param lookat:
-    :type lookat:
-    :return:
-    :rtype:
+    :param lookat: Position & orientation
+        as described by a LookAt instance
+    :return: Transformation matrix (homogeneous)
     """
-    """
-    
-    :param pos:
-    :param look:
-    :param up:
-    :return:
-    """
-    pos, look, up = astuple(lookat)
-    dir = normalized(look - pos)
-
-    up = normalized(up)
-
-    right = np.cross(up, dir)
-    assert np.linalg.norm(right), f"Up {up} and dir {dir} are in the same direction"
-    right = normalized(right)
-
-    up = np.cross(dir, right)
-
-    # Make column vectors
-    dir = rearrange(dir, "1 n -> n 1")
-    up = rearrange(up, "1 n -> n 1")
-    right = rearrange(right, "1 n -> n 1")
-
-    rot_mat = np.hstack((right, up, dir))
+    pos, rot_mat = lookat_to_translate_rotmat(lookat)
     rot_mat_inv = rot_mat.transpose()
-
-    logging.debug(f"Rotational Matrix {rot_mat}")
 
     # Now compute rot_mat_inv @ pos
     pos = rearrange(pos, "n -> n 1")
-    pos = -rot_mat_inv @ pos
+    pos_inv = -rot_mat_inv @ pos
 
-    Tinv = np.block([[rot_mat_inv, pos], [np.zeros((1, 3)), 1]])
+    Tinv = np.block([[rot_mat_inv, pos_inv], [np.zeros((1, 3)), 1]])
 
     return Tinv
 
@@ -129,9 +137,9 @@ def lookat_camcoord(obj_lookat: LookAt, cam_lookat: LookAt) -> LookAt:
     """
     Converts LookAt to camera coords
 
-    :param obj_lookat:
-    :param cam_pos:
-    :return:
+    :param obj_lookat: Object position & orientation described by LookAt
+    :param cam_pos: Camera position & orientation described by LookAt
+    :return: Object LookAt in camera coordinates
     """
     Tinv = lookat_to_Tinv(cam_lookat)
 

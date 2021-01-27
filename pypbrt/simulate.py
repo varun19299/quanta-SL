@@ -12,7 +12,7 @@ from typing import Union
 import hydra
 from omegaconf import DictConfig, OmegaConf
 
-import pypbrt.pbrt_writer as pbrt_writer
+import pypbrt.utils.pbrt_writer as pbrt_writer
 
 
 def set_paths(cfg: DictConfig) -> Union[Path, Path, Path]:
