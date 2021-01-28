@@ -6,7 +6,7 @@ from typing import Dict, List
 
 from omegaconf import ListConfig
 import re
-from pypbrt.utils import LookAt, lookat_camcoord
+from pypbrt.utils.lookat import LookAt, lookat_camcoord
 
 
 def configure_paths(contents: str, projector_path: Path, output_path: Path) -> str:

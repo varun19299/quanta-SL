@@ -26,10 +26,13 @@ help : Makefile
         endif
     endif
 
-##clean: Remove all outputs
+## clean: Remove all outputs
 clean:
 	@rm -rf outputs/*
 
+## test: Run unit tests wherever present
+test:
+	@pytest -s pypbrt/*
 
 # Simulate defaults
 SCENE := sphere
