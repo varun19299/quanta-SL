@@ -2,8 +2,8 @@
 3D Projection utilities
 
 TODO:
-1. Generate Ray from camera pixels
-2. Generate Plane from a pixel
+1. Check coordinate system. Should be Image[y,x]
+
 """
 
 from dataclasses import dataclass
@@ -11,7 +11,7 @@ from einops import rearrange, repeat
 import numpy as np
 from pypbrt.utils import conversions, lookat, ops
 
-from typing import Any
+from typing import Any, Tuple
 from nptyping import NDArray
 
 
@@ -28,15 +28,68 @@ def _add_axis(vec: NDArray[Any]) -> NDArray[(1, Any)]:
     return vec
 
 
-def _batch_dot_prod(a: NDArray[(Any, Any)], b: NDArray[(Any, Any)]):
+def _batch_dot_prod(a: NDArray[(Any, Any)], b: NDArray[(Any, Any)]) -> NDArray[(Any,)]:
+    """
+    First axis is batch
+    """
     return (a * b).sum(axis=1)
 
 
-def get_ray_through_pixel(pixel: NDArray[(Any, 2), float], camera_matrix: CameraMatrix):
+def plane_through_pixel(
+    pixel: NDArray[(Any, 2), float], camera_matrix: CameraMatrix
+) -> Tuple[NDArray[(Any, 4), float], NDArray[(Any, 4), float]]:
+    """
+    Get planes through x and y directions (of camera coord)
+
+    :param pixel: Batched pixels, is implicitly batched otherwise
+        Format: [[pixel_u, pixel_v]]
+        https://learnopencv.com/wp-content/uploads/2020/02/camera-projection-3D-to-2D.png
+    :param camera_matrix: Camera Matrix K, R, T
+    :return:
+    """
+    pixel = _add_axis(pixel)
+
+    # Convert to homogenous, shape: N x 3
+    pixel = conversions.convert_points_to_homogeneous(pixel)
+
+    x_dir = np.array([1, 0, 0])
+    y_dir = np.array([0, 1, 0])
+
+    # Get ray in camera frame
+    ray_dir = pixel @ np.linalg.inv(camera_matrix.K).T
+
+    # Plane normals
+    plane_through_x_dir = np.cross(ray_dir, x_dir)
+    plane_through_y_dir = np.cross(ray_dir, y_dir)
+
+    # Transform dir to world coord (just rotate)
+    plane_through_x_dir = plane_through_x_dir @ camera_matrix.R
+    plane_through_y_dir = plane_through_y_dir @ camera_matrix.R
+
+    # Camera Centre in world coord
+    camera_centre = camera_matrix.R.T @ np.zeros(
+        (3, 1)
+    ) - camera_matrix.R.T @ rearrange(camera_matrix.T, "d-> d 1")
+    camera_centre = repeat(camera_centre, "d 1 -> n d", n=pixel.shape[0])
+
+    plane_through_x = np.block(
+        [plane_through_x_dir, -_batch_dot_prod(plane_through_x_dir, camera_centre)]
+    )
+    plane_through_y = np.block(
+        [plane_through_y_dir, -_batch_dot_prod(plane_through_y_dir, camera_centre)]
+    )
+    return plane_through_x, plane_through_y
+
+
+def ray_through_pixel(
+    pixel: NDArray[(Any, 2), float], camera_matrix: CameraMatrix
+) -> Tuple[NDArray[(Any, 3), float], NDArray[(Any, 3), float]]:
     """
     Get ray (in world coord) through a camera's pixel
 
     :param pixel: Batched pixels, is implicitly batched otherwise
+        Format: [[pixel_u, pixel_v]]
+        https://learnopencv.com/wp-content/uploads/2020/02/camera-projection-3D-to-2D.png
     :param camera_matrix: Camera Matrix K, R, T
     :return:
     """
@@ -122,7 +175,42 @@ def test_intersect_ray_plane():
     print(intersect_ray_plane(ray_start, ray_dir, plane_coeff))
 
 
-def test_camera_ray_through_pixel():
+def test_ray_through_pixel():
+    # LookAt
+    camera_loc = lookat.LookAt(
+        pos=np.array([4, 0, 0]), look=np.zeros((3,)), up=np.array([0, 0, 1])
+    )
+
+    extrinsic_mat = lookat.lookat_to_Tinv(camera_loc)
+
+    R = extrinsic_mat[:3, :3]
+    T = extrinsic_mat[:3, 3]
+
+    K = np.eye(3)
+    # Assume focal length of 10cm, pixel size of 1 micron
+    K[0, 0] = K[1, 1] = 1e5
+
+    # Assume (1024 x 768) size image
+    # width 1024
+    # height 768
+    center_pixel = np.array([512, 384])
+    K[:2, 2] = center_pixel
+
+    camera_mat = CameraMatrix(K, R, T)
+
+    print(f"Camera Matrix {camera_mat}")
+    ray_dir, ray_start = ray_through_pixel(center_pixel, camera_mat)
+
+    print(f"Ray through {center_pixel}: dir {ray_dir} start {ray_start}\n")
+    # Ray through camera centre must hit look,
+    # must start at camera centre
+    assert (ray_start == camera_loc.pos).all()
+    assert (
+        ops.normalized(ray_dir) == ops.normalized(camera_loc.look - camera_loc.pos)
+    ).all()
+
+
+def test_plane_through_pixel():
     # LookAt
     camera_loc = lookat.LookAt(
         pos=np.array([4, 0, 0]), look=np.zeros((3,)), up=np.array([0, 0, 1])
@@ -143,17 +231,19 @@ def test_camera_ray_through_pixel():
 
     camera_mat = CameraMatrix(K, R, T)
 
-    print(camera_mat)
-    ray_dir, ray_start = get_ray_through_pixel(center_pixel, camera_mat)
+    print(f"Camera Matrix {camera_mat}")
+    plane_x, plane_y = plane_through_pixel(center_pixel + 1024, camera_mat)
 
-    # Ray through camera centre must hit look,
-    # must start at camera centre
-    assert (ray_start == camera_loc.pos).all()
-    assert (
-        ops.normalized(ray_dir) == ops.normalized(camera_loc.look - camera_loc.pos)
-    ).all()
+    print(f"Plane through [{center_pixel[0]}, Any]: {plane_x}")
+    print(f"Plane through [Any, {center_pixel[1]}]: {plane_y}\n")
+
+    # Camera centre must lie on planes
+    camera_loc_pos = conversions.convert_points_to_homogeneous(camera_loc.pos)
+    assert np.dot(np.squeeze(plane_x), camera_loc_pos) == 0
+    assert np.dot(np.squeeze(plane_y), camera_loc_pos) == 0
 
 
 if __name__ == "__main__":
     test_intersect_ray_plane()
-    test_camera_ray_through_pixel()
+    test_ray_through_pixel()
+    test_plane_through_pixel()

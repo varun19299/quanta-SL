@@ -4,6 +4,7 @@ LookAt 4 0 0 # eye
     0 0 1 # up
 Camera "perspective"
     "float fov" [ 60 ]
+    "float shutterclose" [1]
 Sampler "halton"
     "integer pixelsamples" [ 128 ]
 Integrator "volpath"

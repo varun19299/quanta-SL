@@ -50,9 +50,11 @@ def lookat_to_translate_rotmat(
     lookat: LookAt,
 ) -> Union[NDArray[3, float], NDArray[(3, 3), float]]:
     """
-    Convert LookAt to translation vector + rotational matrix
+    Convert LookAt to translation vector + rotational matrix.
 
-    :param lookat: LookAt instance holding position and orientation info.
+    Translation vector, Rot mat are from Camera (object) to World.
+
+    :param lookat: LookAt instance holding position and orientation info
     :return: Translation vec, Rotation mat
     """
 
@@ -81,9 +83,11 @@ def lookat_to_translate_rotvec(
     lookat: LookAt,
 ) -> Union[NDArray[3, float], NDArray[3, float], float]:
     """
-    Convert LookAt to translation + rotation along an axis
+    Convert LookAt to translation vector + rotation vector
 
-    :param lookat: LookAt instance holding position and orientation info.
+    Translation, Rot vectors are from Camera (object) to World.
+
+    :param lookat: LookAt instance holding position and orientation info
     :return: Translation vec, Rotation axis, Rotation angle
     """
     pos, rot_mat = lookat_to_translate_rotmat(lookat)
@@ -102,6 +106,8 @@ def lookat_to_T(
     """
     Convert look at to Transformation matrix (4x4)
 
+    Describes Camera (object in general) to World transformation.
+
     :param lookat: Position & orientation
         as described by a LookAt instance
     :return: Transformation matrix (homogeneous)
@@ -116,6 +122,8 @@ def lookat_to_Tinv(
 ) -> NDArray[(4, 4), float]:
     """
     Convert look at to inverse Transformation matrix (4x4)
+
+    Describes World to Camera (object in general) transformation.
 
     :param lookat: Position & orientation
         as described by a LookAt instance

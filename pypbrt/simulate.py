@@ -12,7 +12,7 @@ from typing import Union
 import hydra
 from omegaconf import DictConfig, OmegaConf
 
-import pypbrt.utils.pbrt_writer as pbrt_writer
+from pypbrt.utils import pbrt_parser
 
 
 def set_paths(cfg: DictConfig) -> Union[Path, Path, Path]:
@@ -44,13 +44,13 @@ def main(cfg: DictConfig):
         pbrt_file = f.read()
 
     # Put in output render, projector image paths
-    pbrt_file = pbrt_writer.configure_paths(pbrt_file, projector_path, output_path)
+    pbrt_file = pbrt_parser.parse_paths(pbrt_file, projector_path, output_path)
 
     # Modify material
-    pbrt_file = pbrt_writer.modify_material(pbrt_file, cfg.material)
+    pbrt_file = pbrt_parser.parse_material(pbrt_file, cfg.material)
 
     # LookAt_camcoord directive
-    pbrt_file = pbrt_writer.parse_lookat_camcoord(pbrt_file)
+    pbrt_file = pbrt_parser.parse_lookat_camcoord(pbrt_file)
 
     # Write file
     pbrt_dump_path = (
