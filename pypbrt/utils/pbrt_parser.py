@@ -6,7 +6,7 @@ from typing import Dict, List
 
 from omegaconf import ListConfig
 import re
-from pypbrt.utils.lookat import LookAt, lookat_camcoord
+from pypbrt.utils import lookat, project3d
 
 
 def get_list_repr(ll: List) -> str:
@@ -23,7 +23,7 @@ def get_list_repr(ll: List) -> str:
     return f"[ {_str} ]"
 
 
-def get_lookat(contents: str, lookat_directive: str = "LookAt") -> LookAt:
+def get_lookat(contents: str, lookat_directive: str = "LookAt") -> lookat.LookAt:
     """
     Get LookAt directive and arguments
 
@@ -34,8 +34,14 @@ def get_lookat(contents: str, lookat_directive: str = "LookAt") -> LookAt:
     regexp = re.compile(rf"{lookat_directive} (.*?) #.*?\n *(.*?) #.*?\n *(.*?) #.*?\n")
     pose = [group.split(" ") for group in regexp.search(contents).groups()]
     pose = [np.array([float(x) for x in coord]) for coord in pose]
-    pose = LookAt(*pose)
+    pose = lookat.LookAt(*pose)
     return pose
+
+
+def get_intrinsic_matrix(
+    contents: str, camera_directive: str = 'Camera "perspective"'
+) -> project3d.CameraMatrix:
+    pass
 
 
 def parse_lookat_camcoord(contents: str) -> str:
@@ -53,7 +59,7 @@ def parse_lookat_camcoord(contents: str) -> str:
     logging.debug(f"Proj coords in world frame {proj_coords}")
 
     # Rewrite wrt to cam-coords
-    proj_coords = lookat_camcoord(proj_coords, camera_coords)
+    proj_coords = lookat.lookat_camcoord(proj_coords, camera_coords)
     proj_coords = astuple(proj_coords)
     proj_coords = [[str(x) for x in coord] for coord in proj_coords]
     proj_coords = [" ".join(coord) for coord in proj_coords]

@@ -78,7 +78,10 @@ def plane_through_pixel(
     plane_through_y = np.block(
         [plane_through_y_dir, -_batch_dot_prod(plane_through_y_dir, camera_centre)]
     )
-    return plane_through_x, plane_through_y
+
+    # Plane through u const is ydir
+    # Plane through v const is xdir
+    return plane_through_y, plane_through_x
 
 
 def ray_through_pixel(
@@ -91,7 +94,7 @@ def ray_through_pixel(
         Format: [[pixel_u, pixel_v]]
         https://learnopencv.com/wp-content/uploads/2020/02/camera-projection-3D-to-2D.png
     :param camera_matrix: Camera Matrix K, R, T
-    :return:
+    :return: ray_start, ray_dir
     """
     pixel = _add_axis(pixel)
 
@@ -107,7 +110,7 @@ def ray_through_pixel(
     ray_start = -camera_matrix.R.T @ rearrange(camera_matrix.T, "d-> d 1")
     ray_start = repeat(ray_start, "d 1 -> n d", n=pixel.shape[0])
 
-    return ray_dir, ray_start
+    return ray_start, ray_dir
 
 
 def intersect_ray_plane(
@@ -156,6 +159,35 @@ def intersect_ray_plane(
     return np.squeeze(t * ray_dir + ray_start)
 
 
+def triangulate_ray_plane(
+    camera_matrix: CameraMatrix,
+    projector_matrix: CameraMatrix,
+    camera_pixel: NDArray[(Any, 2), float],
+    projector_pixel: NDArray[(Any, 2), float],
+    axis: str = 0,
+):
+    """
+    Triangulate a given camera pixel
+    with known projector column
+
+    :param camera_matrix: Camera Matrix K, R, T
+    :param projector_matrix: Projector Matrix K, R, T
+    :param camera_pixel: Batched pixels, is implicitly batched otherwise
+        Format: [[pixel_u, pixel_v]]
+        https://learnopencv.com/wp-content/uploads/2020/02/camera-projection-3D-to-2D.png
+    :param projector_pixel: Batched pixels, is implicitly batched otherwise
+        Format: [[pixel_u, pixel_v]]. Use 0 for axis not considered
+    :param axis: \in {0,1}. vertical or horizontal columns
+    :return:
+    """
+    assert axis in [0, 1]
+    planes = plane_through_pixel(projector_pixel, projector_matrix)
+    ray_start, ray_dir = ray_through_pixel(camera_pixel, camera_matrix)
+    print(ray_start, ray_dir)
+    print(planes)
+    return intersect_ray_plane(ray_start, ray_dir, planes[axis])
+
+
 def test_intersect_ray_plane():
     # z = 0
     plane_coeff = np.array([0, 0, 1, 0])
@@ -175,11 +207,9 @@ def test_intersect_ray_plane():
     print(intersect_ray_plane(ray_start, ray_dir, plane_coeff))
 
 
-def test_ray_through_pixel():
+def _init_camera(pos: NDArray[3, float] = np.array([4, 0, 0])):
     # LookAt
-    camera_loc = lookat.LookAt(
-        pos=np.array([4, 0, 0]), look=np.zeros((3,)), up=np.array([0, 0, 1])
-    )
+    camera_loc = lookat.LookAt(pos=pos, look=np.zeros((3,)), up=np.array([0, 0, 1]))
 
     extrinsic_mat = lookat.lookat_to_Tinv(camera_loc)
 
@@ -197,9 +227,13 @@ def test_ray_through_pixel():
     K[:2, 2] = center_pixel
 
     camera_mat = CameraMatrix(K, R, T)
+    return camera_loc, camera_mat, center_pixel
 
+
+def test_ray_through_pixel():
+    camera_loc, camera_mat, center_pixel = _init_camera()
     print(f"Camera Matrix {camera_mat}")
-    ray_dir, ray_start = ray_through_pixel(center_pixel, camera_mat)
+    ray_start, ray_dir = ray_through_pixel(center_pixel, camera_mat)
 
     print(f"Ray through {center_pixel}: dir {ray_dir} start {ray_start}\n")
     # Ray through camera centre must hit look,
@@ -211,26 +245,7 @@ def test_ray_through_pixel():
 
 
 def test_plane_through_pixel():
-    # LookAt
-    camera_loc = lookat.LookAt(
-        pos=np.array([4, 0, 0]), look=np.zeros((3,)), up=np.array([0, 0, 1])
-    )
-
-    extrinsic_mat = lookat.lookat_to_Tinv(camera_loc)
-
-    R = extrinsic_mat[:3, :3]
-    T = extrinsic_mat[:3, 3]
-
-    K = np.eye(3)
-    # Assume focal length of 10cm, pixel size of 1 micron
-    K[0, 0] = K[1, 1] = 1e5
-
-    # Assume (1024,768) size image
-    center_pixel = np.array([512, 384])
-    K[:2, 2] = center_pixel
-
-    camera_mat = CameraMatrix(K, R, T)
-
+    camera_loc, camera_mat, center_pixel = _init_camera()
     print(f"Camera Matrix {camera_mat}")
     plane_x, plane_y = plane_through_pixel(center_pixel + 1024, camera_mat)
 
@@ -243,7 +258,29 @@ def test_plane_through_pixel():
     assert np.dot(np.squeeze(plane_y), camera_loc_pos) == 0
 
 
+def test_triangulate_ray_plane():
+    camera_loc, camera_mat, camera_center_pixel = _init_camera(pos=np.array([4, 0, 0]))
+    projector_loc, projector_mat, projector_center_pixel = _init_camera(
+        pos=np.array([4, 5, 0])
+    )
+
+    print(f"Camera Matrix {camera_mat}")
+    print(f"Projector Matrix {projector_mat}")
+
+    intersection = triangulate_ray_plane(
+        camera_mat, projector_mat, camera_center_pixel, projector_center_pixel, axis=0
+    )
+
+    print(f"Intersection {intersection}")
+
+    # Plane (parallel y dir), ray intersect
+    # Must pass through origin
+    # we set up the "look" that way
+    assert (intersection == np.zeros((3,))).all()
+
+
 if __name__ == "__main__":
     test_intersect_ray_plane()
     test_ray_through_pixel()
     test_plane_through_pixel()
+    test_triangulate_ray_plane()
