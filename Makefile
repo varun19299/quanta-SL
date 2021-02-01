@@ -49,7 +49,7 @@ simulate:
 	pbrt.scene=$(SCENE) material=$(MATERIAL) \
  	projector.index=$(PROJ_INDEX) projector.pattern=$(PROJ_PATTERN) \
  	exp_name=$(EXP_NAME) \
- 	device=$(DEVICE) pbrt.executable=$(PBRT_EXEC) $(HYDRA_FLAGS)
+ 	device=$(DEVICE) pbrt.executable=$(PBRT_EXEC) $(KWARGS) $(HYDRA_FLAGS)
 
 ## reconstruct: Reconstruct from multiple captures outputs/<exp_name>/<proj_pattern>.
 SENSOR := SPAD
@@ -60,4 +60,4 @@ reconstruct:
 	pbrt.scene=$(SCENE) material=$(MATERIAL) \
 	projector.index=$(PROJ_INDEX) projector.pattern=$(PROJ_PATTERN) \
  	exp_name=$(EXP_NAME) \
-	sensor=$(SENSOR) sensor.exposure=$(EXPOSURE) $(HYDRA_FLAGS)
+	sensor=$(SENSOR) sensor.exposure=$(EXPOSURE) $(KWARGS) $(HYDRA_FLAGS)

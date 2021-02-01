@@ -2,7 +2,7 @@ from dataclasses import astuple
 import logging
 import numpy as np
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 from omegaconf import ListConfig
 import re
@@ -31,17 +31,123 @@ def get_lookat(contents: str, lookat_directive: str = "LookAt") -> lookat.LookAt
     :return: LookAt instance
     """
     # Extract camera coords
-    regexp = re.compile(rf"{lookat_directive} (.*?) #.*?\n *(.*?) #.*?\n *(.*?) #.*?\n")
-    pose = [group.split(" ") for group in regexp.search(contents).groups()]
+    regexp = re.compile(
+        rf"{lookat_directive} ([-\d. ]+) *#?.*?\n([\d. ]+) *#?.*?\n([\d. ]+) *#?.*?"
+    )
+    pose = [group.strip(" ").split(" ") for group in regexp.search(contents).groups()]
     pose = [np.array([float(x) for x in coord]) for coord in pose]
     pose = lookat.LookAt(*pose)
     return pose
 
 
 def get_intrinsic_matrix(
-    contents: str, camera_directive: str = 'Camera "perspective"'
+    contents: str,
+    camera_directive: str = 'Camera "perspective"',
+    film_directive: str = 'Film "rgb"',
 ) -> project3d.CameraMatrix:
-    pass
+    """
+    Get intrinsic matrix (K) from pbrt file.
+    Works for projector too (treats as an inverse camera).
+    See https://en.wikipedia.org/wiki/Camera_resectioning for notation.
+
+    Method:
+        1. Extract FOV, sensor dimensions (physical), sensor resolution
+        2. Infer focal length from FOV, sensor dimension
+        3. Assume camera centre at image centre (in X, Y).
+
+    Camera coordinate system:
+        http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/OWENS/LECT9/node2.html
+
+    :param contents: pbrt file
+    :param camera_directive: Camera "perspective", LightSource "projection", etc.
+        Used to get FOV.
+    :param film_directive: Film "rgb" etc.
+        Used to get image resolution, sensor size.
+    :return:
+    """
+    regexp = re.compile(rf'{camera_directive} *[\n\S ]*?"float fov" \[([\d. ]+)\]\n')
+    fov = float(regexp.search(contents).group(1))
+
+    # Film is 35mm by default
+    regexp = re.compile(rf'{film_directive} *[\n\S ]*?"float diagonal" \[([\d. ]+)\]\n')
+    diagonal = (
+        35e-3 if not regexp.search(contents) else regexp.search(contents).group(1)
+    )
+
+    # Width, height in pixels
+    regexp = re.compile(
+        rf'{film_directive} *[\n\S ]*?"integer xresolution" \[([\d. ]+)\]\n'
+    )
+    width = float(regexp.search(contents).group(1))
+
+    regexp = re.compile(
+        rf'{film_directive} *[\n\S ]*?"integer yresolution" \[([\d. ]+)\]\n'
+    )
+    height = float(regexp.search(contents).group(1))
+
+    # Focal length from FOV, Film size
+    # film_width^2 + film_height^2 = diagonal^2
+    aspect_ratio = width / height
+    film_height = diagonal / np.sqrt(1 + aspect_ratio ** 2)
+    film_width = film_height * aspect_ratio
+
+    # FOV = 2 * arctan(shorter_side / f)
+    # f = shorter_side / tan(FOV/2)
+    focal_length = min(film_height, film_width) / np.tan(np.deg2rad(fov / 2))
+
+    # See coordinate system here
+    # http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/OWENS/LECT9/node2.html
+    focal_length_in_pixels_u = focal_length / film_width * width
+    focal_length_in_pixels_v = focal_length / film_height * height
+
+    K = np.eye(3)
+
+    # Main diagonal
+    K[0, 0] = focal_length_in_pixels_u
+    K[1, 1] = focal_length_in_pixels_v
+
+    # Assume camera centre directly above image centre
+    K[:2, 2] = [width / 2, height / 2]
+
+    # TODO: allow projector to have different resolution.
+    # Typically tends to be much lower.
+    if "projector" in camera_directive:
+        logging.warning(
+            f"We assume projector and camera have same resolution of {width} x {height}. Values taken from Film directive."
+        )
+
+    return K
+
+
+def get_camera_projector_matrices(
+    contents: str,
+) -> Tuple[project3d.CameraMatrix, project3d.CameraMatrix]:
+    """
+    Get camera, projector matrices (intrinsic & extrinsic) from PBRT file.
+
+    :param contents: pbrt file
+    :return: Camera Matrix, Projector Matrix
+    """
+    # Camera Matrix
+    K = get_intrinsic_matrix(contents)
+    camera_pos = get_lookat(contents)
+
+    extrinsic_mat = lookat.lookat_to_Tinv(camera_pos)
+    R = extrinsic_mat[:3, :3]
+    T = extrinsic_mat[:3, 3]
+
+    camera_matrix = project3d.CameraMatrix(K, R, T)
+
+    # Projector Matrix
+    K = get_intrinsic_matrix(contents, camera_directive='LightSource "projection"')
+    projector_pos = get_lookat(contents, lookat_directive="LookAt_camcoord")
+    extrinsic_mat = lookat.lookat_to_Tinv(projector_pos)
+    R = extrinsic_mat[:3, :3]
+    T = extrinsic_mat[:3, 3]
+
+    projector_matrix = project3d.CameraMatrix(K, R, T)
+
+    return camera_matrix, projector_matrix
 
 
 def parse_lookat_camcoord(contents: str) -> str:
@@ -51,22 +157,22 @@ def parse_lookat_camcoord(contents: str) -> str:
     :param contents: pbrt file
     :return: parsed pbrt file
     """
-    camera_coords = get_lookat(contents, lookat_directive="LookAt")
-    logging.debug(f"Camera coords in world frame {camera_coords}")
+    camera_pos = get_lookat(contents, lookat_directive="LookAt")
+    logging.debug(f"Camera coords in world frame {camera_pos}")
 
     # Extract LookAt_camcoord values
-    proj_coords = get_lookat(contents, lookat_directive="LookAt_camcoord")
-    logging.debug(f"Proj coords in world frame {proj_coords}")
+    proj_pos = get_lookat(contents, lookat_directive="LookAt_camcoord")
+    logging.debug(f"Proj coords in world frame {proj_pos}")
 
     # Rewrite wrt to cam-coords
-    proj_coords = lookat.lookat_camcoord(proj_coords, camera_coords)
-    proj_coords = astuple(proj_coords)
-    proj_coords = [[str(x) for x in coord] for coord in proj_coords]
-    proj_coords = [" ".join(coord) for coord in proj_coords]
-    logging.debug(f"Proj coords in camera frame {proj_coords}")
+    proj_pos = lookat.lookat_camcoord(proj_pos, camera_pos)
+    proj_pos = astuple(proj_pos)
+    proj_pos = [[str(x) for x in coord] for coord in proj_pos]
+    proj_pos = [" ".join(coord) for coord in proj_pos]
+    logging.debug(f"Proj coords in camera frame {proj_pos}")
     regexp = re.compile(r"LookAt_camcoord .*?( #.*?\n *).*?( #.*?\n *).*?( #.*?\n)")
     contents = regexp.sub(
-        f"LookAt {proj_coords[0]}\g<1>{proj_coords[1]}\g<2>{proj_coords[2]}\g<3>",
+        f"LookAt {proj_pos[0]}\g<1>{proj_pos[1]}\g<2>{proj_pos[2]}\g<3>",
         contents,
     )
 

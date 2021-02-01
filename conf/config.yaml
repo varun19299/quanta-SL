@@ -31,8 +31,10 @@ reconstruct:
   include_all_white: True # 0th capture as all white
 
 visualize:
+  show_captures: False
   show_correspondences: False
   show_abs_error: True
+  reconstruct_3d: True
 
 
 

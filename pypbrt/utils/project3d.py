@@ -28,11 +28,13 @@ def _add_axis(vec: NDArray[Any]) -> NDArray[(1, Any)]:
     return vec
 
 
-def _batch_dot_prod(a: NDArray[(Any, Any)], b: NDArray[(Any, Any)]) -> NDArray[(Any,)]:
+def _batch_dot_prod(
+    a: NDArray[(Any, Any)], b: NDArray[(Any, Any)], keepdims: bool = False
+) -> NDArray[(Any,)]:
     """
     First axis is batch
     """
-    return (a * b).sum(axis=1)
+    return (a * b).sum(axis=1, keepdims=keepdims)
 
 
 def plane_through_pixel(
@@ -43,7 +45,8 @@ def plane_through_pixel(
 
     :param pixel: Batched pixels, is implicitly batched otherwise
         Format: [[pixel_u, pixel_v]]
-        https://learnopencv.com/wp-content/uploads/2020/02/camera-projection-3D-to-2D.png
+        Camera coordinate system:
+            http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/OWENS/LECT9/node2.html
     :param camera_matrix: Camera Matrix K, R, T
     :return:
     """
@@ -59,8 +62,10 @@ def plane_through_pixel(
     ray_dir = pixel @ np.linalg.inv(camera_matrix.K).T
 
     # Plane normals
-    plane_through_x_dir = np.cross(ray_dir, x_dir)
-    plane_through_y_dir = np.cross(ray_dir, y_dir)
+    # Plane through u const is ydir
+    # Plane through v const is xdir
+    plane_through_x_dir = np.cross(ray_dir, y_dir)
+    plane_through_y_dir = np.cross(ray_dir, x_dir)
 
     # Transform dir to world coord (just rotate)
     plane_through_x_dir = plane_through_x_dir @ camera_matrix.R
@@ -72,16 +77,22 @@ def plane_through_pixel(
     ) - camera_matrix.R.T @ rearrange(camera_matrix.T, "d-> d 1")
     camera_centre = repeat(camera_centre, "d 1 -> n d", n=pixel.shape[0])
 
-    plane_through_x = np.block(
-        [plane_through_x_dir, -_batch_dot_prod(plane_through_x_dir, camera_centre)]
+    plane_through_x = np.concatenate(
+        [
+            plane_through_x_dir,
+            -_batch_dot_prod(plane_through_x_dir, camera_centre, keepdims=True),
+        ],
+        axis=-1,
     )
-    plane_through_y = np.block(
-        [plane_through_y_dir, -_batch_dot_prod(plane_through_y_dir, camera_centre)]
+    plane_through_y = np.concatenate(
+        [
+            plane_through_y_dir,
+            -_batch_dot_prod(plane_through_y_dir, camera_centre, keepdims=True),
+        ],
+        axis=-1,
     )
 
-    # Plane through u const is ydir
-    # Plane through v const is xdir
-    return plane_through_y, plane_through_x
+    return plane_through_x, plane_through_y
 
 
 def ray_through_pixel(
@@ -134,7 +145,7 @@ def intersect_ray_plane(
     assert ray_start.shape[1] == ray_dir.shape[1] == 3
     assert plane_coeff.shape[1] == 4
 
-    t = np.zeros(ray_start.shape[:1])
+    t = np.zeros(len(ray_start))
 
     plane_normal = plane_coeff[:, :3]
     denom = _batch_dot_prod(plane_normal, ray_dir)
@@ -155,6 +166,7 @@ def intersect_ray_plane(
     # Use NaN to mark where ray wont intersect
     # Hacky, but easiest?
     t[invalid_mask] = np.nan
+    t = rearrange(t, "n -> n 1")
 
     return np.squeeze(t * ray_dir + ray_start)
 
@@ -183,8 +195,6 @@ def triangulate_ray_plane(
     assert axis in [0, 1]
     planes = plane_through_pixel(projector_pixel, projector_matrix)
     ray_start, ray_dir = ray_through_pixel(camera_pixel, camera_matrix)
-    print(ray_start, ray_dir)
-    print(planes)
     return intersect_ray_plane(ray_start, ray_dir, planes[axis])
 
 
@@ -209,9 +219,9 @@ def test_intersect_ray_plane():
 
 def _init_camera(pos: NDArray[3, float] = np.array([4, 0, 0])):
     # LookAt
-    camera_loc = lookat.LookAt(pos=pos, look=np.zeros((3,)), up=np.array([0, 0, 1]))
+    camera_pos = lookat.LookAt(pos=pos, look=np.zeros((3,)), up=np.array([0, 0, 1]))
 
-    extrinsic_mat = lookat.lookat_to_Tinv(camera_loc)
+    extrinsic_mat = lookat.lookat_to_Tinv(camera_pos)
 
     R = extrinsic_mat[:3, :3]
     T = extrinsic_mat[:3, 3]
@@ -227,7 +237,7 @@ def _init_camera(pos: NDArray[3, float] = np.array([4, 0, 0])):
     K[:2, 2] = center_pixel
 
     camera_mat = CameraMatrix(K, R, T)
-    return camera_loc, camera_mat, center_pixel
+    return camera_pos, camera_mat, center_pixel
 
 
 def test_ray_through_pixel():

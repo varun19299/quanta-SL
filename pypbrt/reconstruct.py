@@ -6,13 +6,15 @@ import cv2
 import hydra
 import logging
 from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+import open3d
 from nptyping import NDArray, Float32, Int
 from omegaconf import DictConfig, ListConfig
 import pandas as pd
 
-import pypbrt.decode as decode
-import pypbrt.sensor as sensor
+from pypbrt import decode, sensor, simulate
+from pypbrt.utils import pbrt_parser, project3d
 
 
 def load_exr2grayscale(path: str) -> NDArray[(Any, Any, 3), Float32]:
@@ -120,19 +122,100 @@ def load_captures(
     return captures_dict
 
 
+def reconstruct_3d(
+    correspondence: NDArray[(Any, Any), int],
+    mask: NDArray[(Any, Any), int],
+    camera_matrix: project3d.CameraMatrix,
+    projector_matrix: project3d.CameraMatrix,
+    axis: int = 0,
+    filename: str = "",
+):
+    """
+    Compute 3D reconstruction from correspondence
+
+    :param correspondence: Correspondence map
+    :param mask: Region of valid correspondence (1 if valid, 0 otherwise)
+    :param camera_matrix: Camera matrix, K[R | T]
+    :param projector_matrix: Projector matrix, K[R | T]
+    :param axis: vertical patterns (x const) or horizontal (y const) patterns
+    :return:
+    """
+    assert axis in [0, 1]
+
+    width_range = np.arange(mask.shape[1])
+    height_range = np.arange(mask.shape[0])
+    camera_pixels = np.meshgrid(width_range, height_range)
+
+    # Select valid correspondences
+    valid_indices = np.where(mask == 1)
+    camera_pixels = np.stack(
+        [camera_pixels[0][valid_indices], camera_pixels[1][valid_indices]], axis=1
+    )
+    projector_pixels = correspondence[valid_indices]
+
+    if axis == 0:
+        projector_pixels = np.stack(
+            [projector_pixels, np.zeros_like(projector_pixels)], axis=1
+        )
+    else:
+        projector_pixels = np.stack(
+            [np.zeros_like(projector_pixels), projector_pixels], axis=1
+        )
+
+    # Triangulate, remove invalid intersections
+    points_3d = project3d.triangulate_ray_plane(
+        camera_matrix, projector_matrix, camera_pixels, projector_pixels, axis=axis
+    )
+    points_3d = points_3d[~np.isnan(points_3d).any(axis=1)]
+
+    # 3D plot
+    pcd = open3d.geometry.PointCloud()
+    pcd.points = open3d.utility.Vector3dVector(points_3d)
+    open3d.visualization.draw_geometries([pcd])
+
+    if filename:
+        open3d.io.write_point_cloud(filename, pcd)
+
+
 def single_exposure_run(cfg: DictConfig) -> float:
     captures_dict = load_captures(**cfg.output, **cfg.reconstruct)
 
-    # Visualise
-    # for img in captures_dict["coded"]:
-    #     plt.imshow(img, cmap="gray")
-    #     plt.show()
+    if cfg.visualize.show_captures:
+        for img in captures_dict["coded"]:
+            plt.imshow(img, cmap="gray")
+            plt.show()
+
+    pbrt_path, _, _ = simulate.set_paths(cfg)
+    with open(pbrt_path) as f:
+        pbrt_file = f.read()
+
+    camera_matrix, projector_matrix = pbrt_parser.get_camera_projector_matrices(
+        pbrt_file
+    )
 
     binary_codes, mask = conventional_SL_threshold(captures_dict, cfg)
     conventional_correspondence = decode.conventional_gray_code(binary_codes, mask)
 
+    if cfg.visualize.reconstruct_3d:
+        reconstruct_3d(
+            conventional_correspondence,
+            mask,
+            camera_matrix,
+            projector_matrix,
+            filename="conventional.ply",
+        )
+
     binary_codes, mask = quanta_SL_threshold(captures_dict, cfg)
     quanta_correspondence = decode.conventional_gray_code(binary_codes, mask)
+
+    if cfg.visualize.reconstruct_3d:
+        reconstruct_3d(
+            quanta_correspondence,
+            mask,
+            camera_matrix,
+            projector_matrix,
+            filename="quanta.ply",
+        )
 
     if cfg.visualize.show_correspondences:
         plt.imshow(conventional_correspondence, cmap="gray", interpolation="none")
