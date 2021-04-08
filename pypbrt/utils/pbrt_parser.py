@@ -91,9 +91,9 @@ def get_intrinsic_matrix(
     film_height = diagonal / np.sqrt(1 + aspect_ratio ** 2)
     film_width = film_height * aspect_ratio
 
-    # FOV = 2 * arctan(shorter_side / f)
-    # f = shorter_side / tan(FOV/2)
-    focal_length = min(film_height, film_width) / np.tan(np.deg2rad(fov / 2))
+    # FOV = 2 * arctan(shorter_side / 2f)
+    # f = shorter_side / (2 * tan(FOV/2))
+    focal_length = min(film_height, film_width) / (2 * np.tan(np.deg2rad(fov / 2)))
 
     # See coordinate system here
     # http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/OWENS/LECT9/node2.html
