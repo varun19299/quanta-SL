@@ -3,11 +3,13 @@ patterns/*
 outputs/*
 
 # Heavy scene files, obj's etc.
-scenes/dragon_subsurface/dragon.pbrt
+scenes/dragon_subsurface/
+scenes/sssdragon/
+scenes/sportscar/
 
 .idea/*
 
-__pycache__/
+__pycache__
 **/__pycache__/
 
 # pbrt binary

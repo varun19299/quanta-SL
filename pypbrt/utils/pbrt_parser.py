@@ -32,8 +32,10 @@ def get_lookat(contents: str, lookat_directive: str = "LookAt") -> lookat.LookAt
     """
     # Extract camera coords
     regexp = re.compile(
-        rf"{lookat_directive} ([-\d. ]+) *#?.*?\n([\d. ]+) *#?.*?\n([\d. ]+) *#?.*?"
+        rf"{lookat_directive} ([-\d. ]+) *#*?.*?\n([-\d. ]+) *#*?.*?\n([-\d. ]+) *#*?.*?"
     )
+    if not regexp.search(contents):
+        return
     pose = [group.strip(" ").split(" ") for group in regexp.search(contents).groups()]
     pose = [np.array([float(x) for x in coord]) for coord in pose]
     pose = lookat.LookAt(*pose)
@@ -158,10 +160,18 @@ def parse_lookat_camcoord(contents: str) -> str:
     :return: parsed pbrt file
     """
     camera_pos = get_lookat(contents, lookat_directive="LookAt")
+    if not camera_pos:
+        logging.warning(f"No Lookout used for camera")
+        return contents
+
     logging.debug(f"Camera coords in world frame {camera_pos}")
 
     # Extract LookAt_camcoord values
     proj_pos = get_lookat(contents, lookat_directive="LookAt_camcoord")
+    if not proj_pos:
+        logging.warning(f"No LookoutAtCamcoord used for projector")
+        return contents
+
     logging.debug(f"Proj coords in world frame {proj_pos}")
 
     # Rewrite wrt to cam-coords
@@ -170,7 +180,11 @@ def parse_lookat_camcoord(contents: str) -> str:
     proj_pos = [[str(x) for x in coord] for coord in proj_pos]
     proj_pos = [" ".join(coord) for coord in proj_pos]
     logging.debug(f"Proj coords in camera frame {proj_pos}")
-    regexp = re.compile(r"LookAt_camcoord .*?( #.*?\n *).*?( #.*?\n *).*?( #.*?\n)")
+
+    # Extract camera coords
+    regexp = re.compile(
+        r"LookAt_camcoord .*?([# \s]*\n *).*?([# \s]*\n *).*?([# \s]*\n *)"
+    )
     contents = regexp.sub(
         f"LookAt {proj_pos[0]}\g<1>{proj_pos[1]}\g<2>{proj_pos[2]}\g<3>",
         contents,
@@ -224,5 +238,10 @@ def parse_paths(contents: str, projector_path: Path, output_path: Path) -> str:
     """
     contents = contents.replace("pattern.sub", str(projector_path.resolve()))
     contents = contents.replace("output.sub", str(output_path.resolve()))
+
+    # Ignore commented out lines
+    contents = contents.split("\n")
+    contents = [line for line in contents if not line.startswith("#")]
+    contents = "\n".join(contents)
 
     return contents

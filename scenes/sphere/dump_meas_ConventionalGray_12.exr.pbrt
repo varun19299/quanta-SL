@@ -1,16 +1,17 @@
 # look at point
-LookAt 0 0 4 # eye
+LookAt 4 0 0 # eye
     0 0 0 # look
-    0 1 0 # up
+    0 0 1 # up
 Camera "perspective"
     "float fov" [ 60 ]
+    "float shutterclose" [1]
 Sampler "halton"
-    "integer pixelsamples" [ 128 ]
+    "integer pixelsamples" [ 1024 ]
 Integrator "volpath"
 Film "rgb"
     "integer xresolution" [ 1024 ]
     "integer yresolution" [ 768 ]
-    "string filename" [ "output.sub" ]
+    "string filename" [ "/Volumes/GoogleDrive/Shared drives/WISION drive/quanta_structured_light/pypbrt-structured-light/outputs/sphere/diffuse_0.3/ConventionalGray/output_12.exr" ]
 WorldBegin
 
 # uniform blue-ish illumination from all directions
@@ -18,25 +19,26 @@ WorldBegin
 #LightSource "infinite"
 #    "rgb L" [.4 .45 .5]
 #LightSource "distant"
-#    "float scale" [2]
+#    "float scale" [1.5]
 #    "blackbody L" [ 3000 ]
 #    "point3 from" [ -30 40 100 ]
 
 AttributeBegin
     CoordSysTransform "camera"
     # directive to convert to LookAt in camera frame
-    LookAt_camcoord 0 1 4 # eye
-        0 0 0 # look
-        0 1 0 # up
+    LookAt 1.071796 0.0 0.0 # eye
+        0.0 0.0 4.0 # look
+        0.0 1.0 0.0 # up
 
     LightSource "projection"
         "float fov" [ 60 ]
-        "string filename" [ "pattern.sub" ]
+        "string filename" [ "/Volumes/GoogleDrive/Shared drives/WISION drive/quanta_structured_light/pypbrt-structured-light/patterns/ConventionalGray/12.exr" ]
         "float scale" [ 40 ]
 AttributeEnd
 
 AttributeBegin
-    [ material.sub ]
+    Material "diffuse"
+	"rgb reflectance" [ 0.3 0.3 0.3 ]
     Shape "sphere"
         "float radius" [ 1 ]
 AttributeEnd

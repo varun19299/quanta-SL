@@ -1,13 +1,19 @@
-import numpy as np
-from matplotlib import pyplot as plt, ticker
-from typing import Callable, Dict
-from scipy.special import comb, erf
-from einops import rearrange, repeat
-from nptyping import NDArray
-
-from math import floor, ceil
-
 from typing import Callable, List
+
+import numpy as np
+from matplotlib import cm
+from matplotlib import pyplot as plt
+from nptyping import NDArray
+from pathlib import Path
+
+from vis_tools.strategies import (
+    naive,
+    naive_conventional,
+    average,
+    average_conventional,
+    optimal_threshold,
+    average_optimal_threshold,
+)
 
 params = {
     "legend.fontsize": "x-large",
@@ -28,141 +34,28 @@ def order_range(array: NDArray):
     return upper.astype(int) - lower.astype(int) + 1
 
 
-def naive(phi_P: NDArray, phi_A: NDArray, t_exp: float, bits: int = 10):
-    prob_y_1_x_1 = 1 - np.exp(-phi_P * t_exp)
-    prob_y_0_x_0 = np.exp(-phi_A * t_exp)
-
-    return 1 - (prob_y_0_x_0 / 2 + prob_y_1_x_1 / 2) ** bits
-
-
-def naive_conventional(
-    phi_P: NDArray,
-    phi_A: NDArray,
-    t_exp: float,
-    threshold: float = 1,
-    Q_e: float = 1,
-    N_r: float = 1e4,
-    bits: int = 10,
-):
-    sigma_1 = np.sqrt(Q_e * phi_P * t_exp + N_r ** 2)
-    mu_1 = Q_e * phi_P * t_exp
-    frac_1 = (threshold - mu_1) / (sigma_1 * np.sqrt(2))
-    prob_y_1_x_1 = 0.5 * (1 - erf(frac_1))
-
-    sigma_0 = np.sqrt(Q_e * phi_A * t_exp + N_r ** 2)
-    mu_0 = Q_e * phi_A * t_exp
-    frac_0 = (threshold - mu_0) / (sigma_0 * np.sqrt(2))
-    prob_y_0_x_0 = 0.5 * (1 + erf(frac_0))
-
-    return 1 - (prob_y_0_x_0 / 2 + prob_y_1_x_1 / 2) ** bits
-
-
-def average(
-    phi_P: NDArray,
-    phi_A: NDArray,
-    t_exp: float,
-    num_frames: 10,
-    threshold: int = None,
-    bits: int = 10,
-):
-    if not isinstance(threshold, np.ndarray):
-        threshold = np.array([ceil((num_frames + 1) / 2)])
-        threshold = repeat(threshold, "1 -> h w 1", h=phi_P.shape[0], w=phi_P.shape[1])
-
-    j_ll = np.arange(start=0, stop=num_frames + 1)
-    comb_ll = rearrange(comb(num_frames, j_ll), "d -> 1 1 d")
-
-    # 10_C_0, 10_C_1, ..., 10_C_5
-    mask_ll = j_ll < threshold
-
-    prob_naive_y_0_x_0 = np.exp(-phi_A * t_exp)
-
-    prob_frame_y_1_x_0 = 1 - np.exp(-phi_A * t_exp / num_frames)
-    prob_frame_y_0_x_0 = 1 - prob_frame_y_1_x_0
-
-    # Conditioning
-    dtype = prob_frame_y_0_x_0.dtype
-    prob_frame_y_0_x_0 = np.maximum(prob_frame_y_0_x_0, np.finfo(dtype).eps)
-
-    frac = prob_frame_y_1_x_0 / prob_frame_y_0_x_0
-    frac = [frac ** j for j in j_ll]
-    frac = np.stack(frac, axis=-1)
-    mult = (frac * comb_ll * mask_ll).sum(axis=-1)
-    prob_y_0_x_0 = prob_naive_y_0_x_0 * mult
-
-    # 10_C_6, 10_C_7, ..., 10_C_10
-    mask_ll = j_ll >= threshold
-
-    prob_naive_y_0_x_1 = np.exp(-phi_P * t_exp)
-    prob_frame_y_1_x_1 = 1 - np.exp(-phi_P * t_exp / num_frames)
-    prob_frame_y_0_x_1 = 1 - prob_frame_y_1_x_1
-
-    frac = prob_frame_y_0_x_1 / prob_frame_y_1_x_1
-    frac = [frac ** (num_frames - j) for j in j_ll]
-    frac = np.stack(frac, axis=-1)
-    mult = (frac * comb_ll * mask_ll).sum(axis=-1)
-    prob_y_1_x_1 = (prob_frame_y_1_x_1 ** num_frames) * mult
-
-    return 1 - (prob_y_0_x_0 / 2 + prob_y_1_x_1 / 2) ** bits
-
-
-def average_conventional(
-    phi_P: NDArray,
-    phi_A: NDArray,
-    t_exp: float,
-    num_frames: 10,
-    threshold: float = 1,
-    Q_e: float = 1,
-    N_r: float = 1e4,
-    bits: int = 10,
-):
-    sigma_1 = np.sqrt(Q_e * phi_P * t_exp / num_frames + N_r ** 2)
-    mu_1 = Q_e * phi_P * t_exp / num_frames
-    frac_1 = (threshold - mu_1) / (sigma_1 * np.sqrt(2))
-    prob_y_1_x_1 = 0.5 * (1 - erf(frac_1))
-
-    sigma_0 = np.sqrt(Q_e * phi_A * t_exp / num_frames + N_r ** 2)
-    mu_0 = Q_e * phi_A * t_exp / num_frames
-    frac_0 = (threshold - mu_0) / (sigma_0 * np.sqrt(2))
-    prob_y_0_x_0 = 0.5 * (1 + erf(frac_0))
-
-    return 1 - (prob_y_0_x_0 / 2 + prob_y_1_x_1 / 2) ** bits
-
-
-def optimal_threshold(
-    phi_P,
-    phi_A,
-    t_exp: float,
-    num_frames: 10,
-) -> NDArray:
+def _save_plot(savefig, show: bool, **kwargs):
     """
-    Determine optimal threshold for avg strategy
-    (known phi_P, phi_A)
+    Helper function for saving plots
+    :param savefig: Whether to save the figure
+    :param show: Display in graphical window or just close the plot
+    :param kwargs: fname, close
+    :return:
     """
-    N_p = phi_P * t_exp
-    N_a = phi_A * t_exp
+    if "close" in kwargs:
+        close = kwargs["close"]
+    else:
+        close = not show
 
-    num = N_p - N_a
+    if savefig:
+        path = Path(kwargs["fname"])
+        path.parent.mkdir(exist_ok=True, parents=True)
+        plt.savefig(kwargs["fname"], dpi=150, bbox_inches="tight", transparent=True)
 
-    p = 1 - np.exp(-N_p / num_frames)
-    q = 1 - np.exp(-N_a / num_frames)
-    denom = N_p - N_a + num_frames * np.log(p / q)
-
-    tau = num / denom
-    threshold = np.ceil(tau * num_frames)
-    return threshold, tau
-
-
-def average_optimal_threshold(
-    phi_P: NDArray,
-    phi_A: NDArray,
-    t_exp: float,
-    num_frames: 10,
-    bits: int = 10,
-):
-    threshold_ll, tau_ll = optimal_threshold(phi_P, phi_A, t_exp, num_frames)
-    threshold_ll = rearrange(threshold_ll, "h w -> h w 1")
-    return average(phi_P, phi_A, t_exp, num_frames, threshold_ll, bits)
+    if show:
+        plt.show()
+    if close:
+        plt.close()
 
 
 def plot_optimal_threshold(
@@ -172,9 +65,11 @@ def plot_optimal_threshold(
     num_frames: int = 10,
     savefig: bool = False,
     show: bool = True,
+    **kwargs,
 ):
     print("Plotting optimal threshold \n")
     FIGSIZE = (8, 4)
+
     # varying phi P, different lines for Phi A
     plt.figure(figsize=FIGSIZE)
 
@@ -186,17 +81,17 @@ def plot_optimal_threshold(
             phi_proj + a, tau_ll, label=f"$\Phi_a=${a:.0f}", linewidth=LINEWIDTH
         )
 
-    plt.xlabel("$\Phi_p$")
-    plt.ylabel(r"Threshold $(\frac{\tau^*}{N_\mathrm{frames}})$")
-    plt.legend(loc="upper right")
-    plt.grid()
-    plt.tight_layout()
+    def _plt_properties(xlabel):
+        plt.xlabel(xlabel)
+        plt.ylabel(r"Threshold $(\frac{\tau^*}{N_\mathrm{frames}})$")
+        plt.legend(loc="upper right")
+        plt.grid()
+        plt.tight_layout()
 
-    if savefig:
-        plt.savefig(f"outputs/plots/optimal_thresh_vs_phi_p.pdf", dpi=150)
-
-    if show:
-        plt.show()
+    _plt_properties("$\Phi_p$")
+    _save_plot(
+        savefig, show, fname=f"outputs/plots/strategy_plots/optimal_thresh_vs_phi_p.pdf"
+    )
 
     # varying phi A, different lines for Phi P
     plt.figure(figsize=FIGSIZE)
@@ -208,19 +103,144 @@ def plot_optimal_threshold(
             phi_A, tau_ll, label=f"$\Phi_p - \Phi_a=${p:.0e}", linewidth=LINEWIDTH
         )
 
-    plt.xlabel("$\Phi_a$")
-    plt.ylabel(r"Threshold $(\frac{\tau^*}{N_\mathrm{frames}})$")
-    plt.legend(loc="upper right")
+    _plt_properties("$\Phi_a$")
+    _save_plot(
+        savefig, show, fname=f"outputs/plots/strategy_plots/optimal_thresh_vs_phi_A.pdf"
+    )
+
+
+def plot_strategy_3d(
+    eval_error,
+    phi_proj,
+    phi_A,
+    savefig: bool = False,
+    outname: str = "",
+    show: bool = True,
+):
+    phi_proj_mesh, phi_A_mesh = np.meshgrid(phi_proj, phi_A, indexing="ij")
+
+    # Plot the surface.
+    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+
+    surf = ax.plot_surface(
+        np.log10(phi_proj_mesh),
+        np.log10(phi_A_mesh),
+        eval_error,
+        cmap=cm.coolwarm,
+        linewidth=0,
+        antialiased=False,
+    )
+
+    # X, Y axis
+    ax.set_xlabel("\n$\Phi_p - \Phi_a$ Projector Flux", labelpad=5, rotation=0)
+    xticks = np.log10(phi_proj).astype(int)
+    xticklabels = [f"$10^{x}$" for x in xticks]
+    ax.set_xticks(xticks)
+    ax.set_xticklabels(xticklabels)
+
+    ax.set_ylabel("\n$\Phi_a$ Ambient Flux", rotation=-60)
+    yticks = np.log10(phi_A).astype(int)
+    yticklabels = [f"$10^{y}$" for y in yticks]
+    ax.set_yticks(yticks)
+    ax.set_yticklabels(yticklabels)
+
+    # Z axis
+    ax.set_zlabel("Error Probability", labelpad=5)
+    zticks = [p / 10 for p in range(0, 11, 2)]
+    ax.set_zticks(zticks)
+    ax.set_zticklabels([f"{z:.1f}" for z in zticks])
+
+    _save_plot(
+        savefig,
+        show=False,
+        close=False,
+        fname=f"outputs/plots/strategy_plots/{outname}/surface_plot_no_colorbar.pdf",
+    )
+
+    # Colorbar
+    def surface_colorbar(fig, mappable):
+        cbar = fig.colorbar(mappable, pad=0.1)
+        cbar.ax.set_title("P(error)")
+
+    surface_colorbar(fig, surf)
+    plt.title(f"{outname.replace('_', ' ').capitalize()}")
+    _save_plot(
+        savefig,
+        show,
+        fname=f"outputs/plots/strategy_plots/{outname}/surface_plot_with_colorbar.pdf",
+    )
+
+    # draw a new figure and replot the colorbar there
+    fig, ax = plt.subplots()
+    surface_colorbar(fig, surf)
+    ax.remove()
+    _save_plot(
+        savefig,
+        show=False,
+        fname=f"outputs/plots/strategy_plots/{outname}/surface_plot_only_colorbar.pdf",
+    )
+
+
+def plot_strategy_2d(
+    eval_error,
+    phi_proj,
+    phi_A,
+    savefig: bool = False,
+    outname: str = "",
+    show: bool = True,
+):
+    # Plot image
+    plt.figure()
+    eval_image = plt.imshow(eval_error, cmap="plasma")
+    plt.gca().invert_yaxis()
+
+    # Label x axis
+    xticks = np.round(np.linspace(0, len(phi_A) - 1, order_range(phi_A))).astype(int)
+    xticklabels = [f"{label:.0e}" for label in phi_A[xticks]]
+    plt.xticks(xticks, xticklabels)
+    plt.xlabel("$\Phi_a$ Ambient Flux", labelpad=5)
+
+    # Label y axis
+    yticks = np.round(np.linspace(0, len(phi_proj) - 1, order_range(phi_proj))).astype(
+        int
+    )
+    yticklabels = [f"{label:.0e}" for label in phi_proj[yticks]]
+    plt.yticks(yticks, yticklabels)
+    plt.ylabel("$\Phi_p - \Phi_a$ Projector Flux")
+
     plt.grid()
-    plt.tight_layout()
+    _save_plot(
+        savefig,
+        show=False,
+        close=False,
+        fname=f"outputs/plots/strategy_plots/{outname}/mesh_no_colorbar.pdf",
+    )
 
-    if savefig:
-        plt.savefig(f"outputs/plots/optimal_thresh_vs_phi_A.pdf", dpi=150)
+    # Colorbar
+    def img_colorbar(**kwargs):
+        cbar = plt.colorbar(**kwargs)
+        cbar.ax.set_title("P(error)")
+        cbar.ax.locator_params(nbins=5)
+        cbar.update_ticks()
 
-    if show:
-        plt.show()
-    else:
-        plt.close()
+    img_colorbar()
+    plt.clim(0, 1)
+    plt.title(f"{outname.replace('_',' ').capitalize()}")
+    _save_plot(
+        savefig,
+        show,
+        fname=f"outputs/plots/strategy_plots/{outname}/mesh_with_colorbar.pdf",
+    )
+
+    # draw a new figure and replot the colorbar there
+    fig, ax = plt.subplots()
+    img_colorbar(mappable=eval_image, ax=ax)
+    ax.remove()
+    _save_plot(
+        savefig,
+        show=False,
+        fname=f"outputs/plots/strategy_plots/{outname}/mesh_only_colorbar.pdf",
+    )
 
 
 def plot_strategy(
@@ -229,75 +249,29 @@ def plot_strategy(
     t_exp: float,
     strategy: Callable,
     savefig: bool = False,
-    outname: str = "",
     show: bool = True,
+    plot_3d: bool = False,
+    outname: str = "",
     **kwargs,
 ):
     print(f"Plotting strategy {outname if outname else strategy.__name__}")
 
-    plt.figure()
-
     # Meshgrid
     phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
-    eval = strategy(phi_P_mesh, phi_A_mesh, t_exp, **kwargs)
 
-    eval_image = plt.imshow(eval, cmap="plasma")
-    plt.gca().invert_yaxis()
+    # Evaluate strategy
+    eval_error = strategy(phi_P_mesh, phi_A_mesh, t_exp, **kwargs)
 
-    # Label x axis
-    idx_A = np.round(np.linspace(0, len(phi_A) - 1, order_range(phi_A))).astype(int)
-    xticks = [f"{label:.0e}" for label in phi_A[idx_A]]
-    plt.xticks(idx_A, xticks)
-    plt.xlabel("$\Phi_a$ Ambient Flux", labelpad=5)
-
-    # Label y axis
-    idx_P = np.round(np.linspace(0, len(phi_proj) - 1, order_range(phi_proj))).astype(
-        int
-    )
-    yticks = [f"{label:.0e}" for label in phi_proj[idx_P]]
-    plt.yticks(idx_P, yticks)
-    plt.ylabel("$\Phi_p - \Phi_a$ Projector Flux")
-
-    plt.grid()
-    plt.tight_layout()
-
+    # Outname
     if not outname:
         outname = strategy.__name__
 
-    if savefig:
-        plt.savefig(f"outputs/plots/{outname}_no_colorbar.pdf", dpi=150)
+    if plot_3d:
+        plot_strategy_3d(eval_error, phi_proj, phi_A, savefig, outname, show)
 
-    # Colorbar
-    cbar = plt.colorbar()
-    cbar.ax.set_title("P(error)")
-    cbar.ax.locator_params(nbins=5)
-    cbar.update_ticks()
-    plt.clim(0, 1)
-    plt.title(f"{outname.replace('_',' ').capitalize()}")
-    plt.tight_layout()
+    plot_strategy_2d(eval_error, phi_proj, phi_A, savefig, outname, show)
 
-    if savefig:
-        plt.savefig(f"outputs/plots/{outname}_with_colorbar.pdf", dpi=150)
-
-    if show:
-        plt.show()
-    else:
-        plt.close()
-
-    # draw a new figure and replot the colorbar there
-    fig, ax = plt.subplots()
-    cbar = plt.colorbar(eval_image, ax=ax)
-    cbar.ax.set_title("P(error)")
-    cbar.ax.locator_params(nbins=5)
-    cbar.update_ticks()
-    ax.remove()
-
-    if savefig:
-        plt.savefig(f"outputs/plots/only_colorbar.pdf", dpi=150, bbox_inches="tight")
-
-    plt.close()
-
-    return eval
+    return eval_error
 
 
 def average_vs_frames(
@@ -315,9 +289,9 @@ def average_vs_frames(
                 phi_A,
                 t_exp,
                 strategy,
-                outname=f"{strategy.__name__}_frames_{frames}",
-                savefig=True,
-                **{"num_frames": frames, **kwargs},
+                outname=f"{strategy.__name__}/frames_{frames}",
+                num_frames=frames,
+                **kwargs,
             )
 
 
@@ -325,29 +299,26 @@ if __name__ == "__main__":
     phi_proj = np.logspace(1, 8, num=512)
     phi_A = np.logspace(0, 5, num=512)
 
-    # 1 millisecond
-    t_exp = 1e-3
+    # DMD framerate
+    # 0.1 millisecond or 10^4 FPS
+    t_exp = 1e-4
 
-    SHOW = False
+    plot_options = {
+        "show": False,
+        "plot_3d": True,
+        "savefig": True,
+    }
 
     plot_optimal_threshold(
         phi_proj,
         phi_A,
         t_exp=t_exp,
         num_frames=10,
-        savefig=True,
-        show=SHOW,
+        **plot_options,
     )
 
     # Naive
-    plot_strategy(
-        phi_proj,
-        phi_A,
-        t_exp,
-        naive,
-        savefig=True,
-        show=SHOW,
-    )
+    plot_strategy(phi_proj, phi_A, t_exp, naive, **plot_options)
 
     # Average
     plot_strategy(
@@ -355,9 +326,8 @@ if __name__ == "__main__":
         phi_A,
         t_exp,
         average,
-        savefig=True,
         num_frames=10,
-        show=SHOW,
+        **plot_options,
     )
 
     # Average Optimal
@@ -366,9 +336,8 @@ if __name__ == "__main__":
         phi_A,
         t_exp,
         average_optimal_threshold,
-        savefig=True,
-        show=SHOW,
-        **{"num_frames": 10},
+        num_frames=10,
+        **plot_options,
     )
 
     # Conventional Naive
@@ -377,13 +346,12 @@ if __name__ == "__main__":
         phi_A,
         t_exp,
         naive_conventional,
-        savefig=True,
-        show=SHOW,
         **{
             "threshold": 0.5,
             "Q_e": 0.5,
             "N_r": 1e-1,
         },
+        **plot_options,
     )
 
     # Averaging vs Frames Quanta
@@ -393,7 +361,7 @@ if __name__ == "__main__":
         phi_proj=phi_proj,
         phi_A=phi_A,
         t_exp=t_exp,
-        show=SHOW,
+        **plot_options,
     )
 
     # Averaging vs Frames Naive
@@ -403,7 +371,7 @@ if __name__ == "__main__":
         phi_proj=phi_proj,
         phi_A=phi_A,
         t_exp=t_exp,
-        show=SHOW,
+        **plot_options,
         **{
             "threshold": 0.5,
             "Q_e": 0.5,

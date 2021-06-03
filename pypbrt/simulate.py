@@ -17,10 +17,8 @@ from pypbrt.utils import pbrt_parser
 
 def set_paths(cfg: DictConfig) -> Union[Path, Path, Path]:
     root_dir = Path(hydra.utils.get_original_cwd())
-    tag = cfg.pbrt.type
 
-    pbrt_path = root_dir / "scenes" / cfg.pbrt.scene
-    pbrt_path = pbrt_path / f"{tag}.pbrt"
+    pbrt_path = root_dir / "scenes" / cfg.pbrt.scene / f"{cfg.pbrt.filename}.pbrt"
 
     projector_path = (
         root_dir / "patterns" / cfg.projector.pattern / f"{cfg.projector.index}.exr"
@@ -37,7 +35,6 @@ def set_paths(cfg: DictConfig) -> Union[Path, Path, Path]:
 def main(cfg: DictConfig):
     print(OmegaConf.to_yaml(cfg))
 
-    tag = cfg.pbrt.type
     pbrt_path, projector_path, output_path = set_paths(cfg)
 
     with open(pbrt_path) as f:
@@ -55,7 +52,7 @@ def main(cfg: DictConfig):
     # Write file
     pbrt_dump_path = (
         pbrt_path.parent
-        / f"dump_{tag}_{projector_path.parent.name}_{projector_path.name}.pbrt"
+        / f"dump_{pbrt_path.stem}_{projector_path.parent.name}_{projector_path.name}.pbrt"
     )
     with open(pbrt_dump_path, "w") as f:
         f.write(pbrt_file)
@@ -77,11 +74,14 @@ def main(cfg: DictConfig):
     ]
     if cfg.device == "gpu":
         cmd = cmd + ["--gpu"]
+
+    if cfg.pbrt.spp:
+        cmd = cmd + ["--spp", f"{cfg.pbrt.spp}"]
     subprocess.run(cmd)
 
     # Remove pbrt file
     if not cfg.pbrt.save_dump:
-        os.remove(pbrt_dump_path)
+        pbrt_dump_path.unlink()
 
 
 if __name__ == "__main__":
