@@ -4,8 +4,8 @@ import numpy as np
 from matplotlib import cm
 from matplotlib import pyplot as plt
 from nptyping import NDArray
-from pathlib import Path
 
+from vis_tools.metaclass import Eval, CallableEval, MatlabEval
 from vis_tools.strategies import (
     naive,
     naive_conventional,
@@ -14,6 +14,7 @@ from vis_tools.strategies import (
     optimal_threshold,
     average_optimal_threshold,
 )
+from vis_tools.utils import order_range, save_plot
 
 params = {
     "legend.fontsize": "x-large",
@@ -26,36 +27,6 @@ params = {
 plt.rcParams.update(params)
 
 LINEWIDTH = 3
-
-
-def order_range(array: NDArray):
-    upper = np.log10(array.max())
-    lower = np.log10(array.min())
-    return upper.astype(int) - lower.astype(int) + 1
-
-
-def _save_plot(savefig, show: bool, **kwargs):
-    """
-    Helper function for saving plots
-    :param savefig: Whether to save the figure
-    :param show: Display in graphical window or just close the plot
-    :param kwargs: fname, close
-    :return:
-    """
-    if "close" in kwargs:
-        close = kwargs["close"]
-    else:
-        close = not show
-
-    if savefig:
-        path = Path(kwargs["fname"])
-        path.parent.mkdir(exist_ok=True, parents=True)
-        plt.savefig(kwargs["fname"], dpi=150, bbox_inches="tight", transparent=True)
-
-    if show:
-        plt.show()
-    if close:
-        plt.close()
 
 
 def plot_optimal_threshold(
@@ -89,7 +60,7 @@ def plot_optimal_threshold(
         plt.tight_layout()
 
     _plt_properties("$\Phi_p$")
-    _save_plot(
+    save_plot(
         savefig, show, fname=f"outputs/plots/strategy_plots/optimal_thresh_vs_phi_p.pdf"
     )
 
@@ -104,7 +75,7 @@ def plot_optimal_threshold(
         )
 
     _plt_properties("$\Phi_a$")
-    _save_plot(
+    save_plot(
         savefig, show, fname=f"outputs/plots/strategy_plots/optimal_thresh_vs_phi_A.pdf"
     )
 
@@ -150,7 +121,7 @@ def plot_strategy_3d(
     ax.set_zticks(zticks)
     ax.set_zticklabels([f"{z:.1f}" for z in zticks])
 
-    _save_plot(
+    save_plot(
         savefig,
         show=False,
         close=False,
@@ -164,7 +135,7 @@ def plot_strategy_3d(
 
     surface_colorbar(fig, surf)
     plt.title(f"{outname.replace('_', ' ').capitalize()}")
-    _save_plot(
+    save_plot(
         savefig,
         show,
         fname=f"outputs/plots/strategy_plots/{outname}/surface_plot_with_colorbar.pdf",
@@ -174,7 +145,7 @@ def plot_strategy_3d(
     fig, ax = plt.subplots()
     surface_colorbar(fig, surf)
     ax.remove()
-    _save_plot(
+    save_plot(
         savefig,
         show=False,
         fname=f"outputs/plots/strategy_plots/{outname}/surface_plot_only_colorbar.pdf",
@@ -209,7 +180,7 @@ def plot_strategy_2d(
     plt.ylabel("$\Phi_p - \Phi_a$ Projector Flux")
 
     plt.grid()
-    _save_plot(
+    save_plot(
         savefig,
         show=False,
         close=False,
@@ -226,7 +197,7 @@ def plot_strategy_2d(
     img_colorbar()
     plt.clim(0, 1)
     plt.title(f"{outname.replace('_',' ').capitalize()}")
-    _save_plot(
+    save_plot(
         savefig,
         show,
         fname=f"outputs/plots/strategy_plots/{outname}/mesh_with_colorbar.pdf",
@@ -236,7 +207,7 @@ def plot_strategy_2d(
     fig, ax = plt.subplots()
     img_colorbar(mappable=eval_image, ax=ax)
     ax.remove()
-    _save_plot(
+    save_plot(
         savefig,
         show=False,
         fname=f"outputs/plots/strategy_plots/{outname}/mesh_only_colorbar.pdf",
@@ -247,24 +218,24 @@ def plot_strategy(
     phi_proj,
     phi_A,
     t_exp: float,
-    strategy: Callable,
+    strategy: Eval,
     savefig: bool = False,
     show: bool = True,
     plot_3d: bool = False,
     outname: str = "",
     **kwargs,
 ):
-    print(f"Plotting strategy {outname if outname else strategy.__name__}")
+    # Outname
+    if not outname:
+        outname = strategy.name
+
+    print(f"Plotting strategy {outname}")
 
     # Meshgrid
     phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
 
     # Evaluate strategy
-    eval_error = strategy(phi_P_mesh, phi_A_mesh, t_exp, **kwargs)
-
-    # Outname
-    if not outname:
-        outname = strategy.__name__
+    eval_error = strategy(phi_P_mesh, phi_A_mesh, t_exp)
 
     if plot_3d:
         plot_strategy_3d(eval_error, phi_proj, phi_A, savefig, outname, show)
@@ -295,6 +266,84 @@ def average_vs_frames(
             )
 
 
+def plot_strategies_3d(
+    phi_proj,
+    phi_A,
+    t_exp: float,
+    strategy_ll,
+    savefig: bool = False,
+    show: bool = True,
+    outname: str = "",
+    **kwargs,
+):
+    names = [strategy.name for strategy in strategy_ll]
+    print(f"Comparing strategies {','.join(names)}")
+
+    # Meshgrid
+    phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
+    phi_proj_mesh, phi_A_mesh = np.meshgrid(phi_proj, phi_A, indexing="ij")
+
+    # Plot the surface.
+    fig, ax = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "3d"})
+
+    limit_dict = {
+        "naive": (np.s_[224:320, 192:320], np.s_[224:320], np.s_[256:320]),
+        "avg_fixed": (np.s_[256:320, 400:], np.s_[280:320], np.s_[420:]),
+        "avg_optimal":  (np.s_[224:320, 192:320], np.s_[224:320], np.s_[256:320]),
+    }
+
+    for strategy in strategy_ll:
+        assert isinstance(strategy, Eval)
+        # Call the strategy and plot
+        eval_error = strategy(phi_P_mesh, phi_A_mesh, t_exp)
+
+        surf = ax.plot_surface(
+            np.log10(phi_proj_mesh)[256:320, 400:],
+            np.log10(phi_A_mesh)[256:320, 400:],
+            eval_error[256:320, 400:],
+            alpha=0.8,
+            label=strategy.name,
+            linewidth=0,
+            antialiased=False,
+        )
+
+        ## TODO: Hackish, from https://stackoverflow.com/questions/55531760/is-there-a-way-to-label-multiple-3d-surfaces-in-matplotlib/55534939
+        surf._facecolors2d = surf._facecolor3d
+        surf._edgecolors2d = surf._edgecolor3d
+
+    # X, Y axis
+    ax.set_xlabel("\n$\Phi_p - \Phi_a$ Projector Flux")
+    xticks = np.log10(phi_proj).astype(int)[224:320]
+    xticks = [4.5, 5]
+    xticklabels = [f"$10^{x}$" for x in xticks]
+    xticklabels = [r"$10^{9/2}$", "$10^5$"]
+    ax.set_xticks(xticks)
+    ax.set_xticklabels(xticklabels)
+
+    ax.set_ylabel("\n$\Phi_a$ Ambient Flux")
+    yticks = np.log10(phi_A).astype(int)[420:]
+    yticklabels = [f"$10^{y}$" for y in yticks]
+    ax.set_yticks(yticks)
+    ax.set_yticklabels(yticklabels)
+
+    # Z axis
+    ax.set_zlabel("Error Probability")
+    zticks = [p / 10 for p in range(0, 11, 2)]
+    ax.set_zticks(zticks)
+    ax.set_zticklabels([f"{z:.1f}" for z in zticks])
+
+    ax.legend()
+    plt.grid()
+
+    # ax.view_init(0, azim=-90)
+
+    save_plot(
+        savefig,
+        show,
+        fname=f"outputs/plots/strategy_plots/{outname}/comparison_of_{'_'.join(names)}.pdf",
+    )
+
+
 if __name__ == "__main__":
     phi_proj = np.logspace(1, 8, num=512)
     phi_A = np.logspace(0, 5, num=512)
@@ -304,10 +353,42 @@ if __name__ == "__main__":
     t_exp = 1e-4
 
     plot_options = {
-        "show": False,
+        "show": True,
         "plot_3d": True,
         "savefig": True,
     }
+
+    bch_ll = [(15, 11), (31, 11), (63, 10)]
+
+    # strategy_ll = [CallableEval("Naive", naive)]
+    strategy_ll = [CallableEval("Avg Fixed", average, dict(num_frames=10))]
+    # strategy_ll = [
+    #     CallableEval("Avg Optimal", average_optimal_threshold, dict(num_frames=10))
+    # ]
+    strategy_ll += [
+        MatlabEval(
+            f"BCH {code}",
+            f"BCH/eval_{strat}_bch_{code[0]}_{code[1]}_texp_1e-04_128x128.mat",
+        )
+        for code in bch_ll
+        for strat in ["average_fixed"]  # ,"naive" , "average_fixed", "average_optimal"]
+    ]
+    plot_strategies_3d(phi_proj, phi_A, t_exp, strategy_ll, **plot_options)
+
+    # breakpoint()
+    # strategy_ll = [
+    #     CallableEval("Avg Optimal", average_optimal_threshold, dict(num_frames=10))
+    # ]
+    # strategy_ll += [
+    #     MatlabEval(
+    #         f"BCH {code}",
+    #         f"../BCH/eval_avg_optimal_bch_{code[0]}_{code[1]}_texp_1e-04_128x128.mat",
+    #     )
+    #     for code in bch_ll
+    # ]
+    # plot_strategies_3d(phi_proj, phi_A, t_exp, strategy_ll, **plot_options)
+
+    exit(1)
 
     plot_optimal_threshold(
         phi_proj,
@@ -317,42 +398,32 @@ if __name__ == "__main__":
         **plot_options,
     )
 
-    # Naive
-    plot_strategy(phi_proj, phi_A, t_exp, naive, **plot_options)
-
-    # Average
-    plot_strategy(
-        phi_proj,
-        phi_A,
-        t_exp,
-        average,
-        num_frames=10,
-        **plot_options,
-    )
-
-    # Average Optimal
-    plot_strategy(
-        phi_proj,
-        phi_A,
-        t_exp,
-        average_optimal_threshold,
-        num_frames=10,
-        **plot_options,
-    )
-
-    # Conventional Naive
-    plot_strategy(
-        phi_proj,
-        phi_A,
-        t_exp,
-        naive_conventional,
-        **{
-            "threshold": 0.5,
-            "Q_e": 0.5,
-            "N_r": 1e-1,
-        },
-        **plot_options,
-    )
+    strategy_ll = [
+        CallableEval("Naive", naive),
+        CallableEval("Average Fixed", average, dict(num_frames=10)),
+        CallableEval("Average Optimal", average_optimal_threshold, dict(num_frames=10)),
+        CallableEval(
+            "Naive Conventional",
+            naive_conventional,
+            dict(threshold=0.5, Q_e=0.5, N_r=1e-1),
+        ),
+    ]
+    strategy_ll += [
+        MatlabEval(
+            f"{strat.replace('_',' ').title()}/BCH {code}",
+            f"BCH/eval_{strat}_bch_{code[0]}_{code[1]}_texp_1e-04_128x128.mat",
+        )
+        for code in bch_ll
+        for strat in ["naive", "average_fixed", "average_optimal"]
+    ]
+    for strategy in strategy_ll:
+        plot_strategy(
+            phi_proj,
+            phi_A,
+            t_exp,
+            strategy,
+            **plot_options,
+        )
 
     # Averaging vs Frames Quanta
     average_vs_frames(
