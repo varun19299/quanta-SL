@@ -13,6 +13,7 @@ from vis_tools.strategies import (
     average_conventional,
     optimal_threshold,
     average_optimal_threshold,
+    bch_LUT
 )
 from vis_tools.utils import order_range, save_plot
 
@@ -314,9 +315,7 @@ def plot_strategies_3d(
     # X, Y axis
     ax.set_xlabel("\n$\Phi_p - \Phi_a$ Projector Flux")
     xticks = np.log10(phi_proj).astype(int)[224:320]
-    xticks = [4.5, 5]
     xticklabels = [f"$10^{x}$" for x in xticks]
-    xticklabels = [r"$10^{9/2}$", "$10^5$"]
     ax.set_xticks(xticks)
     ax.set_xticklabels(xticklabels)
 

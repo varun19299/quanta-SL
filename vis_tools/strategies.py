@@ -1,9 +1,19 @@
 from math import ceil
+from typing import Tuple, Union
+
+try:
+    import cupy as cp
+
+    CUPY_INSTALLED = True
+except ImportError:
+    CUPY_INSTALLED = False
 
 import numpy as np
 from einops import repeat, rearrange
 from nptyping import NDArray
+from scipy.io import loadmat
 from scipy.special import erf, comb
+from tqdm import tqdm
 
 
 def naive(phi_P: NDArray, phi_A: NDArray, t_exp: float, bits: int = 10):
@@ -141,3 +151,144 @@ def average_optimal_threshold(
     threshold_ll, tau_ll = optimal_threshold(phi_P, phi_A, t_exp, num_frames)
     threshold_ll = rearrange(threshold_ll, "h w -> h w 1")
     return average(phi_P, phi_A, t_exp, num_frames, threshold_ll, bits)
+
+
+"""
+BCH strategies
+"""
+
+
+def bch_LUT(
+    phi_P: np.ndarray,
+    phi_A: np.ndarray,
+    t_exp: float,
+    bch_tuple: Tuple[int, int, int],
+    code_LUT: np.ndarray,
+    num_frames: int = 1,
+    threshold: Union[float, np.ndarray] = 0.5,
+    monte_carlo_iter: int = 1,
+) -> NDArray:
+    """
+    BCH strategy from a LUT
+
+    :param phi_P: meshgrid of ambient + projector flux
+    :param phi_A: meshgrid of ambient flux
+    :param t_exp: exposure time
+    :param bch_tuple: (n, k, t)
+        n: code length
+        k: message length
+        t: error correcting length (typically \floor((d-1)/2), could be more with list decoding)
+
+    :param code_LUT: Look Up Table for BCH code
+
+    :param num_frames: Frames for averaging based strategy. For naive, set 1
+    :param threshold: Threshold. Can be set as a function of \Phi_p, \Phi_a, \t_{exp}
+    :param monte_carlo_iter: MC averaging iterations, 1 should suffice most of the times.
+    :return:
+    """
+    # Ensure all arrays are on the same device
+    if CUPY_INSTALLED:
+        assert (
+            cp.get_array_module(phi_P)
+            == cp.get_array_module(phi_A)
+            == cp.get_array_module(code_LUT)
+        )
+        xp = cp.get_array_module(phi_P)
+    else:
+        xp = np
+
+    # Code parameters
+    n, k, t = bch_tuple
+
+    eval_error = xp.zeros_like(phi_P)
+
+    h, w = phi_P.shape
+    phi_A = rearrange(phi_A, "h w -> h w 1 1")
+    phi_P = rearrange(phi_P, "h w -> h w 1 1")
+
+    code_LUT = repeat(code_LUT, "N n -> (repeat N) n", repeat=monte_carlo_iter)
+    for code in tqdm(code_LUT):
+        zero_locations = xp.where(code == 0)[0]
+        one_locations = xp.where(code == 1)[0]
+
+        # Noisy transmit
+        # Phi A
+        # phi_A_arrived = xp.zeros((h, w, n), dtype=xp.int32)
+        # phi_P_arrived = xp.zeros((h, w, n), dtype=xp.int32)
+        #
+        # for i in range(num_frames):
+        #     # arrival_times = xp.random.exponential(1 / phi_A, (h, w, n))
+        #     # phi_A_arrived += arrival_times < t_exp / num_frames
+        #
+        #     phi_A_arrived += (
+        #         xp.random.exponential(phi_A * t_exp / num_frames, (h, w, n)).astype(
+        #             xp.int32
+        #         )
+        #         > 0
+        #     )
+        #
+        #     # Phi P
+        #     # arrival_times = xp.random.exponential(1 / phi_P, (h, w, n))
+        #     # phi_P_arrived += arrival_times < t_exp / num_frames
+        #
+        #     phi_P_arrived += (
+        #         xp.random.exponential(phi_P * t_exp / num_frames, (h, w, n)).astype(
+        #             xp.int32
+        #         )
+        #         > 0
+        #     )
+
+        phi_A_arrived = (
+            xp.random.exponential(phi_A * t_exp / num_frames, (h, w, n, num_frames)) > 0
+        ).sum(axis=3)
+
+        phi_P_arrived = (
+            xp.random.exponential(phi_P * t_exp / num_frames, (h, w, n, num_frames)) > 0
+        ).sum(axis=3)
+
+        phi_A_arrived = phi_A_arrived > num_frames * threshold
+        phi_P_arrived = phi_P_arrived > num_frames * threshold
+
+        phi_A_flips = phi_A_arrived
+        phi_P_flips = 1 - phi_P_arrived
+
+        # Flip em!
+        zero_flips = phi_A_flips[:, :, zero_locations].sum(axis=2)
+        one_flips = phi_P_flips[:, :, one_locations].sum(axis=2)
+
+        distance = zero_flips + one_flips
+        eval_error += distance > t
+
+    eval_error /= code_LUT.shape[0]
+    return eval_error
+
+
+if __name__ == "__main__":
+    phi_proj = np.logspace(4, 8, num=512)
+    phi_A = np.logspace(0, 4, num=512)
+
+    phi_P_mesh, phi_A_mesh = np.meshgrid(phi_A + phi_proj, phi_A, indexing="ij")
+
+    # DMD framerate
+    # 0.1 millisecond or 10^4 FPS
+    t_exp = 1e-4
+
+    n = 63
+    k = 10
+    t = 10
+    LUT_path = "BCH/bch_LUT.mat"
+    code_LUT = loadmat(LUT_path)[f"bch_{n}_{k}_code"].astype(int)
+
+    if CUPY_INSTALLED:
+        phi_P_mesh = cp.asarray(phi_P_mesh)
+        phi_A_mesh = cp.asarray(phi_A_mesh)
+        code_LUT = cp.asarray(code_LUT)
+
+    bch_LUT(
+        phi_P_mesh,
+        phi_A_mesh,
+        t_exp,
+        bch_tuple=(n, k, t),
+        code_LUT=code_LUT,
+        num_frames=10,
+    )
