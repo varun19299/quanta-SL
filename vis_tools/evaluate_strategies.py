@@ -1,21 +1,17 @@
-from typing import Callable, List
-
 import numpy as np
 from matplotlib import cm
 from matplotlib import pyplot as plt
-from nptyping import NDArray
 
-from vis_tools.metaclass import Eval, CallableEval, MatlabEval
-from vis_tools.strategies import (
+from vis_tools.strategies.metaclass import Eval, CallableEval
+from vis_tools.strategies.analytic import (
     naive,
     naive_conventional,
-    average,
+    average_fixed,
+    average_optimal,
     average_conventional,
     optimal_threshold,
-    average_optimal_threshold,
-    bch_LUT
 )
-from vis_tools.utils import order_range, save_plot
+from vis_tools.strategies.utils import order_range, save_plot, func_name
 
 params = {
     "legend.fontsize": "x-large",
@@ -246,27 +242,6 @@ def plot_strategy(
     return eval_error
 
 
-def average_vs_frames(
-    strategy_ll: List[Callable],
-    frames_ll: List[int],
-    phi_proj: NDArray,
-    phi_A: NDArray,
-    t_exp: float,
-    **kwargs,
-):
-    for strategy in strategy_ll:
-        for frames in frames_ll:
-            plot_strategy(
-                phi_proj,
-                phi_A,
-                t_exp,
-                strategy,
-                outname=f"{strategy.__name__}/frames_{frames}",
-                num_frames=frames,
-                **kwargs,
-            )
-
-
 def plot_strategies_3d(
     phi_proj,
     phi_A,
@@ -290,7 +265,7 @@ def plot_strategies_3d(
     limit_dict = {
         "naive": (np.s_[224:320, 192:320], np.s_[224:320], np.s_[256:320]),
         "avg_fixed": (np.s_[256:320, 400:], np.s_[280:320], np.s_[420:]),
-        "avg_optimal":  (np.s_[224:320, 192:320], np.s_[224:320], np.s_[256:320]),
+        "avg_optimal": (np.s_[224:320, 192:320], np.s_[224:320], np.s_[256:320]),
     }
 
     for strategy in strategy_ll:
@@ -357,13 +332,17 @@ if __name__ == "__main__":
         "savefig": True,
     }
 
+    avg_kwargs = {"num_frames": 10}
+    conventional_sensor_kwargs = {"threshold": 0.5, "Q_e": 0.5, "N_r": 1e-1}
+
     bch_ll = [(15, 11), (31, 11), (63, 10)]
 
-    # strategy_ll = [CallableEval("Naive", naive)]
-    strategy_ll = [CallableEval("Avg Fixed", average, dict(num_frames=10))]
-    # strategy_ll = [
-    #     CallableEval("Avg Optimal", average_optimal_threshold, dict(num_frames=10))
-    # ]
+    """
+    strategy_ll = [CallableEval("Naive", naive)]
+    strategy_ll = [CallableEval("Avg Fixed", average_fixed, avg_kwargs)]
+    strategy_ll = [
+        CallableEval("Avg Optimal", average_optimal, avg_kwargs)
+    ]
     strategy_ll += [
         MatlabEval(
             f"BCH {code}",
@@ -373,22 +352,9 @@ if __name__ == "__main__":
         for strat in ["average_fixed"]  # ,"naive" , "average_fixed", "average_optimal"]
     ]
     plot_strategies_3d(phi_proj, phi_A, t_exp, strategy_ll, **plot_options)
+    """
 
-    # breakpoint()
-    # strategy_ll = [
-    #     CallableEval("Avg Optimal", average_optimal_threshold, dict(num_frames=10))
-    # ]
-    # strategy_ll += [
-    #     MatlabEval(
-    #         f"BCH {code}",
-    #         f"../BCH/eval_avg_optimal_bch_{code[0]}_{code[1]}_texp_1e-04_128x128.mat",
-    #     )
-    #     for code in bch_ll
-    # ]
-    # plot_strategies_3d(phi_proj, phi_A, t_exp, strategy_ll, **plot_options)
-
-    exit(1)
-
+    """
     plot_optimal_threshold(
         phi_proj,
         phi_A,
@@ -398,22 +364,22 @@ if __name__ == "__main__":
     )
 
     strategy_ll = [
-        CallableEval("Naive", naive),
-        CallableEval("Average Fixed", average, dict(num_frames=10)),
-        CallableEval("Average Optimal", average_optimal_threshold, dict(num_frames=10)),
+        CallableEval(func_name(naive), naive),
+        CallableEval(func_name(average_fixed), average_fixed, avg_kwargs),
+        CallableEval(func_name(average_optimal), average_optimal, avg_kwargs),
         CallableEval(
-            "Naive Conventional",
+            func_name(naive_conventional),
             naive_conventional,
-            dict(threshold=0.5, Q_e=0.5, N_r=1e-1),
+            conventional_sensor_kwargs,
         ),
     ]
     strategy_ll += [
         MatlabEval(
-            f"{strat.replace('_',' ').title()}/BCH {code}",
-            f"BCH/eval_{strat}_bch_{code[0]}_{code[1]}_texp_1e-04_128x128.mat",
+            f"{func_name(strategy)}/BCH {code}",
+            f"BCH/eval_{strategy}_bch_{code[0]}_{code[1]}_texp_1e-04_128x128.mat",
         )
         for code in bch_ll
-        for strat in ["naive", "average_fixed", "average_optimal"]
+        for strategy in ["naive", "average_fixed", "average_optimal"]
     ]
     for strategy in strategy_ll:
         plot_strategy(
@@ -423,28 +389,34 @@ if __name__ == "__main__":
             strategy,
             **plot_options,
         )
+    """
 
     # Averaging vs Frames Quanta
-    average_vs_frames(
-        strategy_ll=[average, average_optimal_threshold],
-        frames_ll=[2, 5, 10, 20, 100],
-        phi_proj=phi_proj,
-        phi_A=phi_A,
-        t_exp=t_exp,
-        **plot_options,
-    )
+    num_frame_ll = [2, 5, 10, 20, 100]
 
-    # Averaging vs Frames Naive
-    average_vs_frames(
-        strategy_ll=[average_conventional],
-        frames_ll=[5, 10, 100],
-        phi_proj=phi_proj,
-        phi_A=phi_A,
-        t_exp=t_exp,
-        **plot_options,
-        **{
-            "threshold": 0.5,
-            "Q_e": 0.5,
-            "N_r": 1e-1,
-        },
-    )
+    strategy_ll = [
+        CallableEval(
+            f"{func_name(strategy)}/frames_{num_frames}",
+            strategy,
+            avg_kwargs,
+        )
+        for strategy in [average_fixed, average_optimal]
+        for num_frames in num_frame_ll
+    ]
+    strategy_ll += [
+        CallableEval(
+            f"{func_name(average_conventional)}/frames_{num_frames}",
+            average_conventional,
+            conventional_sensor_kwargs,
+        )
+        for num_frames in num_frame_ll
+    ]
+
+    for strategy in strategy_ll:
+        plot_strategy(
+            phi_proj,
+            phi_A,
+            t_exp,
+            strategy,
+            **plot_options,
+        )

@@ -5,6 +5,8 @@ from typing import Dict, Union, Callable
 import numpy as np
 import scipy.io as sio
 from scipy import interpolate
+from collections import namedtuple
+from galois import BCH
 
 
 @dataclass
@@ -52,3 +54,18 @@ class CallableEval(Eval):
 
     def __call__(self, phi_P_mesh, phi_A_mesh, t_exp, *args, **kwargs):
         return self.func(phi_P_mesh, phi_A_mesh, t_exp, *args, **kwargs, **self.kwargs)
+
+
+@dataclass
+class BCH:
+    n: int
+    k: int
+    # Correctable errors. Can be > \floor(d - 1 / 2)
+    t: int
+
+    def distance(self):
+        """
+        Note: lower bound on distance
+        :return:
+        """
+        return 2 * BCH(self.n, self.k) + 1
