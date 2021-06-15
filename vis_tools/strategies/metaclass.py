@@ -57,15 +57,32 @@ class CallableEval(Eval):
 
 
 @dataclass
-class BCH:
+class _Code:
     n: int
     k: int
-    # Correctable errors. Can be > \floor(d - 1 / 2)
+    # Correctable errors. Can be > \floor(d - 1 / 2), via List Decoding
     t: int
 
+
+@dataclass
+class BCH(_Code):
     def distance(self):
         """
         Note: lower bound on distance
         :return:
         """
         return 2 * BCH(self.n, self.k) + 1
+
+    def __str__(self):
+        return f"BCH-[{self.n}, {self.k}, {self.t}]"
+
+
+@dataclass
+class Repetition(_Code):
+    def __post_init__(self):
+        assert (
+            self.n % self.k == 0
+        ), f"Code length {self.n} must be a multiple of message length {self.k}."
+
+    def __str__(self):
+        return f"Repetition-[{self.n}, {self.k}]"

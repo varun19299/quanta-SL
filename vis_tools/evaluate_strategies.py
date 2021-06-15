@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import cm
 from matplotlib import pyplot as plt
 
-from vis_tools.strategies.metaclass import Eval, CallableEval
+from vis_tools.strategies.metaclass import Eval, CallableEval, BCH, Repetition
 from vis_tools.strategies.analytic import (
     naive,
     naive_conventional,
@@ -11,6 +11,7 @@ from vis_tools.strategies.analytic import (
     average_conventional,
     optimal_threshold,
 )
+from vis_tools.strategies.monte_carlo import bch_coding, repetition_coding
 from vis_tools.strategies.utils import order_range, save_plot, func_name
 
 params = {
@@ -319,15 +320,15 @@ def plot_strategies_3d(
 
 
 if __name__ == "__main__":
-    phi_proj = np.logspace(1, 8, num=512)
-    phi_A = np.logspace(0, 5, num=512)
+    phi_proj = np.logspace(1, 8, num=64)
+    phi_A = np.logspace(0, 5, num=64)
 
     # DMD framerate
     # 0.1 millisecond or 10^4 FPS
     t_exp = 1e-4
 
     plot_options = {
-        "show": True,
+        "show": False,
         "plot_3d": True,
         "savefig": True,
     }
@@ -335,22 +336,59 @@ if __name__ == "__main__":
     avg_kwargs = {"num_frames": 10}
     conventional_sensor_kwargs = {"threshold": 0.5, "Q_e": 0.5, "N_r": 1e-1}
 
-    bch_ll = [(15, 11), (31, 11), (63, 10)]
+    bch_ll = [BCH(15, 11, 1), BCH(31, 11, 5), BCH(63, 10, 13), BCH(127, 15, 27)]
+    # bch_ll = [BCH(15, 11, 1), BCH(31, 11, 7), BCH(63, 10, 18), BCH(127, 15, 40)]
 
+    bch_kwargs_ll = [
+        {"bch_tuple": bch_tuple, "num_frames": 1, "use_complementary": False}
+        for bch_tuple in bch_ll
+    ]
+
+    repetition_ll = [
+        Repetition(30, 10, 1),
+        Repetition(60, 10, 2),
+        Repetition(130, 10, 5),
+    ]
+    repetition_kwargs_ll = [
+        {
+            "repetition_tuple": repetition_tuple,
+            "num_frames": 1,
+            "use_complementary": False,
+        }
+        for repetition_tuple in repetition_ll
+    ]
+
+    func = naive
+    strategy_ll = [CallableEval(func_name(func), func)]
+    strategy_ll += [
+        CallableEval(f"{func_name(func)}/{bch_tuple}", bch_coding, bch_kwargs)
+        for bch_tuple, bch_kwargs in zip(bch_ll, bch_kwargs_ll)
+    ]
+    # strategy_ll += [
+    #     CallableEval(
+    #         f"{func_name(func)}/{repetition_tuple}",
+    #         repetition_coding,
+    #         repetition_kwargs,
+    #     )
+    #     for repetition_tuple, repetition_kwargs in zip(
+    #         repetition_ll, repetition_kwargs_ll
+    #     )
+    # ]
+    for strategy in strategy_ll:
+        plot_strategy(
+            phi_proj,
+            phi_A,
+            t_exp,
+            strategy,
+            **plot_options,
+        )
+    breakpoint()
     """
-    strategy_ll = [CallableEval("Naive", naive)]
     strategy_ll = [CallableEval("Avg Fixed", average_fixed, avg_kwargs)]
     strategy_ll = [
         CallableEval("Avg Optimal", average_optimal, avg_kwargs)
     ]
-    strategy_ll += [
-        MatlabEval(
-            f"BCH {code}",
-            f"BCH/eval_{strat}_bch_{code[0]}_{code[1]}_texp_1e-04_128x128.mat",
-        )
-        for code in bch_ll
-        for strat in ["average_fixed"]  # ,"naive" , "average_fixed", "average_optimal"]
-    ]
+    
     plot_strategies_3d(phi_proj, phi_A, t_exp, strategy_ll, **plot_options)
     """
 
