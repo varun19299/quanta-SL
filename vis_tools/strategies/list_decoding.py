@@ -43,11 +43,11 @@ if __name__ == "__main__":
     bch_ll = [
         _BCHTuple(15, 11, 1),
         _BCHTuple(31, 11, 7),
-        _BCHTuple(63, 10, 18),
-        _BCHTuple(127, 15, 40),
-        _BCHTuple(127, 8, 57),
+        _BCHTuple(63, 10, 17),
+        _BCHTuple(127, 15, 38),
+        _BCHTuple(127, 8, 45),
     ]
-    index = 4
+    index = 2
 
     n, k, LECC = astuple(bch_ll[index])
     bch = galois.BCH(n, k)
@@ -71,7 +71,7 @@ if __name__ == "__main__":
         error ^= error
 
         col_indices = xp.random.choice(code_ll.shape[1], LECC, replace=False)
-        error[:, col_indices] = 0
+        error[:, col_indices] = 1
 
         corrupted_code_ll = code_ll ^ error
         # Try MLE recovery

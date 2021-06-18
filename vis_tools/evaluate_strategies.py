@@ -1,327 +1,236 @@
-import numpy as np
-from matplotlib import cm
-from matplotlib import pyplot as plt
+import logging
 
-from vis_tools.strategies.metaclass import Eval, CallableEval, BCH, Repetition
+import numpy as np
+
+FORMAT = "%(asctime)s [%(filename)s : %(funcName)2s() : %(lineno)2s] %(message)s"
+logging.basicConfig(format=FORMAT, datefmt="%d-%b-%y %H:%M:%S")
+logging.getLogger().setLevel(logging.INFO)
+
+from vis_tools.strategies import analytic
 from vis_tools.strategies.analytic import (
     naive,
-    naive_conventional,
     average_fixed,
     average_optimal,
     average_conventional,
-    optimal_threshold,
+    naive_conventional,
 )
+from vis_tools.strategies.metaclass import CallableEval, BCH, Repetition
 from vis_tools.strategies.monte_carlo import bch_coding, repetition_coding
-from vis_tools.strategies.utils import order_range, save_plot, func_name
-
-params = {
-    "legend.fontsize": "x-large",
-    "figure.figsize": (8, 6),
-    "axes.labelsize": "xx-large",
-    "axes.titlesize": "x-large",
-    "xtick.labelsize": "medium",
-    "ytick.labelsize": "medium",
-}
-plt.rcParams.update(params)
-
-LINEWIDTH = 3
+from vis_tools.strategies.plot import (
+    plot_optimal_threshold,
+    mesh_and_surface_plot,
+    multiple_surface_plotly_3d,
+    individual_and_multiple_plots,
+)
+from vis_tools.strategies.utils import func_name
+from typing import Callable
+from einops import rearrange
 
 
-def plot_optimal_threshold(
-    phi_proj,
-    phi_A,
-    t_exp: float,
-    num_frames: int = 10,
-    savefig: bool = False,
-    show: bool = True,
-    **kwargs,
+def repetition_vs_bch(
+    func: Callable,
+    redundancy_factor: int = 1,
+    oversampling_factor: int = 1,
+    num_bits: int = 10,
 ):
-    print("Plotting optimal threshold \n")
-    FIGSIZE = (8, 4)
+    global phi_proj, phi_A, t_exp, plot_options
 
-    # varying phi P, different lines for Phi A
-    plt.figure(figsize=FIGSIZE)
+    # Use optimal threshold
+    optimal_threshold = "optimal" in func.__name__
+    is_averaging = "average" in func.__name__
+    avg_kwargs = {"num_frames": oversampling_factor * num_bits}
 
-    idx_A = np.round(np.linspace(0, len(phi_A) - 1, 4)).astype(int)
-    for a in phi_A[idx_A]:
-        # Phi_P = phi_proj + a
-        thresh_ll, tau_ll = optimal_threshold(phi_proj + a, a, t_exp, num_frames)
-        plt.semilogx(
-            phi_proj + a, tau_ll, label=f"$\Phi_a=${a:.0f}", linewidth=LINEWIDTH
+    if optimal_threshold:
+        phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
+        _, tau = analytic.optimal_threshold(
+            phi_P_mesh, phi_A_mesh, t_exp, avg_kwargs["num_frames"]
         )
+        tau = rearrange(tau, "h w -> h w 1")
+    else:
+        tau = 0.5
 
-    def _plt_properties(xlabel):
-        plt.xlabel(xlabel)
-        plt.ylabel(r"Threshold $(\frac{\tau^*}{N_\mathrm{frames}})$")
-        plt.legend(loc="upper right")
-        plt.grid()
-        plt.tight_layout()
+    func_kwargs = avg_kwargs if is_averaging else {}
+    coding_kwargs = {"tau": tau, **func_kwargs}
 
-    _plt_properties("$\Phi_p$")
-    save_plot(
-        savefig, show, fname=f"outputs/plots/strategy_plots/optimal_thresh_vs_phi_p.pdf"
+    # Dump dir
+    config_str = f"redundancy-{redundancy_factor}-oversampling-{oversampling_factor}"
+
+    # Plot title
+    title = f"Redundancy {redundancy_factor} | Oversampling {oversampling_factor}"
+    if is_averaging:
+        title += f" | Threshold {'optimal' if optimal_threshold else 'fixed'}"
+
+    logging.info(title)
+
+    strategy_ll = [
+        CallableEval(f"{func_name(func)}-{num_bits}-bits", func, func_kwargs),
+    ]
+
+    # Custom runs at each redundancy
+    if redundancy_factor == 3:
+        bch_tuple = BCH(31, 11, 5)
+        repetition_tuple = Repetition(30, 10, 1)
+        strategy_ll += [
+            CallableEval(
+                f"{repetition_tuple}",
+                repetition_coding,
+                {"repetition_tuple": repetition_tuple, **coding_kwargs},
+            ),
+            CallableEval(
+                f"{bch_tuple}", bch_coding, {"bch_tuple": bch_tuple, **coding_kwargs}
+            ),
+        ]
+
+        # Add list decoding version
+        bch_tuple = BCH(31, 11, 7)
+        strategy_ll += [
+            CallableEval(
+                f"{bch_tuple}-list",
+                bch_coding,
+                {"bch_tuple": bch_tuple, **coding_kwargs},
+            ),
+        ]
+
+        # Compare the complementary idea too
+        if is_averaging:
+            bch_tuple = BCH(15, 11, 1)
+            strategy_ll += [
+                CallableEval(
+                    f"{bch_tuple}-comp",
+                    bch_coding,
+                    {
+                        "bch_tuple": bch_tuple,
+                        "use_complementary": True,
+                        **coding_kwargs,
+                    },
+                ),
+            ]
+
+    elif redundancy_factor == 6:
+        bch_tuple = BCH(63, 10, 13)
+        repetition_tuple = Repetition(60, 10, 2)
+        strategy_ll += [
+            CallableEval(
+                f"{repetition_tuple}",
+                repetition_coding,
+                {"repetition_tuple": repetition_tuple, **coding_kwargs},
+            ),
+            CallableEval(
+                f"{bch_tuple}", bch_coding, {"bch_tuple": bch_tuple, **coding_kwargs}
+            ),
+        ]
+
+        # Add list decoding version
+        bch_tuple = BCH(63, 10, 18)
+        strategy_ll += [
+            CallableEval(
+                f"{bch_tuple}-list",
+                bch_coding,
+                {"bch_tuple": bch_tuple, **coding_kwargs},
+            ),
+        ]
+
+        # Compare the complementary idea too
+        if is_averaging:
+            bch_tuple = BCH(31, 11, 5)
+            strategy_ll += [
+                CallableEval(
+                    f"{bch_tuple}-comp",
+                    bch_coding,
+                    {
+                        "bch_tuple": bch_tuple,
+                        "use_complementary": True,
+                        **coding_kwargs,
+                    },
+                ),
+            ]
+
+            # Add list decoding version
+            bch_tuple = BCH(31, 11, 7)
+            strategy_ll += [
+                CallableEval(
+                    f"{bch_tuple}-list-comp",
+                    bch_coding,
+                    {
+                        "bch_tuple": bch_tuple,
+                        "use_complementary": True,
+                        **coding_kwargs,
+                    },
+                ),
+            ]
+
+    elif redundancy_factor == 13:
+        bch_tuple = BCH(127, 15, 27)
+        repetition_tuple = Repetition(130, 10, 6)
+        strategy_ll += [
+            CallableEval(
+                f"{repetition_tuple}",
+                repetition_coding,
+                {"repetition_tuple": repetition_tuple, **coding_kwargs},
+            ),
+            CallableEval(
+                f"{bch_tuple}", bch_coding, {"bch_tuple": bch_tuple, **coding_kwargs}
+            ),
+        ]
+
+        # Add list decoding version
+        bch_tuple = BCH(127, 15, 38)
+        strategy_ll += [
+            CallableEval(
+                f"{bch_tuple}-list",
+                bch_coding,
+                {"bch_tuple": bch_tuple, **coding_kwargs},
+            ),
+        ]
+
+        # Compare the complementary idea too
+        if is_averaging:
+            bch_tuple = BCH(63, 10, 13)
+            strategy_ll += [
+                CallableEval(
+                    f"{bch_tuple}-comp",
+                    bch_coding,
+                    {
+                        "bch_tuple": bch_tuple,
+                        "use_complementary": True,
+                        **coding_kwargs,
+                    },
+                ),
+            ]
+
+            # Add list decoding version
+            bch_tuple = BCH(63, 10, 18)
+            strategy_ll += [
+                CallableEval(
+                    f"{bch_tuple}-list-comp",
+                    bch_coding,
+                    {
+                        "bch_tuple": bch_tuple,
+                        "use_complementary": True,
+                        **coding_kwargs,
+                    },
+                ),
+            ]
+
+    else:
+        raise ValueError(f"Redundancy factor of {redundancy_factor} is invalid")
+
+    outfolder = f"{func_name(func)}/{config_str}"
+    individual_and_multiple_plots(
+        phi_proj,
+        phi_A,
+        t_exp,
+        strategy_ll,
+        outname=outfolder,
+        title=title,
+        **plot_options,
     )
-
-    # varying phi A, different lines for Phi P
-    plt.figure(figsize=FIGSIZE)
-
-    idx_P = np.round(np.linspace(0, len(phi_proj) - 1, 7)).astype(int)
-    for p in phi_proj[idx_P]:
-        thresh_ll, tau_ll = optimal_threshold(p + phi_A, phi_A, t_exp, num_frames)
-        plt.semilogx(
-            phi_A, tau_ll, label=f"$\Phi_p - \Phi_a=${p:.0e}", linewidth=LINEWIDTH
-        )
-
-    _plt_properties("$\Phi_a$")
-    save_plot(
-        savefig, show, fname=f"outputs/plots/strategy_plots/optimal_thresh_vs_phi_A.pdf"
-    )
-
-
-def plot_strategy_3d(
-    eval_error,
-    phi_proj,
-    phi_A,
-    savefig: bool = False,
-    outname: str = "",
-    show: bool = True,
-):
-    phi_proj_mesh, phi_A_mesh = np.meshgrid(phi_proj, phi_A, indexing="ij")
-
-    # Plot the surface.
-    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-
-    surf = ax.plot_surface(
-        np.log10(phi_proj_mesh),
-        np.log10(phi_A_mesh),
-        eval_error,
-        cmap=cm.coolwarm,
-        linewidth=0,
-        antialiased=False,
-    )
-
-    # X, Y axis
-    ax.set_xlabel("\n$\Phi_p - \Phi_a$ Projector Flux", labelpad=5, rotation=0)
-    xticks = np.log10(phi_proj).astype(int)
-    xticklabels = [f"$10^{x}$" for x in xticks]
-    ax.set_xticks(xticks)
-    ax.set_xticklabels(xticklabels)
-
-    ax.set_ylabel("\n$\Phi_a$ Ambient Flux", rotation=-60)
-    yticks = np.log10(phi_A).astype(int)
-    yticklabels = [f"$10^{y}$" for y in yticks]
-    ax.set_yticks(yticks)
-    ax.set_yticklabels(yticklabels)
-
-    # Z axis
-    ax.set_zlabel("Error Probability", labelpad=5)
-    zticks = [p / 10 for p in range(0, 11, 2)]
-    ax.set_zticks(zticks)
-    ax.set_zticklabels([f"{z:.1f}" for z in zticks])
-
-    save_plot(
-        savefig,
-        show=False,
-        close=False,
-        fname=f"outputs/plots/strategy_plots/{outname}/surface_plot_no_colorbar.pdf",
-    )
-
-    # Colorbar
-    def surface_colorbar(fig, mappable):
-        cbar = fig.colorbar(mappable, pad=0.1)
-        cbar.ax.set_title("P(error)")
-
-    surface_colorbar(fig, surf)
-    plt.title(f"{outname.replace('_', ' ').capitalize()}")
-    save_plot(
-        savefig,
-        show,
-        fname=f"outputs/plots/strategy_plots/{outname}/surface_plot_with_colorbar.pdf",
-    )
-
-    # draw a new figure and replot the colorbar there
-    fig, ax = plt.subplots()
-    surface_colorbar(fig, surf)
-    ax.remove()
-    save_plot(
-        savefig,
-        show=False,
-        fname=f"outputs/plots/strategy_plots/{outname}/surface_plot_only_colorbar.pdf",
-    )
-
-
-def plot_strategy_2d(
-    eval_error,
-    phi_proj,
-    phi_A,
-    savefig: bool = False,
-    outname: str = "",
-    show: bool = True,
-):
-    # Plot image
-    plt.figure()
-    eval_image = plt.imshow(eval_error, cmap="plasma")
-    plt.gca().invert_yaxis()
-
-    # Label x axis
-    xticks = np.round(np.linspace(0, len(phi_A) - 1, order_range(phi_A))).astype(int)
-    xticklabels = [f"{label:.0e}" for label in phi_A[xticks]]
-    plt.xticks(xticks, xticklabels)
-    plt.xlabel("$\Phi_a$ Ambient Flux", labelpad=5)
-
-    # Label y axis
-    yticks = np.round(np.linspace(0, len(phi_proj) - 1, order_range(phi_proj))).astype(
-        int
-    )
-    yticklabels = [f"{label:.0e}" for label in phi_proj[yticks]]
-    plt.yticks(yticks, yticklabels)
-    plt.ylabel("$\Phi_p - \Phi_a$ Projector Flux")
-
-    plt.grid()
-    save_plot(
-        savefig,
-        show=False,
-        close=False,
-        fname=f"outputs/plots/strategy_plots/{outname}/mesh_no_colorbar.pdf",
-    )
-
-    # Colorbar
-    def img_colorbar(**kwargs):
-        cbar = plt.colorbar(**kwargs)
-        cbar.ax.set_title("P(error)")
-        cbar.ax.locator_params(nbins=5)
-        cbar.update_ticks()
-
-    img_colorbar()
-    plt.clim(0, 1)
-    plt.title(f"{outname.replace('_',' ').capitalize()}")
-    save_plot(
-        savefig,
-        show,
-        fname=f"outputs/plots/strategy_plots/{outname}/mesh_with_colorbar.pdf",
-    )
-
-    # draw a new figure and replot the colorbar there
-    fig, ax = plt.subplots()
-    img_colorbar(mappable=eval_image, ax=ax)
-    ax.remove()
-    save_plot(
-        savefig,
-        show=False,
-        fname=f"outputs/plots/strategy_plots/{outname}/mesh_only_colorbar.pdf",
-    )
-
-
-def plot_strategy(
-    phi_proj,
-    phi_A,
-    t_exp: float,
-    strategy: Eval,
-    savefig: bool = False,
-    show: bool = True,
-    plot_3d: bool = False,
-    outname: str = "",
-    **kwargs,
-):
-    # Outname
-    if not outname:
-        outname = strategy.name
-
-    print(f"Plotting strategy {outname}")
-
-    # Meshgrid
-    phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
-
-    # Evaluate strategy
-    eval_error = strategy(phi_P_mesh, phi_A_mesh, t_exp)
-
-    if plot_3d:
-        plot_strategy_3d(eval_error, phi_proj, phi_A, savefig, outname, show)
-
-    plot_strategy_2d(eval_error, phi_proj, phi_A, savefig, outname, show)
-
-    return eval_error
-
-
-def plot_strategies_3d(
-    phi_proj,
-    phi_A,
-    t_exp: float,
-    strategy_ll,
-    savefig: bool = False,
-    show: bool = True,
-    outname: str = "",
-    **kwargs,
-):
-    names = [strategy.name for strategy in strategy_ll]
-    print(f"Comparing strategies {','.join(names)}")
-
-    # Meshgrid
-    phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
-    phi_proj_mesh, phi_A_mesh = np.meshgrid(phi_proj, phi_A, indexing="ij")
-
-    # Plot the surface.
-    fig, ax = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "3d"})
-
-    limit_dict = {
-        "naive": (np.s_[224:320, 192:320], np.s_[224:320], np.s_[256:320]),
-        "avg_fixed": (np.s_[256:320, 400:], np.s_[280:320], np.s_[420:]),
-        "avg_optimal": (np.s_[224:320, 192:320], np.s_[224:320], np.s_[256:320]),
-    }
-
-    for strategy in strategy_ll:
-        assert isinstance(strategy, Eval)
-        # Call the strategy and plot
-        eval_error = strategy(phi_P_mesh, phi_A_mesh, t_exp)
-
-        surf = ax.plot_surface(
-            np.log10(phi_proj_mesh)[256:320, 400:],
-            np.log10(phi_A_mesh)[256:320, 400:],
-            eval_error[256:320, 400:],
-            alpha=0.8,
-            label=strategy.name,
-            linewidth=0,
-            antialiased=False,
-        )
-
-        ## TODO: Hackish, from https://stackoverflow.com/questions/55531760/is-there-a-way-to-label-multiple-3d-surfaces-in-matplotlib/55534939
-        surf._facecolors2d = surf._facecolor3d
-        surf._edgecolors2d = surf._edgecolor3d
-
-    # X, Y axis
-    ax.set_xlabel("\n$\Phi_p - \Phi_a$ Projector Flux")
-    xticks = np.log10(phi_proj).astype(int)[224:320]
-    xticklabels = [f"$10^{x}$" for x in xticks]
-    ax.set_xticks(xticks)
-    ax.set_xticklabels(xticklabels)
-
-    ax.set_ylabel("\n$\Phi_a$ Ambient Flux")
-    yticks = np.log10(phi_A).astype(int)[420:]
-    yticklabels = [f"$10^{y}$" for y in yticks]
-    ax.set_yticks(yticks)
-    ax.set_yticklabels(yticklabels)
-
-    # Z axis
-    ax.set_zlabel("Error Probability")
-    zticks = [p / 10 for p in range(0, 11, 2)]
-    ax.set_zticks(zticks)
-    ax.set_zticklabels([f"{z:.1f}" for z in zticks])
-
-    ax.legend()
-    plt.grid()
-
-    # ax.view_init(0, azim=-90)
-
-    save_plot(
-        savefig,
-        show,
-        fname=f"outputs/plots/strategy_plots/{outname}/comparison_of_{'_'.join(names)}.pdf",
-    )
+    print("\n\n")
 
 
 if __name__ == "__main__":
-    phi_proj = np.logspace(1, 8, num=64)
-    phi_A = np.logspace(0, 5, num=64)
+    phi_proj = np.logspace(3, 6, num=256)
+    phi_A = np.logspace(2, 4, num=256)
 
     # DMD framerate
     # 0.1 millisecond or 10^4 FPS
@@ -332,11 +241,36 @@ if __name__ == "__main__":
         "plot_3d": True,
         "savefig": True,
     }
-
     avg_kwargs = {"num_frames": 10}
     conventional_sensor_kwargs = {"threshold": 0.5, "Q_e": 0.5, "N_r": 1e-1}
 
-    bch_ll = [BCH(15, 11, 1), BCH(31, 11, 5), BCH(63, 10, 13), BCH(127, 15, 27)]
+    # Repetition vs BCH
+    repetition_vs_bch(naive, redundancy_factor=3)
+    repetition_vs_bch(average_fixed, redundancy_factor=3, oversampling_factor=5)
+    repetition_vs_bch(average_optimal, redundancy_factor=3, oversampling_factor=5)
+    repetition_vs_bch(average_fixed, redundancy_factor=3, oversampling_factor=10)
+    repetition_vs_bch(average_optimal, redundancy_factor=3, oversampling_factor=10)
+
+    repetition_vs_bch(naive, redundancy_factor=6)
+    repetition_vs_bch(average_fixed, redundancy_factor=6, oversampling_factor=5)
+    repetition_vs_bch(average_optimal, redundancy_factor=6, oversampling_factor=5)
+    repetition_vs_bch(average_fixed, redundancy_factor=6, oversampling_factor=10)
+    repetition_vs_bch(average_optimal, redundancy_factor=6, oversampling_factor=10)
+
+    repetition_vs_bch(naive, redundancy_factor=13)
+    repetition_vs_bch(average_fixed, redundancy_factor=13, oversampling_factor=5)
+    repetition_vs_bch(average_optimal, redundancy_factor=13, oversampling_factor=5)
+    repetition_vs_bch(average_fixed, redundancy_factor=13, oversampling_factor=10)
+    repetition_vs_bch(average_optimal, redundancy_factor=13, oversampling_factor=10)
+
+    exit(1)
+
+    bch_ll = [
+        BCH(15, 11, 1),
+        BCH(31, 11, 5),
+        BCH(63, 10, 13),
+        # BCH(127, 15, 27),
+    ]
     # bch_ll = [BCH(15, 11, 1), BCH(31, 11, 7), BCH(63, 10, 18), BCH(127, 15, 40)]
 
     bch_kwargs_ll = [
@@ -361,7 +295,7 @@ if __name__ == "__main__":
     func = naive
     strategy_ll = [CallableEval(func_name(func), func)]
     strategy_ll += [
-        CallableEval(f"{func_name(func)}/{bch_tuple}", bch_coding, bch_kwargs)
+        CallableEval(f"{func_name(func)}-{bch_tuple}", bch_coding, bch_kwargs)
         for bch_tuple, bch_kwargs in zip(bch_ll, bch_kwargs_ll)
     ]
     # strategy_ll += [
@@ -374,25 +308,15 @@ if __name__ == "__main__":
     #         repetition_ll, repetition_kwargs_ll
     #     )
     # ]
-    for strategy in strategy_ll:
-        plot_strategy(
-            phi_proj,
-            phi_A,
-            t_exp,
-            strategy,
-            **plot_options,
-        )
-    breakpoint()
-    """
-    strategy_ll = [CallableEval("Avg Fixed", average_fixed, avg_kwargs)]
-    strategy_ll = [
-        CallableEval("Avg Optimal", average_optimal, avg_kwargs)
-    ]
-    
-    plot_strategies_3d(phi_proj, phi_A, t_exp, strategy_ll, **plot_options)
-    """
 
-    """
+    multiple_surface_plotly_3d(phi_proj, phi_A, t_exp, strategy_ll, **plot_options)
+
+    exit(1)
+
+    phi_proj = np.logspace(1, 8, num=512)
+    phi_A = np.logspace(0, 5, num=512)
+
+    # Optimal threshold
     plot_optimal_threshold(
         phi_proj,
         phi_A,
@@ -401,6 +325,7 @@ if __name__ == "__main__":
         **plot_options,
     )
 
+    # Effect of averaging
     strategy_ll = [
         CallableEval(func_name(naive), naive),
         CallableEval(func_name(average_fixed), average_fixed, avg_kwargs),
@@ -411,23 +336,36 @@ if __name__ == "__main__":
             conventional_sensor_kwargs,
         ),
     ]
+
+    # BCH Coding
     strategy_ll += [
-        MatlabEval(
-            f"{func_name(strategy)}/BCH {code}",
-            f"BCH/eval_{strategy}_bch_{code[0]}_{code[1]}_texp_1e-04_128x128.mat",
-        )
+        CallableEval(f"{func_name(func)}/{bch_tuple}", bch_coding, bch_kwargs)
+        for bch_tuple, bch_kwargs in zip(bch_ll, bch_kwargs_ll)
         for code in bch_ll
-        for strategy in ["naive", "average_fixed", "average_optimal"]
+        for func in [naive, average_fixed, average_optimal]
     ]
+
+    # Repetition Coding
+    strategy_ll += [
+        CallableEval(
+            f"{func_name(func)}/{repetition_tuple}",
+            repetition_coding,
+            repetition_kwargs,
+        )
+        for repetition_tuple, repetition_kwargs in zip(
+            repetition_ll, repetition_kwargs_ll
+        )
+        for func in [naive, average_fixed, average_optimal]
+    ]
+
     for strategy in strategy_ll:
-        plot_strategy(
+        mesh_and_surface_plot(
             phi_proj,
             phi_A,
             t_exp,
             strategy,
             **plot_options,
         )
-    """
 
     # Averaging vs Frames Quanta
     num_frame_ll = [2, 5, 10, 20, 100]
@@ -451,7 +389,7 @@ if __name__ == "__main__":
     ]
 
     for strategy in strategy_ll:
-        plot_strategy(
+        mesh_and_surface_plot(
             phi_proj,
             phi_A,
             t_exp,

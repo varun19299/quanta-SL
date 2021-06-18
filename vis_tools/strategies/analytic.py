@@ -141,8 +141,8 @@ def average(
     return 1 - (prob_y_0_x_0 / 2 + prob_y_1_x_1 / 2) ** bits
 
 
-def average_fixed(**kwargs):
-    return average(**kwargs)
+def average_fixed(*args, **kwargs):
+    return average(*args, **kwargs)
 
 
 def average_optimal(
@@ -155,6 +155,3 @@ def average_optimal(
     threshold_ll, tau_ll = optimal_threshold(phi_P, phi_A, t_exp, num_frames)
     threshold_ll = rearrange(threshold_ll, "h w -> h w 1")
     return average(phi_P, phi_A, t_exp, num_frames, threshold_ll, bits)
-
-
-

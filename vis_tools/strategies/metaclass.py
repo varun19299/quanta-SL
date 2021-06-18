@@ -6,7 +6,7 @@ import numpy as np
 import scipy.io as sio
 from scipy import interpolate
 from collections import namedtuple
-from galois import BCH
+import galois
 
 
 @dataclass
@@ -71,7 +71,11 @@ class BCH(_Code):
         Note: lower bound on distance
         :return:
         """
-        return 2 * BCH(self.n, self.k) + 1
+        ## TODO: Shift back to using galois.BCH(n,k).t
+        # once the discrepancy here is corrected
+        # https://github.com/mhostetter/galois/issues/125#issuecomment-863801588
+        _t_LUT = {(15, 11): 1, (31, 11): 5, (63, 10): 13, (127, 15): 27}
+        return 2 * _t_LUT[(self.n, self.k)] + 1
 
     def __str__(self):
         return f"BCH-[{self.n}, {self.k}, {self.t}]"
