@@ -90,3 +90,7 @@ class Repetition(_Code):
 
     def __str__(self):
         return f"Repetition-[{self.n}, {self.k}]"
+
+    @property
+    def repeat(self) -> int:
+        return self.n // self.k

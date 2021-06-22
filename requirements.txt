@@ -1,5 +1,6 @@
 black
 einops
+galois
 graycode
 
 # Hydra Dependencies
@@ -11,4 +12,6 @@ git+https://github.com/facebookresearch/hydra.git#egg=hydra-optuna-sweeper&subdi
 matplotlib
 nptyping
 numpy
+numba
+opencv-contrib-python
 tqdm
