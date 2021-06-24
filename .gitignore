@@ -15,4 +15,6 @@ __pycache__
 # pbrt binary
 pbrt
 
+data
+
 pypbrt_strucutred_light.egg-info

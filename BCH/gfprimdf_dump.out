@@ -1,0 +1,126 @@
+Primitive poly in GF(2 ^ 1). Characterisitc 2. 
+                                          
+                                     1 + X
+Primitive poly in GF(2 ^ 2). Characterisitc 2. 
+                                           2
+                                  1 + X + X 
+Primitive poly in GF(2 ^ 3). Characterisitc 2. 
+                                           3
+                                  1 + X + X 
+Primitive poly in GF(2 ^ 4). Characterisitc 2. 
+                                           4
+                                  1 + X + X 
+Primitive poly in GF(2 ^ 5). Characterisitc 2. 
+                                       2    5
+                                  1 + X  + X 
+Primitive poly in GF(2 ^ 6). Characterisitc 2. 
+                                           6
+                                  1 + X + X 
+Primitive poly in GF(2 ^ 7). Characterisitc 2. 
+                                       3    7
+                                  1 + X  + X 
+Primitive poly in GF(2 ^ 8). Characterisitc 2. 
+                                  2    3    4    8
+                             1 + X  + X  + X  + X 
+Primitive poly in GF(2 ^ 9). Characterisitc 2. 
+                                       4    9
+                                  1 + X  + X 
+Primitive poly in GF(2 ^ 10). Characterisitc 2. 
+                                      3    10
+                                 1 + X  + X  
+Primitive poly in GF(2 ^ 11). Characterisitc 2. 
+                                      2    11
+                                 1 + X  + X  
+Primitive poly in GF(2 ^ 12). Characterisitc 2. 
+                                      4    6    12
+                             1 + X + X  + X  + X  
+Primitive poly in GF(2 ^ 13). Characterisitc 2. 
+                                      3    4    13
+                             1 + X + X  + X  + X  
+Primitive poly in GF(2 ^ 14). Characterisitc 2. 
+                                     6    10    14
+                            1 + X + X  + X   + X  
+Primitive poly in GF(2 ^ 15). Characterisitc 2. 
+                                           15
+                                  1 + X + X  
+Primitive poly in GF(2 ^ 16). Characterisitc 2. 
+                                     3    12    16
+                            1 + X + X  + X   + X  
+Primitive poly in GF(3 ^ 1). Characterisitc 3. 
+                                          
+                                     1 + X
+Primitive poly in GF(3 ^ 2). Characterisitc 3. 
+                                           2
+                                  2 + X + X 
+Primitive poly in GF(3 ^ 3). Characterisitc 3. 
+                                            3
+                                 1 + 2 X + X 
+Primitive poly in GF(3 ^ 4). Characterisitc 3. 
+                                           4
+                                  2 + X + X 
+Primitive poly in GF(3 ^ 5). Characterisitc 3. 
+                                            5
+                                 1 + 2 X + X 
+Primitive poly in GF(3 ^ 6). Characterisitc 3. 
+                                           6
+                                  2 + X + X 
+Primitive poly in GF(3 ^ 7). Characterisitc 3. 
+                                        2    7
+                                 1 + 2 X  + X 
+Primitive poly in GF(3 ^ 8). Characterisitc 3. 
+                                       3    8
+                                  2 + X  + X 
+Primitive poly in GF(5 ^ 1). Characterisitc 5. 
+                                          
+                                     2 + X
+Primitive poly in GF(5 ^ 2). Characterisitc 5. 
+                                           2
+                                  2 + X + X 
+Primitive poly in GF(5 ^ 3). Characterisitc 5. 
+                                            3
+                                 2 + 3 X + X 
+Primitive poly in GF(5 ^ 4). Characterisitc 5. 
+                                          2    4
+                               2 + 2 X + X  + X 
+Primitive poly in GF(5 ^ 5). Characterisitc 5. 
+                                            5
+                                 2 + 4 X + X 
+Primitive poly in GF(5 ^ 6). Characterisitc 5. 
+                                           6
+                                  2 + X + X 
+Primitive poly in GF(5 ^ 7). Characterisitc 5. 
+                                            7
+                                 2 + 3 X + X 
+Primitive poly in GF(5 ^ 8). Characterisitc 5. 
+                                          2    8
+                               3 + 2 X + X  + X 
+Primitive poly in GF(7 ^ 1). Characterisitc 7. 
+                                          
+                                     2 + X
+Primitive poly in GF(7 ^ 2). Characterisitc 7. 
+                                           2
+                                  3 + X + X 
+Primitive poly in GF(7 ^ 3). Characterisitc 7. 
+                                            3
+                                 2 + 3 X + X 
+Primitive poly in GF(7 ^ 4). Characterisitc 7. 
+                                          2    4
+                               5 + 3 X + X  + X 
+Primitive poly in GF(7 ^ 5). Characterisitc 7. 
+                                           5
+                                  4 + X + X 
+Primitive poly in GF(7 ^ 6). Characterisitc 7. 
+                                          2    6
+                               5 + X + 3 X  + X 
+Primitive poly in GF(7 ^ 7). Characterisitc 7. 
+                                            7
+                                 2 + 6 X + X 
+Primitive poly in GF(7 ^ 8). Characterisitc 7.[Warning: You have requested a polynomial of degree 8 over GF(7). This polynomial is outside the range of values stored in GFPRIMDF. GFPRIMFD is being called to compute the primitive
+polynomial.] 
+[> In gfprimdf (line 206)
+In mhostetter_BCH_test>print_GF_primitive_poly (line 59)
+In mhostetter_BCH_test (line 49)
+In run (line 91)] 
+ 
+                                           8
+                                  3 + X + X 
