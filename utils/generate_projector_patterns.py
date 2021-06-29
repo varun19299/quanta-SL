@@ -12,6 +12,12 @@ from matplotlib import pyplot as plt
 from pathlib import Path
 from vis_tools.strategies.utils import unpackbits
 from vis_tools.strategies import metaclass
+from tqdm import tqdm
+import logging
+
+FORMAT = "%(asctime)s [%(filename)s : %(funcName)2s() : %(lineno)2s] %(message)s"
+logging.basicConfig(format=FORMAT, datefmt="%d-%b-%y %H:%M:%S")
+logging.getLogger().setLevel(logging.INFO)
 
 
 def code_LUT_to_projector_frames(
@@ -69,9 +75,13 @@ def code_LUT_to_projector_frames(
 
     # Write out files
     if show or save:
-        for e, frame in enumerate(
-            rearrange(code_ll_gray_mapped, "height width n -> n height width"), start=1
-        ):
+        logging.info(f"Saving / showing strategy {folder_name}")
+
+        pbar = tqdm(rearrange(code_ll_gray_mapped, "height width n -> n height width"))
+
+        for e, frame in enumerate(pbar, start=1):
+            pbar.set_description(f"Frame {e}")
+
             if show:
                 plt.imshow(frame, cmap="gray")
                 plt.title(f"Frame {e}")
@@ -98,14 +108,18 @@ def gray_code_to_projector_frames(
     :param save: Save as png
     :param folder_name: Folder name to save to
     """
-    if not folder_name:
-        folder_name = "gray-code"
-
-    kwargs = locals().copy()
-
     # Find bits required to represent columns
     width, height = projector_resolution
     num_bits = ceil(log2(width))
+
+    if not folder_name:
+        folder_name = f"Gray-Code-{num_bits}-bits"
+
+    if use_complementary:
+        folder_name += "-comp"
+
+    kwargs = locals().copy()
+
     code_LUT = unpackbits(np.arange(pow(2, num_bits)))
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
@@ -134,6 +148,9 @@ def bch_to_projector_frames(
     if not folder_name:
         folder_name = f"{bch_tuple}"
 
+    if use_complementary:
+        folder_name += "-comp"
+
     kwargs = locals().copy()
 
     # Find bits required to represent columns
@@ -148,6 +165,7 @@ def bch_to_projector_frames(
     code_LUT = code_LUT.view(np.ndarray).astype(int)
 
     # Puncture
+    logging.info(f"Puncturing by {bch_tuple.k - num_bits} bits")
     code_LUT = code_LUT[:, bch_tuple.k - num_bits :]
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
@@ -176,6 +194,9 @@ def repetition_to_projector_frames(
     if not folder_name:
         folder_name = f"{repetition_tuple}"
 
+    if use_complementary:
+        folder_name += "-comp"
+
     kwargs = locals().copy()
 
     # Find bits required to represent columns
@@ -193,13 +214,19 @@ def repetition_to_projector_frames(
 
 
 if __name__ == "__main__":
-    num_bits = 10
-    projector_resolution = (pow(2, num_bits), 768)
+    num_bits = 11
+    projector_resolution = (pow(2, num_bits), 1080)
 
-    kwargs = {"show": True, "use_complementary": False, "save": True}
+    kwargs = {"show": False, "save": True}
 
     gray_code_to_projector_frames(projector_resolution, **kwargs)
-    bch_to_projector_frames(metaclass.BCH(31, 11, 5), projector_resolution, **kwargs)
+    bch_to_projector_frames(metaclass.BCH(63, 16, 11), projector_resolution, **kwargs)
+    bch_to_projector_frames(
+        metaclass.BCH(31, 11, 5),
+        projector_resolution,
+        use_complementary=True,
+        **kwargs,
+    )
     repetition_to_projector_frames(
-        metaclass.Repetition(30, 10, 1), projector_resolution, **kwargs
+        metaclass.Repetition(66, 11, 2), projector_resolution, **kwargs
     )

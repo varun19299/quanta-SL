@@ -9,6 +9,7 @@ git+https://github.com/facebookresearch/hydra.git
 git+https://github.com/facebookresearch/hydra.git#egg=hydra-joblib-launcher&subdirectory=plugins/hydra_joblib_launcher
 git+https://github.com/facebookresearch/hydra.git#egg=hydra-optuna-sweeper&subdirectory=plugins/hydra_optuna_sweeper
 
+line_profiler
 matplotlib
 nptyping
 numpy

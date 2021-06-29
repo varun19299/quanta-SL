@@ -4,7 +4,7 @@ via Monte Carlo methods
 """
 import dataclasses
 import logging
-from typing import Union, Any
+from typing import Union, Any, Tuple
 
 import numpy as np
 from einops import rearrange, repeat, reduce
@@ -27,6 +27,35 @@ except ImportError:
     logging.warning("No CuPy installation detected. Using Numpy, may be slow.")
 
 from vis_tools.strategies.utils import unpackbits
+
+
+def photon_arrival(
+    num_frames: int,
+    phi: NDArray[(Any, Any), float],
+    t_exp: Union[float, NDArray[(Any, Any), float]],
+    size: Tuple[int],
+) -> NDArray[(Any, Any), int]:
+    """
+    Simulate SPAD photon arrival.
+    Operating in Quanta SPAD mode.
+    Each frames thresholded if it receives atleast 1 photon
+
+    :param num_frames: Oversampling rate
+    :param phi: Incident photon flux (in seconds^-1)
+    :param t_exp: Exposure time (in seconds)
+    :param size: Number of samples to draw, usually, (h x w x vec_length)
+    :return: Number of frames active
+    """
+    if CUPY_INSTALLED:
+        xp = cp.get_array_module(phi)
+    else:
+        xp = np
+    return xp.random.binomial(
+        n=num_frames,
+        p=1 - xp.exp(-phi * t_exp / num_frames),
+        size=size,
+        dtype=xp.int32,
+    )
 
 
 def shot_noise_corrupt(
@@ -61,37 +90,31 @@ def shot_noise_corrupt(
         xp = np
 
     h, w = phi_P.shape
-    phi_A = rearrange(phi_A, "h w -> h w 1 1")
-    phi_P = rearrange(phi_P, "h w -> h w 1 1")
+    phi_A = rearrange(phi_A, "h w -> h w 1")
+    phi_P = rearrange(phi_P, "h w -> h w 1")
 
     corrupt_code = repeat(code, "n -> h w n", h=h, w=w)
 
     zero_locations = xp.where(code == 0)[0]
     one_locations = xp.where(code == 1)[0]
 
-    # Sample from poisson
-    # Threshold if atleast 1 photon arrives
-    phi_A_arrived = xp.random.poisson(
-        phi_A * t_exp / num_frames, (h, w, len(zero_locations), num_frames)
+    # Sample from Binom(num_frames, 1 - exp(-Phi x t_exp))
+    # Simulates single cycle photon arrival (ie, atleast 1 photon arrives)
+    phi_A_arrived = photon_arrival(
+        num_frames, phi_A, t_exp, (h, w, len(zero_locations))
     )
-    phi_A_arrived = (phi_A_arrived > 0).sum(axis=3, dtype=np.uint8)
 
-    phi_P_arrived = xp.random.poisson(
-        phi_P * t_exp / num_frames, (h, w, len(one_locations), num_frames)
-    )
-    phi_P_arrived = (phi_P_arrived > 0).sum(axis=3, dtype=np.uint8)
+    phi_P_arrived = photon_arrival(num_frames, phi_P, t_exp, (h, w, len(one_locations)))
 
     if use_complementary:
         # Complementary frames
-        phi_A_complementary = xp.random.poisson(
-            phi_P * t_exp / num_frames, (h, w, len(zero_locations), num_frames)
+        phi_A_complementary = photon_arrival(
+            num_frames, phi_P, t_exp, (h, w, len(zero_locations))
         )
-        phi_A_complementary = (phi_A_complementary > 0).sum(axis=3, dtype=np.uint8)
 
-        phi_P_complementary = xp.random.poisson(
-            phi_A * t_exp / num_frames, (h, w, len(one_locations), num_frames)
+        phi_P_complementary = photon_arrival(
+            num_frames, phi_A, t_exp, (h, w, len(one_locations))
         )
-        phi_P_complementary = (phi_P_complementary > 0).sum(axis=3, dtype=np.uint8)
 
         # Averaging strategy (sensor side)
         phi_A_flips = ~(phi_A_arrived < phi_A_complementary)
@@ -126,7 +149,7 @@ def _coding_LUT(
     use_complementary: bool = False,
     monte_carlo_iter: int = 1,
     pbar_description: str = "",
-    **kwargs,
+    **unused_kwargs,
 ) -> NDArray:
     """
     Evaluate coding strategy using LUT
@@ -273,7 +296,7 @@ def bch_coding(
         code_LUT=code_LUT,
         t_correctable=t,
         pbar_description=rf"{bch_tuple}"
-        rf"{'-list' if 2*t + 1 > bch_tuple.distance() else ''}"
+        rf"{'-list' if 2*t + 1 > bch_tuple.distance else ''}"
         rf"{'-comp' if use_complementary else ''}: F_2^{k} \to F_2^{n}",
         **kwargs,
     )

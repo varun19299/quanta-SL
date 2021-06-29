@@ -138,8 +138,6 @@ def average(
     mult = (frac * comb_ll * mask_ll).sum(axis=-1)
     prob_y_1_x_1 = (prob_frame_y_1_x_1 ** num_frames) * mult
 
-    breakpoint()
-
     return 1 - (prob_y_0_x_0 / 2 + prob_y_1_x_1 / 2) ** bits
 
 

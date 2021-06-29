@@ -66,16 +66,8 @@ class _Code:
 
 @dataclass
 class BCH(_Code):
-    def distance(self):
-        """
-        Note: lower bound on distance
-        :return:
-        """
-        ## TODO: Shift back to using galois.BCH(n,k).t
-        # once the discrepancy here is corrected
-        # https://github.com/mhostetter/galois/issues/125#issuecomment-863801588
-        _t_LUT = {(15, 11): 1, (31, 11): 5, (63, 10): 13, (127, 15): 27}
-        return 2 * _t_LUT[(self.n, self.k)] + 1
+    def __post_init__(self):
+        self.distance = galois.BCH(self.n, self.k).t * 2 + 1
 
     def __str__(self):
         return f"BCH-[{self.n}, {self.k}, {self.t}]"

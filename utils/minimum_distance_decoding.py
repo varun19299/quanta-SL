@@ -9,10 +9,13 @@ import numpy as np
 from einops import rearrange
 from types import ModuleType
 from nptyping import NDArray
+from numba import njit, prange
+# from utils.profiler import profile
 
 try:
     import cupy as cp
     from cupy.cuda import memory_hooks
+    from cupyx import time
 
     xp = cp
 
@@ -27,6 +30,33 @@ except ImportError:
     logging.warning("No CuPy installation detected. Using Numpy, may be slow.")
 
 
+@njit(parallel=True, nogil=True)
+def numba_minimum_distance(x, y, hamming_dist_LUT):
+    h, w, n, _ = x.shape
+    _, _, _, dim_k = y.shape
+
+    z_min = np.zeros((h, w), dtype=np.uint16)
+
+    for i in prange(h):
+        for j in prange(w):
+            x_vec = x[i, j, :, :].flatten()
+            min_dist = 1e8
+
+            for k in range(dim_k):
+                y_vec = y[:, :, :, k].flatten()
+
+                dist = 0
+                for l in range(n):
+                    dist += np.take(hamming_dist_LUT, x_vec[l] ^ y_vec[l])
+
+                if dist < min_dist:
+                    z_min[i, j] = k
+                    min_dist = dist
+
+    return z_min
+
+
+# @profile
 def minimum_distance(x, y, hamming_dist_LUT: NDArray[int] = None):
     """
 
@@ -48,24 +78,46 @@ def minimum_distance(x, y, hamming_dist_LUT: NDArray[int] = None):
         _, _, _, dim_k = y.shape
 
         z = xp.zeros((h, w, n, dim_k), dtype=xp.uint8)
-        hamming_out = xp.zeros((h, w, n, dim_k), dtype=xp.uint8)
 
         # Bitwise XOR
         xp.bitwise_xor(x, y, out=z)
-        xp.take(hamming_dist_LUT, z, out=hamming_out)
+        hamming_out = hamming_dist_LUT[z.ravel()]
+
+        hamming_out = rearrange(
+            hamming_out,
+            "(height width num_bytes samples) -> height width samples num_bytes",
+            height=h,
+            width=w,
+            num_bytes=n,
+            samples=dim_k,
+        )
 
         # Save memory. Below 255, we can make do with uint8
         if n < 256:
-            z.fill(0)
-            summation_out = z[:, :, 0, :]
+            summation_out = xp.zeros((h, w, dim_k), dtype=xp.uint8)
         else:
             summation_out = xp.zeros((h, w, dim_k), dtype=xp.uint16)
 
-        xp.sum(hamming_out, axis=2, out=summation_out)
+        # Direct sum seems faster on CuPy
+        hamming_out.sum(axis=-1, out=summation_out)
+
         return summation_out.argmin(axis=-1)
 
     else:
-        return (x ^ y).sum(axis=2).argmin(axis=-1)
+        h, w, n, _ = x.shape
+        _, _, _, dim_k = y.shape
+
+        z = x ^ y
+        z = rearrange(
+            z, "height width num_bytes samples -> height width samples num_bytes"
+        )
+
+        # Matrix mul faster than .sum()
+        # https://github.com/numpy/numpy/issues/16158
+        vec = np.ones(n, dtype=np.uint8)
+        z = xp.matmul(z, vec)
+
+        return z.argmin(axis=-1)
 
 
 def packbits_strided(bit_array: np.ndarray):
@@ -155,20 +207,26 @@ def test_minimum_distance():
     y = packbits_strided(y)
     dist_packed = minimum_distance(x, y, hamming_dist_LUT=hamming_distance_8bit())
 
+    dist_numba = numba_minimum_distance(x, y, hamming_dist_LUT=hamming_distance_8bit())
+
     assert np.array_equal(dist_binary, dist_packed)
+    assert np.array_equal(dist_binary, dist_numba)
 
 
 if __name__ == "__main__":
     if CUPY_INSTALLED:
-        h, w, n, k = 1024, 512, 28, 10
+        h, w, n, k = 1024, 512, 30, 10
     else:
-        h, w, n, k = 100, 100, 30, 10
+        h, w, n, k = 100, 100, 63, 10
 
     x = np.random.randint(0, 2, (h, w, n, 1), dtype=bool)
     y = np.random.randint(0, 2, (1, 1, n, pow(2, k)), dtype=bool)
 
+    # print(minimum_distance(x, y))
+
     x = packbits_strided(x)
     y = packbits_strided(y)
+    hamming_dist_LUT = hamming_distance_8bit()
 
     if CUPY_INSTALLED:
         hook = memory_hooks.LineProfileHook()
@@ -176,8 +234,11 @@ if __name__ == "__main__":
         with hook:
             x = xp.asarray(x)
             y = xp.asarray(y)
-            hamming_dist_LUT = xp.asarray(hamming_distance_8bit())
-            minimum_distance(x, y, hamming_dist_LUT)
+            hamming_dist_LUT = xp.asarray(hamming_dist_LUT)
+
         hook.print_report()
+        # print(time.repeat(minimum_distance, (x, y), n_repeat=10))
+        print(time.repeat(minimum_distance, (x, y, hamming_dist_LUT), n_repeat=10))
+
     else:
-        print(minimum_distance(x, y))
+        print(minimum_distance(x, y, hamming_dist_LUT))

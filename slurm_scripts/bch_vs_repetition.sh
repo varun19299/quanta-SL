@@ -41,4 +41,4 @@ fi
 
 # Start Job here
 export PYTHONPATH=.
-python vis_tools/evaluate_strategies.py
+python vis_tools/bch_vs_repetition.py
