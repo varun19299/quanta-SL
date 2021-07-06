@@ -40,6 +40,6 @@ if [ $SLURM_ARRAY_TASK_ID -eq 0 ]; then
 fi
 
 # Start Job here
-#python pypbrt/simulate.py pbrt.scene=sportscar pbrt.filename=sportscar-area-lights device=gpu
+#python pbrt/simulate.py pbrt.scene=sportscar pbrt.filename=sportscar-area-lights device=gpu
 
 python pypbrt/simulate.py pbrt.scene=sportscar projector.index='range(0,21)' device=gpu -m

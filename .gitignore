@@ -1,20 +1,21 @@
 # Ignore all intermediate pbrt files
-patterns/*
-outputs/*
+outputs
 
 # Heavy scene files, obj's etc.
-scenes/dragon_subsurface/
-scenes/sssdragon/
-scenes/sportscar/
+data/scenes/dragon_subsurface/
+data/scenes/sssdragon/
+data/scenes/sportscar/
 
-.idea/*
+# Patterns
+data/patterns
 
+# SPAD captures
+data/SPAD_captures
+
+.idea
+.pytest_cache
 __pycache__
 **/__pycache__/
 
 # pbrt binary
 pbrt
-
-data
-
-pypbrt_strucutred_light.egg-info
