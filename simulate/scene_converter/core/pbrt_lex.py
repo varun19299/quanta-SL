@@ -5,6 +5,9 @@ reserved = (
     "INTEGRATOR",
     "TRANSFORM",
     "LOOKAT",
+    "SCALE",
+    "ROTATE",
+    "TRANSLATE",
     "SAMPLER",
     "FILTER",
     "FILM",
@@ -58,6 +61,9 @@ reserved_map = {
     "Integrator": "INTEGRATOR",
     "Transform": "TRANSFORM",
     "LookAt": "LOOKAT",
+    "Scale": "SCALE",
+    "Rotate": "ROTATE",
+    "Translate": "TRANSLATE",
     "Sampler": "SAMPLER",
     "PixelFilter": "FILTER",
     "Film": "FILM",
@@ -89,7 +95,7 @@ reserved_map = {
 
 
 def t_SCONST(t):
-    r"[A-Za-z_][\w_|\.|/|-]*"
+    r"[A-Za-z_$][\w_|\.|/|-]*"
     t.type = reserved_map.get(t.value, "SCONST")
     return t
 

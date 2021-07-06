@@ -1,0 +1,128 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> scene
+Rule 1     scene -> directives worldblock
+Rule 2     scene -> directives
+Rule 3     scene -> worldblock
+Rule 4     directives -> directives directive
+Rule 5     directives -> directive
+Rule 6     directive -> INTEGRATOR QUOTE SCONST QUOTE params
+Rule 7     directive -> FILM QUOTE SCONST QUOTE params
+Rule 8     directive -> SAMPLER QUOTE SCONST QUOTE params
+Rule 9     directive -> FILTER QUOTE SCONST QUOTE params
+Rule 10    directive -> CAMERA QUOTE SCONST QUOTE params
+Rule 11    directive -> LOOKAT matrix
+Rule 12    directive -> TRANSLATE matrix
+Rule 13    directive -> ROTATE matrix
+Rule 14    directive -> SCALE matrix
+Rule 15    directive -> TRANSFORM matrix
+Rule 16    worldblock -> WORLDBEGIN objects WORLDEND
+Rule 17    objects -> objects object
+Rule 18    objects -> objects ATTRIBUTEBEGIN objects ATTRIBUTEEND
+Rule 19    objects -> objects TRANSFORMBEGIN objects TRANSFORMEND
+Rule 20    objects -> object
+Rule 21    object -> SHAPE QUOTE SCONST QUOTE params
+Rule 22    object -> MAKENAMEDMATERIAL QUOTE SCONST QUOTE params
+Rule 23    object -> MATERIAL QUOTE SCONST QUOTE params
+Rule 24    object -> NAMEDMATERIAL QUOTE SCONST QUOTE
+Rule 25    object -> TEXTURE QUOTE SCONST QUOTE QUOTE SCONST QUOTE QUOTE SCONST QUOTE params
+Rule 26    object -> TEXTURE QUOTE SCONST QUOTE QUOTE FLOAT QUOTE QUOTE SCONST QUOTE params
+Rule 27    object -> LIGHTSOURCE QUOTE SCONST QUOTE params
+Rule 28    object -> AREALIGHTSOURCE QUOTE SCONST QUOTE params
+Rule 29    object -> LOOKAT matrix
+Rule 30    object -> TRANSLATE matrix
+Rule 31    object -> ROTATE matrix
+Rule 32    object -> SCALE matrix
+Rule 33    object -> TRANSFORM matrix
+Rule 34    object -> empty
+Rule 35    params -> params param
+Rule 36    params -> param
+Rule 37    param -> QUOTE INTEGER SCONST QUOTE value
+Rule 38    param -> QUOTE BOOL SCONST QUOTE value
+Rule 39    param -> QUOTE STRING SCONST QUOTE value
+Rule 40    param -> QUOTE FLOAT SCONST QUOTE value
+Rule 41    param -> QUOTE RGB SCONST QUOTE value
+Rule 42    param -> QUOTE POINT SCONST QUOTE value
+Rule 43    param -> QUOTE NORMAL SCONST QUOTE value
+Rule 44    param -> QUOTE TEX SCONST QUOTE value
+Rule 45    param -> empty
+Rule 46    value -> LBRACKET ICONST RBRACKET
+Rule 47    value -> LBRACKET FCONST RBRACKET
+Rule 48    value -> LBRACKET QUOTE SCONST QUOTE RBRACKET
+Rule 49    value -> LBRACKET QUOTE TRUE QUOTE RBRACKET
+Rule 50    value -> LBRACKET QUOTE FALSE QUOTE RBRACKET
+Rule 51    value -> ICONST
+Rule 52    value -> FCONST RBRACKET
+Rule 53    value -> QUOTE SCONST QUOTE
+Rule 54    value -> QUOTE TRUE QUOTE
+Rule 55    value -> QUOTE FALSE QUOTE
+Rule 56    value -> matrix
+Rule 57    value -> empty
+Rule 58    matrix -> LBRACKET numbers RBRACKET
+Rule 59    matrix -> numbers
+Rule 60    numbers -> numbers number
+Rule 61    number -> ICONST
+Rule 62    number -> FCONST
+Rule 63    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AREALIGHTSOURCE      : 28
+ATTRIBUTEBEGIN       : 18
+ATTRIBUTEEND         : 18
+BOOL                 : 38
+CAMERA               : 10
+FALSE                : 50 55
+FCONST               : 47 52 62
+FILM                 : 7
+FILTER               : 9
+FLOAT                : 26 40
+ICONST               : 46 51 61
+INTEGER              : 37
+INTEGRATOR           : 6
+LBRACKET             : 46 47 48 49 50 58
+LIGHTSOURCE          : 27
+LOOKAT               : 11 29
+MAKENAMEDMATERIAL    : 22
+MATERIAL             : 23
+NAMEDMATERIAL        : 24
+NORMAL               : 43
+POINT                : 42
+QUOTE                : 6 6 7 7 8 8 9 9 10 10 21 21 22 22 23 23 24 24 25 25 25 25 25 25 26 26 26 26 26 26 27 27 28 28 37 37 38 38 39 39 40 40 41 41 42 42 43 43 44 44 48 48 49 49 50 50 53 53 54 54 55 55
+RBRACKET             : 46 47 48 49 50 52 58
+RGB                  : 41
+ROTATE               : 13 31
+SAMPLER              : 8
+SCALE                : 14 32
+SCONST               : 6 7 8 9 10 21 22 23 24 25 25 25 26 26 27 28 37 38 39 40 41 42 43 44 48 53
+SHAPE                : 21
+STRING               : 39
+TEX                  : 44
+TEXTURE              : 25 26
+TRANSFORM            : 15 33
+TRANSFORMBEGIN       : 19
+TRANSFORMEND         : 19
+TRANSLATE            : 12 30
+TRUE                 : 49 54
+WORLDBEGIN           : 16
+WORLDEND             : 16
+error                : 
+
+Nonterminals, with rules where they appear
+
+directive            : 4 5
+directives           : 1 2 4
+empty                : 34 45 57
+matrix               : 11 12 13 14 15 29 30 31 32 33 56
+number               : 60
+numbers              : 58 59 60
+object               : 17 20
+objects              : 16 17 18 18 19 19
+param                : 35 36
+params               : 6 7 8 9 10 21 22 23 25 26 27 28 35
+scene                : 0
+value                : 37 38 39 40 41 42 43 44
+worldblock           : 1 3
+

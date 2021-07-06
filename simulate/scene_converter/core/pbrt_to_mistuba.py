@@ -3,35 +3,39 @@ import copy
 
 from lxml import etree as ET
 
-from simulate.scene_converter.dictionaries import pbrt_to_mitsuba as pbrttm
+from simulate.scene_converter.dictionaries import pbrt_to_mitsuba as pbrt2mitsuba_dict
 
 
 class PBRTv3ToMitsuba:
-    def toMitsuba(self, scene, filename):
+    def __init__(self, scene, filename):
+        self.sceneElement = ET.Element("scene", version="0.5.0")
+        self.to_mitsuba(scene, filename)
+
+    def to_mitsuba(self, scene, filename):
         np.set_printoptions(suppress=True)
 
-        self.sceneDirectivesToMitsuba(scene)
-        self.worldDescriptionToMitsuba(scene)
+        self.scene_directives_to_mitsuba(scene)
+        self.world_description_to_mitsuba(scene)
 
         tree = ET.ElementTree(self.sceneElement)
 
         tree.write(filename, pretty_print=True)
 
-    def sceneDirectivesToMitsuba(self, scene):
+    def scene_directives_to_mitsuba(self, scene):
         if scene.integrator is not None:
-            if scene.integrator.type in pbrttm.integratorType:
-                type = pbrttm.integratorType[scene.integrator.type]
+            if scene.integrator.type in pbrt2mitsuba_dict.integratorType:
+                type = pbrt2mitsuba_dict.integratorType[scene.integrator.type]
                 integrator = ET.SubElement(self.sceneElement, "integrator", type=type)
             else:
                 integrator = ET.SubElement(self.sceneElement, "integrator")
 
-            self.paramsToMitsuba(
-                integrator, scene.integrator.params, pbrttm.integratorParam
+            self.params_to_mitsuba(
+                integrator, scene.integrator.params, pbrt2mitsuba_dict.integratorParam
             )
 
         if scene.sensor is not None:
-            if scene.sensor.type in pbrttm.sensorType:
-                type = pbrttm.sensorType[scene.sensor.type]
+            if scene.sensor.type in pbrt2mitsuba_dict.sensorType:
+                type = pbrt2mitsuba_dict.sensorType[scene.sensor.type]
                 sensor = ET.SubElement(self.sceneElement, "sensor", type=type)
             else:
                 sensor = ET.SubElement(self.sceneElement, "sensor")
@@ -61,7 +65,9 @@ class PBRTv3ToMitsuba:
 
                     ET.SubElement(sensor, "float", name="fov", value=str(adjustedFov))
 
-            self.paramsToMitsuba(sensor, scene.sensor.params, pbrttm.sensorParam)
+            self.params_to_mitsuba(
+                sensor, scene.sensor.params, pbrt2mitsuba_dict.sensorParam
+            )
 
         if scene.sensor.transform is not None:
             if scene.sensor.transform.matrix:
@@ -86,19 +92,19 @@ class PBRTv3ToMitsuba:
                 ET.SubElement(transform, "matrix", value=matrix)
 
         if scene.sensor.sampler is not None:
-            if scene.sensor.sampler.type in pbrttm.samplerType:
-                type = pbrttm.samplerType[scene.sensor.sampler.type]
+            if scene.sensor.sampler.type in pbrt2mitsuba_dict.samplerType:
+                type = pbrt2mitsuba_dict.samplerType[scene.sensor.sampler.type]
                 sampler = ET.SubElement(sensor, "sampler", type=type)
             else:
                 sampler = ET.SubElement(sensor, "sampler")
 
-            self.paramsToMitsuba(
-                sampler, scene.sensor.sampler.params, pbrttm.samplerParam
+            self.params_to_mitsuba(
+                sampler, scene.sensor.sampler.params, pbrt2mitsuba_dict.samplerParam
             )
 
         if scene.sensor.film is not None:
-            if scene.sensor.film.type in pbrttm.filmType:
-                type = pbrttm.filmType[scene.sensor.film.type]
+            if scene.sensor.film.type in pbrt2mitsuba_dict.filmType:
+                type = pbrt2mitsuba_dict.filmType[scene.sensor.film.type]
                 film = ET.SubElement(sensor, "film", type=type)
             else:
                 film = ET.SubElement(sensor, "film")
@@ -110,32 +116,34 @@ class PBRTv3ToMitsuba:
                 else:
                     ET.SubElement(film, "string", name="fileFormat", value="png")
 
-                self.paramsToMitsuba(film, scene.sensor.film.params, pbrttm.filmParam)
+                self.params_to_mitsuba(
+                    film, scene.sensor.film.params, pbrt2mitsuba_dict.filmParam
+                )
 
                 ET.SubElement(film, "string", name="pixelFormat", value="rgb")
                 # ET.SubElement(film, "float", name="gamma", value="2.2")
                 ET.SubElement(film, "boolean", name="banner", value="false")
 
         if scene.sensor.film.filter:
-            if scene.sensor.film.filter in pbrttm.filterType:
-                filter = pbrttm.filterType[scene.sensor.film.filter]
+            if scene.sensor.film.filter in pbrt2mitsuba_dict.filterType:
+                filter = pbrt2mitsuba_dict.filterType[scene.sensor.film.filter]
                 ET.SubElement(film, "rfilter", type=filter)
             else:
                 ET.SubElement(film, "rfilter", type="tent")
 
-    def worldDescriptionToMitsuba(self, scene):
+    def world_description_to_mitsuba(self, scene):
         # materials
         for material in scene.materials:
-            self.materialDescriptionToMitsuba(material, self.sceneElement)
+            self.material_description_to_mitsuba(material, self.sceneElement)
 
-        self.shapeDescriptionToMitsuba(scene)
-        self.lightDescriptionToMitsuba(scene)
+        self.shape_description_to_mitsuba(scene)
+        self.light_description_to_mitsuba(scene)
 
-    def materialDescriptionToMitsuba(self, material, element):
+    def material_description_to_mitsuba(self, material, element):
         # normal material
         if hasattr(material, "id"):
-            if material.type in pbrttm.materialType:
-                type = pbrttm.materialType[material.type]
+            if material.type in pbrt2mitsuba_dict.materialType:
+                type = pbrt2mitsuba_dict.materialType[material.type]
 
             alpha = 0.001
             if "roughness" in material.params:
@@ -154,7 +162,9 @@ class PBRTv3ToMitsuba:
                         alpha = material.params["uroughness"].value
                         ET.SubElement(bsdf, "float", name="alpha", value=str(alpha))
 
-                self.paramsToMitsuba(bsdf, material.params, pbrttm.glassParam)
+                self.params_to_mitsuba(
+                    bsdf, material.params, pbrt2mitsuba_dict.glassParam
+                )
             else:
                 twosided = ET.SubElement(
                     element, "bsdf", type="twosided", id=material.id
@@ -169,13 +179,13 @@ class PBRTv3ToMitsuba:
                         alpha = material.params["uroughness"].value
                         ET.SubElement(bsdf, "float", name="alpha", value=str(alpha))
 
-                if material.type in pbrttm.materialDict:
-                    dictionary = pbrttm.materialDict[material.type]
-                    self.paramsToMitsuba(bsdf, material.params, dictionary)
+                if material.type in pbrt2mitsuba_dict.materialDict:
+                    dictionary = pbrt2mitsuba_dict.materialDict[material.type]
+                    self.params_to_mitsuba(bsdf, material.params, dictionary)
 
             if material.texture is not None:
-                if material.texture.type in pbrttm.textureType:
-                    texType = pbrttm.textureType[material.texture.type]
+                if material.texture.type in pbrt2mitsuba_dict.textureType:
+                    texType = pbrt2mitsuba_dict.textureType[material.texture.type]
                     if type == "diffuse":
                         texture = ET.SubElement(
                             bsdf, "texture", name="reflectance", type=texType
@@ -185,8 +195,8 @@ class PBRTv3ToMitsuba:
                             bsdf, "texture", name="diffuseReflectance", type=texType
                         )
 
-                    self.paramsToMitsuba(
-                        texture, material.texture.params, pbrttm.textureParam
+                    self.params_to_mitsuba(
+                        texture, material.texture.params, pbrt2mitsuba_dict.textureParam
                     )
 
                     if "trilinear" in material.texture.params:
@@ -197,13 +207,13 @@ class PBRTv3ToMitsuba:
         else:
             bumpmap = ET.SubElement(element, "bsdf", type="bumpmap")
             if material.texture is not None:
-                if material.texture.type in pbrttm.textureType:
-                    texType = pbrttm.textureType[material.texture.type]
+                if material.texture.type in pbrt2mitsuba_dict.textureType:
+                    texType = pbrt2mitsuba_dict.textureType[material.texture.type]
                     texture = ET.SubElement(
                         bumpmap, "texture", name="map", type=texType
                     )
-                    self.paramsToMitsuba(
-                        texture, material.texture.params, pbrttm.textureParam
+                    self.params_to_mitsuba(
+                        texture, material.texture.params, pbrt2mitsuba_dict.textureParam
                     )
 
                     if "trilinear" in material.texture.params:
@@ -213,8 +223,8 @@ class PBRTv3ToMitsuba:
                             )
 
             if material.material is not None:
-                if material.material.type in pbrttm.materialType:
-                    type = pbrttm.materialType[material.material.type]
+                if material.material.type in pbrt2mitsuba_dict.materialType:
+                    type = pbrt2mitsuba_dict.materialType[material.material.type]
 
                 alpha = 0.001
                 if "roughness" in material.material.params:
@@ -239,8 +249,8 @@ class PBRTv3ToMitsuba:
                             alpha = material.material.params["uroughness"].value
                             ET.SubElement(bsdf, "float", name="alpha", value=str(alpha))
 
-                    self.paramsToMitsuba(
-                        bsdf, material.material.params, pbrttm.glassParam
+                    self.params_to_mitsuba(
+                        bsdf, material.material.params, pbrt2mitsuba_dict.glassParam
                     )
                 else:
                     twosided = ET.SubElement(
@@ -264,13 +274,19 @@ class PBRTv3ToMitsuba:
                             alpha = material.material.params["uroughness"].value
                             ET.SubElement(bsdf, "float", name="alpha", value=str(alpha))
 
-                    if material.material.type in pbrttm.materialDict:
-                        dictionary = pbrttm.materialDict[material.material.type]
-                        self.paramsToMitsuba(bsdf, material.material.params, dictionary)
+                    if material.material.type in pbrt2mitsuba_dict.materialDict:
+                        dictionary = pbrt2mitsuba_dict.materialDict[
+                            material.material.type
+                        ]
+                        self.params_to_mitsuba(
+                            bsdf, material.material.params, dictionary
+                        )
 
                 if material.material.texture is not None:
-                    if material.material.texture.type in pbrttm.textureType:
-                        texType = pbrttm.textureType[material.material.texture.type]
+                    if material.material.texture.type in pbrt2mitsuba_dict.textureType:
+                        texType = pbrt2mitsuba_dict.textureType[
+                            material.material.texture.type
+                        ]
 
                         if type == "diffuse":
                             texture = ET.SubElement(
@@ -281,10 +297,10 @@ class PBRTv3ToMitsuba:
                                 bsdf, "texture", name="diffuseReflectance", type=texType
                             )
 
-                        self.paramsToMitsuba(
+                        self.params_to_mitsuba(
                             texture,
                             material.material.texture.params,
-                            pbrttm.textureParam,
+                            pbrt2mitsuba_dict.textureParam,
                         )
 
                         if "trilinear" in material.texture.params:
@@ -299,7 +315,7 @@ class PBRTv3ToMitsuba:
                                     value="trilinear",
                                 )
 
-    def shapeDescriptionToMitsuba(self, scene):
+    def shape_description_to_mitsuba(self, scene):
         for shape in scene.shapes:
             if shape.type == "plymesh":
                 type = "ply"
@@ -321,12 +337,12 @@ class PBRTv3ToMitsuba:
                 ET.SubElement(transform, "matrix", value=matrix)
 
                 if shape.material is not None:
-                    self.materialDescriptionToMitsuba(shape.material, s)
+                    self.material_description_to_mitsuba(shape.material, s)
 
                 if shape.emitter is not None:
                     emitter = ET.SubElement(s, "emitter", type="area")
-                    self.paramsToMitsuba(
-                        emitter, shape.emitter.params, pbrttm.emitterParam
+                    self.params_to_mitsuba(
+                        emitter, shape.emitter.params, pbrt2mitsuba_dict.emitterParam
                     )
 
                 if "id" in shape.params:
@@ -355,12 +371,12 @@ class PBRTv3ToMitsuba:
                         z=str(center[2]),
                     )
 
-                self.paramsToMitsuba(s, shape.params, pbrttm.shapeParam)
+                self.params_to_mitsuba(s, shape.params, pbrt2mitsuba_dict.shapeParam)
 
                 if shape.emitter is not None:
                     emitter = ET.SubElement(s, "emitter", type="area")
-                    self.paramsToMitsuba(
-                        emitter, shape.emitter.params, pbrttm.emitterParam
+                    self.params_to_mitsuba(
+                        emitter, shape.emitter.params, pbrt2mitsuba_dict.emitterParam
                     )
 
                 if "id" in shape.params:
@@ -412,12 +428,14 @@ class PBRTv3ToMitsuba:
                             ET.SubElement(transform, "matrix", value=matrix)
 
                             if shape.material is not None:
-                                self.materialDescriptionToMitsuba(shape.material, s)
+                                self.material_description_to_mitsuba(shape.material, s)
 
                             if shape.emitter is not None:
                                 emitter = ET.SubElement(s, "emitter", type="area")
-                                self.paramsToMitsuba(
-                                    emitter, shape.emitter.params, pbrttm.emitterParam
+                                self.params_to_mitsuba(
+                                    emitter,
+                                    shape.emitter.params,
+                                    pbrt2mitsuba_dict.emitterParam,
                                 )
 
                             if "id" in shape.params:
@@ -428,7 +446,7 @@ class PBRTv3ToMitsuba:
                         type = "cube"
                         pass
 
-    def lightDescriptionToMitsuba(self, scene):
+    def light_description_to_mitsuba(self, scene):
 
         for light in scene.lights:
             if light.type == "distant":
@@ -483,7 +501,9 @@ class PBRTv3ToMitsuba:
                     transform = ET.SubElement(emitter, "transform", name="toWorld")
                     ET.SubElement(transform, "matrix", value=matrix)
 
-                self.paramsToMitsuba(emitter, light.params, pbrttm.emitterParam)
+                self.params_to_mitsuba(
+                    emitter, light.params, pbrt2mitsuba_dict.emitterParam
+                )
 
             elif light.type == "spot":
                 pass
@@ -491,7 +511,7 @@ class PBRTv3ToMitsuba:
             elif light.type == "point":
                 pass
 
-    def paramsToMitsuba(self, rootElement, params, dictionary):
+    def params_to_mitsuba(self, rootElement, params, dictionary):
         for key in params:
             if key in dictionary:
                 mitsubaParamName = dictionary[key]
@@ -523,7 +543,3 @@ class PBRTv3ToMitsuba:
                         name=mitsubaParamName,
                         value=str(pbrtParam.value),
                     )
-
-    def __init__(self, scene, filename):
-        self.sceneElement = ET.Element("scene", version="0.5.0")
-        self.toMitsuba(scene, filename)

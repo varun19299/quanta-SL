@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import Union, Dict, List
 
 # general directives
+import numpy as np
 
 
 @dataclass
@@ -11,19 +12,71 @@ class Param:
     value: Union[int, float, str]
 
 
-# scene directives
+"""
+Transforms
+"""
+
+
+@dataclass
+class Transform:
+    name: str = "toWorld"
+    sequence: List = field(default_factory=list)
+
+
+@dataclass
+class Matrix:
+    value: List = field(default_factory=np.eye(4).tolist)
+
+    def __post_init__(self):
+        assert np.array(self.value).shape == (4, 4), "Transform should be a 4x4 matrix"
+
+
+@dataclass
+class Rotate:
+    angle: float = 0.0
+    axis: List = field(default_factory=lambda: [0, 0, 1])
+
+    def __post_init__(self):
+        assert np.array(self.axis).shape == (3,), "Axis must be 3D"
+
+
+@dataclass
+class Translate:
+    value: List = field(default_factory=np.zeros(3).tolist)
+
+    def __post_init__(self):
+        assert np.array(self.value).shape == (3,), "value must be 3D"
+
+
+@dataclass
+class Scale:
+    value: List = field(default_factory=np.ones(3).tolist)
+
+    def __post_init__(self):
+        assert np.array(self.value).shape == (3,), "value must be 3D"
+
+
+@dataclass
+class LookAt:
+    eye: List = field(default_factory=lambda: [0, 0, 0])
+    look: List = field(default_factory=lambda: [0, 1, 0])
+    up: List = field(default_factory=lambda: [0, 0, 1])
+
+    def __post_init__(self):
+        assert (
+            len(self.eye) == len(self.look) == len(self.up) == 3
+        ), "Eye, look, up must be 3D vectors."
+
+
+"""
+Scene directives
+"""
 
 
 @dataclass
 class Integrator:
     type: str = "path"
     params: Dict = field(default_factory=dict)
-
-
-@dataclass
-class Transform:
-    name: str = "toWorld"
-    matrix: List = field(default_factory=list)
 
 
 @dataclass
@@ -43,11 +96,14 @@ class Sensor:
     type: str = "perspective"
     transform: Transform = Transform()
     sampler: Sampler = Sampler()
+    integrator: Integrator = Integrator()
     film: Film = Film()
     params: Dict = field(default_factory=dict)
 
 
-# world components
+"""
+World Components
+"""
 
 
 @dataclass
@@ -80,7 +136,7 @@ class BumpMap:
 @dataclass
 class Emitter:
     type: str
-    transform: Transform = Transform()
+    transform: Transform = None
     params: Dict = field(default_factory=dict)
 
 
@@ -93,14 +149,15 @@ class Shape:
     params: Dict = field(default_factory=dict)
 
 
-# global
+"""
+Global
+"""
 
 
+@dataclass()
 class Scene:
-    def __init__(self):
-        self.integrator = Integrator()
-        self.sensor = Sensor()
-        self.materials = []
-        self.shapes = []
-        self.lights = []
-        self.mediums = []
+    sensor: Sensor = Sensor()
+    materials: List[Material] = field(default_factory=list)
+    shapes: List[Shape] = field(default_factory=list)
+    lights: List = field(default_factory=list)
+    mediums: List = field(default_factory=list)

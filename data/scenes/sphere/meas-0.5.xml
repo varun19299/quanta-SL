@@ -3,7 +3,7 @@
   <sensor type="perspective">
     <float name="fov" value="45.0"/>
     <sampler type="stratified">
-      <integer name="sampleCount" value="128"/>
+      <integer name="sampleCount" value="256"/>
     </sampler>
     <film type="hdrfilm">
       <string name="fileFormat" value="exr"/>
@@ -13,6 +13,9 @@
       <boolean name="banner" value="false"/>
     </film>
   </sensor>
+  <shape type="sphere">
+    <float name="radius" value="1"/>
+  </shape>
   <shape type="rectangle">
     <transform name="toWorld">
       <matrix value="20.0 0.0 -0.01 -1.9984014443252818e-15 -3.3306690738754696e-16 20.0 -0.01 -2.4424906541753444e-15 0.0 0.0 -0.01 0.0 0.0 0.0 0.0 1.0 "/>

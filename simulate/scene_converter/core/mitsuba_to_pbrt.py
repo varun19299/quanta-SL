@@ -1,7 +1,7 @@
 import numpy as np
 import copy
 
-from simulate.scene_converter.dictionaries import mitsuba_to_pbrt as mtpbrt
+from simulate.scene_converter.dictionaries import mitsuba_to_pbrt as mitsuba2pbrt_dict
 
 
 class MitsubaToPBRTv3:
@@ -23,11 +23,11 @@ class MitsubaToPBRTv3:
         if scene.integrator is not None:
             output += "Integrator "
 
-            if scene.integrator.type in mtpbrt.integratorType:
-                type = mtpbrt.integratorType[scene.integrator.type]
+            if scene.integrator.type in mitsuba2pbrt_dict.integratorType:
+                type = mitsuba2pbrt_dict.integratorType[scene.integrator.type]
                 output += '"' + type + '" '
 
-            output += self.paramsToPBRT(scene.integrator.params, mtpbrt.integratorParam)
+            output += self.paramsToPBRT(scene.integrator.params, mitsuba2pbrt_dict.integratorParam)
 
         if scene.sensor.transform is not None:
             if scene.sensor.transform.matrix:
@@ -53,19 +53,19 @@ class MitsubaToPBRTv3:
         if scene.sensor.sampler is not None:
             output += "Sampler "
 
-            if scene.sensor.sampler.type in mtpbrt.samplerType:
-                type = mtpbrt.samplerType[scene.sensor.sampler.type]
+            if scene.sensor.sampler.type in mitsuba2pbrt_dict.samplerType:
+                type = mitsuba2pbrt_dict.samplerType[scene.sensor.sampler.type]
                 output += '"' + type + '" '
 
             output += self.paramsToPBRT(
-                scene.sensor.sampler.params, mtpbrt.samplerParam
+                scene.sensor.sampler.params, mitsuba2pbrt_dict.samplerParam
             )
 
         if scene.sensor.film.filter:
             output += "PixelFilter "
 
-            if scene.sensor.film.filter in mtpbrt.filterType:
-                filter = mtpbrt.filterType[scene.sensor.film.filter]
+            if scene.sensor.film.filter in mitsuba2pbrt_dict.filterType:
+                filter = mitsuba2pbrt_dict.filterType[scene.sensor.film.filter]
                 output += '"' + filter + '" '
             else:
                 output += '"triangle" '
@@ -76,8 +76,8 @@ class MitsubaToPBRTv3:
         if scene.sensor.film is not None:
             output += "Film "
 
-            if scene.sensor.film.type in mtpbrt.filmType:
-                type = mtpbrt.filmType[scene.sensor.film.type]
+            if scene.sensor.film.type in mitsuba2pbrt_dict.filmType:
+                type = mitsuba2pbrt_dict.filmType[scene.sensor.film.type]
                 output += '"' + type + '" '
             else:
                 output += '"image" '
@@ -87,13 +87,13 @@ class MitsubaToPBRTv3:
 
                 output += '"string filename" [ "scene.' + extension + '" ] '
 
-            output += self.paramsToPBRT(scene.sensor.film.params, mtpbrt.filmParam)
+            output += self.paramsToPBRT(scene.sensor.film.params, mitsuba2pbrt_dict.filmParam)
 
         if scene.sensor is not None:
             output += "Camera "
 
-            if scene.sensor.type in mtpbrt.sensorType:
-                type = mtpbrt.sensorType[scene.sensor.type]
+            if scene.sensor.type in mitsuba2pbrt_dict.sensorType:
+                type = mitsuba2pbrt_dict.sensorType[scene.sensor.type]
                 output += '"' + type + '" '
             else:
                 output += '"perspective" '
@@ -121,7 +121,7 @@ class MitsubaToPBRTv3:
 
                     output += '"float fov" [ ' + adjustedFov + " ] "
 
-            output += self.paramsToPBRT(scene.sensor.params, mtpbrt.sensorParam)
+            output += self.paramsToPBRT(scene.sensor.params, mitsuba2pbrt_dict.sensorParam)
 
         return output
 
@@ -152,8 +152,8 @@ class MitsubaToPBRTv3:
                     output += '"imagemap" '
                     type = "imagemap"
                 else:
-                    if material.texture.type in mtpbrt.textureType:
-                        type = mtpbrt.textureType[material.texture.type]
+                    if material.texture.type in mitsuba2pbrt_dict.textureType:
+                        type = mitsuba2pbrt_dict.textureType[material.texture.type]
                         output += '"' + type + '" '
 
                 for key in material.texture.params:
@@ -170,8 +170,8 @@ class MitsubaToPBRTv3:
                             output += '"bool trilinear" [ "true" ] '
                     else:
                         # search the dictionary
-                        if key in mtpbrt.textureParam:
-                            pbrtParam = mtpbrt.textureParam[key]
+                        if key in mitsuba2pbrt_dict.textureParam:
+                            pbrtParam = mitsuba2pbrt_dict.textureParam[key]
                             mitsubaParam = material.texture.params[key]
                             output += '"' + mitsubaParam.type + " " + pbrtParam + '" '
 
@@ -218,8 +218,8 @@ class MitsubaToPBRTv3:
                 params = material.params
                 mitsubaType = material.type
 
-            if mitsubaType in mtpbrt.materialType:
-                pbrtType = mtpbrt.materialType[mitsubaType]
+            if mitsubaType in mitsuba2pbrt_dict.materialType:
+                pbrtType = mitsuba2pbrt_dict.materialType[mitsubaType]
                 if mitsubaType == "conductor" and "specularReflectance" in params:
                     if params["specularReflectance"].value == [1.0, 1.0, 1.0]:
                         pbrtType = "mirror"
@@ -250,7 +250,7 @@ class MitsubaToPBRTv3:
                 if "specularReflectance" not in params:
                     output += '"rgb Ks" [ 0.040000 0.040000 0.040000 ]'
 
-                output += self.paramsToPBRT(params, mtpbrt.plasticParam)
+                output += self.paramsToPBRT(params, mitsuba2pbrt_dict.plasticParam)
 
             elif mitsubaType == "conductor" or mitsubaType == "roughconductor":
                 if pbrtType != "mirror":
@@ -263,22 +263,22 @@ class MitsubaToPBRTv3:
                     else:
                         output += '"bool remaproughness" [ "false" ] '
 
-                    output += self.paramsToPBRT(params, mtpbrt.conductorParam)
+                    output += self.paramsToPBRT(params, mitsuba2pbrt_dict.conductorParam)
 
             elif mitsubaType == "dielectric" or mitsubaType == "roughdielectric":
                 output += '"bool remaproughness" [ "false" ] '
 
-                output += self.paramsToPBRT(params, mtpbrt.dielectricParam)
+                output += self.paramsToPBRT(params, mitsuba2pbrt_dict.dielectricParam)
 
             elif mitsubaType == "thindielectric":
                 output += '"rgb Ks" [ 0.000000 0.000000 0.000000 ]'
-                output += self.paramsToPBRT(params, mtpbrt.thindielecParam)
+                output += self.paramsToPBRT(params, mitsuba2pbrt_dict.thindielecParam)
 
             elif mitsubaType == "difftrans":
-                output += self.paramsToPBRT(params, mtpbrt.difftransParam)
+                output += self.paramsToPBRT(params, mitsuba2pbrt_dict.difftransParam)
 
             else:
-                output += self.paramsToPBRT(params, mtpbrt.diffuseParam)
+                output += self.paramsToPBRT(params, mitsuba2pbrt_dict.diffuseParam)
 
         currentRefMaterial = ""
         for shape in scene.shapes:
@@ -287,7 +287,7 @@ class MitsubaToPBRTv3:
                 output += "\tAttributeBegin\n"
 
                 output += '\t\tAreaLightSource "diffuse" '
-                output += self.paramsToPBRT(shape.emitter.params, mtpbrt.emitterParam)
+                output += self.paramsToPBRT(shape.emitter.params, mitsuba2pbrt_dict.emitterParam)
 
                 if "id" in shape.params:
                     if shape.params["id"].value != currentRefMaterial:
@@ -323,7 +323,7 @@ class MitsubaToPBRTv3:
 
     def shapeToPBRT(self, shape, identation):
         output = ""
-        identity = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
+        identity = np.eye(4)
 
         if shape.material is not None:
             output += ("\t" * identation) + "Material "
@@ -333,8 +333,8 @@ class MitsubaToPBRTv3:
             else:
                 mitsubaType = shape.material.type
 
-            if mitsubaType in mtpbrt.materialType:
-                pbrtType = mtpbrt.materialType[mitsubaType]
+            if mitsubaType in mitsuba2pbrt_dict.materialType:
+                pbrtType = mitsuba2pbrt_dict.materialType[mitsubaType]
                 output += '"' + pbrtType + '" '
 
             params = shape.material.params
@@ -349,7 +349,7 @@ class MitsubaToPBRTv3:
                 if "specularReflectance" not in params:
                     output += '"rgb Ks" [ 0.050000 0.050000 0.050000 ]'
 
-                output += self.paramsToPBRT(params, mtpbrt.plasticParam)
+                output += self.paramsToPBRT(params, mitsuba2pbrt_dict.plasticParam)
 
             elif mitsubaType == "conductor" or mitsubaType == "roughconductor":
                 if pbrtType != "mirror":
@@ -362,22 +362,22 @@ class MitsubaToPBRTv3:
                     else:
                         output += '"bool remaproughness" [ "false" ] '
 
-                    output += self.paramsToPBRT(params, mtpbrt.conductorParam)
+                    output += self.paramsToPBRT(params, mitsuba2pbrt_dict.conductorParam)
 
             elif mitsubaType == "dielectric" or mitsubaType == "roughdielectric":
                 output += '"bool remaproughness" [ "false" ] '
 
-                output += self.paramsToPBRT(params, mtpbrt.dielectricParam)
+                output += self.paramsToPBRT(params, mitsuba2pbrt_dict.dielectricParam)
 
             elif mitsubaType == "thindielectric":
                 output += '"rgb Ks" [ 0.000000 0.000000 0.000000 ]'
-                output += self.paramsToPBRT(params, mtpbrt.thindielecParam)
+                output += self.paramsToPBRT(params, mitsuba2pbrt_dict.thindielecParam)
 
             elif mitsubaType == "difftrans":
-                output += self.paramsToPBRT(params, mtpbrt.difftransParam)
+                output += self.paramsToPBRT(params, mitsuba2pbrt_dict.difftransParam)
 
             else:
-                output += self.paramsToPBRT(params, mtpbrt.diffuseParam)
+                output += self.paramsToPBRT(params, mitsuba2pbrt_dict.diffuseParam)
 
         if shape.type == "obj" or shape.type == "ply":
             if shape.transform is not None and shape.transform.matrix:
@@ -578,7 +578,7 @@ class MitsubaToPBRTv3:
                 + " 1 ]\n"
             )
             output += ("\t" * (identation + 1)) + 'Shape "sphere" '
-            output += self.paramsToPBRT(shape.params, mtpbrt.shapeParam)
+            output += self.paramsToPBRT(shape.params, mitsuba2pbrt_dict.shapeParam)
             output += "\n"
             output += ("\t" * identation) + "TransformEnd\n"
 
@@ -658,7 +658,7 @@ class MitsubaToPBRTv3:
                         + '" ] '
                     )
 
-                output += self.paramsToPBRT(emitter.params, mtpbrt.emitterParam)
+                output += self.paramsToPBRT(emitter.params, mitsuba2pbrt_dict.emitterParam)
                 output += ("\t" * identation) + "TransformEnd\n"
 
             else:
@@ -671,7 +671,7 @@ class MitsubaToPBRTv3:
                         + '" ] '
                     )
 
-                output += self.paramsToPBRT(emitter.params, mtpbrt.emitterParam)
+                output += self.paramsToPBRT(emitter.params, mitsuba2pbrt_dict.emitterParam)
                 output += "\n"
 
         elif emitter.type == "sunsky":
@@ -690,7 +690,7 @@ class MitsubaToPBRTv3:
                 )
                 output += '"point to" [ 0.000000 0.000000 0.000000 ] '
 
-            output += self.paramsToPBRT(emitter.params, mtpbrt.emitterParam)
+            output += self.paramsToPBRT(emitter.params, mitsuba2pbrt_dict.emitterParam)
             output += "\n"
 
             output += ("\t" * identation) + "TransformBegin\n"
@@ -732,7 +732,7 @@ class MitsubaToPBRTv3:
                 )
                 output += '"point to" [ 0.000000 0.000000 0.000000 ] '
 
-            output += self.paramsToPBRT(emitter.params, mtpbrt.emitterParam)
+            output += self.paramsToPBRT(emitter.params, mitsuba2pbrt_dict.emitterParam)
             output += "\n"
 
         elif emitter.type == "spot":
@@ -741,7 +741,7 @@ class MitsubaToPBRTv3:
         elif emitter.type == "point":
             output += ("\t" * identation) + 'LightSource "point" '
 
-            output += self.paramsToPBRT(emitter.params, mtpbrt.emitterParam)
+            output += self.paramsToPBRT(emitter.params, mitsuba2pbrt_dict.emitterParam)
             output += "\n"
 
         return output

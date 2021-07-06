@@ -1,8 +1,8 @@
 from simulate.scene_converter.core import (
-    PBRTv3Loader as pbrt,
-    MitsubaLoader as mit,
-    MitsubaToPBRTv3 as mp,
-    PBRTv3ToMitsuba as pm,
+    pbrt_loader as pbrt,
+    mitsuba_loader as mit,
+    mitsuba_to_pbrt as mp,
+    pbrt_to_mistuba as pm,
 )
 
 import sys
@@ -55,7 +55,7 @@ if __name__ == "__main__":
                 )
 
         elif source == "pbrt":
-            loader = pbrt.PBRTv3Loader(filename)
+            loader = pbrt.PBRTv3Loader(filename, samples=128)
 
             if destination == "mitsuba":
                 pm.PBRTv3ToMitsuba(loader.scene, output)

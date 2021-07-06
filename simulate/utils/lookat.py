@@ -40,7 +40,7 @@ from simulate.utils.ops import normalized
 
 
 @dataclass
-class LookAt(object):
+class LookAt:
     pos: NDArray[3, float]
     look: NDArray[3, float]
     up: NDArray[3, float]
