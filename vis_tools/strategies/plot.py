@@ -40,7 +40,7 @@ def plot_optimal_threshold(
     idx_A = np.round(np.linspace(0, len(phi_A) - 1, 4)).astype(int)
     for a in phi_A[idx_A]:
         # Phi_P = phi_proj + a
-        thresh_ll, tau_ll = optimal_threshold(phi_proj + a, a, t_exp, num_frames)
+        tau_ll = optimal_threshold(phi_proj + a, a, t_exp, num_frames)
         plt.semilogx(
             phi_proj + a, tau_ll, label=f"$\Phi_a=${a:.0f}", linewidth=LINEWIDTH
         )

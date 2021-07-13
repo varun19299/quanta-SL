@@ -28,7 +28,6 @@ def p_directives(t):
     else:
         t[0] = [t[1]]
 
-
 def p_directive(t):
     """directive : INTEGRATOR QUOTE SCONST QUOTE params
     | FILM QUOTE SCONST QUOTE params
@@ -118,6 +117,8 @@ def p_param(t):
     | QUOTE POINT SCONST QUOTE value
     | QUOTE NORMAL SCONST QUOTE value
     | QUOTE TEX SCONST QUOTE value
+    | QUOTE BLACKBODY SCONST QUOTE value
+    | QUOTE SCONST SCONST QUOTE value
     | empty"""
 
     if len(t) > 2:
@@ -188,7 +189,7 @@ parser = yacc.yacc()
 def parse(data, debug=False):
     parser.error = 0
     p = parser.parse(data, debug=debug)
-    if parser.error:
+    if parser.error or not p:
         print(p)
         raise ValueError("Invalid pbrt file. Cannot proceed.")
     return p

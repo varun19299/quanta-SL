@@ -55,7 +55,7 @@ if __name__ == "__main__":
                 )
 
         elif source == "pbrt":
-            loader = pbrt.PBRTv3Loader(filename, samples=128)
+            loader = pbrt.PBRTv3Loader(filename)
 
             if destination == "mitsuba":
                 pm.PBRTv3ToMitsuba(loader.scene, output)

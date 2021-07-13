@@ -3,6 +3,7 @@ import copy
 
 from lxml import etree as ET
 
+from simulate.scene_converter.core.directives import Scene, Sensor
 from simulate.scene_converter.dictionaries import pbrt_to_mitsuba as pbrt2mitsuba_dict
 
 
@@ -14,15 +15,52 @@ class PBRTv3ToMitsuba:
     def to_mitsuba(self, scene, filename):
         np.set_printoptions(suppress=True)
 
-        self.scene_directives_to_mitsuba(scene)
-        self.world_description_to_mitsuba(scene)
+        self.scene_directives_to_mitsuba(scene.sensor)
+
+        if scene.world:
+            self.world_description_to_mitsuba(scene.world)
 
         tree = ET.ElementTree(self.sceneElement)
 
         tree.write(filename, pretty_print=True)
 
-    def scene_directives_to_mitsuba(self, scene):
-        if scene.integrator is not None:
+    def scene_directives_to_mitsuba(self, sensor: Sensor):
+        if sensor.type in pbrt2mitsuba_dict.sensorType:
+            type = pbrt2mitsuba_dict.sensorType[sensor.type]
+            sensor = ET.SubElement(self.sceneElement, "sensor", type=type)
+        else:
+            sensor = ET.SubElement(self.sceneElement, "sensor")
+
+        if "fov" in sensor.params:
+            if (
+                "xresolution" in sensor.film.params
+                and "yresolution" in sensor.film.params
+            ):
+                width = float(sensor.film.params["xresolution"].value)
+                height = float(sensor.film.params["yresolution"].value)
+                fov = float(sensor.params["fov"].value)
+
+                if height < width:
+                    adjustedFov = fov / height * width
+                    ET.SubElement(
+                        sensor, "float", name="fov", value=str(adjustedFov)
+                    )
+                else:
+                    ET.SubElement(sensor, "float", name="fov", value=str(fov))
+
+            else:
+                width = 768
+                height = 576
+                fov = scene.sensor.params["fov"].value
+                adjustedFov = fov / height * width
+
+                ET.SubElement(sensor, "float", name="fov", value=str(adjustedFov))
+
+        self.params_to_mitsuba(
+            sensor, scene.sensor.params, pbrt2mitsuba_dict.sensorParam
+        )
+
+        if scene.sensor.integrator:
             if scene.integrator.type in pbrt2mitsuba_dict.integratorType:
                 type = pbrt2mitsuba_dict.integratorType[scene.integrator.type]
                 integrator = ET.SubElement(self.sceneElement, "integrator", type=type)
@@ -33,43 +71,7 @@ class PBRTv3ToMitsuba:
                 integrator, scene.integrator.params, pbrt2mitsuba_dict.integratorParam
             )
 
-        if scene.sensor is not None:
-            if scene.sensor.type in pbrt2mitsuba_dict.sensorType:
-                type = pbrt2mitsuba_dict.sensorType[scene.sensor.type]
-                sensor = ET.SubElement(self.sceneElement, "sensor", type=type)
-            else:
-                sensor = ET.SubElement(self.sceneElement, "sensor")
-
-            if "fov" in scene.sensor.params:
-                if (
-                    "xresolution" in scene.sensor.film.params
-                    and "yresolution" in scene.sensor.film.params
-                ):
-                    width = float(scene.sensor.film.params["xresolution"].value)
-                    height = float(scene.sensor.film.params["yresolution"].value)
-                    fov = float(scene.sensor.params["fov"].value)
-
-                    if height < width:
-                        adjustedFov = fov / height * width
-                        ET.SubElement(
-                            sensor, "float", name="fov", value=str(adjustedFov)
-                        )
-                    else:
-                        ET.SubElement(sensor, "float", name="fov", value=str(fov))
-
-                else:
-                    width = 768
-                    height = 576
-                    fov = scene.sensor.params["fov"].value
-                    adjustedFov = fov / height * width
-
-                    ET.SubElement(sensor, "float", name="fov", value=str(adjustedFov))
-
-            self.params_to_mitsuba(
-                sensor, scene.sensor.params, pbrt2mitsuba_dict.sensorParam
-            )
-
-        if scene.sensor.transform is not None:
+        if scene.sensor.transform:
             if scene.sensor.transform.matrix:
                 matrix = ""
 
@@ -91,7 +93,7 @@ class PBRTv3ToMitsuba:
                 transform = ET.SubElement(sensor, "transform", name="toWorld")
                 ET.SubElement(transform, "matrix", value=matrix)
 
-        if scene.sensor.sampler is not None:
+        if scene.sensor.sampler:
             if scene.sensor.sampler.type in pbrt2mitsuba_dict.samplerType:
                 type = pbrt2mitsuba_dict.samplerType[scene.sensor.sampler.type]
                 sampler = ET.SubElement(sensor, "sampler", type=type)
@@ -102,7 +104,7 @@ class PBRTv3ToMitsuba:
                 sampler, scene.sensor.sampler.params, pbrt2mitsuba_dict.samplerParam
             )
 
-        if scene.sensor.film is not None:
+        if scene.sensor.film:
             if scene.sensor.film.type in pbrt2mitsuba_dict.filmType:
                 type = pbrt2mitsuba_dict.filmType[scene.sensor.film.type]
                 film = ET.SubElement(sensor, "film", type=type)
@@ -124,12 +126,12 @@ class PBRTv3ToMitsuba:
                 # ET.SubElement(film, "float", name="gamma", value="2.2")
                 ET.SubElement(film, "boolean", name="banner", value="false")
 
-        if scene.sensor.film.filter:
-            if scene.sensor.film.filter in pbrt2mitsuba_dict.filterType:
-                filter = pbrt2mitsuba_dict.filterType[scene.sensor.film.filter]
-                ET.SubElement(film, "rfilter", type=filter)
-            else:
-                ET.SubElement(film, "rfilter", type="tent")
+            if scene.sensor.film.filter:
+                if scene.sensor.film.filter in pbrt2mitsuba_dict.filterType:
+                    filter = pbrt2mitsuba_dict.filterType[scene.sensor.film.filter]
+                    ET.SubElement(film, "rfilter", type=filter)
+                else:
+                    ET.SubElement(film, "rfilter", type="tent")
 
     def world_description_to_mitsuba(self, scene):
         # materials

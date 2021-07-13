@@ -29,6 +29,8 @@ reserved = (
     "BOOL",
     "STRING",
     "FLOAT",
+    "BLACKBODY",
+    "SPECTRUM",
     "RGB",
     "POINT",
     "NORMAL",
@@ -84,6 +86,7 @@ reserved_map = {
     "integer": "INTEGER",
     "bool": "BOOL",
     "string": "STRING",
+    "blackbody": "BLACKBODY",
     "float": "FLOAT",
     "rgb": "RGB",
     "point": "POINT",
@@ -109,7 +112,6 @@ t_FCONST = (
 )
 
 # Comments
-
 
 def t_comment(t):
     r"/\*(.|\n)*?\*/"

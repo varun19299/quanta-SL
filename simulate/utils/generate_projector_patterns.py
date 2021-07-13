@@ -149,7 +149,7 @@ def bch_to_projector_frames(
     :param folder_name: Folder name to save to
     """
     if not folder_name:
-        folder_name = f"{bch_tuple}"
+        folder_name = f"{bch_tuple}-non-sys"
 
     if use_complementary:
         folder_name += "-comp"
@@ -164,7 +164,7 @@ def bch_to_projector_frames(
     message_ll = unpackbits(message_ll, bch_tuple.k)
 
     # Generate BCH_matlab codes
-    code_LUT = galois.BCH(bch_tuple.n, bch_tuple.k).encode(GF2(message_ll))
+    code_LUT = galois.BCH(bch_tuple.n, bch_tuple.k, systematic=False).encode(GF2(message_ll))
     code_LUT = code_LUT.view(np.ndarray).astype(int)
 
     # Puncture
