@@ -15,7 +15,8 @@ from galois import GF2
 from matplotlib import pyplot as plt
 
 from vis_tools.strategies import metaclass
-from vis_tools.strategies.utils import unpackbits, save_plot
+from utils.plotting import save_plot
+from utils.array_ops import unpackbits
 
 params = {
     "legend.fontsize": "x-large",

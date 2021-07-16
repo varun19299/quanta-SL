@@ -13,6 +13,7 @@ data/patterns
 data/SPAD_captures
 
 .idea
+.DS_Store
 .pytest_cache
 __pycache__
 **/__pycache__/

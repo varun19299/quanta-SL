@@ -26,7 +26,7 @@ except ImportError:
     CUPY_INSTALLED = False
     logging.warning("No CuPy installation detected. Using Numpy, may be slow.")
 
-from vis_tools.strategies.utils import unpackbits
+from utils.array_ops import unpackbits
 
 
 def photon_arrival(

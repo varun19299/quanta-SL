@@ -4,9 +4,10 @@ from pathlib import Path
 
 from vis_tools.strategies.analytic import optimal_threshold
 from vis_tools.strategies.metaclass import Eval
-from vis_tools.strategies.utils import save_plot, order_range
+from utils.plotting import save_plot
+from utils.math_ops import order_range
 from nptyping import NDArray
-from typing import List
+from typing import List, Union, Callable
 import logging
 
 params = {
@@ -480,3 +481,11 @@ def individual_and_multiple_plots(
             outname=f"{outname}/{strategy.name}",
             **kwargs,
         )
+
+
+def func_name(func: Union[Callable, str]) -> str:
+    if isinstance(func, Callable):
+        func_str = func.__name__
+    elif isinstance(func, str):
+        func_str = func
+    return func_str.replace("_", " ").title()

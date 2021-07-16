@@ -15,9 +15,9 @@ from nptyping import NDArray
 from numba import njit, prange
 from scipy.special import erf, comb
 
-import utils.math
-from vis_tools.strategies import metaclass, utils
-from vis_tools.strategies.utils import unpackbits
+import utils.math_ops
+from vis_tools.strategies import metaclass
+from utils.array_ops import unpackbits
 
 
 def naive(phi_P: NDArray, phi_A: NDArray, t_exp: float, num_bits: int = 10):
@@ -233,12 +233,12 @@ def bounded_error_coding(
             for r in range(min(e, num_ones) + 1):
                 s = e - r
                 term_0 = (
-                        utils.math.comb(num_zeros, s)
+                        utils.math_ops.comb(num_zeros, s)
                         * np.power(q, num_zeros - s)
                         * np.power(1 - q, s)
                 )
                 term_1 = (
-                        utils.math.comb(num_ones, r)
+                        utils.math_ops.comb(num_ones, r)
                         * np.power(p, num_ones - r)
                         * np.power(1 - p, r)
                 )

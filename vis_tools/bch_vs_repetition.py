@@ -12,8 +12,7 @@ from vis_tools.strategies import analytic
 from vis_tools.strategies.metaclass import CallableEval, BCH, Repetition
 from vis_tools.strategies.analytic import naive, average_fixed, average_optimal
 from vis_tools.strategies.monte_carlo import repetition_coding, bch_coding
-from vis_tools.strategies.plot import individual_and_multiple_plots
-from vis_tools.strategies.utils import func_name
+from vis_tools.strategies.plot import individual_and_multiple_plots, func_name
 
 
 def _get_strategies(

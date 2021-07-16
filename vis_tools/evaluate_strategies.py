@@ -17,9 +17,8 @@ from vis_tools.strategies.metaclass import CallableEval, BCH, Repetition
 from vis_tools.strategies.monte_carlo import bch_coding, repetition_coding
 from vis_tools.strategies.plot import (
     plot_optimal_threshold,
-    mesh_and_surface_plot,
+    mesh_and_surface_plot, func_name,
 )
-from vis_tools.strategies.utils import func_name
 
 if __name__ == "__main__":
     phi_proj = np.logspace(1, 8, num=512)

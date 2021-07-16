@@ -1,7 +1,7 @@
 import galois
 from galois import GF2
 
-from vis_tools.strategies.utils import unpackbits
+from utils.array_ops import unpackbits
 
 import numpy as np
 from einops import rearrange
