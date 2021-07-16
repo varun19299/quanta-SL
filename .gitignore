@@ -20,6 +20,3 @@ __pycache__
 
 # pbrt binary
 pbrt
-
-# Jsons
-utils/long_run_graycode.json

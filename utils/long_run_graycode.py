@@ -1,3 +1,11 @@
+"""
+Long run Gray Codes
+
+"Gray Codes with Optimized Run Lengths", Goddyn et al. 1998.
+
+Reference: https://stackoverflow.com/questions/30519621/generating-long-run-gray-codes
+"""
+
 import json
 from pathlib import Path
 
@@ -290,13 +298,13 @@ if __name__ == "__main__":
 
     transition_dict[10] = T_to_transition(T3)
 
-    dump_json = False
+    dump_json = True
     force_recompile = False
     code_dict = {
         k: transition_to_code(transition) for k, transition in transition_dict.items()
     }
 
-    for bits in range(2, 21):
+    for bits in range(2, 14):
         if (bits in transition_dict) and not force_recompile:
             print(
                 "gray code for {} bits has gap: {}".format(
