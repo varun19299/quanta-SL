@@ -97,12 +97,18 @@ def load_code(
     return code_LUT
 
 
-def plot_code_LUT(code_LUT: np.ndarray, show: bool = True, **kwargs):
+def plot_code_LUT(
+    code_LUT: np.ndarray, show: bool = True, aspect_ratio: float = 3.0, **kwargs
+):
     """
     Image illustrating coding scheme
     :param code_LUT: Code Look-Up-Table
     """
-    code_img = repeat(code_LUT, "h c -> (c repeat) h", repeat=30)
+    h, c = code_LUT.shape
+
+    num_repeat =  kwargs.get("num_repeat", int(h / c / aspect_ratio))
+
+    code_img = repeat(code_LUT, "h c -> (c repeat) h", repeat=num_repeat)
 
     if kwargs.get("savefig") or kwargs.get("fname"):
         assert kwargs.get("fname")
@@ -117,6 +123,7 @@ def _save_code_img():
     path = Path("outputs/projector_frames/code_images")
     plot_kwargs = dict(show=False, savefig=True)
 
+    num_bits = 10
     for mapping in [
         gray_mapping,
         xor4_mapping,
@@ -124,8 +131,12 @@ def _save_code_img():
         long_run_gray_mapping,
         max_min_SW_mapping,
     ]:
-        code_LUT = mapping(10)
-        plot_code_LUT(code_LUT, fname=path / f"{mapping.__name__}.png", **plot_kwargs)
+        code_LUT = mapping(num_bits)
+        plot_code_LUT(
+            code_LUT,
+            fname=path / f"{mapping.__name__}-{num_bits}_bits.png",
+            **plot_kwargs,
+        )
         print(min_stripe_width(code_LUT))
 
 

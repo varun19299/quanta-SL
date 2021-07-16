@@ -129,8 +129,18 @@ def gray_code_to_projector_frames(
 
     kwargs = locals().copy()
 
+    code_LUT = gray_mapping(num_bits)
+
+    if save:
+        path = Path("outputs/projector_frames/code_images")
+        plot_code_LUT(
+            code_LUT,
+            show,
+            fname=path / f"gray_code-{num_bits}.png",
+        )
+
     # Generate gray code mapping on projector resolution
-    code_LUT_to_projector_frames(code_LUT=gray_mapping(num_bits), **kwargs)
+    code_LUT_to_projector_frames(code_LUT, **kwargs)
 
 
 def bch_to_projector_frames(
@@ -168,62 +178,6 @@ def bch_to_projector_frames(
 
     # BCH encoder
     bch = galois.BCH(bch_tuple.n, bch_tuple.k)
-    binary_bch_codes = bch.encode(GF2(binary_mapping(num_bits)))
-    binary_bch_codes = binary_bch_codes.view(np.ndarray).astype(int)
-
-    # Try permuting
-    pbar = tqdm(total=fast_factorial(10))
-
-    most_acceptable_dict = {
-        "num": 0,
-        "perm": [],
-        "min_stripe_ll": [],
-        "mean_stripe_ll": [],
-    }
-
-    update_interval = 100
-
-    try:
-        for e, perm in enumerate(itertools.permutations(range(num_bits))):
-            pbar.update(1)
-
-            # Generate BCH_matlab codes
-            perm_message = packbits(message_ll[:, perm])
-            code_LUT = binary_bch_codes[perm_message, :]
-
-            min_stripe, min_stripe_ll, mean_stripe_ll = min_stripe_width(code_LUT)
-
-            acceptable = len([stripe for stripe in min_stripe_ll if stripe >= 4])
-
-            if acceptable >= most_acceptable_dict["num"]:
-                most_acceptable_dict.update(
-                    {
-                        "num": acceptable,
-                        "perm": perm,
-                        "min_stripe_ll": min_stripe_ll,
-                        "mean_stripe_ll": mean_stripe_ll,
-                    }
-                )
-
-            if e % update_interval == 0:
-                pbar.set_description(
-                    f"Min Stripe {min_stripe} | Max Acceptable so far {most_acceptable_dict['num']}"
-                )
-
-            if min_stripe > 1:
-                break
-    except KeyboardInterrupt:
-        perm_message = packbits(message_ll[:, perm])
-        acceptable_code_LUT = binary_bch_codes[perm_message, :]
-
-        path = Path("outputs/projector_frames/code_images")
-        plot_code_LUT(
-            acceptable_code_LUT,
-            show=False,
-            fname=path / f"acceptable-{bch_tuple}-{message_mapping.__name__}.png",
-        )
-
-        breakpoint()
 
     # Generate BCH_matlab codes
     code_LUT = bch.encode(GF2(message_ll))
@@ -232,7 +186,9 @@ def bch_to_projector_frames(
     if save:
         path = Path("outputs/projector_frames/code_images")
         plot_code_LUT(
-            code_LUT, show=False, fname=path / f"{bch_tuple}-{message_mapping.__name__}.png"
+            code_LUT,
+            show,
+            fname=path / f"{bch_tuple}-{message_mapping.__name__}.png",
         )
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
@@ -253,7 +209,6 @@ def repetition_to_projector_frames(
     :param repetition_tuple: Repetition code [n,k] parameters
     :param projector_resolution: width x height
     :param use_complementary: whether to save / show complementary (1-frame_i)
-    :param puncture: transmit only n - (k - log2(projector_cols))
     :param show: Plot in pyplot
     :param save: Save as png
     :param folder_name: Folder name to save to
@@ -276,10 +231,78 @@ def repetition_to_projector_frames(
     # Repeats consecutive frames
     code_LUT = repeat(message_ll, "N k -> N (k repeat)", repeat=repetition_tuple.repeat)
 
+    if save:
+        path = Path("outputs/projector_frames/code_images")
+        plot_code_LUT(
+            code_LUT,
+            show,
+            fname=path / f"{repetition_tuple}-{message_mapping.__name__}.png",
+        )
+
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
 
 
+def bch_split(save: bool = True, show: bool = False):
+    num_bits = 11
+    projector_resolution = (1920, 1080)
+    split = 3
+
+    bch_tuple = metaclass.BCH(31, 11, 5)
+
+    # BCH encoder
+    bch = galois.BCH(bch_tuple.n, bch_tuple.k)
+
+    # Input gray codes
+    message_ll = gray_mapping(num_bits)
+
+    # Code main bits
+    code_LUT = bch.encode(GF2(message_ll[:, :-split]))
+    code_LUT = code_LUT.view(np.ndarray).astype(int)
+
+    # Redisual or precision bits
+    residual_ll = message_ll[:, -split:]
+
+    bch_residual = galois.BCH(7, 4)
+    residual_message = np.zeros((pow(2, num_bits), 4), dtype=int)
+    residual_message[:, 0] = residual_ll[:, 0]
+
+    for i in range(1, 3):
+        residual_message[:, i + 1] = residual_ll[:, i]
+
+    bch_coded_residual = bch_residual.encode(GF2(residual_message))
+    bch_coded_residual = np.delete(bch_coded_residual, [1], axis=1)
+    bch_coded_residual = bch_coded_residual.view(np.ndarray).astype(int)
+
+    if save:
+        path = Path("outputs/projector_frames/code_images")
+        plot_code_LUT(
+            message_ll,
+            show,
+            num_repeat=60,
+            fname=path / f"gray_code-{num_bits}.png",
+        )
+        plot_code_LUT(
+            repeat(residual_ll, "N c-> N (repeat c)", repeat=3),
+            show,
+            num_repeat=60,
+            fname=path / f"residue-{split}-{num_bits}.png",
+        )
+        plot_code_LUT(
+            bch_coded_residual,
+            show,
+            num_repeat=60,
+            fname=path / f"residue-{metaclass.BCH(7, 4, 1)}.png",
+        )
+        plot_code_LUT(
+            code_LUT,
+            show,
+            num_repeat=60,
+            fname=path / f"split-{bch_tuple}.png",
+        )
+
+
 if __name__ == "__main__":
+    bch_split()
     num_bits = 11
     projector_resolution = (1920, 1080)
 
