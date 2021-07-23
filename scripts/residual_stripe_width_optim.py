@@ -5,7 +5,7 @@ from galois import GF2
 from vis_tools.strategies import metaclass
 from utils.mapping import binary_mapping, gray_mapping
 from utils.math_ops import fast_factorial
-from utils.array_ops import packbits, min_stripe_width
+from utils.array_ops import packbits, stripe_width_stats
 
 import numpy as np
 
@@ -39,7 +39,7 @@ if __name__ == "__main__":
         perm_message = packbits(message_ll[perm, :])
         code_LUT = binary_bch_codes[perm_message, :]
 
-        min_stripe, min_stripe_ll, mean_stripe_ll = min_stripe_width(code_LUT)
+        min_stripe, min_stripe_ll, mean_stripe_ll = stripe_width_stats(code_LUT)
 
         acceptable = len([stripe for stripe in min_stripe_ll if stripe >= 2])
 

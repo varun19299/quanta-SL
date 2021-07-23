@@ -16,4 +16,7 @@ nptyping
 numpy
 numba
 opencv-contrib-python
+pytest
+SciencePlots
+scipy
 tqdm

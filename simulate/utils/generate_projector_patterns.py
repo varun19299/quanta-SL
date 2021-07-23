@@ -12,7 +12,7 @@ from matplotlib import pyplot as plt
 from nptyping import NDArray
 from tqdm import tqdm
 
-from utils.array_ops import min_stripe_width, packbits
+from utils.array_ops import stripe_width_stats, packbits
 from utils.mapping import (
     gray_mapping,
     binary_mapping,

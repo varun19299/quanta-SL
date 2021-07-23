@@ -106,7 +106,7 @@ def plot_code_LUT(
     """
     h, c = code_LUT.shape
 
-    num_repeat =  kwargs.get("num_repeat", int(h / c / aspect_ratio))
+    num_repeat = kwargs.get("num_repeat", int(h / c / aspect_ratio))
 
     code_img = repeat(code_LUT, "h c -> (c repeat) h", repeat=num_repeat)
 
@@ -117,6 +117,8 @@ def plot_code_LUT(
     if show:
         plt.imshow(code_img, cmap="gray")
         plt.show()
+
+    return code_img
 
 
 def _save_code_img():
@@ -137,11 +139,11 @@ def _save_code_img():
             fname=path / f"{mapping.__name__}-{num_bits}_bits.png",
             **plot_kwargs,
         )
-        print(min_stripe_width(code_LUT))
+        print(stripe_width_stats(code_LUT))
 
 
 if __name__ == "__main__":
-    from utils.array_ops import min_stripe_width
+    from utils.array_ops import stripe_width_stats
 
     code_LUT = long_run_gray_mapping(8)
-    m = min_stripe_width(code_LUT)
+    m = stripe_width_stats(code_LUT)
