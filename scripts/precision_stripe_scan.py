@@ -7,11 +7,11 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import axes
 from nptyping import NDArray
-from numba import vectorize, float64, int64
+from numba import vectorize, float64
 
-from utils.array_ops import minimum_hamming_distance
+from ops.coding import minimum_hamming_distance
 from utils.mapping import plot_code_LUT
-from utils.plotting import arrowed_spines, save_plot
+from utils.plotting import save_plot
 
 params = {
     "axes.labelsize": "large",

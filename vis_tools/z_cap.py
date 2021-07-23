@@ -1,8 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from numba import njit
 
-from utils.math_ops import comb
+from ops.math_func import comb
 from vis_tools.strategies import metaclass
 
 from dataclasses import astuple

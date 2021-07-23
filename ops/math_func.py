@@ -1,3 +1,8 @@
+"""
+General math funcs
+
+All kept pure
+"""
 import numpy as np
 from nptyping import NDArray
 from numba import njit

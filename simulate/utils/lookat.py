@@ -36,7 +36,7 @@ from simulate.utils.conversions import (
     convert_points_from_homogeneous,
     convert_points_to_homogeneous,
 )
-from simulate.utils.ops import normalized
+from ops.linalg import normalized
 
 
 @dataclass

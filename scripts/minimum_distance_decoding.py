@@ -12,9 +12,8 @@ from einops import rearrange, repeat
 from nptyping import NDArray
 from numba import njit, prange
 
-from utils.array_ops import packbits_strided
+from ops.binary import packbits_strided
 from utils.mapping import gray_mapping
-
 from utils.profiler import profile
 
 logging.getLogger().setLevel(logging.INFO)

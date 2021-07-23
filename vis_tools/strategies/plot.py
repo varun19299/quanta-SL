@@ -5,7 +5,7 @@ from pathlib import Path
 from vis_tools.strategies.analytic import optimal_threshold
 from vis_tools.strategies.metaclass import Eval
 from utils.plotting import save_plot
-from utils.math_ops import order_range
+from ops.math_func import order_range
 from nptyping import NDArray
 from typing import List, Union, Callable
 import logging

@@ -4,8 +4,9 @@ import galois
 from galois import GF2
 from vis_tools.strategies import metaclass
 from utils.mapping import binary_mapping, gray_mapping
-from utils.math_ops import fast_factorial
-from utils.array_ops import packbits, stripe_width_stats
+from ops.math_func import fast_factorial
+from ops.binary import packbits
+from ops.coding import stripe_width_stats
 
 import numpy as np
 

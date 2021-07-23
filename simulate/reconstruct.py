@@ -11,6 +11,7 @@ from nptyping import NDArray, Float32, Int
 from omegaconf import DictConfig, ListConfig
 import pandas as pd
 
+import ops.linalg
 from simulate.pbrt import parser
 from simulate import decode, sensor
 from simulate.utils import project3d
@@ -237,7 +238,7 @@ def single_exposure_run(cfg: DictConfig) -> float:
         plt.show()
 
     # rmse = np.sqrt(((conventional_correspondence - quanta_correspondence) ** 2).mean())
-    mean_l1_error = np.abs(conventional_correspondence - quanta_correspondence).mean()
+    mean_l1_error = ops.linalg.mean()
     logging.info(f"Mean L1 between Quanta and Conventional {mean_l1_error}")
     logging.info(
         f"SPAD: exposure {cfg.sensor.exposure} intenstiy multiplier {cfg.sensor.intensity_multiplier}"

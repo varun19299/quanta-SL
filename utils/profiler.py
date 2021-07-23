@@ -1,5 +1,6 @@
-import line_profiler
 import atexit
+
+import line_profiler
 
 # Makes the line profiler decorator
 # available

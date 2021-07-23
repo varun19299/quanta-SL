@@ -3,10 +3,9 @@ from utils.numba_converter import python_to_numba_dict
 from numba import njit
 from numba.typed import List
 import numba
-from utils.profiler import profile
 
 from vis_tools.strategies import metaclass
-from utils.array_ops import unpackbits
+from ops.binary import unpackbits
 
 import galois
 

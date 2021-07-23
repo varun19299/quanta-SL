@@ -16,7 +16,7 @@ from matplotlib import pyplot as plt
 
 from vis_tools.strategies import metaclass
 from utils.plotting import save_plot
-from utils.array_ops import unpackbits
+from ops.binary import unpackbits
 
 params = {
     "legend.fontsize": "x-large",

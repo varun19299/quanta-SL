@@ -12,6 +12,7 @@ from galois import GF2, BCH
 from nptyping import NDArray
 from tqdm import tqdm
 
+import ops.linalg
 from vis_tools.strategies import metaclass
 
 try:
@@ -26,7 +27,7 @@ except ImportError:
     CUPY_INSTALLED = False
     logging.warning("No CuPy installation detected. Using Numpy, may be slow.")
 
-from utils.array_ops import unpackbits
+from ops.binary import unpackbits
 
 
 def photon_arrival(
@@ -210,7 +211,7 @@ def _coding_LUT(
             corrupt_code = rearrange(
                 corrupt_code, "h w (repeat n) -> h w n repeat", repeat=num_repeat
             )
-            corrupt_code = corrupt_code.mean(axis=3) > 0.5
+            corrupt_code = ops.linalg.mean(axis=3) > 0.5
 
         # Hamming distance
         # GF2: addition == XOR

@@ -1,7 +1,7 @@
 import galois
 from galois import GF2
 
-from utils.array_ops import unpackbits
+from ops.binary import unpackbits
 
 import numpy as np
 from einops import rearrange

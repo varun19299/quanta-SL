@@ -9,6 +9,8 @@ TODO:
 from dataclasses import dataclass
 from einops import rearrange, repeat
 import numpy as np
+
+import ops.linalg
 from simulate.utils import conversions, ops, lookat
 
 from typing import Any, Tuple
@@ -250,7 +252,7 @@ def test_ray_through_pixel():
     # must start at camera centre
     assert (ray_start == camera_loc.pos).all()
     assert (
-            ops.normalized(ray_dir) == ops.normalized(camera_loc.look - camera_loc.pos)
+            ops.linalg.normalized(ray_dir) == ops.linalg.normalized(camera_loc.look - camera_loc.pos)
     ).all()
 
 

@@ -1,10 +1,11 @@
 """
-Helper ops
+Linear Algebra related vector funcs
 """
 from typing import Any, Union
 
 import numpy as np
 from nptyping import NDArray
+from numba import njit
 
 
 def normalized(a: NDArray, axis: int = -1, order: int = 2):
@@ -26,3 +27,11 @@ def sorted_eigendecomposition(A: NDArray[Any, Any]) -> Union[np.ndarray, np.ndar
     eigen_vectors = eigen_vectors[:, idx]
 
     return eigen_values, eigen_vectors
+
+
+@njit(cache=True, fastmath=True, nogil=True)
+def mean(array):
+    out = 0
+    for i in array:
+        out += i
+    return out / len(array)

@@ -1,6 +1,7 @@
 """
 Mapping functions
 """
+import json
 from pathlib import Path
 
 import cv2
@@ -9,9 +10,8 @@ import numpy as np
 from einops import repeat
 from matplotlib import pyplot as plt
 from tqdm import tqdm
-import json
 
-from utils.array_ops import unpackbits
+from ops.binary import unpackbits
 from utils.monotonic_graycode import monotonic
 
 mapping_dict = {}
@@ -143,7 +143,7 @@ def _save_code_img():
 
 
 if __name__ == "__main__":
-    from utils.array_ops import stripe_width_stats
+    from ops.coding import stripe_width_stats
 
     code_LUT = long_run_gray_mapping(8)
     m = stripe_width_stats(code_LUT)

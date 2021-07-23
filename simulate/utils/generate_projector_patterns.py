@@ -12,20 +12,11 @@ from matplotlib import pyplot as plt
 from nptyping import NDArray
 from tqdm import tqdm
 
-from utils.array_ops import stripe_width_stats, packbits
 from utils.mapping import (
     gray_mapping,
-    binary_mapping,
-    max_min_SW_mapping,
-    long_run_gray_mapping,
-    xor2_mapping,
-    xor4_mapping,
-    monotonic_mapping,
     plot_code_LUT,
 )
-from utils.math_ops import fast_factorial
 from vis_tools.strategies import metaclass
-import itertools
 
 FORMAT = "%(asctime)s [%(filename)s : %(funcName)2s() : %(lineno)2s] %(message)s"
 logging.basicConfig(format=FORMAT, datefmt="%d-%b-%y %H:%M:%S")
