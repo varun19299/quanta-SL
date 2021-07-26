@@ -206,17 +206,29 @@ def _plot_stripe(
             fname=save_path / f"{name}-phase-plot[corrupted bits {noisy_bits}].pdf",
         )
 
+def circular_shifted_stripes(stripe_width: int = 8)-> NDArray[int]:
+    """
+    Generate circularly shifted stripe pattern
 
-def circular_shifted_sw_4(show: bool = False):
-    num_pixels = 8
-    pattern = [0] * (num_pixels // 2) + [1] * (num_pixels // 2)
+    :param stripe_width: width of 1's / 0's
+        Periodicity is 2 * stripe_width
+    :return: code Look Up Table (LUT),
+        columns x time
+    """
+
+    pattern = [0] * stripe_width + [1] * stripe_width
     pattern = np.array(pattern)
 
     code_LUT = []
-    for i in range(num_pixels):
+    for i in range(stripe_width * 2):
         code_LUT.append(np.roll(pattern, i))
 
     code_LUT = np.stack(code_LUT, axis=-1).astype(int)
+
+    return code_LUT
+
+def plot_circular_shifted_SW4(show: bool = False):
+    code_LUT = circular_shifted_stripes(4)
 
     def _phase_decode_func(phase):
         alpha = phase[1] * 4 / np.pi
@@ -231,16 +243,8 @@ def circular_shifted_sw_4(show: bool = False):
     )
 
 
-def circular_shifted_sw_8(show: bool = False):
-    num_pixels = 16
-    pattern = [0] * (num_pixels // 2) + [1] * (num_pixels // 2)
-    pattern = np.array(pattern)
-
-    code_LUT = []
-    for i in range(num_pixels):
-        code_LUT.append(np.roll(pattern, i))
-
-    code_LUT = np.stack(code_LUT, axis=-1).astype(int)
+def plot_circular_shifted_SW8(show: bool = False):
+    code_LUT = circular_shifted_stripes(8)
 
     def _phase_decode_func(phase):
         alpha = phase[1] * 8 / np.pi
@@ -257,5 +261,5 @@ def circular_shifted_sw_8(show: bool = False):
 
 
 if __name__ == "__main__":
-    circular_shifted_sw_4(show=False)
-    circular_shifted_sw_8(show=False)
+    plot_circular_shifted_SW4(show=False)
+    plot_circular_shifted_SW8(show=False)

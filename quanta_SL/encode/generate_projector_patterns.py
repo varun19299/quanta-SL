@@ -13,8 +13,9 @@ from nptyping import NDArray
 from tqdm import tqdm
 
 from quanta_SL.encode import metaclass
-from quanta_SL.encode.message import gray_message
+from quanta_SL.encode.message import gray_message, long_run_gray_message, monotonic_gray_message, xor4_message
 from quanta_SL.utils.plotting import plot_code_LUT
+from quanta_SL.encode.precision_bits import circular_shifted_stripes
 
 FORMAT = "%(asctime)s [%(filename)s : %(funcName)2s() : %(lineno)2s] %(message)s"
 logging.basicConfig(format=FORMAT, datefmt="%d-%b-%y %H:%M:%S")
@@ -223,82 +224,100 @@ def repetition_to_projector_frames(
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
 
 
-def hybrid_to_projector_frames(save: bool = True, show: bool = False):
-    num_bits = 11
-    projector_resolution = (1920, 1080)
-    split = 3
+def hybrid_to_projector_frames(
+    bch_tuple: metaclass.BCH,
+    bch_bits: int,
+    projector_resolution: Tuple[int],
+    message_mapping: Callable = gray_message,
+    use_complementary: bool = False,
+    show: bool = False,
+    save: bool = False,
+    folder_name: str = "",
+):
+    """
+    Generate projector frames for "Hybrid" (BCH + stripe scan) strategy
 
-    bch_tuple = metaclass.BCH(31, 11, 5)
+    :param bch_tuple: BCH code [n,k,t] parameters
+    :param projector_resolution: width x height
+    :param use_complementary: whether to save / show complementary (1-frame_i)
+    :param show: Plot in pyplot
+    :param save: Save as png
+    :param folder_name: Folder name to save to
+    """
+    if not folder_name:
+        folder_name = f"Hybrid {bch_tuple} [{message_mapping.__name__}]"
 
-    # BCH encoder
+    if use_complementary:
+        folder_name += "-comp"
+
+    kwargs = locals().copy()
+
+    # Find bits required to represent columns
+    width, height = projector_resolution
+    num_bits = ceil(log2(width))
+
+    assert (
+        bch_bits < num_bits
+    ), f"Bits coded by BCH ({bch_bits}) must be lesser than {num_bits}"
+
+    stripe_bits = num_bits - bch_bits
+
+    # Generate bch part
+    message_ll = message_mapping(bch_bits)
+    message_ll = repeat(message_ll, "N c -> (N repeat) c", repeat=pow(2, stripe_bits))
+
     bch = galois.BCH(bch_tuple.n, bch_tuple.k)
 
-    # Input gray codes
-    message_ll = gray_message(num_bits)
-
-    # Code main bits
-    code_LUT = bch.encode(GF2(message_ll[:, :-split]))
+    code_LUT = bch.encode(GF2(message_ll))
     code_LUT = code_LUT.view(np.ndarray).astype(int)
 
-    # Redisual or precision bits
-    residual_ll = message_ll[:, -split:]
+    # Precision bits
+    stripe_LUT = circular_shifted_stripes(pow(2, stripe_bits))
+    stripe_LUT = repeat(
+        stripe_LUT, "N c -> (repeat N) c", repeat=pow(2, num_bits - stripe_bits - 1)
+    )
 
-    bch_residual = galois.BCH(7, 4)
-    residual_message = np.zeros((pow(2, num_bits), 4), dtype=int)
-    residual_message[:, 0] = residual_ll[:, 0]
+    # Concatenate along time axis
+    code_LUT = np.concatenate([code_LUT, stripe_LUT], axis=-1)
 
-    for i in range(1, 3):
-        residual_message[:, i + 1] = residual_ll[:, i]
-
-    bch_coded_residual = bch_residual.encode(GF2(residual_message))
-    bch_coded_residual = np.delete(bch_coded_residual, [1], axis=1)
-    bch_coded_residual = bch_coded_residual.view(np.ndarray).astype(int)
+    from quanta_SL.ops.coding import stripe_width_stats
+    print(stripe_width_stats(code_LUT))
 
     if save:
-        path = Path("outputs/code_images")
-        plot_code_LUT(
-            message_ll,
-            show,
-            num_repeat=60,
-            fname=path / f"gray_code-{num_bits}.png",
-        )
-        plot_code_LUT(
-            repeat(residual_ll, "N c-> N (repeat c)", repeat=3),
-            show,
-            num_repeat=60,
-            fname=path / f"residue-{split}-{num_bits}.png",
-        )
-        plot_code_LUT(
-            bch_coded_residual,
-            show,
-            num_repeat=60,
-            fname=path / f"residue-{metaclass.BCH(7, 4, 1)}.png",
-        )
+        path = Path("outputs/code_images/hybrid")
         plot_code_LUT(
             code_LUT,
             show,
-            num_repeat=60,
-            fname=path / f"split-{bch_tuple}.png",
+            fname=path / f"{folder_name}.png",
         )
+
+    code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
+
+    return code_LUT
 
 
 if __name__ == "__main__":
-    bch_split()
     num_bits = 11
     projector_resolution = (1920, 1080)
 
-    num_bits = 10
-    projector_resolution = (1024, 1080)
-
-    kwargs = {"show": False, "save": False}
+    kwargs = {"show": False, "save": True}
 
     # gray_code_to_projector_frames(projector_resolution, **kwargs)
-    bch_to_projector_frames(
+    bch_bits = 8
+    code_LUT = hybrid_to_projector_frames(
         metaclass.BCH(31, 11, 5),
+        bch_bits,
         projector_resolution,
-        message_mapping=gray_message,
+        message_mapping=long_run_gray_message,
         **kwargs,
     )
+
+    # bch_to_projector_frames(
+    #     metaclass.BCH(31, 11, 5),
+    #     projector_resolution,
+    #     message_mapping=gray_message,
+    #     **kwargs,
+    # )
     # bch_to_projector_frames(
     #     metaclass.BCH(31, 11, 5),
     #     projector_resolution,
