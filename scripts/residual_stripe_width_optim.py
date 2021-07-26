@@ -2,11 +2,10 @@ import itertools
 from tqdm import tqdm
 import galois
 from galois import GF2
-from vis_tools.strategies import metaclass
-from utils.mapping import binary_mapping, gray_mapping
-from ops.math_func import fast_factorial
-from ops.binary import packbits
-from ops.coding import stripe_width_stats
+from quanta_SL.encode import binary_message, gray_message, metaclass
+from quanta_SL.ops.math_func import fast_factorial
+from quanta_SL.ops.binary import packbits
+from quanta_SL.ops import stripe_width_stats
 
 import numpy as np
 
@@ -16,10 +15,10 @@ if __name__ == "__main__":
     num_bits = 3
 
     bch = galois.BCH(bch_tuple.n, bch_tuple.k)
-    binary_bch_codes = bch.encode(GF2(binary_mapping(num_bits)))
+    binary_bch_codes = bch.encode(GF2(binary_message(num_bits)))
     binary_bch_codes = binary_bch_codes.view(np.ndarray).astype(int)
 
-    message_ll = gray_mapping(num_bits)
+    message_ll = gray_message(num_bits)
 
     # Try permuting
     pbar = tqdm(total=fast_factorial(pow(2, num_bits)))

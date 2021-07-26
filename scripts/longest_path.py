@@ -1,11 +1,11 @@
 import networkx as nx
-from utils.numba_converter import python_to_numba_dict
+from quanta_SL.utils.numba_converter import python_to_numba_dict
 from numba import njit
 from numba.typed import List
 import numba
 
-from vis_tools.strategies import metaclass
-from ops.binary import unpackbits
+from quanta_SL.encode import metaclass
+from quanta_SL.ops.binary import unpackbits
 
 import galois
 
