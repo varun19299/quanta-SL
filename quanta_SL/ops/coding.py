@@ -1,8 +1,11 @@
 """
 Coding theory related
 """
+from types import ModuleType
+
 import numpy as np
-from numba import njit
+from nptyping import NDArray
+from numba import njit, prange
 from collections import namedtuple
 
 from quanta_SL.ops.linalg import mean
@@ -89,3 +92,41 @@ def minimum_hamming_distance(code_LUT: np.ndarray):
                     minimum_hamming_distance = distance_ij
 
     return minimum_hamming_distance
+
+
+def hamming_distance_8bit(xp: ModuleType = np):
+    """
+    Hamming distance of each 8-bit uint (in binary representation).
+
+        >>> hamming_distance_8bit(5) # 3
+        >>> hamming_distance_8bit(8) # 1
+        >>> hamming_distance_8bit(0) # 0
+
+    :return: array with Look Up Table
+    """
+    return xp.array([bin(i).count("1") for i in range(256)], dtype=xp.uint8)
+
+
+@njit(cache=True, parallel=True, nogil=True)
+def bit_flip_noise(x: NDArray[int], noisy_bits: int) -> NDArray[int]:
+    """
+    Generate noise pattern with fixed bit flips
+
+    :param x: 2D array (code_words x code_dim)
+    :param noisy_bits: Corrupted bits per code
+    :return: Noise pattern
+    """
+    assert x.ndim == 2
+    N, n = x.shape
+    noise_mat = np.zeros_like(x)
+
+    for i in prange(N):
+        noise = np.zeros(n)
+        indices = np.random.choice(
+            np.arange(noise.size), replace=False, size=noisy_bits
+        )
+        noise[indices] = 1
+        noise_mat[i] = noise
+
+    return noise_mat
+

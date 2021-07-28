@@ -13,6 +13,9 @@ cmake -DCUDAToolkit_ROOT=/usr/local/cuda-prefix/x86_64/default/11.0/ -DPBRT_OPTI
     ```
 * `make install`
 
+* Catches:
+    * **PyKeops**: load correct CUDA version. Eg: `module load nvidia/cuda/11.3.1`
+
 ## Example Code
 
 ### Acquire Gray Code captures of Diffuse Sphere

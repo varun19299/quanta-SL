@@ -1,17 +1,13 @@
-import logging
 from typing import Callable, Dict
 
-FORMAT = "%(asctime)s [%(filename)s : %(funcName)2s() : %(lineno)2s] %(message)s"
-logging.basicConfig(format=FORMAT, datefmt="%d-%b-%y %H:%M:%S")
-logging.getLogger().setLevel(logging.INFO)
-
+from loguru import logger
 import numpy as np
 from einops import rearrange
 
 from quanta_SL.vis_tools.strategies import analytic
-from quanta_SL.vis_tools import CallableEval, BCH, Repetition
-from quanta_SL.vis_tools import naive, average_fixed, average_optimal
-from quanta_SL.vis_tools import repetition_coding, bch_coding
+from quanta_SL.encode.metaclass import CallableEval, BCH, Repetition
+from quanta_SL.vis_tools.strategies.analytic import naive, average_fixed, average_optimal
+from quanta_SL.vis_tools.strategies.monte_carlo import repetition_coding, bch_coding
 from quanta_SL.vis_tools.strategies.plot import individual_and_multiple_plots, func_name
 
 
@@ -113,7 +109,7 @@ def _compare_repetition_bch(
     if is_averaging:
         title += f" | Threshold {'optimal' if optimal_threshold else 'fixed'}"
 
-    logging.info(title)
+    logger.info(title)
 
     # Custom runs at each redundancy
     if redundancy_factor == 3:
