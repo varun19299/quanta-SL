@@ -17,11 +17,11 @@ long_run_gray_cache_dict = {}
 
 
 def binary_message(num_bits: int):
-    return unpackbits(np.arange(pow(2, num_bits)))
+    return unpackbits(np.arange(pow(2, num_bits))).astype(int)
 
 
 def gray_message(num_bits: int):
-    binary_ll = unpackbits(np.arange(pow(2, num_bits)))
+    binary_ll = binary_message(num_bits)
     graycode_indices = graycode.gen_gray_codes(num_bits)
 
     return binary_ll[graycode_indices, :]

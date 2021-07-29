@@ -4,11 +4,11 @@ from loguru import logger
 import numpy as np
 from einops import rearrange
 
-from quanta_SL.vis_tools.strategies import analytic
+from quanta_SL.vis_tools.error_evaluation import analytic
 from quanta_SL.encode.metaclass import CallableEval, BCH, Repetition
-from quanta_SL.vis_tools.strategies.analytic import naive, average_fixed, average_optimal
-from quanta_SL.vis_tools.strategies.monte_carlo import repetition_coding, bch_coding
-from quanta_SL.vis_tools.strategies.plot import individual_and_multiple_plots, func_name
+from quanta_SL.vis_tools.error_evaluation.analytic import naive, average_fixed, average_optimal
+from quanta_SL.vis_tools.error_evaluation.monte_carlo import repetition_coding, bch_coding
+from quanta_SL.vis_tools.error_evaluation.plot import individual_and_multiple_plots, func_name
 
 
 def _get_strategies(

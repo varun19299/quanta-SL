@@ -72,6 +72,10 @@ class BCH(_Code):
     def __str__(self):
         return f"BCH-[{self.n}, {self.k}, {self.t}]"
 
+    @property
+    def is_list_decoding(self):
+        return 2 * self.t + 1 > self.distance
+
 
 @dataclass
 class Repetition(_Code):

@@ -9,7 +9,7 @@ from loguru import logger
 from matplotlib import pyplot as plt
 from nptyping import NDArray
 
-from quanta_SL.decode.methods import (
+from quanta_SL.decode.minimum_distance.factory import (
     brute_minimum_distance,
     cupy_minimum_distance,
     faiss_minimum_distance,
@@ -25,7 +25,8 @@ from quanta_SL.decode.methods import (
 from quanta_SL.encode import metaclass
 from quanta_SL.encode.message import binary_message
 from quanta_SL.ops.binary import packbits_strided
-from quanta_SL.ops.coding import bit_flip_noise, hamming_distance_8bit
+from quanta_SL.ops.coding import hamming_distance_8bit
+from quanta_SL.ops.noise import fixed_bit_flip_corrupt
 from quanta_SL.utils.package_gpu_checker import (
     xp,
     CUPY_INSTALLED,
@@ -69,11 +70,9 @@ def bch_dataset_query_points(
 
     # Corrupt query points
     with CPUTimer() as t:
-        noise_mat = bit_flip_noise(x, noisy_bits=bch.t)
+        x = fixed_bit_flip_corrupt(x, noisy_bits=bch.t)
 
     logger.info(f"\tNoise generation time: {t:.4g}")
-    x ^= noise_mat
-
     return x, y, gt_indices
 
 
@@ -194,22 +193,6 @@ def cpu_minimum_distance(x: NDArray[int], y: NDArray[int], gt_indices: NDArray[i
         pack=True,
         benchmark_dict=benchmark_dict,
     )
-    # benchmark_func(
-    #     "FAISS IVF",
-    #     faiss_minimum_distance,
-    #     **data_query_kwargs,
-    #     index_func=faiss_IVF_index,
-    #     pack=True,
-    #     benchmark_dict=benchmark_dict,
-    # )
-    # benchmark_func(
-    #     "FAISS HNSW",
-    #     faiss_minimum_distance,
-    #     **data_query_kwargs,
-    #     index_func=faiss_HNSW_index,
-    #     pack=True,
-    #     benchmark_dict=benchmark_dict,
-    # )
 
     return benchmark_dict
 
@@ -220,14 +203,6 @@ def gpu_minimum_distance(x: NDArray[int], y: NDArray[int], gt_indices: NDArray[i
     benchmark_dict = {}
 
     if CUPY_INSTALLED:
-        # benchmark_func(
-        #     "CuPy",
-        #     cupy_minimum_distance,
-        #     **data_query_kwargs,
-        #     benchmark_dict=benchmark_dict,
-        #     Timer=CuPyTimer,
-        #     num_repeat=1,
-        # )
         benchmark_func(
             "CuPy byte-packed",
             cupy_minimum_distance,

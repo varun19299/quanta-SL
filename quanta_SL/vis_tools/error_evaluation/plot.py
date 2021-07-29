@@ -2,8 +2,8 @@ import numpy as np
 from matplotlib import pyplot as plt, cm
 from pathlib import Path
 
-from quanta_SL.vis_tools import optimal_threshold
-from quanta_SL.vis_tools import Eval
+from quanta_SL.vis_tools.error_evaluation.analytic import optimal_threshold
+from quanta_SL.encode.metaclass import Eval
 from quanta_SL.utils.plotting import save_plot
 from quanta_SL.ops.math_func import order_range
 from nptyping import NDArray

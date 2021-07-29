@@ -1,6 +1,8 @@
 """
 Strategies whose expected error
-is derived in closed-form
+is derived in closed-form.
+
+Error metric is exact (1 if indices match, 0 otherwise).
 """
 
 from copy import copy
@@ -233,14 +235,14 @@ def bounded_error_coding(
             for r in range(min(e, num_ones) + 1):
                 s = e - r
                 term_0 = (
-                        quanta_SL.ops.math_func.comb(num_zeros, s)
-                        * np.power(q, num_zeros - s)
-                        * np.power(1 - q, s)
+                    quanta_SL.ops.math_func.comb(num_zeros, s)
+                    * np.power(q, num_zeros - s)
+                    * np.power(1 - q, s)
                 )
                 term_1 = (
-                        quanta_SL.ops.math_func.comb(num_ones, r)
-                        * np.power(p, num_ones - r)
-                        * np.power(1 - p, r)
+                    quanta_SL.ops.math_func.comb(num_ones, r)
+                    * np.power(p, num_ones - r)
+                    * np.power(1 - p, r)
                 )
                 p_correct += term_0 * term_1
 

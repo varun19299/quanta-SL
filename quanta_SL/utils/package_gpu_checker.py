@@ -2,9 +2,10 @@
 Checks for GPU support (for various packages)
 """
 
-from loguru import logger
-import pykeops
 import faiss
+import pykeops
+from loguru import logger
+from numba import cuda
 
 # CuPy
 # Unfortunately, can't be installed on CPU only systems
@@ -28,4 +29,8 @@ KEOPS_GPU_INSTALLED = pykeops.config.gpu_available
 # FAISS
 FAISS_GPU_INSTALLED = faiss.get_num_gpus() > 0
 
-GPU_AVAILABLE = CUPY_INSTALLED or KEOPS_GPU_INSTALLED or FAISS_GPU_INSTALLED
+# Numba
+NUMBA_GPU_INSTALLED = cuda.is_available()
+
+GPU_AVAILABLE = CUPY_INSTALLED or KEOPS_GPU_INSTALLED or FAISS_GPU_INSTALLED or NUMBA_GPU_INSTALLED
+
