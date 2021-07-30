@@ -86,4 +86,5 @@ def unpackbits_strided(byte_array: np.ndarray, num_bits: int = 0, xp: ModuleType
     # Slice if needed
     slc = [slice(None)] * bit_array.ndim
     slc[-1] = slice(-num_bits % 8, None)
+    slc = tuple(slc)
     return bit_array[slc]

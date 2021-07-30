@@ -19,14 +19,15 @@ def exact_error(decoded_index: NDArray[int], gt_index: NDArray[int]):
     """
     Must exactly match
     """
-    return decoded_index != gt_index
+    return (decoded_index != gt_index).mean(axis=-1)
 
 
-@named_func("MSE", "Mean Squared Error")
+@named_func("RMSE", "Root Mean Squared Error")
 def squared_error(decoded_index: NDArray[int], gt_index: NDArray[int]):
-    return (decoded_index - gt_index) ** 2
+    out = ((decoded_index - gt_index) ** 2).mean(axis=-1)
+    return out ** 0.5
 
 
 @named_func("MAE", "Mean Absolute Error")
 def absolute_error(decoded_index: NDArray[int], gt_index: NDArray[int]):
-    return (decoded_index - gt_index).abs()
+    return (decoded_index - gt_index).abs().mean(axis=-1)

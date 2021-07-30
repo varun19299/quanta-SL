@@ -1,14 +1,15 @@
 import numpy as np
 from matplotlib import pyplot as plt, cm
 from pathlib import Path
+from loguru import logger
 
 from quanta_SL.vis_tools.error_evaluation.analytic import optimal_threshold
 from quanta_SL.encode.metaclass import Eval
 from quanta_SL.utils.plotting import save_plot
 from quanta_SL.ops.math_func import order_range
+from quanta_SL.ops.metrics import exact_error
 from nptyping import NDArray
 from typing import List, Union, Callable
-import logging
 
 params = {
     "legend.fontsize": "x-large",
@@ -23,7 +24,7 @@ plt.rcParams.update(params)
 LINEWIDTH = 3
 
 # Output plots to...
-plot_dir = Path("outputs/plots/strategy_plots/")
+plot_dir = Path("outputs/plots/strategy_plots_revisited/")
 
 
 def plot_optimal_threshold(
@@ -33,9 +34,9 @@ def plot_optimal_threshold(
     num_frames: int = 10,
     savefig: bool = False,
     show: bool = True,
-    **kwargs,
+    **unused_kwargs,
 ):
-    logging.info("Plotting optimal threshold \n")
+    logger.info("Plotting optimal threshold \n")
     FIGSIZE = (8, 4)
 
     # varying phi P, different lines for Phi A
@@ -77,9 +78,11 @@ def surface_plot_3d(
     eval_error,
     phi_proj,
     phi_A,
+    error_metric: Callable = exact_error,
     savefig: bool = False,
     outname: str = "",
     show: bool = True,
+    **unused_kwargs,
 ):
     phi_proj_mesh, phi_A_mesh = np.meshgrid(phi_proj, phi_A, indexing="ij")
 
@@ -111,7 +114,7 @@ def surface_plot_3d(
     ax.set_yticklabels(yticklabels)
 
     # Z axis
-    ax.set_zlabel("Error Probability", labelpad=5)
+    ax.set_zlabel(error_metric.long_name, labelpad=5)
     zticks = [p / 10 for p in range(0, 11, 2)]
     ax.set_zticks(zticks)
     ax.set_zticklabels([f"{z:.1f}" for z in zticks])
@@ -120,7 +123,7 @@ def surface_plot_3d(
         savefig,
         show=False,
         close=False,
-        fname=plot_dir / "{outname}/surface_plot_no_colorbar.pdf",
+        fname=plot_dir / f"{outname}/surface_plot_no_colorbar.pdf",
     )
 
     # Colorbar
@@ -133,7 +136,7 @@ def surface_plot_3d(
     save_plot(
         savefig,
         show,
-        fname=plot_dir / "{outname}/surface_plot_with_colorbar.pdf",
+        fname=plot_dir / f"{outname}/surface_plot_with_colorbar.pdf",
     )
 
     # draw a new figure and replot the colorbar there
@@ -143,7 +146,7 @@ def surface_plot_3d(
     save_plot(
         savefig,
         show=False,
-        fname=plot_dir / "{outname}/surface_plot_only_colorbar.pdf",
+        fname=plot_dir / f"{outname}/surface_plot_only_colorbar.pdf",
     )
 
 
@@ -151,9 +154,11 @@ def mesh_plot_2d(
     eval_error,
     phi_proj,
     phi_A,
+    error_metric: Callable = exact_error,
     savefig: bool = False,
     outname: str = "",
     show: bool = True,
+    **unused_kwargs,
 ):
     # Plot image
     plt.figure()
@@ -179,13 +184,13 @@ def mesh_plot_2d(
         savefig,
         show=False,
         close=False,
-        fname=plot_dir / "{outname}/mesh_no_colorbar.pdf",
+        fname=plot_dir / f"{outname}/mesh_no_colorbar.pdf",
     )
 
     # Colorbar
     def img_colorbar(**kwargs):
         cbar = plt.colorbar(**kwargs)
-        cbar.ax.set_title("P(error)")
+        cbar.ax.set_title(error_metric.name)
         cbar.ax.locator_params(nbins=5)
         cbar.update_ticks()
 
@@ -195,7 +200,7 @@ def mesh_plot_2d(
     save_plot(
         savefig,
         show,
-        fname=plot_dir / "{outname}/mesh_with_colorbar.pdf",
+        fname=plot_dir / f"{outname}/mesh_with_colorbar.pdf",
     )
 
     # draw a new figure and replot the colorbar there
@@ -205,7 +210,7 @@ def mesh_plot_2d(
     save_plot(
         savefig,
         show=False,
-        fname=plot_dir / "{outname}/mesh_only_colorbar.pdf",
+        fname=plot_dir / f"{outname}/mesh_only_colorbar.pdf",
     )
 
 
@@ -215,31 +220,34 @@ def mesh_and_surface_plot(
     t_exp: float,
     strategy: Eval,
     eval_error: NDArray = None,
+    error_metric: Callable = exact_error,
     savefig: bool = False,
     show: bool = True,
     plot_3d: bool = False,
     outname: str = "",
-    **kwargs,
+    **unused_kwargs,
 ):
     # Outname
     if not outname:
         outname = strategy.name
 
-    logging.info(f"Individual plotting: strategy {outname}")
-
-    # Meshgrid
-    phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
+    logger.info(f"Individual plotting: strategy {outname}")
 
     # If not supplied, call
     if not isinstance(eval_error, np.ndarray):
+        # Meshgrid
+        phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
+
         # Call the strategy and plot
         assert isinstance(strategy, Eval)
         eval_error = strategy(phi_P_mesh, phi_A_mesh, t_exp)
 
-    if plot_3d:
-        surface_plot_3d(eval_error, phi_proj, phi_A, savefig, outname, show)
+    kwargs = locals().copy()
 
-    mesh_plot_2d(eval_error, phi_proj, phi_A, savefig, outname, show)
+    if plot_3d:
+        surface_plot_3d(**kwargs)
+
+    mesh_plot_2d(**kwargs)
 
     return eval_error
 
@@ -250,14 +258,15 @@ def multiple_surface_pyplot_3d(
     t_exp: float,
     strategy_ll: List[Eval],
     eval_error_ll: List = [],
+    error_metric: Callable = exact_error,
     savefig: bool = False,
     show: bool = True,
     outname: str = "",
     title: str = "",
-    **kwargs,
+    **unused_kwargs,
 ):
     names = [strategy.name for strategy in strategy_ll]
-    logging.info(f"Comparative plotting: {', '.join(names)}")
+    logger.info(f"Comparative plotting: {', '.join(names)}")
 
     # Meshgrid
     phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
@@ -312,10 +321,10 @@ def multiple_surface_pyplot_3d(
     ax.set_yticklabels(yticklabels)
 
     # Z axis
-    ax.set_zlabel("Error Probability")
-    zticks = [p / 10 for p in range(0, 11, 2)]
-    ax.set_zticks(zticks)
-    ax.set_zticklabels([f"{z:.1f}" for z in zticks])
+    ax.set_zlabel(error_metric.long_name)
+    # zticks = [p / 10 for p in range(0, 11, 2)]
+    # ax.set_zticks(zticks)
+    # ax.set_zticklabels([f"{z:.1f}" for z in zticks])
 
     ax.legend()
     plt.grid()
@@ -326,7 +335,7 @@ def multiple_surface_pyplot_3d(
     save_plot(
         savefig,
         show,
-        fname=plot_dir / "{outname}/comparison_of_{'_'.join(names)}.pdf",
+        fname=plot_dir / f"{outname}/comparison_of_{'_'.join(names)}.pdf",
     )
 
 
@@ -336,23 +345,23 @@ def multiple_surface_plotly_3d(
     t_exp: float,
     strategy_ll: List[Eval],
     eval_error_ll: List = [],
+    error_metric: Callable = exact_error,
     savefig: bool = False,
     show: bool = True,
     outname: str = "",
     title: str = "",
-    **kwargs,
+    **unused_kwargs,
 ):
     import plotly.graph_objects as go
 
     names = [strategy.name for strategy in strategy_ll]
-    logging.info(f"Comparative plotting: {', '.join(names)}")
+    logger.info(f"Comparative plotting: {', '.join(names)}")
 
     # Meshgrid
     phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
     phi_proj_mesh, phi_A_mesh = np.meshgrid(phi_proj, phi_A, indexing="ij")
 
     COLORS_ll = ["red", "orange", "green", "blue", "purple", "brown", "grey"]
-    COLORS_continuous = [color + "s" for color in COLORS_ll]
     COLORS_discrete = [[(0, color), (1, color)] for color in COLORS_ll]
 
     fig = go.Figure(
@@ -409,7 +418,7 @@ def multiple_surface_plotly_3d(
                 type="log",
                 exponentformat="power",
             ),
-            zaxis=dict(title="Error Probability", tickfont_size=12),
+            zaxis=dict(title=error_metric.long_name, tickfont_size=12),
         ),
         scene_aspectmode="cube",
         scene_camera_eye=dict(x=1.4, y=1.4, z=1.4),
@@ -438,6 +447,7 @@ def individual_and_multiple_plots(
     phi_A,
     t_exp: float,
     strategy_ll: List[Eval],
+    error_metric: Callable = exact_error,
     savefig: bool = False,
     show: bool = True,
     plot_3d: str = "",
@@ -452,7 +462,7 @@ def individual_and_multiple_plots(
     # Meshgrid
     phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
 
-    logging.info("Evaluating expected error...")
+    logger.info("Evaluating expected error...")
 
     for e, strategy in enumerate(strategy_ll):
         # Call the strategy and plot
@@ -461,7 +471,7 @@ def individual_and_multiple_plots(
 
         eval_error_ll.append(eval_error)
 
-    print("\n")
+    logger.info("\n")
 
     if backend_3d == "plotly":
         multiple_surface_plotly_3d(eval_error_ll=eval_error_ll, **kwargs)

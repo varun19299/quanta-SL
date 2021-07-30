@@ -70,7 +70,7 @@ class BCH(_Code):
         self.distance = galois.BCH(self.n, self.k).t * 2 + 1
 
     def __str__(self):
-        return f"BCH-[{self.n}, {self.k}, {self.t}]"
+        return f"BCH [{self.n}, {self.k}, {self.t}]"
 
     @property
     def is_list_decoding(self):
@@ -85,7 +85,7 @@ class Repetition(_Code):
         ), f"Code length {self.n} must be a multiple of message length {self.k}."
 
     def __str__(self):
-        return f"Repetition-[{self.n}, {self.k}]"
+        return f"Repetition [{self.n}, {self.k}]"
 
     @property
     def repeat(self) -> int:

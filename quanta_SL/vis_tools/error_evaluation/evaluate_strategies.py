@@ -1,20 +1,14 @@
-import logging
-
 import numpy as np
 
-FORMAT = "%(asctime)s [%(filename)s : %(funcName)2s() : %(lineno)2s] %(message)s"
-logging.basicConfig(format=FORMAT, datefmt="%d-%b-%y %H:%M:%S")
-logging.getLogger().setLevel(logging.INFO)
-
-from quanta_SL.vis_tools import (
+from quanta_SL.vis_tools.error_evaluation.analytic import (
     naive,
     average_fixed,
     average_optimal,
     average_conventional,
     naive_conventional,
 )
-from quanta_SL.vis_tools import CallableEval, BCH, Repetition
-from quanta_SL.vis_tools import bch_coding, repetition_coding
+from quanta_SL.encode.metaclass import CallableEval, BCH, Repetition
+from quanta_SL.vis_tools.error_evaluation.monte_carlo import bch_coding, repetition_coding
 from quanta_SL.vis_tools.error_evaluation.plotting import (
     plot_optimal_threshold,
     mesh_and_surface_plot, func_name,
@@ -42,7 +36,6 @@ if __name__ == "__main__":
         BCH(63, 10, 13),
         BCH(127, 15, 27),
     ]
-    # bch_ll = [BCH(15, 11, 1), BCH(31, 11, 7), BCH(63, 10, 18), BCH(127, 15, 40)]
 
     bch_kwargs_ll = [
         {"bch_tuple": bch_tuple, "num_frames": 1, "use_complementary": False}

@@ -10,7 +10,7 @@ import numpy as np
 from quanta_SL.encode.graycodes import monotonic_graycode
 from quanta_SL.utils.plotting import plot_code_LUT
 from quanta_SL.utils.loader import load_code
-from quanta_SL.ops.binary import unpackbits
+from quanta_SL.ops.binary import packbits, unpackbits, invert_permutation
 from quanta_SL.ops.coding import stripe_width_stats
 
 long_run_gray_cache_dict = {}
@@ -67,6 +67,28 @@ def monotonic_gray_message(num_bits: int):
         code_LUT.append(code)
 
     return np.array(code_LUT)
+
+
+def message_to_permuation(message_ll, **packbits_kwargs):
+    """
+    Convert message LUT to packed integers.
+    Useful to define a mapping between binary and the code.
+
+    :param message_ll: message LUT
+    :return: integer array
+    """
+    return packbits(message_ll, **packbits_kwargs)
+
+
+def message_to_inverse_permuation(message_ll, **packbits_kwargs):
+    """
+    Convert message LUT inverse to packed integers.
+    Useful to define a mapping between code and binary listing (np.arange).
+
+    :param message_ll: message LUT
+    :return: integer array
+    """
+    return invert_permutation(message_to_permuation(message_ll, **packbits_kwargs))
 
 
 def _save_code_img():
