@@ -15,7 +15,7 @@ from quanta_SL.vis_tools import (
 )
 from quanta_SL.vis_tools import CallableEval, BCH, Repetition
 from quanta_SL.vis_tools import bch_coding, repetition_coding
-from quanta_SL.vis_tools.error_evaluation.plot import (
+from quanta_SL.vis_tools.error_evaluation.plotting import (
     plot_optimal_threshold,
     mesh_and_surface_plot, func_name,
 )

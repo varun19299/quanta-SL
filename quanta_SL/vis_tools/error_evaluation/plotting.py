@@ -22,6 +22,9 @@ plt.rcParams.update(params)
 
 LINEWIDTH = 3
 
+# Output plots to...
+plot_dir = Path("outputs/plots/strategy_plots/")
+
 
 def plot_optimal_threshold(
     phi_proj,
@@ -54,9 +57,7 @@ def plot_optimal_threshold(
         plt.tight_layout()
 
     _plt_properties("$\Phi_p$")
-    save_plot(
-        savefig, show, fname=f"outputs/plots/strategy_plots/optimal_thresh_vs_phi_p.pdf"
-    )
+    save_plot(savefig, show, fname=plot_dir / "optimal_thresh_vs_phi_p.pdf")
 
     # varying phi A, different lines for Phi P
     plt.figure(figsize=FIGSIZE)
@@ -69,9 +70,7 @@ def plot_optimal_threshold(
         )
 
     _plt_properties("$\Phi_a$")
-    save_plot(
-        savefig, show, fname=f"outputs/plots/strategy_plots/optimal_thresh_vs_phi_A.pdf"
-    )
+    save_plot(savefig, show, fname=plot_dir / "optimal_thresh_vs_phi_A.pdf")
 
 
 def surface_plot_3d(
@@ -121,7 +120,7 @@ def surface_plot_3d(
         savefig,
         show=False,
         close=False,
-        fname=f"outputs/plots/strategy_plots/{outname}/surface_plot_no_colorbar.pdf",
+        fname=plot_dir / "{outname}/surface_plot_no_colorbar.pdf",
     )
 
     # Colorbar
@@ -134,7 +133,7 @@ def surface_plot_3d(
     save_plot(
         savefig,
         show,
-        fname=f"outputs/plots/strategy_plots/{outname}/surface_plot_with_colorbar.pdf",
+        fname=plot_dir / "{outname}/surface_plot_with_colorbar.pdf",
     )
 
     # draw a new figure and replot the colorbar there
@@ -144,7 +143,7 @@ def surface_plot_3d(
     save_plot(
         savefig,
         show=False,
-        fname=f"outputs/plots/strategy_plots/{outname}/surface_plot_only_colorbar.pdf",
+        fname=plot_dir / "{outname}/surface_plot_only_colorbar.pdf",
     )
 
 
@@ -180,7 +179,7 @@ def mesh_plot_2d(
         savefig,
         show=False,
         close=False,
-        fname=f"outputs/plots/strategy_plots/{outname}/mesh_no_colorbar.pdf",
+        fname=plot_dir / "{outname}/mesh_no_colorbar.pdf",
     )
 
     # Colorbar
@@ -191,12 +190,12 @@ def mesh_plot_2d(
         cbar.update_ticks()
 
     img_colorbar()
-    plt.clim(0, 1)
+    # plt.clim(0, 1)
     plt.title(f"{outname.replace('_',' ').capitalize()}")
     save_plot(
         savefig,
         show,
-        fname=f"outputs/plots/strategy_plots/{outname}/mesh_with_colorbar.pdf",
+        fname=plot_dir / "{outname}/mesh_with_colorbar.pdf",
     )
 
     # draw a new figure and replot the colorbar there
@@ -206,7 +205,7 @@ def mesh_plot_2d(
     save_plot(
         savefig,
         show=False,
-        fname=f"outputs/plots/strategy_plots/{outname}/mesh_only_colorbar.pdf",
+        fname=plot_dir / "{outname}/mesh_only_colorbar.pdf",
     )
 
 
@@ -327,7 +326,7 @@ def multiple_surface_pyplot_3d(
     save_plot(
         savefig,
         show,
-        fname=f"outputs/plots/strategy_plots/{outname}/comparison_of_{'_'.join(names)}.pdf",
+        fname=plot_dir / "{outname}/comparison_of_{'_'.join(names)}.pdf",
     )
 
 
@@ -427,9 +426,7 @@ def multiple_surface_plotly_3d(
         fig.show(renderer="browser")
 
     if savefig:
-        out_path = Path(
-            f"outputs/plots/strategy_plots/{outname}/comparison_of_{'_'.join(names)}"
-        )
+        out_path = plot_dir / f"{outname}/comparison_of_{'_'.join(names)}"
         out_path.parent.mkdir(exist_ok=True, parents=True)
         fig.write_image(str(out_path) + ".pdf")
         fig.write_image(str(out_path) + ".png")
@@ -458,8 +455,6 @@ def individual_and_multiple_plots(
     logging.info("Evaluating expected error...")
 
     for e, strategy in enumerate(strategy_ll):
-        assert isinstance(strategy, Eval)
-
         # Call the strategy and plot
         assert isinstance(strategy, Eval)
         eval_error = strategy(phi_P_mesh, phi_A_mesh, t_exp)

@@ -294,9 +294,6 @@ def faiss_flat_gpu_index(y):
     d = y.shape[1] * 8
     config = faiss.GpuIndexBinaryFlatConfig()
 
-    # Store values using 32-bit indices instead
-    # config.indicesOptions = faiss.INDICES_32_BIT
-
     gpu_faiss_index = faiss.GpuIndexBinaryFlat(res, d, config)
 
     # Adding the database vectors.

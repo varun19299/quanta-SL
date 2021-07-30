@@ -1,4 +1,3 @@
-import logging
 from math import ceil, log2
 from pathlib import Path
 from typing import Tuple, Callable
@@ -8,19 +7,15 @@ import galois
 import numpy as np
 from einops import repeat, rearrange
 from galois import GF2
+from loguru import logger
 from matplotlib import pyplot as plt
 from nptyping import NDArray
 from tqdm import tqdm
 
 from quanta_SL.encode import metaclass
-from quanta_SL.encode.message import gray_message, long_run_gray_message, monotonic_gray_message, xor4_message
-from quanta_SL.utils.plotting import plot_code_LUT
+from quanta_SL.encode.message import gray_message, long_run_gray_message
 from quanta_SL.encode.precision_bits import circular_shifted_stripes
-
-FORMAT = "%(asctime)s [%(filename)s : %(funcName)2s() : %(lineno)2s] %(message)s"
-logging.basicConfig(format=FORMAT, datefmt="%d-%b-%y %H:%M:%S")
-logging.getLogger().setLevel(logging.INFO)
-
+from quanta_SL.utils.plotting import plot_code_LUT
 
 """
 Strategy to Projector frames
@@ -29,7 +24,7 @@ Strategy to Projector frames
 
 def code_LUT_to_projector_frames(
     code_LUT: NDArray[int],
-    projector_resolution: Tuple[int],
+    projector_resolution: Tuple[int, int],
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
@@ -75,7 +70,7 @@ def code_LUT_to_projector_frames(
 
     # Write out files
     if show or save:
-        logging.info(f"Saving / showing strategy {folder_name}")
+        logger.info(f"Saving / showing strategy {folder_name}")
 
         pbar = tqdm(rearrange(code_LUT, "height width n -> n height width"))
 
@@ -93,7 +88,7 @@ def code_LUT_to_projector_frames(
 
 
 def gray_code_to_projector_frames(
-    projector_resolution: Tuple[int],
+    projector_resolution: Tuple[int, int],
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
@@ -127,7 +122,7 @@ def gray_code_to_projector_frames(
 
 def bch_to_projector_frames(
     bch_tuple: metaclass.BCH,
-    projector_resolution: Tuple[int],
+    projector_resolution: Tuple[int, int],
     message_mapping: Callable = gray_message,
     use_complementary: bool = False,
     show: bool = False,
@@ -139,6 +134,8 @@ def bch_to_projector_frames(
 
     :param bch_tuple: BCH code [n,k,t] parameters
     :param projector_resolution: width x height
+    :param message_mapping: Describes message
+        m: [num_cols] -> F_2^k
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
@@ -178,7 +175,7 @@ def bch_to_projector_frames(
 
 def repetition_to_projector_frames(
     repetition_tuple: metaclass.Repetition,
-    projector_resolution: Tuple[int],
+    projector_resolution: Tuple[int, int],
     message_mapping: Callable = gray_message,
     use_complementary: bool = False,
     show: bool = False,
@@ -190,6 +187,8 @@ def repetition_to_projector_frames(
 
     :param repetition_tuple: Repetition code [n,k] parameters
     :param projector_resolution: width x height
+    :param message_mapping: Describes message
+        m: [num_cols] -> F_2^k
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
@@ -227,7 +226,7 @@ def repetition_to_projector_frames(
 def hybrid_to_projector_frames(
     bch_tuple: metaclass.BCH,
     bch_bits: int,
-    projector_resolution: Tuple[int],
+    projector_resolution: Tuple[int, int],
     message_mapping: Callable = gray_message,
     use_complementary: bool = False,
     show: bool = False,
@@ -239,6 +238,8 @@ def hybrid_to_projector_frames(
 
     :param bch_tuple: BCH code [n,k,t] parameters
     :param projector_resolution: width x height
+    :param message_mapping: Describes message
+        m: [num_cols] -> F_2^k
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
@@ -281,6 +282,7 @@ def hybrid_to_projector_frames(
     code_LUT = np.concatenate([code_LUT, stripe_LUT], axis=-1)
 
     from quanta_SL.ops.coding import stripe_width_stats
+
     print(stripe_width_stats(code_LUT))
 
     if save:
@@ -302,28 +304,23 @@ if __name__ == "__main__":
 
     kwargs = {"show": False, "save": True}
 
-    # gray_code_to_projector_frames(projector_resolution, **kwargs)
-    bch_bits = 8
-    code_LUT = hybrid_to_projector_frames(
+    gray_code_to_projector_frames(projector_resolution, **kwargs)
+
+    hybrid_to_projector_frames(
         metaclass.BCH(31, 11, 5),
-        bch_bits,
-        projector_resolution,
+        bch_bits=8,
+        projector_resolution=projector_resolution,
         message_mapping=long_run_gray_message,
         **kwargs,
     )
 
-    # bch_to_projector_frames(
-    #     metaclass.BCH(31, 11, 5),
-    #     projector_resolution,
-    #     message_mapping=gray_message,
-    #     **kwargs,
-    # )
-    # bch_to_projector_frames(
-    #     metaclass.BCH(31, 11, 5),
-    #     projector_resolution,
-    #     use_complementary=True,
-    #     **kwargs,
-    # )
-    # repetition_to_projector_frames(
-    #     metaclass.Repetition(66, 11, 2), projector_resolution, **kwargs
-    # )
+    bch_to_projector_frames(
+        metaclass.BCH(31, 11, 5),
+        projector_resolution,
+        message_mapping=gray_message,
+        **kwargs,
+    )
+
+    repetition_to_projector_frames(
+        metaclass.Repetition(66, 11, 2), projector_resolution, **kwargs
+    )

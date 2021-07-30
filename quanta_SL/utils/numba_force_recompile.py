@@ -9,6 +9,7 @@ import logging
 def kill_numba_cache(root_folder: Path = Path(".")):
     for path in root_folder.iterdir():
         if path.is_dir() and path.name == "__pycache__":
+            print(path)
             logging.debug(f"Empyting __pycache__ files from {path}")
             for file in path.iterdir():
                 file.unlink()

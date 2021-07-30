@@ -7,6 +7,7 @@ import numpy as np
 from einops import repeat
 from nptyping import NDArray
 from numba import vectorize, boolean, uint8, float64, int64, njit, prange
+from quanta_SL.utils.package_gpu_checker import xp
 
 
 @vectorize(
@@ -98,7 +99,6 @@ def photon_arrival(
     phi: NDArray[(Any, Any), float],
     t_exp: Union[float, NDArray[(Any, Any), float]],
     size: Tuple[int],
-    xp: ModuleType = np,
 ) -> NDArray[(Any, Any), int]:
     """
     Simulate SPAD photon arrival.
@@ -127,7 +127,6 @@ def shot_noise_corrupt_gpu(
     num_frames: int,
     tau: Union[float, NDArray[(Any, Any), float]] = 0.5,
     use_complementary: bool = False,
-    xp: ModuleType = np,
 ) -> NDArray[int]:
     """
     Corrupt a code word with shot noise
@@ -146,9 +145,9 @@ def shot_noise_corrupt_gpu(
         Effective only when num_frames > 1.
     :return:
     """
-    h, w = phi_P.shape
+    h, w, _ = phi_P.shape
 
-    corrupt_code = repeat(code, "n -> h w n", h=h, w=w)
+    corrupt_code = repeat(code, "1 1 n -> h w n", h=h, w=w)
 
     zero_locations = xp.where(code == 0)[0]
     one_locations = xp.where(code == 1)[0]
