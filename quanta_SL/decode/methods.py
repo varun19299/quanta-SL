@@ -91,7 +91,7 @@ def minimum_distance_decoding(
     return indices
 
 
-def read_off_decoding(queries, code_LUT):
+def read_off_decoding(queries, code_LUT, unpack: bool = False):
     """
     Decoding by simply reading off binary values.
     No coding scheme used.
@@ -100,8 +100,9 @@ def read_off_decoding(queries, code_LUT):
     :param code_LUT: Not used, kept for consistency across funcs.
     :return: Decoded indices.
     """
-    # Undo byte conversion
-    queries = unpackbits_strided(queries)
+    if unpack:
+        # Undo byte conversion
+        queries = unpackbits_strided(queries)
 
     # Pack into projector cols
     return packbits(queries)

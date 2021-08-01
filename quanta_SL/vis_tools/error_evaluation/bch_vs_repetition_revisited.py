@@ -145,9 +145,9 @@ def _compare_repetition_bch(
 
 
 if __name__ == "__main__":
-    from quanta_SL.utils.package_gpu_checker import GPU_AVAILABLE
+    from quanta_SL.utils.package_gpu_checker import FAISS_GPU_INSTALLED
 
-    if GPU_AVAILABLE:
+    if FAISS_GPU_INSTALLED:
         phi_proj = np.logspace(3, 6, num=128)
         phi_A = np.logspace(2, 4, num=128)
     else:
