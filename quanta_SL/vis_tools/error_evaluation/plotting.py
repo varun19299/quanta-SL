@@ -24,7 +24,7 @@ plt.rcParams.update(params)
 LINEWIDTH = 3
 
 # Output plots to...
-plot_dir = Path("outputs/plots/strategy_plots_revisited/")
+plot_dir = Path("outputs/plots/strategy_plots_gpu/")
 
 
 def plot_optimal_threshold(

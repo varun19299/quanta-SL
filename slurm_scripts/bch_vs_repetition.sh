@@ -9,7 +9,7 @@
 #SBATCH --cpus-per-task=8       # cpu-cores per task (>1 if multi-threaded tasks)
 #SBATCH --mem-per-cpu=4G         # memory per cpu-core
 #SBATCH --time=1:00:00          # total run time limit (HH:MM:SS)
-#SBATCH --gres=gpu:rtx2080ti:1 # GPU needed ##SBATCH --array=0-1
+#SBATCH --gres=gpu:1 # GPU needed ##SBATCH --array=0-1
 
 # Mailing stuff
 #SBATCH --mail-type=BEGIN,END,FAIL
@@ -41,4 +41,4 @@ fi
 
 # Start Job here
 export PYTHONPATH=.
-python quanta_SL/vis_tools/error_evaluation/bch_vs_repetition_revisited.py
+python quanta_SL/vis_tools/error_evaluation/bch_vs_repetition.py

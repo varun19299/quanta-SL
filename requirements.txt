@@ -25,3 +25,4 @@ pynndescent
 SciencePlots
 scipy
 tqdm
+varname

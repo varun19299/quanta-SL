@@ -32,11 +32,8 @@ from quanta_SL.encode.message import (
 from quanta_SL.ops.binary import packbits_strided
 from quanta_SL.ops.metrics import exact_error, squared_error
 from quanta_SL.ops.noise import shot_noise_corrupt, shot_noise_corrupt_gpu
-from quanta_SL.utils.package_gpu_checker import (
-    xp,
-    CUPY_INSTALLED,
-    FAISS_GPU_INSTALLED,
-    free_cupy_gpu,
+from quanta_SL.utils.gpu_status import (
+    FAISS_GPUs, CUPY_GPUs, xp, move_to_gpu
 )
 from quanta_SL.vis_tools.error_evaluation.plotting import mesh_plot_2d
 
@@ -97,10 +94,20 @@ def coding_LUT(
     if not isinstance(gt_permutation, np.ndarray):
         gt_permutation = np.arange(N, dtype=int)
 
+    # If CuPy installed
+    if CUPY_GPUs:
+        shot_noise_func = shot_noise_corrupt_gpu
+        phi_P = move_to_gpu(phi_P)
+        phi_A = move_to_gpu(phi_A)
+        t_exp = move_to_gpu(t_exp)
+        tau = move_to_gpu(tau)
+    else:
+        shot_noise_func = shot_noise_corrupt
+
     for e, code in enumerate(tqdm(code_LUT, desc=pbar_description, dynamic_ncols=True)):
         code = rearrange(code, "n -> 1 1 n")
 
-        corrupt_code = shot_noise_corrupt(
+        corrupt_code = shot_noise_func(
             code, phi_P, phi_A, t_exp, num_frames, tau, use_complementary
         )
 
@@ -161,7 +168,7 @@ def bch_coding(
     )
 
     # FAISS indexing
-    if FAISS_GPU_INSTALLED:
+    if FAISS_GPUs:
         index = faiss_flat_gpu_index(packbits_strided(code_LUT))
     else:
         index = faiss_flat_index(packbits_strided(code_LUT))

@@ -1,5 +1,5 @@
 import time
-from quanta_SL.utils.package_gpu_checker import CUPY_INSTALLED, xp
+from quanta_SL.utils.gpu_status import CUPY_GPUs, xp
 
 class Timer:
     @property
@@ -56,7 +56,7 @@ class CuPyTimer(Timer):
     """
 
     def __init__(self):
-        assert CUPY_INSTALLED, "CuPy must be installed"
+        assert CUPY_GPUs, "CuPy must be installed"
 
     def __enter__(self):
         self.start_gpu = xp.cuda.Event()

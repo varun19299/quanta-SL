@@ -13,11 +13,11 @@ from numba import njit, prange
 from pynndescent import NNDescent
 from sklearn.neighbors._ball_tree import BallTree
 
-from quanta_SL.utils.package_gpu_checker import (
+from quanta_SL.utils.gpu_status import (
     xp,
-    CUPY_INSTALLED,
-    KEOPS_GPU_INSTALLED,
-    FAISS_GPU_INSTALLED,
+    CUPY_GPUs,
+    KEOPS_GPUs,
+    FAISS_GPUs,
 )
 from quanta_SL.ops.coding import hamming_distance_8bit
 from types import ModuleType
@@ -134,7 +134,7 @@ def cupy_minimum_distance(x, y, hamming_dist_LUT: NDArray[int] = None):
         Useful if x or y are packed as uint8 or uint16.
     :return: Minimum distance indices of size N_x (with values in 0,...,N_y - 1)
     """
-    assert CUPY_INSTALLED, "CuPy is not installed"
+    assert CUPY_GPUs, "CuPy is not installed"
     x = xp.asarray(x)
     y = xp.asarray(y)
 

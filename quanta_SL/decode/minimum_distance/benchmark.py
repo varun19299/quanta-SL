@@ -27,11 +27,11 @@ from quanta_SL.encode.message import binary_message
 from quanta_SL.ops.binary import packbits_strided
 from quanta_SL.ops.coding import hamming_distance_8bit
 from quanta_SL.ops.noise import fixed_bit_flip_corrupt
-from quanta_SL.utils.package_gpu_checker import (
+from quanta_SL.utils.gpu_status import (
     xp,
-    CUPY_INSTALLED,
-    KEOPS_GPU_INSTALLED,
-    FAISS_GPU_INSTALLED,
+    CUPY_GPUs,
+    KEOPS_GPUs,
+    FAISS_GPUs,
     GPU_AVAILABLE,
 )
 from quanta_SL.utils.plotting import save_plot
@@ -202,7 +202,7 @@ def gpu_minimum_distance(x: NDArray[int], y: NDArray[int], gt_indices: NDArray[i
     data_query_kwargs = copy(locals())
     benchmark_dict = {}
 
-    if CUPY_INSTALLED:
+    if CUPY_GPUs:
         benchmark_func(
             "CuPy byte-packed",
             cupy_minimum_distance,
@@ -219,7 +219,7 @@ def gpu_minimum_distance(x: NDArray[int], y: NDArray[int], gt_indices: NDArray[i
         mempool.free_all_blocks()
         pinned_mempool.free_all_blocks()
 
-    if KEOPS_GPU_INSTALLED:
+    if KEOPS_GPUs:
         benchmark_func(
             "KeOps",
             keops_minimum_distance,
@@ -227,7 +227,7 @@ def gpu_minimum_distance(x: NDArray[int], y: NDArray[int], gt_indices: NDArray[i
             benchmark_dict=benchmark_dict,
         )
 
-    if FAISS_GPU_INSTALLED:
+    if FAISS_GPUs:
         benchmark_func(
             "FAISS Flat",
             faiss_minimum_distance,

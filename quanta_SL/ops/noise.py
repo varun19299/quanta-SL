@@ -1,13 +1,12 @@
 import math
 import random
-from types import ModuleType
 from typing import Any, Union, Tuple
 
 import numpy as np
 from einops import repeat
 from nptyping import NDArray
 from numba import vectorize, boolean, uint8, float64, int64, njit, prange
-from quanta_SL.utils.package_gpu_checker import xp
+from quanta_SL.utils.gpu_status import xp, move_to_gpu
 
 
 @vectorize(
@@ -145,6 +144,13 @@ def shot_noise_corrupt_gpu(
         Effective only when num_frames > 1.
     :return:
     """
+    # Move to GPU
+    code = move_to_gpu(code)
+    phi_P = move_to_gpu(phi_P)
+    phi_A = move_to_gpu(phi_A)
+    tau = move_to_gpu(tau)
+    t_exp = move_to_gpu(t_exp)
+
     h, w, _ = phi_P.shape
 
     corrupt_code = repeat(code, "1 1 n -> h w n", h=h, w=w)
@@ -188,4 +194,4 @@ def shot_noise_corrupt_gpu(
     corrupt_code[:, :, zero_locations] ^= phi_A_flips
     corrupt_code[:, :, one_locations] ^= phi_P_flips
 
-    return corrupt_code
+    return corrupt_code.get()
