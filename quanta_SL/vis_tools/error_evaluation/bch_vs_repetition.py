@@ -96,7 +96,8 @@ def _compare_repetition_bch(
     if oversampling_factor > 1:
         title += f" | Threshold {'optimal' if use_optimal_threshold else 'fixed'}"
 
-    logger.info(title)
+    log_str = f"{title} | {error_metric.long_name}"
+    logger.info(log_str)
 
     bch_tuple_ll = [
         BCH(15, 11, 1),
@@ -148,7 +149,7 @@ if __name__ == "__main__":
     from quanta_SL.utils.gpu_status import FAISS_GPUs
 
     if FAISS_GPUs:
-        num = 256
+        num = 512
     else:
         num = 64
 

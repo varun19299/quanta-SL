@@ -123,10 +123,11 @@ def shot_noise_corrupt_gpu(
     phi_P: NDArray[(Any, Any), float],
     phi_A: NDArray[(Any, Any), float],
     t_exp: Union[float, NDArray[(Any, Any), float]],
-    num_frames: int,
+    num_frames: int = 1,
     tau: Union[float, NDArray[(Any, Any), float]] = 0.5,
     use_complementary: bool = False,
 ) -> NDArray[int]:
+
     """
     Corrupt a code word with shot noise
 
@@ -155,8 +156,8 @@ def shot_noise_corrupt_gpu(
 
     corrupt_code = repeat(code, "1 1 n -> h w n", h=h, w=w)
 
-    zero_locations = xp.where(code == 0)[0]
-    one_locations = xp.where(code == 1)[0]
+    zero_locations = xp.where(code == 0)[-1]
+    one_locations = xp.where(code == 1)[-1]
 
     # Sample from Binom(num_frames, 1 - exp(-Phi x t_exp))
     # Simulates single cycle photon arrival (ie, atleast 1 photon arrives)

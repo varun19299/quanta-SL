@@ -121,6 +121,7 @@ def coding_LUT(
     eval_error /= N
 
     eval_error = error_metric.post_mean_func(eval_error)
+    breakpoint()
 
     return eval_error
 
@@ -293,8 +294,8 @@ def no_coding(
 
 
 if __name__ == "__main__":
-    phi_proj = np.logspace(4, 5, num=256)
-    phi_A = np.logspace(3, 4, num=256)
+    phi_proj = np.logspace(1, 5, num=64)
+    phi_A = np.logspace(4, 5, num=64)
 
     phi_P_mesh, phi_A_mesh = np.meshgrid(phi_A + phi_proj, phi_A, indexing="ij")
 
@@ -302,16 +303,17 @@ if __name__ == "__main__":
     # 0.1 millisecond or 10^4 FPS
     t_exp = 1e-4
 
-    eval_error = bch_coding(
-        phi_P_mesh,
-        phi_A_mesh,
-        t_exp,
-        bch_tuple=metaclass.BCH(31, 11, 5),
-        error_metric=squared_error,
-    )
+    # eval_error = bch_coding(
+    #     phi_P_mesh,
+    #     phi_A_mesh,
+    #     t_exp,
+    #     bch_tuple=metaclass.BCH(31, 11, 5),
+    #     error_metric=squared_error,
+    # )
+    #
+    # mesh_plot_2d(eval_error, phi_proj, phi_A, error_metric=squared_error)
 
-    mesh_plot_2d(eval_error, phi_proj, phi_A, error_metric=squared_error)
-
+    logger.info("Repetition")
     eval_error = repetition_coding(
         phi_P_mesh,
         phi_A_mesh,

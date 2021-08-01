@@ -91,7 +91,13 @@ def minimum_distance_decoding(
     return indices
 
 
-def read_off_decoding(queries, code_LUT, unpack: bool = False):
+def read_off_decoding(
+    queries,
+    code_LUT,
+    inverse_permuation: NDArray[int] = None,
+    unpack: bool = False,
+    xp: ModuleType = np,
+):
     """
     Decoding by simply reading off binary values.
     No coding scheme used.
@@ -105,4 +111,10 @@ def read_off_decoding(queries, code_LUT, unpack: bool = False):
         queries = unpackbits_strided(queries)
 
     # Pack into projector cols
-    return packbits(queries)
+    indices = packbits(queries)
+
+    # Inverse mapping from permuted message to binary
+    if isinstance(inverse_permuation, xp.ndarray):
+        indices = inverse_permuation[indices]
+
+    return indices
