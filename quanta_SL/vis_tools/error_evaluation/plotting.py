@@ -1,15 +1,17 @@
-import numpy as np
-from matplotlib import pyplot as plt, cm
 from pathlib import Path
-from loguru import logger
+from typing import List, Union, Callable
 
-from quanta_SL.vis_tools.error_evaluation.analytic import optimal_threshold
+import numpy as np
+import plotly.graph_objects as go
+from loguru import logger
+from matplotlib import pyplot as plt, cm
+from nptyping import NDArray
+
 from quanta_SL.encode.metaclass import Eval
-from quanta_SL.utils.plotting import save_plot
 from quanta_SL.ops.math_func import order_range
 from quanta_SL.ops.metrics import exact_error
-from nptyping import NDArray
-from typing import List, Union, Callable
+from quanta_SL.utils.plotting import save_plot
+from quanta_SL.vis_tools.error_evaluation.analytic import optimal_threshold
 
 params = {
     "legend.fontsize": "x-large",
@@ -196,7 +198,7 @@ def mesh_plot_2d(
 
     img_colorbar()
     # plt.clim(0, 1)
-    plt.title(f"{outname.replace('_',' ').capitalize()}")
+    plt.title(f"{outname.replace('_',' ').capitalize()}", y=1.12)
     save_plot(
         savefig,
         show,
@@ -352,7 +354,6 @@ def multiple_surface_plotly_3d(
     title: str = "",
     **unused_kwargs,
 ):
-    import plotly.graph_objects as go
 
     names = [strategy.name for strategy in strategy_ll]
     logger.info(f"Comparative plotting: {', '.join(names)}")

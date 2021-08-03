@@ -5,6 +5,7 @@ With arbitrary error metrics
 import numpy as np
 from einops import rearrange
 from loguru import logger
+from typing import Dict
 
 from quanta_SL.encode.metaclass import CallableEval, BCH, Repetition
 from quanta_SL.ops.metrics import exact_error, squared_error
@@ -17,6 +18,7 @@ from quanta_SL.vis_tools.error_evaluation.monte_carlo import (
 from quanta_SL.vis_tools.error_evaluation.plotting import (
     individual_and_multiple_plots,
 )
+from copy import copy
 
 
 def _get_strategies(
@@ -61,7 +63,8 @@ def _compare_repetition_bch(
     redundancy_factor: int = 1,
     oversampling_factor: int = 1,
     use_optimal_threshold: bool = True,
-    **plot_kwargs,
+    coding_kwargs: Dict = {},
+    plot_kwargs: Dict = {},
 ):
     global phi_proj, phi_A, t_exp
 
@@ -75,16 +78,15 @@ def _compare_repetition_bch(
     else:
         tau = 0.5
 
-    if "error_metric" in plot_kwargs:
-        error_metric = plot_kwargs["error_metric"]
-    else:
-        error_metric = exact_error
-        plot_kwargs["error_metric"] = exact_error
+    # Kwargs
+    error_metric = plot_kwargs.get("error_metric", exact_error)
+    _plot_kwargs = {"error_metric": error_metric, **plot_kwargs}
 
-    coding_kwargs = {
+    _coding_kwargs = {
         "tau": tau,
         "num_frames": oversampling_factor,
         "error_metric": error_metric,
+        **coding_kwargs,
     }
 
     # Dump dir
@@ -129,7 +131,7 @@ def _compare_repetition_bch(
         bch_tuple_ll[redundancy_index],
         repetition_tuple_ll[redundancy_index],
         bch_comp_tuple,
-        **coding_kwargs,
+        **_coding_kwargs,
     )
 
     outfolder = f"{config_str}/{error_metric.long_name}"
@@ -140,7 +142,7 @@ def _compare_repetition_bch(
         strategy_ll,
         outname=outfolder,
         title=title,
-        **plot_kwargs,
+        **_plot_kwargs,
     )
     logger.info("\n\n")
 
@@ -149,7 +151,7 @@ if __name__ == "__main__":
     from quanta_SL.utils.gpu_status import FAISS_GPUs
 
     if FAISS_GPUs:
-        num = 512
+        num = 256
     else:
         num = 64
 
@@ -161,6 +163,7 @@ if __name__ == "__main__":
     t_exp = 1e-4
 
     plot_kwargs = dict(show=False, plot_3d=True, savefig=True)
+    coding_kwargs = dict(monte_carlo_iter=5)
 
     # Repetition vs BCH
     redundancy_ll = [3, 6, 13, 25]
@@ -170,11 +173,14 @@ if __name__ == "__main__":
     for redundancy_factor in redundancy_ll:
         for oversampling_factor in oversampling_ll:
             _compare_repetition_bch(
-                redundancy_factor, oversampling_factor, **plot_kwargs
+                redundancy_factor,
+                oversampling_factor,
+                coding_kwargs=coding_kwargs,
+                plot_kwargs=plot_kwargs,
             )
             _compare_repetition_bch(
                 redundancy_factor,
                 oversampling_factor,
-                error_metric=squared_error,
-                **plot_kwargs,
+                coding_kwargs=coding_kwargs,
+                plot_kwargs={**plot_kwargs, "error_metric": squared_error},
             )
