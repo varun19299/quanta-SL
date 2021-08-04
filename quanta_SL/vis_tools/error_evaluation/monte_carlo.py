@@ -149,9 +149,7 @@ def bch_coding(
     use_complementary = kwargs.get("use_complementary")  # Optional arg
 
     # Generate BCH codes
-    message_ll = message_mapping(num_bits)
     code_LUT = bch_code_LUT(bch_tuple, num_bits, message_mapping)
-
 
     # FAISS indexing
     if FAISS_GPUs:
@@ -163,7 +161,6 @@ def bch_coding(
         minimum_distance_decoding,
         func=faiss_minimum_distance,
         index=index,
-        inverse_permuation=message_to_inverse_permuation(message_ll),
         pack=True,
     )
 

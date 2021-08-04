@@ -13,9 +13,10 @@ from quanta_SL.encode import metaclass
 from quanta_SL.encode.message import gray_message
 from quanta_SL.encode.precision_bits import circular_shifted_stripes
 
+
 def repetition_code_LUT(
     repetition_tuple: metaclass.Repetition,
-    message_bits: int,
+    message_bits: int = 0,
     message_mapping: Callable = gray_message,
 ) -> NDArray[int]:
     """
@@ -28,9 +29,11 @@ def repetition_code_LUT(
 
     :return Code Look-Up Table
     """
+    if not message_bits:
+        message_bits = repetition_tuple.k
     assert (
-        message_bits <= repetition_tuple.k
-    ), f"Cannot encode {message_bits} bits, exceeds {repetition_tuple.k}."
+        message_bits == repetition_tuple.k
+    ), f"Cannot encode {message_bits} bits must equal {repetition_tuple.k}."
 
     message_ll = message_mapping(message_bits)
 

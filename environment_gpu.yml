@@ -1,0 +1,17 @@
+name: torch39
+channels:
+  - conda-forge
+  - pytorch
+  - numba
+  - nvidia
+  - defaults
+dependencies:
+  - python=3.9
+  - cudatoolkit=11.1
+  - faiss-gpu
+  - icc_rt
+  - numpy
+  - pytorch
+  - pip
+  - pip:
+    - -r requirements.txt

@@ -1,0 +1,15 @@
+name: torch39
+channels:
+  - conda-forge
+  - pytorch
+  - numba
+  - defaults
+dependencies:
+  - python=3.9
+  - faiss-cpu
+  - icc_rt
+  - numpy
+  - pytorch
+  - pip
+  - pip:
+    - -r requirements.txt

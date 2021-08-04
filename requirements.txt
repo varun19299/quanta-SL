@@ -15,9 +15,8 @@ line_profiler
 loguru
 matplotlib
 nptyping
-numpy
 numba
-opencv-contrib-python
+opencv-python
 pandas
 pytest
 pykeops
@@ -25,4 +24,3 @@ pynndescent
 SciencePlots
 scipy
 tqdm
-varname

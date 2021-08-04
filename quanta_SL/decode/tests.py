@@ -5,6 +5,7 @@ from quanta_SL.decode.minimum_distance.benchmark import (
     bch_dataset_query_points,
     benchmark_func,
 )
+from quanta_SL.decode.methods import repetition_decoding
 from quanta_SL.decode.minimum_distance.factory import (
     brute_minimum_distance,
     faiss_minimum_distance,
@@ -14,6 +15,8 @@ from quanta_SL.decode.minimum_distance.factory import (
     faiss_flat_index,
     balltree_index,
 )
+from quanta_SL.encode.strategies import repetition_code_LUT
+from quanta_SL.encode.message import binary_message
 from quanta_SL.encode import metaclass
 from quanta_SL.ops.coding import hamming_distance_8bit
 
@@ -84,4 +87,11 @@ def test_minimum_distance():
 
 
 def test_repetition_decoding():
-    pass
+    # Repeated code
+    repetition_tuple = metaclass.Repetition(60, 10, 2)
+    code_LUT = repetition_code_LUT(repetition_tuple, message_mapping=binary_message)
+
+    assert np.array_equal(
+        repetition_decoding(code_LUT, code_LUT, num_repeat=repetition_tuple.repeat),
+        np.arange(len(code_LUT)),
+    )

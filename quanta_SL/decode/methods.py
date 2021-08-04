@@ -35,7 +35,7 @@ def _pack_or_unpack(
 def repetition_decoding(
     queries,
     code_LUT,
-    num_repeat: int = 1,
+    num_repeat: int,
     inverse_permuation: NDArray[int] = None,
     pack: bool = False,
     unpack: bool = False,
@@ -72,7 +72,6 @@ def minimum_distance_decoding(
     queries,
     code_LUT,
     func: Callable,
-    inverse_permuation: NDArray[int] = None,
     pack: bool = False,
     unpack: bool = False,
     **func_kwargs,
@@ -97,9 +96,9 @@ def minimum_distance_decoding(
 
     indices = func(queries, code_LUT, **func_kwargs)
 
-    # Inverse mapping from permuted message to binary
-    if isinstance(inverse_permuation, np.ndarray):
-        indices = inverse_permuation[indices]
+    # inverse_permutation not needed
+    # since code_LUT is a mapping from binary to codes
+    # MLE returns this index
 
     return indices
 
