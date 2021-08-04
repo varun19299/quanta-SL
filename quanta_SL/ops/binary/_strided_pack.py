@@ -4,7 +4,7 @@ from math import floor, log2
 from types import ModuleType
 
 
-def _dim_str(dims: int = 1):
+def dim_str(dims: int = 1):
     """
     Return string corresponding to array dimensions
     :param array:
@@ -41,7 +41,7 @@ def packbits_strided(bit_array: np.ndarray, xp: ModuleType = np):
     # Now split into chunks and apply packing
     bit_array = rearrange(
         bit_array,
-        f"{_dim_str(grid_dim)} (num_bytes bits) -> {_dim_str(grid_dim)} num_bytes bits",
+        f"{dim_str(grid_dim)} (num_bytes bits) -> {dim_str(grid_dim)} num_bytes bits",
         bits=8,
     )
 
@@ -79,7 +79,7 @@ def unpackbits_strided(byte_array: np.ndarray, num_bits: int = 0, xp: ModuleType
     # Now combine the chunks
     bit_array = rearrange(
         bit_array,
-        f"{_dim_str(grid_dim)} num_bytes bits -> {_dim_str(grid_dim)} (num_bytes bits)",
+        f"{dim_str(grid_dim)} num_bytes bits -> {dim_str(grid_dim)} (num_bytes bits)",
         bits=8,
     )
 

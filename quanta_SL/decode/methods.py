@@ -7,7 +7,12 @@ import numpy as np
 from einops import reduce
 from nptyping import NDArray
 
-from quanta_SL.ops.binary import packbits, packbits_strided, unpackbits_strided
+from quanta_SL.ops.binary import (
+    packbits,
+    packbits_strided,
+    unpackbits_strided,
+    unpackbits,
+)
 
 
 def _pack_or_unpack(
@@ -84,6 +89,7 @@ def minimum_distance_decoding(
 
     :param pack: Pack bits into bytes for memory efficiency
     :param unpack: Unpack bytes into bits if a certain algorithm needs.
+    :param func_kwargs: Additional kwargs to MLE
     :return: Decoded indices.
     """
     # Pack or Unpack bits appropriately
@@ -185,5 +191,62 @@ def phase_decoding(
     # Inverse mapping from permuted message to binary
     if isinstance(inverse_permuation, np.ndarray):
         indices = inverse_permuation[indices]
+
+    return indices
+
+
+def hybrid_decoding(
+    queries,
+    code_LUT,
+    func: Callable,
+    bch_message_bits: int,
+    overlap_bits: int = 1,
+    inverse_permuation: NDArray[int] = None,
+    pack: bool = False,
+    unpack: bool = False,
+    **func_kwargs,
+):
+    """
+    Decoding Hybrid (BCH + Stripe) patterns
+
+    :param queries:  (N, n) sized binary matrix
+    :param code_LUT: Not used, kept for consistency across funcs.
+    :param func: Minimum Distance implementation
+
+    :param bch_message_bits: BCH message dims
+    :param overlap_bits: Bits that BCH and Stripe encode
+
+    :param inverse_permuation: Mapping from message int to binary
+        Useful when evaluating strategies with MSE / MAE (where locality matters).
+
+    :param pack: Pack bits into bytes for memory efficiency
+    :param unpack: Unpack bytes into bits if a certain algorithm needs.
+
+    :param func_kwargs: Additional kwargs to MLE
+    :return: Decoded indices.
+    """
+    # First bits are BCH
+    bch_indices = minimum_distance_decoding(
+        queries[:, :bch_message_bits],
+        code_LUT,
+        func,
+        inverse_permuation,
+        pack,
+        unpack,
+        **func_kwargs,
+    )
+
+    # Followed by stripe scan
+    # No inverse perm for stripe scan
+    stripe_width = (queries.shape[1] - bch_message_bits) // 2
+    stripe_indices = phase_decoding(
+        queries[:, :bch_message_bits], code_LUT, stripe_width, pack, unpack
+    )
+
+    # Unpack both
+    bch_indices = unpackbits(bch_indices)
+    stripe_indices = unpackbits(stripe_indices)[:, overlap_bits:]
+    indices = np.concatenate([bch_indices, stripe_indices], axis=-1)
+    indices = packbits(indices)
 
     return indices

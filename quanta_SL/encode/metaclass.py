@@ -2,11 +2,13 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, Union, Callable
 
+import galois
 import numpy as np
 import scipy.io as sio
+from einops import repeat
 from scipy import interpolate
-from collections import namedtuple
-import galois
+
+from quanta_SL.ops.binary import dim_str
 
 
 @dataclass
@@ -67,10 +69,33 @@ class _Code:
 @dataclass
 class BCH(_Code):
     def __post_init__(self):
-        self.distance = galois.BCH(self.n, self.k).t * 2 + 1
+        self.galois_instance = galois.BCH(self.n, self.k)
 
     def __str__(self):
         return f"BCH [{self.n}, {self.k}, {self.t}]"
+
+    def encode(self, array):
+        """
+        Encoding function
+
+        :param array: Input message (1d or 2d)
+        :return: code words
+        """
+        array = galois.GF2(array)
+        out = self.galois_instance.encode(array)
+        out = out.view(np.ndarray)
+        return out
+
+    @property
+    def distance(self):
+        """
+        Minimum distance of the code
+        Not the same as 2 * correctable errors + 1
+        (esp if oracle or list decoded is employed).
+
+        :return: minimum distance
+        """
+        return self.galois_instance.t * 2 + 1
 
     @property
     def is_list_decoding(self):
@@ -86,6 +111,23 @@ class Repetition(_Code):
 
     def __str__(self):
         return f"Repetition [{self.n}, {self.k}]"
+
+    def encode(self, array):
+        """
+        Encoding function.
+        Repeats in interleaved manner.
+        [0, 1, 2] -> [0, 0, 0, 1, 1, 1, 2, 2, 2]
+
+        :param array: Input message (1d or 2d)
+        :return: code words
+        """
+        assert array.ndim in [1, 2]
+
+        return repeat(
+            array,
+            f"{dim_str(array.ndim - 1)} n -> {dim_str(array.ndim - 1)} (n repeat)",
+            repeat=self.repeat,
+        )
 
     @property
     def repeat(self) -> int:

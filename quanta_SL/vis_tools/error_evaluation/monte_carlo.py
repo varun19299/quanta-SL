@@ -2,13 +2,11 @@
 Strategies whose expected error is obtained
 via Monte Carlo methods
 """
-import dataclasses
 from functools import partial
 from typing import Union, Callable
 
-import galois
 import numpy as np
-from einops import rearrange, repeat
+from einops import rearrange
 from loguru import logger
 from nptyping import NDArray
 from tqdm import tqdm
@@ -25,10 +23,13 @@ from quanta_SL.decode.minimum_distance.factory import (
 )
 from quanta_SL.encode import metaclass
 from quanta_SL.encode.message import (
-    binary_message,
     gray_message,
     message_to_permuation,
     message_to_inverse_permuation,
+)
+from quanta_SL.encode.strategies import (
+    repetition_code_LUT,
+    bch_code_LUT,
 )
 from quanta_SL.ops.binary import packbits_strided
 from quanta_SL.ops.metrics import exact_error, squared_error
@@ -124,6 +125,7 @@ def bch_coding(
     phi_A: NDArray[float],
     t_exp: Union[float, NDArray[float]],
     bch_tuple: metaclass.BCH,
+    message_mapping: Callable = gray_message,
     **kwargs,
 ) -> NDArray:
     """
@@ -137,29 +139,19 @@ def bch_coding(
         n: code length
         k: message length
         t: error correcting length (typically \floor((d-1)/2), could be more with list decoding)
+    :param message_mapping: Describes message
+        m: [num_cols] -> F_2^k
 
     :param kwargs: _coding_LUT args & kwargs
     :return: eval_error, MC estimate of expected error.
     """
-    # Code parameters
-    n, k, t = dataclasses.astuple(bch_tuple)
-    bch = galois.BCH(n, k)
-
-    # Cannot send a message longer than bch message length
     num_bits = kwargs.get("num_bits", 10)
     use_complementary = kwargs.get("use_complementary")  # Optional arg
 
-    assert (
-        num_bits <= k
-    ), f"Num-bits {num_bits} must be lesser than BCH message dim {k}."
-
     # Generate BCH codes
-    logger.info("Building BCH code space...")
-    message_ll = binary_message(num_bits)
-    code_LUT = bch.encode(galois.GF2(message_ll)).view(np.ndarray)
-    logger.info(
-        rf"Generated code space in subset of C: F_2^{k} \to F_2^{n} with {num_bits} bits."
-    )
+    message_ll = message_mapping(num_bits)
+    code_LUT = bch_code_LUT(bch_tuple, num_bits, message_mapping)
+
 
     # FAISS indexing
     if FAISS_GPUs:
@@ -183,7 +175,7 @@ def bch_coding(
         decoding_func=decoding_func,
         pbar_description=rf"{bch_tuple}"
         rf"{'-list' if bch_tuple.is_list_decoding else ''}"
-        rf"{'-comp' if use_complementary else ''}: F_2^{k} \to F_2^{n}",
+        rf"{'-comp' if use_complementary else ''}: F_2^{bch_tuple.k} \to F_2^{bch_tuple.n}",
         **kwargs,
     )
 
@@ -213,21 +205,13 @@ def repetition_coding(
     :param kwargs: _coding_LUT args & kwargs
     :return: eval_error, MC estimate of expected error.
     """
-    # Code parameters
-    n, k, t = dataclasses.astuple(repetition_tuple)
-
-    # Cannot send a message longer than repetition message length
+    # Optional args
     num_bits = kwargs.get("num_bits", 10)
-    use_complementary = kwargs.get("use_complementary")  # Optional arg
-
-    assert num_bits <= k, f"Num-bits {num_bits} must be lesser than message dim {k}."
+    use_complementary = kwargs.get("use_complementary")
 
     # Generate Repetition codes
     message_ll = message_mapping(num_bits)
-    code_LUT = repeat(message_ll, "N c -> N (c repeat)", repeat=repetition_tuple.repeat)
-    logger.info(
-        rf"Generated Repetition code space in subset of C: F_2^{k} \to F_2^{n} with {num_bits} bits."
-    )
+    code_LUT = repetition_code_LUT(repetition_tuple, num_bits, message_mapping)
 
     decoding_func = partial(
         repetition_decoding,
@@ -242,7 +226,7 @@ def repetition_coding(
         code_LUT=code_LUT,
         decoding_func=decoding_func,
         pbar_description=rf"{repetition_tuple}"
-        rf"{'-comp' if use_complementary else ''}: F_2^{k} \to F_2^{n}",
+        rf"{'-comp' if use_complementary else ''}: F_2^{repetition_tuple.k} \to F_2^{repetition_tuple.n}",
         **kwargs,
     )
 
@@ -305,8 +289,6 @@ if __name__ == "__main__":
         bch_tuple=metaclass.BCH(31, 11, 5),
         error_metric=squared_error,
     )
-    breakpoint()
-
     mesh_plot_2d(eval_error, phi_proj, phi_A, error_metric=squared_error)
 
     logger.info("Repetition")

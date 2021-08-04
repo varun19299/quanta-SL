@@ -3,10 +3,8 @@ from pathlib import Path
 from typing import Tuple, Callable
 
 import cv2
-import galois
 import numpy as np
 from einops import repeat, rearrange
-from galois import GF2
 from loguru import logger
 from matplotlib import pyplot as plt
 from nptyping import NDArray
@@ -14,7 +12,11 @@ from tqdm import tqdm
 
 from quanta_SL.encode import metaclass
 from quanta_SL.encode.message import gray_message, long_run_gray_message
-from quanta_SL.encode.precision_bits import circular_shifted_stripes
+from quanta_SL.encode.strategies import (
+    repetition_code_LUT,
+    bch_code_LUT,
+    hybrid_code_LUT,
+)
 from quanta_SL.utils.plotting import plot_code_LUT
 
 """
@@ -151,16 +153,9 @@ def bch_to_projector_frames(
 
     # Find bits required to represent columns
     width, height = projector_resolution
-    num_bits = ceil(log2(width))
+    message_bits = ceil(log2(width))
 
-    message_ll = message_mapping(num_bits)
-
-    # BCH encoder
-    bch = galois.BCH(bch_tuple.n, bch_tuple.k)
-
-    # Generate BCH_matlab codes
-    code_LUT = bch.encode(GF2(message_ll))
-    code_LUT = code_LUT.view(np.ndarray).astype(int)
+    code_LUT = bch_code_LUT(bch_tuple, message_bits, message_mapping)
 
     if save:
         path = Path("outputs/code_images/bch")
@@ -204,13 +199,9 @@ def repetition_to_projector_frames(
 
     # Find bits required to represent columns
     width, height = projector_resolution
-    num_bits = ceil(log2(width))
+    message_bits = ceil(log2(width))
 
-    message_ll = message_mapping(num_bits)
-
-    # Generate repetition codes
-    # Repeats consecutive frames
-    code_LUT = repeat(message_ll, "N k -> N (k repeat)", repeat=repetition_tuple.repeat)
+    code_LUT = repetition_code_LUT(repetition_tuple, message_bits, message_mapping)
 
     if save:
         path = Path("outputs/code_images/repetition")
@@ -227,6 +218,7 @@ def hybrid_to_projector_frames(
     bch_tuple: metaclass.BCH,
     bch_bits: int,
     projector_resolution: Tuple[int, int],
+    overlap_bits: int = 1,
     message_mapping: Callable = gray_message,
     use_complementary: bool = False,
     show: bool = False,
@@ -237,9 +229,13 @@ def hybrid_to_projector_frames(
     Generate projector frames for "Hybrid" (BCH + stripe scan) strategy
 
     :param bch_tuple: BCH code [n,k,t] parameters
+    :param bch_bits: message bits (from MSB) encoded by BCH
+
     :param projector_resolution: width x height
+    :param overlap_bits: message bits encoded by both BCH and stripe
     :param message_mapping: Describes message
         m: [num_cols] -> F_2^k
+
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
@@ -255,35 +251,15 @@ def hybrid_to_projector_frames(
 
     # Find bits required to represent columns
     width, height = projector_resolution
-    num_bits = ceil(log2(width))
+    message_bits = ceil(log2(width))
 
-    assert (
-        bch_bits < num_bits
-    ), f"Bits coded by BCH ({bch_bits}) must be lesser than {num_bits}"
-
-    stripe_bits = num_bits - bch_bits
-
-    # Generate bch part
-    message_ll = message_mapping(bch_bits)
-    message_ll = repeat(message_ll, "N c -> (N repeat) c", repeat=pow(2, stripe_bits))
-
-    bch = galois.BCH(bch_tuple.n, bch_tuple.k)
-
-    code_LUT = bch.encode(GF2(message_ll))
-    code_LUT = code_LUT.view(np.ndarray).astype(int)
-
-    # Precision bits
-    stripe_LUT = circular_shifted_stripes(pow(2, stripe_bits))
-    stripe_LUT = repeat(
-        stripe_LUT, "N c -> (repeat N) c", repeat=pow(2, num_bits - stripe_bits - 1)
+    code_LUT = hybrid_code_LUT(
+        bch_tuple,
+        bch_bits,
+        message_bits,
+        overlap_bits=1,
+        message_mapping=message_mapping,
     )
-
-    # Concatenate along time axis
-    code_LUT = np.concatenate([code_LUT, stripe_LUT], axis=-1)
-
-    from quanta_SL.ops.coding import stripe_width_stats
-
-    print(stripe_width_stats(code_LUT))
 
     if save:
         path = Path("outputs/code_images/hybrid")
@@ -294,8 +270,6 @@ def hybrid_to_projector_frames(
         )
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
-
-    return code_LUT
 
 
 if __name__ == "__main__":
@@ -322,5 +296,5 @@ if __name__ == "__main__":
     )
 
     repetition_to_projector_frames(
-        metaclass.Repetition(66, 11, 2), projector_resolution, **kwargs
+        metaclass.Repetition(33, 11, 1), projector_resolution, **kwargs
     )
