@@ -1,7 +1,6 @@
 from copy import copy
 from typing import Callable, Dict, Type
 
-import galois
 import numpy as np
 import pandas as pd
 from einops import repeat
@@ -24,6 +23,7 @@ from quanta_SL.decode.minimum_distance.factory import (
 )
 from quanta_SL.encode import metaclass
 from quanta_SL.encode.message import binary_message
+from quanta_SL.encode.strategies import bch_code_LUT
 from quanta_SL.ops.binary import packbits_strided
 from quanta_SL.ops.coding import hamming_distance_8bit
 from quanta_SL.ops.noise import fixed_bit_flip_corrupt
@@ -36,6 +36,7 @@ from quanta_SL.utils.gpu_status import (
 )
 from quanta_SL.utils.plotting import save_plot
 from quanta_SL.utils.timer import Timer, CPUTimer, CuPyTimer
+
 
 # plt.style.use(["science", "grid"])
 
@@ -53,13 +54,8 @@ def bch_dataset_query_points(
     :param query_repeat: Query points are 2^k x query_repeat
     :return:
     """
-    assert num_bits <= bch_tuple.k, "num_bits exceeds BCH message dimensions."
-    message_ll = binary_message(num_bits)
-
     # BCH encode
-    bch = galois.BCH(bch_tuple.n, bch_tuple.k)
-    code_LUT = bch.encode(galois.GF2(message_ll))
-    code_LUT = code_LUT.view(np.ndarray)
+    code_LUT = bch_code_LUT(bch_tuple, num_bits, message_mapping=binary_message)
 
     N, n = code_LUT.shape
     y = code_LUT
@@ -70,7 +66,7 @@ def bch_dataset_query_points(
 
     # Corrupt query points
     with CPUTimer() as t:
-        x = fixed_bit_flip_corrupt(x, noisy_bits=bch.t)
+        x = fixed_bit_flip_corrupt(x, noisy_bits=bch_tuple.t)
 
     logger.info(f"\tNoise generation time: {t:.4g}")
     return x, y, gt_indices
@@ -141,7 +137,7 @@ def benchmark_func(
         sub_dict["accuracy"] = accuracy
 
     benchmark_dict[name] = sub_dict
-    return benchmark_dict
+    return indices
 
 
 def cpu_minimum_distance(x: NDArray[int], y: NDArray[int], gt_indices: NDArray[int]):
@@ -158,7 +154,7 @@ def cpu_minimum_distance(x: NDArray[int], y: NDArray[int], gt_indices: NDArray[i
     benchmark_func(
         "Numpy byte-packed",
         brute_minimum_distance,
-        **data_query_kwargs.copy(),
+        **data_query_kwargs,
         pack=True,
         benchmark_dict=benchmark_dict,
         hamming_dist_LUT=hamming_distance_8bit(),
