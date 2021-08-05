@@ -2,23 +2,24 @@
 With arbitrary error metrics
 """
 
+from typing import Dict
+
 import numpy as np
 from einops import rearrange
 from loguru import logger
-from typing import Dict
 
+from quanta_SL.encode.message import long_run_gray_message
 from quanta_SL.encode.metaclass import CallableEval, BCH, Repetition
 from quanta_SL.ops.metrics import exact_error, root_mean_squared_error
 from quanta_SL.vis_tools.error_evaluation import analytic
 from quanta_SL.vis_tools.error_evaluation.monte_carlo import (
     no_coding,
     repetition_coding,
-    bch_coding,
+    hybrid_coding,
 )
 from quanta_SL.vis_tools.error_evaluation.plotting import (
     individual_and_multiple_plots,
 )
-from copy import copy
 
 
 def _get_strategies(
@@ -29,15 +30,29 @@ def _get_strategies(
 ):
     strategy_ll = [
         CallableEval(
-            f"No Coding [{repetition_tuple.k} bits]", no_coding, coding_kwargs
+            f"No Coding [{repetition_tuple.k} bits]",
+            no_coding,
+            {"num_bits": 11, **coding_kwargs},
         ),
         CallableEval(
-            f"{repetition_tuple}",
+            f"Max-minSW {repetition_tuple}",
             repetition_coding,
-            {"repetition_tuple": repetition_tuple, **coding_kwargs},
+            {
+                "repetition_tuple": repetition_tuple,
+                "message_mapping": long_run_gray_message,
+                "num_bits": 11,
+                **coding_kwargs,
+            },
         ),
         CallableEval(
-            f"{bch_tuple}", bch_coding, {"bch_tuple": bch_tuple, **coding_kwargs}
+            f"Hybrid {bch_tuple} SW-8",
+            hybrid_coding,
+            {
+                "bch_tuple": bch_tuple,
+                "num_bits": 11,
+                "bch_message_bits": 8,
+                **coding_kwargs,
+            },
         ),
     ]
 
@@ -46,12 +61,14 @@ def _get_strategies(
         bch_comp_kwargs = {
             "bch_tuple": bch_comp_tuple,
             "use_complementary": True,
+            "num_bits": 11,
+            "bch_message_bits": 8,
             **coding_kwargs,
         }
         strategy_ll += [
             CallableEval(
-                f"{bch_comp_tuple} comp",
-                bch_coding,
+                f"Hybrid {bch_comp_tuple} SW-8 comp",
+                hybrid_coding,
                 bch_comp_kwargs,
             ),
         ]
@@ -105,15 +122,15 @@ def _compare_repetition_bch(
         BCH(15, 11, 1),
         BCH(31, 11, 5),
         BCH(63, 10, 13),
-        BCH(127, 15, 27),
-        BCH(255, 13, 59),
+        BCH(127, 8, 31),
+        BCH(255, 9, 63),
     ]
     repetition_tuple_ll = [
-        Repetition(10, 10, 0),
-        Repetition(30, 10, 1),
-        Repetition(60, 10, 2),
-        Repetition(130, 10, 6),
-        Repetition(260, 10, 12),
+        Repetition(11, 11, 0),
+        Repetition(33, 11, 1),
+        Repetition(66, 11, 2),
+        Repetition(143, 11, 6),
+        Repetition(275, 11, 12),
     ]
     redundancy_ll = [1, 3, 6, 13, 25]
     redundancy_index = redundancy_ll.index(redundancy_factor)
@@ -162,13 +179,17 @@ if __name__ == "__main__":
     # 0.1 millisecond or 10^4 FPS
     t_exp = 1e-4
 
-    plot_kwargs = dict(show=False, plot_3d=True, savefig=True)
-    coding_kwargs = dict(monte_carlo_iter=5)
+    plot_kwargs = dict(
+        show=False, plot_3d=True, savefig=True, error_metric=root_mean_squared_error
+    )
+    coding_kwargs = dict(monte_carlo_iter=1)
 
     # Repetition vs BCH
     redundancy_ll = [3, 6, 13, 25]
+    redundancy_ll = [13, 25]
     oversampling_ll = [1, 5]
 
+    # Only RMSE makes sense here
     for redundancy_factor in redundancy_ll:
         for oversampling_factor in oversampling_ll:
             _compare_repetition_bch(
@@ -176,10 +197,4 @@ if __name__ == "__main__":
                 oversampling_factor,
                 coding_kwargs=coding_kwargs,
                 plot_kwargs=plot_kwargs,
-            )
-            _compare_repetition_bch(
-                redundancy_factor,
-                oversampling_factor,
-                coding_kwargs=coding_kwargs,
-                plot_kwargs={**plot_kwargs, "error_metric": root_mean_squared_error},
             )

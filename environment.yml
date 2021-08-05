@@ -8,7 +8,6 @@ dependencies:
   - python=3.9
   - faiss-cpu
   - icc_rt
-  - numpy
   - pytorch
   - pip
   - pip:

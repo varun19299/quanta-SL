@@ -73,7 +73,7 @@ def bch_code_LUT(
 
 def hybrid_code_LUT(
     bch_tuple: metaclass.BCH,
-    bch_bits: int,
+    bch_message_bits: int,
     message_bits: int,
     overlap_bits: int = 1,
     message_mapping: Callable = gray_message,
@@ -82,7 +82,7 @@ def hybrid_code_LUT(
     Hybrid code LUT (BCH + stripe scanning).
 
     :param bch_tuple: BCH code [n,k,t] parameters
-    :param bch_bits: message bits (from MSB) encoded by BCH
+    :param bch_message_bits: message bits (from MSB) encoded by BCH
 
     :param message_bits: message dimension
     :param overlap_bits: message bits encoded by both BCH and stripe
@@ -93,13 +93,16 @@ def hybrid_code_LUT(
     :return Code Look-Up Table
     """
     assert (
-        bch_bits < message_bits
-    ), f"Bits coded by BCH ({bch_bits} bits) must be lesser than {message_bits} bits."
+            bch_message_bits < message_bits
+    ), f"Bits coded by BCH ({bch_message_bits} bits) must be lesser than {message_bits} bits."
 
-    stripe_bits = message_bits - bch_bits + overlap_bits
+    stripe_bits = message_bits - bch_message_bits + overlap_bits
 
     # message mapping used only for BCH
-    code_LUT = bch_code_LUT(bch_tuple, bch_bits, message_mapping)
+    code_LUT = bch_code_LUT(bch_tuple, bch_message_bits, message_mapping)
+    code_LUT = repeat(
+        code_LUT, "N c -> (N repeat) c", repeat=pow(2, message_bits - bch_message_bits)
+    )
 
     # Precision bits
     stripe_LUT = circular_shifted_stripes(pow(2, stripe_bits - 1))

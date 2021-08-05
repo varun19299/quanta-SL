@@ -1,6 +1,7 @@
 black
 Cython
 einops
+kaleido
 galois
 graycode
 
@@ -16,8 +17,10 @@ loguru
 matplotlib
 nptyping
 numba
+numpy>=1.20,<1.21
 opencv-python
 pandas
+plotly
 pytest
 pykeops
 pynndescent

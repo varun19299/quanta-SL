@@ -5,7 +5,7 @@ from quanta_SL.decode.minimum_distance.benchmark import (
     bch_dataset_query_points,
     benchmark_func,
 )
-from quanta_SL.decode.methods import repetition_decoding
+from quanta_SL.decode.methods import repetition_decoding, hybrid_decoding
 from quanta_SL.decode.minimum_distance.factory import (
     brute_minimum_distance,
     faiss_minimum_distance,
@@ -15,10 +15,15 @@ from quanta_SL.decode.minimum_distance.factory import (
     faiss_flat_index,
     balltree_index,
 )
-from quanta_SL.encode.strategies import repetition_code_LUT
+from quanta_SL.encode.strategies import (
+    bch_code_LUT,
+    repetition_code_LUT,
+    hybrid_code_LUT,
+)
 from quanta_SL.encode.message import binary_message
 from quanta_SL.encode import metaclass
 from quanta_SL.ops.coding import hamming_distance_8bit
+from quanta_SL.ops.binary import packbits_strided
 
 
 def test_minimum_distance():
@@ -95,3 +100,28 @@ def test_repetition_decoding():
         repetition_decoding(code_LUT, code_LUT, num_repeat=repetition_tuple.repeat),
         np.arange(len(code_LUT)),
     )
+
+
+def test_hybrid_decoding():
+    bch_tuple = metaclass.BCH(31, 11, 5)
+
+    message_bits = 11
+    bch_message_bits = 8
+
+    code_LUT = hybrid_code_LUT(bch_tuple, bch_message_bits, message_bits)
+
+    bch_subset = bch_code_LUT(bch_tuple, bch_message_bits)
+    index = faiss_flat_index(packbits_strided(bch_subset))
+
+    indices = hybrid_decoding(
+        code_LUT,
+        code_LUT,
+        faiss_minimum_distance,
+        bch_tuple,
+        bch_message_bits,
+        pack=True,
+        index=index,
+    )
+
+    # Check indices (no noise, integer version)
+    assert np.array_equal(indices.astype(int), np.arange(code_LUT.shape[0], dtype=int))

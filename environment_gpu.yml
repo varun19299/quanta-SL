@@ -10,7 +10,6 @@ dependencies:
   - cudatoolkit=11.1
   - faiss-gpu
   - icc_rt
-  - numpy
   - pytorch
   - pip
   - pip:

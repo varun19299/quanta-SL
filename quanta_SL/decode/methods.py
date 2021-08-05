@@ -3,15 +3,17 @@ Exposes API for decoding based methods
 """
 from typing import Callable
 
+from math import floor
 import numpy as np
 from einops import reduce
 from nptyping import NDArray
+from numba import vectorize, float64, int64
 
+from quanta_SL.encode import metaclass
 from quanta_SL.ops.binary import (
     packbits,
     packbits_strided,
     unpackbits_strided,
-    unpackbits,
 )
 
 
@@ -194,13 +196,51 @@ def phase_decoding(
     return indices
 
 
+@vectorize(
+    [float64(int64, float64, int64, int64, int64)],
+    cache=True,
+    fastmath=True,
+    target="parallel",
+)
+def merge_bch_stripe_indices(
+    bch_index, stripe_index, code_bits, bch_code_bits, overlap_bits
+):
+    # Twice the stripe width
+    stripe_period = code_bits - bch_code_bits
+    stripe_bits = floor(np.log2(stripe_period)) - overlap_bits
+    stripe_width = stripe_period // 2
+
+    if bch_index % pow(2, overlap_bits) == 0:
+        # Circular wrap error can occur
+        if stripe_index > stripe_width:
+            # Wrap around
+            unwrapped_index = stripe_index - stripe_period
+        else:
+            unwrapped_index = stripe_index
+    elif bch_index % pow(2, overlap_bits) == pow(2, overlap_bits) - 1:
+        # Circular wrap error can occur
+        if stripe_index < stripe_width:
+            # Wrap around
+            unwrapped_index = stripe_index + stripe_period - 1
+            unwrapped_index = unwrapped_index % stripe_width
+        else:
+            unwrapped_index = stripe_index % stripe_width
+    else:
+        unwrapped_index = stripe_index % stripe_width
+
+    bch_index = bch_index << stripe_bits
+    index = bch_index + unwrapped_index
+
+    return index
+
+
 def hybrid_decoding(
     queries,
     code_LUT,
     func: Callable,
+    bch_tuple: metaclass.BCH,
     bch_message_bits: int,
     overlap_bits: int = 1,
-    inverse_permuation: NDArray[int] = None,
     pack: bool = False,
     unpack: bool = False,
     **func_kwargs,
@@ -215,9 +255,6 @@ def hybrid_decoding(
     :param bch_message_bits: BCH message dims
     :param overlap_bits: Bits that BCH and Stripe encode
 
-    :param inverse_permuation: Mapping from message int to binary
-        Useful when evaluating strategies with MSE / MAE (where locality matters).
-
     :param pack: Pack bits into bytes for memory efficiency
     :param unpack: Unpack bytes into bits if a certain algorithm needs.
 
@@ -225,11 +262,12 @@ def hybrid_decoding(
     :return: Decoded indices.
     """
     # First bits are BCH
+    # Account for puncturing (if any)
+    bch_code_bits = bch_tuple.n - (bch_tuple.k - bch_message_bits)
     bch_indices = minimum_distance_decoding(
-        queries[:, :bch_message_bits],
-        code_LUT,
+        queries[:, :bch_code_bits],
+        code_LUT[:, :bch_code_bits],
         func,
-        inverse_permuation,
         pack,
         unpack,
         **func_kwargs,
@@ -237,15 +275,19 @@ def hybrid_decoding(
 
     # Followed by stripe scan
     # No inverse perm for stripe scan
-    stripe_width = (queries.shape[1] - bch_message_bits) // 2
+    stripe_width = (queries.shape[1] - bch_code_bits) // 2
     stripe_indices = phase_decoding(
-        queries[:, :bch_message_bits], code_LUT, stripe_width, pack, unpack
+        queries[:, bch_code_bits:],
+        code_LUT[:, bch_code_bits:],
+        stripe_width,
+        pack,
+        unpack,
     )
 
-    # Unpack both
-    bch_indices = unpackbits(bch_indices)
-    stripe_indices = unpackbits(stripe_indices)[:, overlap_bits:]
-    indices = np.concatenate([bch_indices, stripe_indices], axis=-1)
-    indices = packbits(indices)
+    # Merge BCH and stripe
+    code_bits = code_LUT.shape[1]
+    indices = merge_bch_stripe_indices(
+        bch_indices, stripe_indices, code_bits, bch_code_bits, overlap_bits
+    )
 
     return indices

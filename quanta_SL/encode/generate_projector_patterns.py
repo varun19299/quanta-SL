@@ -216,7 +216,7 @@ def repetition_to_projector_frames(
 
 def hybrid_to_projector_frames(
     bch_tuple: metaclass.BCH,
-    bch_bits: int,
+    bch_message_bits: int,
     projector_resolution: Tuple[int, int],
     overlap_bits: int = 1,
     message_mapping: Callable = gray_message,
@@ -229,7 +229,7 @@ def hybrid_to_projector_frames(
     Generate projector frames for "Hybrid" (BCH + stripe scan) strategy
 
     :param bch_tuple: BCH code [n,k,t] parameters
-    :param bch_bits: message bits (from MSB) encoded by BCH
+    :param bch_message_bits: message bits (from MSB) encoded by BCH
 
     :param projector_resolution: width x height
     :param overlap_bits: message bits encoded by both BCH and stripe
@@ -255,7 +255,7 @@ def hybrid_to_projector_frames(
 
     code_LUT = hybrid_code_LUT(
         bch_tuple,
-        bch_bits,
+        bch_message_bits,
         message_bits,
         overlap_bits=1,
         message_mapping=message_mapping,
@@ -282,7 +282,7 @@ if __name__ == "__main__":
 
     hybrid_to_projector_frames(
         metaclass.BCH(31, 11, 5),
-        bch_bits=8,
+        bch_message_bits=8,
         projector_resolution=projector_resolution,
         message_mapping=long_run_gray_message,
         **kwargs,

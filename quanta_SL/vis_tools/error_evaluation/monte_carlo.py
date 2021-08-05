@@ -12,6 +12,7 @@ from nptyping import NDArray
 from tqdm import tqdm
 
 from quanta_SL.decode.methods import (
+    hybrid_decoding,
     minimum_distance_decoding,
     repetition_decoding,
     read_off_decoding,
@@ -30,9 +31,10 @@ from quanta_SL.encode.message import (
 from quanta_SL.encode.strategies import (
     repetition_code_LUT,
     bch_code_LUT,
+    hybrid_code_LUT,
 )
 from quanta_SL.ops.binary import packbits_strided
-from quanta_SL.ops.metrics import exact_error, squared_error
+from quanta_SL.ops.metrics import exact_error, root_mean_squared_error
 from quanta_SL.ops.noise import shot_noise_corrupt, shot_noise_corrupt_gpu
 from quanta_SL.utils.gpu_status import FAISS_GPUs, CUPY_GPUs, move_to_gpu
 from quanta_SL.vis_tools.error_evaluation.plotting import mesh_plot_2d
@@ -171,7 +173,77 @@ def bch_coding(
         code_LUT=code_LUT,
         decoding_func=decoding_func,
         pbar_description=rf"{bch_tuple}"
-        rf"{'-list' if bch_tuple.is_list_decoding else ''}"
+        rf"{'-comp' if use_complementary else ''}: F_2^{bch_tuple.k} \to F_2^{bch_tuple.n}",
+        **kwargs,
+    )
+
+
+def hybrid_coding(
+    phi_P: NDArray[float],
+    phi_A: NDArray[float],
+    t_exp: Union[float, NDArray[float]],
+    bch_tuple: metaclass.BCH,
+    bch_message_bits: int,
+    overlap_bits: int = 1,
+    message_mapping: Callable = gray_message,
+    **kwargs,
+) -> NDArray:
+    """
+    Hybrid strategy evaluation (monte carlo)
+
+    :param phi_P: meshgrid of ambient + projector flux
+    :param phi_A: meshgrid of ambient flux
+    :param t_exp: exposure time
+
+    :param bch_tuple: (n, k, t)
+        n: code length
+        k: message length
+        t: error correcting length (typically \floor((d-1)/2), could be more with list decoding)
+    :param bch_message_bits: message bits (from MSB) encoded by BCH
+    :param overlap_bits: message bits encoded by both BCH and stripe
+
+    :param message_mapping: Describes message
+        m: [num_cols] -> F_2^k
+
+    :param kwargs: _coding_LUT args & kwargs
+    :return: eval_error, MC estimate of expected error.
+    """
+    num_bits = kwargs.get("num_bits", 11)
+    use_complementary = kwargs.get("use_complementary")  # Optional arg
+
+    # Generate BCH codes
+    code_LUT = hybrid_code_LUT(
+        bch_tuple, bch_message_bits, num_bits, overlap_bits, message_mapping
+    )
+
+    # FAISS indexing
+    # Account for puncturing (if any)
+    bch_subset = bch_code_LUT(bch_tuple, bch_message_bits, message_mapping)
+
+    if FAISS_GPUs:
+        index = faiss_flat_gpu_index(packbits_strided(bch_subset))
+    else:
+        index = faiss_flat_index(packbits_strided(bch_subset))
+
+    decoding_func = partial(
+        hybrid_decoding,
+        func=faiss_minimum_distance,
+        bch_tuple=bch_tuple,
+        bch_message_bits=bch_message_bits,
+        overlap_bits=overlap_bits,
+        index=index,
+        pack=True,
+    )
+
+    stripe_width = pow(2, num_bits - bch_message_bits + overlap_bits - 1)
+
+    return coding_LUT(
+        phi_P,
+        phi_A,
+        t_exp,
+        code_LUT=code_LUT,
+        decoding_func=decoding_func,
+        pbar_description=rf"Hybrid-{bch_tuple}-SW-{stripe_width}"
         rf"{'-comp' if use_complementary else ''}: F_2^{bch_tuple.k} \to F_2^{bch_tuple.n}",
         **kwargs,
     )
@@ -279,14 +351,24 @@ if __name__ == "__main__":
     # 0.1 millisecond or 10^4 FPS
     t_exp = 1e-4
 
+    eval_error = hybrid_coding(
+        phi_P_mesh,
+        phi_A_mesh,
+        t_exp,
+        bch_tuple=metaclass.BCH(31, 11, 5),
+        bch_message_bits=8,
+        error_metric=root_mean_squared_error,
+    )
+    mesh_plot_2d(eval_error, phi_proj, phi_A, error_metric=root_mean_squared_error)
+
     eval_error = bch_coding(
         phi_P_mesh,
         phi_A_mesh,
         t_exp,
         bch_tuple=metaclass.BCH(31, 11, 5),
-        error_metric=squared_error,
+        error_metric=root_mean_squared_error,
     )
-    mesh_plot_2d(eval_error, phi_proj, phi_A, error_metric=squared_error)
+    mesh_plot_2d(eval_error, phi_proj, phi_A, error_metric=root_mean_squared_error)
 
     logger.info("Repetition")
     eval_error = repetition_coding(
@@ -294,16 +376,16 @@ if __name__ == "__main__":
         phi_A_mesh,
         t_exp,
         repetition_tuple=metaclass.Repetition(30, 10, 1),
-        error_metric=squared_error,
+        error_metric=root_mean_squared_error,
     )
 
-    mesh_plot_2d(eval_error, phi_proj, phi_A, error_metric=squared_error)
+    mesh_plot_2d(eval_error, phi_proj, phi_A, error_metric=root_mean_squared_error)
 
     eval_error = no_coding(
         phi_P_mesh,
         phi_A_mesh,
         t_exp,
-        error_metric=squared_error,
+        error_metric=root_mean_squared_error,
     )
 
-    mesh_plot_2d(eval_error, phi_proj, phi_A, error_metric=squared_error)
+    mesh_plot_2d(eval_error, phi_proj, phi_A, error_metric=root_mean_squared_error)
