@@ -1,5 +1,11 @@
 """
-With arbitrary error metrics
+Hybrid (BCH + stripe)
+vs
+Repeated long-run
+
+Comparison based on RMSE.
+Both strategies are fairly robust to short-range effects
+(projector defocus, subsurface scattering, etc.)
 """
 
 from typing import Dict
@@ -7,6 +13,7 @@ from typing import Dict
 import numpy as np
 from einops import rearrange
 from loguru import logger
+from pathlib import Path
 
 from quanta_SL.encode.message import long_run_gray_message
 from quanta_SL.encode.metaclass import CallableEval, BCH, Repetition
@@ -180,13 +187,16 @@ if __name__ == "__main__":
     t_exp = 1e-4
 
     plot_kwargs = dict(
-        show=False, plot_3d=True, savefig=True, error_metric=root_mean_squared_error
+        show=False,
+        plot_3d=True,
+        savefig=True,
+        error_metric=root_mean_squared_error,
+        plot_dir=Path("outputs/plots/strategy_plots_hybrid/"),
     )
-    coding_kwargs = dict(monte_carlo_iter=1)
+    coding_kwargs = dict(monte_carlo_iter=5)
 
     # Repetition vs BCH
     redundancy_ll = [3, 6, 13, 25]
-    redundancy_ll = [13, 25]
     oversampling_ll = [1, 5]
 
     # Only RMSE makes sense here

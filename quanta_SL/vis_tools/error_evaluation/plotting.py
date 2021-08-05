@@ -25,9 +25,6 @@ plt.rcParams.update(params)
 
 LINEWIDTH = 3
 
-# Output plots to...
-plot_dir = Path("outputs/plots/strategy_plots_hybrid/")
-
 
 def plot_optimal_threshold(
     phi_proj,
@@ -36,6 +33,7 @@ def plot_optimal_threshold(
     num_frames: int = 10,
     savefig: bool = False,
     show: bool = True,
+    plot_dir: Path = Path("outputs/plots/strategy_plots/"),
     **unused_kwargs,
 ):
     logger.info("Plotting optimal threshold \n")
@@ -84,6 +82,7 @@ def surface_plot_3d(
     savefig: bool = False,
     outname: str = "",
     show: bool = True,
+    plot_dir: Path = Path("outputs/plots/strategy_plots/"),
     **unused_kwargs,
 ):
     phi_proj_mesh, phi_A_mesh = np.meshgrid(phi_proj, phi_A, indexing="ij")
@@ -160,6 +159,7 @@ def mesh_plot_2d(
     savefig: bool = False,
     outname: str = "",
     show: bool = True,
+    plot_dir: Path = Path("outputs/plots/strategy_plots/"),
     **unused_kwargs,
 ):
     # Plot image
@@ -227,6 +227,7 @@ def mesh_and_surface_plot(
     show: bool = True,
     plot_3d: bool = False,
     outname: str = "",
+    plot_dir: Path = Path("outputs/plots/strategy_plots/"),
     **unused_kwargs,
 ):
     # Outname
@@ -265,6 +266,7 @@ def multiple_surface_pyplot_3d(
     show: bool = True,
     outname: str = "",
     title: str = "",
+    plot_dir: Path = Path("outputs/plots/strategy_plots/"),
     **unused_kwargs,
 ):
     names = [strategy.name for strategy in strategy_ll]
@@ -352,6 +354,7 @@ def multiple_surface_plotly_3d(
     show: bool = True,
     outname: str = "",
     title: str = "",
+    plot_dir: Path = Path("outputs/plots/strategy_plots/"),
     **unused_kwargs,
 ):
 
@@ -455,6 +458,7 @@ def individual_and_multiple_plots(
     outname: str = "",
     title: str = "",
     backend_3d: str = "plotly",
+    plot_dir: Path = Path("outputs/plots/strategy_plots/"),
     **kwargs,
 ):
     kwargs = locals().copy()

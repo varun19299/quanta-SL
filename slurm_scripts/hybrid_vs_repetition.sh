@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=bch-vs-repetition    # create a short name for your job
+#SBATCH --job-name=hybrid-vs-repetition    # create a short name for your job
 
 #SBATCH --partition=research   # use research, or wacc for quick (< 30 min) ones
 
 # Node configs
 #SBATCH --nodes=1                # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
-#SBATCH --cpus-per-task=16       # cpu-cores per task (>1 if multi-threaded tasks)
+#SBATCH --cpus-per-task=8       # cpu-cores per task (>1 if multi-threaded tasks)
 #SBATCH --mem-per-cpu=4G         # memory per cpu-core
-#SBATCH --time=1:00:00          # total run time limit (HH:MM:SS)
+#SBATCH --time=3:00:00          # total run time limit (HH:MM:SS)
 #SBATCH --gres=gpu:1 # GPU needed ##SBATCH --array=0-1
 
 # Mailing stuff
@@ -41,4 +41,4 @@ fi
 
 # Start Job here
 export PYTHONPATH=.
-python quanta_SL/vis_tools/error_evaluation/monte_carlo.py
+python quanta_SL/vis_tools/error_evaluation/hybrid_vs_repetition.py

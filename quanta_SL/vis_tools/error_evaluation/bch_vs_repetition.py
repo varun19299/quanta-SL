@@ -1,11 +1,16 @@
 """
-With arbitrary error metrics
+BCH vs Repetition.
+
+Demonstrates benefits of error-correcting codes.
+Metrics: exact error (P(y_rec = y_sent)), RMSE.
 """
+
+from pathlib import Path
+from typing import Dict
 
 import numpy as np
 from einops import rearrange
 from loguru import logger
-from typing import Dict
 
 from quanta_SL.encode.metaclass import CallableEval, BCH, Repetition
 from quanta_SL.ops.metrics import exact_error, root_mean_squared_error
@@ -18,7 +23,6 @@ from quanta_SL.vis_tools.error_evaluation.monte_carlo import (
 from quanta_SL.vis_tools.error_evaluation.plotting import (
     individual_and_multiple_plots,
 )
-from copy import copy
 
 
 def _get_strategies(
@@ -162,7 +166,12 @@ if __name__ == "__main__":
     # 0.1 millisecond or 10^4 FPS
     t_exp = 1e-4
 
-    plot_kwargs = dict(show=False, plot_3d=True, savefig=True)
+    plot_kwargs = dict(
+        show=False,
+        plot_3d=True,
+        savefig=True,
+        plot_dir=Path("outputs/plots/strategy_plots_revisited/"),
+    )
     coding_kwargs = dict(monte_carlo_iter=5)
 
     # Repetition vs BCH

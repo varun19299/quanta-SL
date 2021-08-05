@@ -1,3 +1,8 @@
+"""
+No oversampling vs Averaging (0.5) vs Averaging (optimal threshold).
+
+Not very useful if oversampling factor < 5.
+"""
 import numpy as np
 
 from quanta_SL.vis_tools.error_evaluation.analytic import (
