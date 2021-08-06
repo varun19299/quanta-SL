@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=hybrid-vs-repetition    # create a short name for your job
+#SBATCH --job-name=strategy-eval   # create a short name for your job
 
 #SBATCH --partition=research   # use research, or wacc for quick (< 30 min) ones
 
@@ -41,4 +41,4 @@ fi
 
 # Start Job here
 export PYTHONPATH=.
-python quanta_SL/vis_tools/error_evaluation/hybrid_vs_repetition.py
+python quanta_SL/vis_tools/error_evaluation/${1}.py

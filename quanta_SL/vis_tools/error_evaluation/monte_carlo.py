@@ -288,14 +288,24 @@ def repetition_coding(
         inverse_permuation=message_to_inverse_permuation(message_ll),
     )
 
+    # Pbar desc.
+    repetition_description = f"{repetition_tuple}"
+    if use_complementary:
+        repetition_description = f"{repetition_description}-comp"
+
+    pbar_description = rf"{repetition_description}: F_2^{repetition_tuple.k} \to F_2^{repetition_tuple.n}"
+
+    pbar_header = kwargs.get("pbar_header")
+    if pbar_header:
+        pbar_description = f"{pbar_header} {pbar_description}"
+
     return coding_LUT(
         phi_P,
         phi_A,
         t_exp,
         code_LUT=code_LUT,
         decoding_func=decoding_func,
-        pbar_description=rf"{repetition_tuple}"
-        rf"{'-comp' if use_complementary else ''}: F_2^{repetition_tuple.k} \to F_2^{repetition_tuple.n}",
+        pbar_description=pbar_description,
         **kwargs,
     )
 

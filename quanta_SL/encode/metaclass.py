@@ -72,7 +72,7 @@ class BCH(_Code):
         self.galois_instance = galois.BCH(self.n, self.k)
 
     def __str__(self):
-        return f"BCH [{self.n}, {self.k}, {self.t}]"
+        return f"BCH [{self.n}, {self.k}]"
 
     def encode(self, array):
         """

@@ -8,21 +8,19 @@ Both strategies are fairly robust to short-range effects
 (projector defocus, subsurface scattering, etc.)
 """
 
+from pathlib import Path
 from typing import Dict
 
 import numpy as np
 from einops import rearrange
 from loguru import logger
-from pathlib import Path
 
-from quanta_SL.encode.message import long_run_gray_message
-from quanta_SL.encode.metaclass import CallableEval, BCH, Repetition
+from quanta_SL.encode.message import long_run_gray_message, gray_message
+from quanta_SL.encode.metaclass import CallableEval, Repetition
 from quanta_SL.ops.metrics import exact_error, root_mean_squared_error
 from quanta_SL.vis_tools.error_evaluation import analytic
 from quanta_SL.vis_tools.error_evaluation.monte_carlo import (
-    no_coding,
     repetition_coding,
-    hybrid_coding,
 )
 from quanta_SL.vis_tools.error_evaluation.plotting import (
     individual_and_multiple_plots,
@@ -30,16 +28,19 @@ from quanta_SL.vis_tools.error_evaluation.plotting import (
 
 
 def _get_strategies(
-    bch_tuple: BCH,
     repetition_tuple: Repetition,
-    bch_comp_tuple: BCH = (),
     **coding_kwargs,
 ):
     strategy_ll = [
         CallableEval(
-            f"No Coding [{repetition_tuple.k} bits]",
-            no_coding,
-            {"num_bits": 11, **coding_kwargs},
+            f"Gray {repetition_tuple}",
+            repetition_coding,
+            {
+                "repetition_tuple": repetition_tuple,
+                "message_mapping": gray_message,
+                "pbar_header": "Conventional Gray",
+                **coding_kwargs,
+            },
         ),
         CallableEval(
             f"Max-minSW {repetition_tuple}",
@@ -47,43 +48,16 @@ def _get_strategies(
             {
                 "repetition_tuple": repetition_tuple,
                 "message_mapping": long_run_gray_message,
-                "num_bits": 11,
-                **coding_kwargs,
-            },
-        ),
-        CallableEval(
-            f"Hybrid {bch_tuple} SW-8",
-            hybrid_coding,
-            {
-                "bch_tuple": bch_tuple,
-                "num_bits": 11,
-                "bch_message_bits": 8,
+                "pbar_header": "LongRun Gray",
                 **coding_kwargs,
             },
         ),
     ]
 
-    # Compare the complementary idea too
-    if bch_comp_tuple:
-        bch_comp_kwargs = {
-            "bch_tuple": bch_comp_tuple,
-            "use_complementary": True,
-            "num_bits": 11,
-            "bch_message_bits": 8,
-            **coding_kwargs,
-        }
-        strategy_ll += [
-            CallableEval(
-                f"Hybrid {bch_comp_tuple} SW-8 comp",
-                hybrid_coding,
-                bch_comp_kwargs,
-            ),
-        ]
-
     return strategy_ll
 
 
-def _compare_repetition_bch(
+def _compare(
     redundancy_factor: int = 1,
     oversampling_factor: int = 1,
     use_optimal_threshold: bool = True,
@@ -125,13 +99,6 @@ def _compare_repetition_bch(
     log_str = f"{title} | {error_metric.long_name}"
     logger.info(log_str)
 
-    bch_tuple_ll = [
-        BCH(15, 11, 1),
-        BCH(31, 11, 5),
-        BCH(63, 10, 13),
-        BCH(127, 8, 31),
-        BCH(255, 9, 63),
-    ]
     repetition_tuple_ll = [
         Repetition(11, 11, 0),
         Repetition(33, 11, 1),
@@ -144,17 +111,8 @@ def _compare_repetition_bch(
 
     assert redundancy_index, "Comparing at redundancy 1 not supported"
 
-    bch_comp_tuple = ()
-
-    # Complementary makes sense
-    # only with averaging
-    if oversampling_factor > 1:
-        bch_comp_tuple = bch_tuple_ll[redundancy_index - 1]
-
     strategy_ll = _get_strategies(
-        bch_tuple_ll[redundancy_index],
         repetition_tuple_ll[redundancy_index],
-        bch_comp_tuple,
         **_coding_kwargs,
     )
 
@@ -191,9 +149,13 @@ if __name__ == "__main__":
         plot_3d=True,
         savefig=True,
         error_metric=root_mean_squared_error,
-        plot_dir=Path("outputs/strategy_comparison/hybrid_vs_repeated_longrun/"),
+        plot_dir=Path("outputs/strategy_comparison/conventional_vs_longrun_gray/"),
     )
-    coding_kwargs = dict(monte_carlo_iter=5)
+
+    coding_kwargs = dict(monte_carlo_iter=1, num_bits=11)
+
+    if FAISS_GPUs:
+        coding_kwargs["monte_carlo_iter"] = 5
 
     # Repetition vs BCH
     redundancy_ll = [3, 6, 13, 25]
@@ -202,7 +164,7 @@ if __name__ == "__main__":
     # Only RMSE makes sense here
     for redundancy_factor in redundancy_ll:
         for oversampling_factor in oversampling_ll:
-            _compare_repetition_bch(
+            _compare(
                 redundancy_factor,
                 oversampling_factor,
                 coding_kwargs=coding_kwargs,

@@ -12,39 +12,40 @@ from quanta_SL.utils.plotting import plot_code_LUT
 from quanta_SL.utils.loader import load_code
 from quanta_SL.ops.binary import packbits, unpackbits, invert_permutation
 from quanta_SL.ops.coding import stripe_width_stats
+from quanta_SL.utils.decorators import named_func
 
 long_run_gray_cache_dict = {}
 
-
+@named_func("Binary Code")
 def binary_message(num_bits: int):
     return unpackbits(np.arange(pow(2, num_bits))).astype(int)
 
-
+@named_func("Gray Code")
 def gray_message(num_bits: int):
     binary_ll = binary_message(num_bits)
     graycode_indices = graycode.gen_gray_codes(num_bits)
 
     return binary_ll[graycode_indices, :]
 
-
-def max_min_SW_message(num_bits: int):
+@named_func("max-minSW Code")
+def max_minSW_message(num_bits: int):
     assert num_bits == 10, "Max Min code only designed for 10 bits"
 
     return load_code("MaxMinSWGray")
 
-
+@named_func("XOR2 Code")
 def xor2_message(num_bits: int):
     assert num_bits == 10, "XOR2 code only designed for 10 bits"
 
     return load_code("XOR02")
 
-
+@named_func("XOR4 Code")
 def xor4_message(num_bits: int):
     assert num_bits == 10, "XOR4 code only designed for 10 bits"
 
     return load_code("XOR04")
 
-
+@named_func("Long-run Gray Code")
 def long_run_gray_message(num_bits: int):
     global long_run_gray_cache_dict
     if not long_run_gray_cache_dict:
@@ -60,7 +61,7 @@ def long_run_gray_message(num_bits: int):
 
     return unpackbits(mapping)
 
-
+@named_func("Monotonic Gray Code")
 def monotonic_gray_message(num_bits: int):
     code_LUT = []
     for code in monotonic_graycode.monotonic(num_bits):
@@ -102,7 +103,7 @@ def _save_code_img():
         xor2_message,
         long_run_gray_message,
         monotonic_gray_message,
-        max_min_SW_message,
+        max_minSW_message,
     ]:
         print(mapping.__name__)
         code_LUT = mapping(num_bits)

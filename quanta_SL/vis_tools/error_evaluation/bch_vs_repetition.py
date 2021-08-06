@@ -170,7 +170,7 @@ if __name__ == "__main__":
         show=False,
         plot_3d=True,
         savefig=True,
-        plot_dir=Path("outputs/plots/strategy_plots_revisited/"),
+        plot_dir=Path("outputs/strategy_comparison/bch_vs_repetition/"),
     )
     coding_kwargs = dict(monte_carlo_iter=5)
 
