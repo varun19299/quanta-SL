@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Supported Ops &#8212; Quanta-SL 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Decoding" href="decode.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="supported-ops">
+<h1>Supported Ops<a class="headerlink" href="#supported-ops" title="Permalink to this headline">¶</a></h1>
+<section id="module-quanta_SL.ops.binary">
+<span id="binary"></span><h2>Binary<a class="headerlink" href="#module-quanta_SL.ops.binary" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.binary.bit_roll">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.binary.</span></span><span class="sig-name descname"><span class="pre">bit_roll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#quanta_SL.ops.binary.bit_roll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Roll x to left / right by d bits</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – integer array</p></li>
+<li><p><strong>d</strong> – roll</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.binary.dim_str">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.binary.</span></span><span class="sig-name descname"><span class="pre">dim_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.ops.binary.dim_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return string corresponding to array dimensions
+:param array:
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.binary.left_bit_roll">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.binary.</span></span><span class="sig-name descname"><span class="pre">left_bit_roll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#quanta_SL.ops.binary.left_bit_roll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Roll x to left by d bits</p>
+<p>In n&lt;&lt;d, last d bits are 0.
+To put first d bits of n at
+last, do bitwise or of n&lt;&lt;d
+with n &gt;&gt;(INT_BITS - d)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – integer array</p></li>
+<li><p><strong>d</strong> – roll</p></li>
+<li><p><strong>num_bits</strong> – total bits. If None, set as log2(x.max())</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.binary.packbits">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.binary.</span></span><span class="sig-name descname"><span class="pre">packbits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'left-msb'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nptyping.types._ndarray.NDArray</span></span></span><a class="headerlink" href="#quanta_SL.ops.binary.packbits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pack an binary array into its integer representation.
+Axis assumed to be last
+Unlike numpy, returns an integer, not uint8.
+Similar to MATLAB’s <cite>de2bi</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Binary array.</p></li>
+<li><p><strong>mode</strong> – Left MSB (default) or Right MSB.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.binary.packbits_strided">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.binary.</span></span><span class="sig-name descname"><span class="pre">packbits_strided</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">bit_array:</span> <span class="pre">numpy.ndarray</span></em>, <em class="sig-param"><span class="pre">xp:</span> <span class="pre">module</span> <span class="pre">=</span> <span class="pre">&lt;module</span> <span class="pre">'numpy'</span> <span class="pre">from</span> <span class="pre">'/Users/varun/miniconda3/envs/torch39/lib/python3.9/site-packages/numpy/__init__.py'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.ops.binary.packbits_strided" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pack binary values in strides of 8 (a byte) to uint8.
+We do this to save memory.
+Last axis assumed to be bits.</p>
+<p>Numpy/ Cupy allocate 1 byte for a boolean, which is 8x higher than needed (1 bit).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bit_array</strong> – height x width x num_bits x samples</p></li>
+<li><p><strong>xp</strong> – Numpy or Cupy</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.binary.right_bit_roll">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.binary.</span></span><span class="sig-name descname"><span class="pre">right_bit_roll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#quanta_SL.ops.binary.right_bit_roll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Roll x to right by d bits</p>
+<p>In n&gt;&gt;d, first d bits are 0.
+To put last d bits of at
+first, do bitwise or of n&gt;&gt;d
+with n &lt;&lt;(INT_BITS - d)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – integer array</p></li>
+<li><p><strong>d</strong> – roll</p></li>
+<li><p><strong>num_bits</strong> – total bits. If None, set as log2(x.max())</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.binary.unpackbits">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.binary.</span></span><span class="sig-name descname"><span class="pre">unpackbits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'left-msb'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nptyping.types._ndarray.NDArray</span></span></span><a class="headerlink" href="#quanta_SL.ops.binary.unpackbits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpack an integer array into its binary representation.
+Similar to MATLAB’s <cite>de2bi</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Integer array.
+For large integers use <cite>object</cite> dtype, python allows storing arbitrarily large ints. Numpy ctypes cannot do so.
+For more info, see here:
+<a class="reference external" href="https://stackoverflow.com/questions/18296035/how-to-extract-the-bits-of-larger-numeric-numpy-data-types">https://stackoverflow.com/questions/18296035/how-to-extract-the-bits-of-larger-numeric-numpy-data-types</a></p></li>
+<li><p><strong>num_bits</strong> – Number of bits in the final representation
+If less than ceil(log2(x.max())), we will drop the MSB bits accordingly.
+Else, we pad sufficiently (to the MSB).</p></li>
+<li><p><strong>mode</strong> – Left MSB (default) or Right MSB.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.binary.unpackbits_strided">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.binary.</span></span><span class="sig-name descname"><span class="pre">unpackbits_strided</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">byte_array:</span> <span class="pre">numpy.ndarray</span></em>, <em class="sig-param"><span class="pre">num_bits:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">xp:</span> <span class="pre">module</span> <span class="pre">=</span> <span class="pre">&lt;module</span> <span class="pre">'numpy'</span> <span class="pre">from</span> <span class="pre">'/Users/varun/miniconda3/envs/torch39/lib/python3.9/site-packages/numpy/__init__.py'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.ops.binary.unpackbits_strided" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpack uint8 array generated by <cite>packbits_strided</cite>
+Last axis assumed to be bytes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>byte_array</strong> – array of bytes</p></li>
+<li><p><strong>num_bits</strong> – Since bits are padded to nearest multiple of 8 while packing,
+zero padding can be removed</p></li>
+<li><p><strong>xp</strong> – Numpy or Cupy</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="coding-theory-ops">
+<h2>Coding Theory Ops<a class="headerlink" href="#coding-theory-ops" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-quanta_SL.ops.coding"></span><p>Coding theory related</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="quanta_SL.ops.coding.StripeWidthStats">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.coding.</span></span><span class="sig-name descname"><span class="pre">StripeWidthStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">minSW</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">framewise_minSW</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">framewise_avgSW</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.ops.coding.StripeWidthStats" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="quanta_SL.ops.coding.StripeWidthStats.framewise_avgSW">
+<span class="sig-name descname"><span class="pre">framewise_avgSW</span></span><a class="headerlink" href="#quanta_SL.ops.coding.StripeWidthStats.framewise_avgSW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanta_SL.ops.coding.StripeWidthStats.framewise_minSW">
+<span class="sig-name descname"><span class="pre">framewise_minSW</span></span><a class="headerlink" href="#quanta_SL.ops.coding.StripeWidthStats.framewise_minSW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="quanta_SL.ops.coding.StripeWidthStats.minSW">
+<span class="sig-name descname"><span class="pre">minSW</span></span><a class="headerlink" href="#quanta_SL.ops.coding.StripeWidthStats.minSW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.coding.hamming_distance_8bit">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.coding.</span></span><span class="sig-name descname"><span class="pre">hamming_distance_8bit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">xp:</span> <span class="pre">module</span> <span class="pre">=</span> <span class="pre">&lt;module</span> <span class="pre">'numpy'</span> <span class="pre">from</span> <span class="pre">'/Users/varun/miniconda3/envs/torch39/lib/python3.9/site-packages/numpy/__init__.py'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.ops.coding.hamming_distance_8bit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hamming distance of each 8-bit uint (in binary representation).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hamming_distance_8bit</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hamming_distance_8bit</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="c1"># 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hamming_distance_8bit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 0</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>array with Look Up Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.coding.stripe_width_stats">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.coding.</span></span><span class="sig-name descname"><span class="pre">stripe_width_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code_LUT</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.ops.coding.stripe_width_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stripe width statistics (run length) of a coding strategy
+:param code_LUT: Look up table describing the code.
+The code frames are</p>
+<blockquote>
+<div><p>c_0[0], c_1[0], …, c_N[0]
+.                        .
+.                        .
+.                        .
+c_0[n-1], c_1[n-1], …, c_N[n-1]</p>
+</div></blockquote>
+<p>Where N is the number of messages, n is the code dimension.
+Typically, N= 2^k
+C : F^k     o F^n</p>
+<p>We account for circular shift while calculating stripe width</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>minimum stripe width across all frames
+frame-wise minimum stripe width
+frame-wise average stripe width</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-quanta_SL.ops.math_func">
+<span id="math"></span><h2>Math<a class="headerlink" href="#module-quanta_SL.ops.math_func" title="Permalink to this headline">¶</a></h2>
+<p>General math funcs</p>
+<p>All kept pure</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.math_func.comb">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.math_func.</span></span><span class="sig-name descname"><span class="pre">comb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.ops.math_func.comb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binomial coefficient, nCr, aka the “choose” function
+n! / (r! * (n - r)!)</p>
+<p>Faster than math.comb XD!</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.math_func.fast_factorial">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.math_func.</span></span><span class="sig-name descname"><span class="pre">fast_factorial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.ops.math_func.fast_factorial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fast LUT based factorial
+:param n:
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.math_func.list_error_correcting_capacity">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.math_func.</span></span><span class="sig-name descname"><span class="pre">list_error_correcting_capacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bch_tuple</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">quanta_SL.encode.metaclass.BCH</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#quanta_SL.ops.math_func.list_error_correcting_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Based on BCH LECC limit.
+See Wu et al. 2008, <a class="reference external" href="https://arxiv.org/pdf/cs/0703105.pdf">https://arxiv.org/pdf/cs/0703105.pdf</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bch_tuple</strong> – Describes BCH code as [n, k, t]
+n: Code length
+k: Message length
+t: Worst case correctable errors</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List Error Correcting Capacity</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.math_func.order_range">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.math_func.</span></span><span class="sig-name descname"><span class="pre">order_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#quanta_SL.ops.math_func.order_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Difference in order (powers of 10)
+between maximum and minimum elements of an array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> – float array</p></li>
+<li><p><strong>axis</strong> – Which axis to operate on.
+Default None (across all).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.math_func.periodically_continued">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.math_func.</span></span><span class="sig-name descname"><span class="pre">periodically_continued</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="headerlink" href="#quanta_SL.ops.math_func.periodically_continued" title="Permalink to this definition">¶</a></dt>
+<dd><p>Periodically continue a function
+:param a: Start point
+:param b: End point
+:return: Periodic function</p>
+</dd></dl>
+
+</section>
+<section id="module-quanta_SL.ops.linalg">
+<span id="linear-algebra"></span><h2>Linear Algebra<a class="headerlink" href="#module-quanta_SL.ops.linalg" title="Permalink to this headline">¶</a></h2>
+<p>Linear Algebra related vector funcs</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.linalg.normalized">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.linalg.</span></span><span class="sig-name descname"><span class="pre">normalized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.ops.linalg.normalized" title="Permalink to this definition">¶</a></dt>
+<dd><p>From <a class="reference external" href="https://stackoverflow.com/questions/21030391/how-to-normalize-an-array-in-numpy-to-a-unit-vector/21032099#21032099">https://stackoverflow.com/questions/21030391/how-to-normalize-an-array-in-numpy-to-a-unit-vector/21032099#21032099</a>
+:param order: Lp norm order
+:return: normalized vector</p>
+</dd></dl>
+
+</section>
+<section id="module-quanta_SL.ops.metrics">
+<span id="error-metrics"></span><h2>Error Metrics<a class="headerlink" href="#module-quanta_SL.ops.metrics" title="Permalink to this headline">¶</a></h2>
+<p>Error Metrics</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.metrics.exact_error">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.metrics.</span></span><span class="sig-name descname"><span class="pre">exact_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decoded_index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gt_index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.ops.metrics.exact_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Must exactly match</p>
+</dd></dl>
+
+</section>
+<section id="module-quanta_SL.ops.noise">
+<span id="noise-generation"></span><h2>Noise Generation<a class="headerlink" href="#module-quanta_SL.ops.noise" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.noise.fixed_bit_flip_corrupt">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.noise.</span></span><span class="sig-name descname"><span class="pre">fixed_bit_flip_corrupt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._bool.Bool</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noisy_bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._bool.Bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#quanta_SL.ops.noise.fixed_bit_flip_corrupt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate noise pattern with fixed no of bit flips</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – 2D array (code_words x code_dim)</p></li>
+<li><p><strong>noisy_bits</strong> – Corrupted bits per code</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Corrupted x</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.noise.photon_arrival">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.noise.</span></span><span class="sig-name descname"><span class="pre">photon_arrival</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_frames</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_exp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#quanta_SL.ops.noise.photon_arrival" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulate SPAD photon arrival.
+Operating in Quanta SPAD mode.
+Each frames thresholded if it receives atleast 1 photon</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_frames</strong> – Oversampling rate</p></li>
+<li><p><strong>phi</strong> – Incident photon flux (in seconds^-1)</p></li>
+<li><p><strong>t_exp</strong> – Exposure time (in seconds)</p></li>
+<li><p><strong>size</strong> – Number of samples to draw, usually, (h x w x vec_length)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Number of frames active</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.ops.noise.shot_noise_corrupt_gpu">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.ops.noise.</span></span><span class="sig-name descname"><span class="pre">shot_noise_corrupt_gpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_P</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_A</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_exp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_frames</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">typing.Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_complementary</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#quanta_SL.ops.noise.shot_noise_corrupt_gpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Corrupt a code word with shot noise</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>code</strong> – Code word in F_2^n</p></li>
+<li><p><strong>phi_P</strong> – Photon flux in “on” state</p></li>
+<li><p><strong>phi_A</strong> – Photon flux in “off” state</p></li>
+<li><p><strong>t_exp</strong> – SPAD exposure time</p></li>
+<li><p><strong>num_frames</strong> – Number of frames to repetitively capture at the SPAD end</p></li>
+<li><p><strong>tau</strong> – Threshold (normalized by num_frames).
+1 if #photons &gt; num_frames * tau
+0 otherwise</p></li>
+<li><p><strong>use_complementary</strong> – Use complementary strategy to compare.
+Involves projecting a code and its complement.
+Compare the #photons to figure out.
+Effective only when num_frames &gt; 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Quanta-SL</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">API Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="encode.html">Encoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decode.html">Decoding</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Supported Ops</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-quanta_SL.ops.binary">Binary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#coding-theory-ops">Coding Theory Ops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-quanta_SL.ops.math_func">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-quanta_SL.ops.linalg">Linear Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-quanta_SL.ops.metrics">Error Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-quanta_SL.ops.noise">Noise Generation</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="decode.html" title="previous chapter">Decoding</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Varun Sundar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/ops.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

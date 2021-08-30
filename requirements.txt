@@ -26,4 +26,5 @@ pykeops
 pynndescent
 SciencePlots
 scipy
+sphinx
 tqdm

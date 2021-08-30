@@ -109,10 +109,10 @@ def gray_code_to_projector_frames(
     num_bits = ceil(log2(width))
 
     if not folder_name:
-        folder_name = f"Gray-Code-{num_bits}-bits"
+        folder_name = f"Gray Code [{num_bits} bits]"
 
     if use_complementary:
-        folder_name += "-comp"
+        folder_name += " comp"
 
     kwargs = locals().copy()
 
@@ -121,6 +121,37 @@ def gray_code_to_projector_frames(
     # Generate gray code mapping on projector resolution
     code_LUT_to_projector_frames(code_LUT, **kwargs)
 
+def long_run_gray_code_to_projector_frames(
+    projector_resolution: Tuple[int, int],
+    use_complementary: bool = False,
+    show: bool = False,
+    save: bool = False,
+    folder_name: str = "",
+):
+    """
+    Long Run Gray codes to projector frames
+
+    :param projector_resolution: width x height
+    :param show: Plot in pyplot
+    :param save: Save as png
+    :param folder_name: Folder name to save to
+    """
+    # Find bits required to represent columns
+    width, height = projector_resolution
+    num_bits = ceil(log2(width))
+
+    if not folder_name:
+        folder_name = f"Long Run Gray Code [{num_bits} bits]"
+
+    if use_complementary:
+        folder_name += " comp"
+
+    kwargs = locals().copy()
+
+    code_LUT = long_run_gray_message(num_bits)
+
+    # Generate gray code mapping on projector resolution
+    code_LUT_to_projector_frames(code_LUT, **kwargs)
 
 def bch_to_projector_frames(
     bch_tuple: metaclass.BCH,
@@ -147,7 +178,7 @@ def bch_to_projector_frames(
         folder_name = f"{bch_tuple} [{message_mapping.__name__}]"
 
     if use_complementary:
-        folder_name += "-comp"
+        folder_name += " comp"
 
     kwargs = locals().copy()
 
@@ -193,7 +224,7 @@ def repetition_to_projector_frames(
         folder_name = f"{repetition_tuple} [{message_mapping.__name__}]"
 
     if use_complementary:
-        folder_name += "-comp"
+        folder_name += " comp"
 
     kwargs = locals().copy()
 
@@ -245,7 +276,7 @@ def hybrid_to_projector_frames(
         folder_name = f"Hybrid {bch_tuple} [{message_mapping.__name__}]"
 
     if use_complementary:
-        folder_name += "-comp"
+        folder_name += " comp"
 
     kwargs = locals().copy()
 
@@ -276,25 +307,30 @@ if __name__ == "__main__":
     num_bits = 11
     projector_resolution = (1920, 1080)
 
-    kwargs = {"show": False, "save": True}
+    kwargs = {"show": False, "save": True, "use_complementary": True}
 
-    gray_code_to_projector_frames(projector_resolution, **kwargs)
+    # gray_code_to_projector_frames(projector_resolution, **kwargs)
 
-    hybrid_to_projector_frames(
-        metaclass.BCH(31, 11, 5),
-        bch_message_bits=8,
-        projector_resolution=projector_resolution,
-        message_mapping=long_run_gray_message,
-        **kwargs,
-    )
+    long_run_gray_code_to_projector_frames(projector_resolution, **kwargs)
 
-    bch_to_projector_frames(
-        metaclass.BCH(31, 11, 5),
-        projector_resolution,
-        message_mapping=gray_message,
-        **kwargs,
-    )
+    # hybrid_to_projector_frames(
+    #     metaclass.BCH(63, 10, 13),
+    #     bch_message_bits=8,
+    #     projector_resolution=projector_resolution,
+    #     message_mapping=gray_message,
+    #     **kwargs,
+    # )
 
-    repetition_to_projector_frames(
-        metaclass.Repetition(33, 11, 1), projector_resolution, **kwargs
-    )
+    # bch_to_projector_frames(
+    #     metaclass.BCH(63, 16, 11),
+    #     projector_resolution,
+    #     message_mapping=gray_message,
+    #     **kwargs,
+    # )
+
+    # repetition_to_projector_frames(
+    #     metaclass.Repetition(77, 11, 3),
+    #     projector_resolution,
+    #     message_mapping=long_run_gray_message,
+    #     **kwargs,
+    # )

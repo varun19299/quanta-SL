@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Encoding &#8212; Quanta-SL 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Decoding" href="decode.html" />
+    <link rel="prev" title="Welcome to Quanta-SL’s documentation!" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="encoding">
+<h1>Encoding<a class="headerlink" href="#encoding" title="Permalink to this headline">¶</a></h1>
+<section id="module-quanta_SL.encode.message">
+<span id="messages"></span><h2>Messages<a class="headerlink" href="#module-quanta_SL.encode.message" title="Permalink to this headline">¶</a></h2>
+<p>Base projector patterns or messages</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.message.message_to_inverse_permuation">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.message.</span></span><span class="sig-name descname"><span class="pre">message_to_inverse_permuation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message_ll</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">packbits_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.encode.message.message_to_inverse_permuation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert message LUT inverse to packed integers.
+Useful to define a mapping between code and binary listing (np.arange).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>message_ll</strong> – message LUT</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>integer array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.message.message_to_permuation">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.message.</span></span><span class="sig-name descname"><span class="pre">message_to_permuation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message_ll</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">packbits_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.encode.message.message_to_permuation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert message LUT to packed integers.
+Useful to define a mapping between binary and the code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>message_ll</strong> – message LUT</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>integer array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="module-quanta_SL.encode.graycodes.long_run_graycode">
+<span id="graycodes"></span><h3>GrayCodes<a class="headerlink" href="#module-quanta_SL.encode.graycodes.long_run_graycode" title="Permalink to this headline">¶</a></h3>
+<p>Long run Gray Codes</p>
+<p>“Gray Codes with Optimized Run Lengths”, Goddyn et al. 1998.</p>
+<p>Reference: <a class="reference external" href="https://stackoverflow.com/questions/30519621/generating-long-run-gray-codes">https://stackoverflow.com/questions/30519621/generating-long-run-gray-codes</a></p>
+<span class="target" id="module-quanta_SL.encode.graycodes.monotonic_graycode"></span><p>Source: <a class="reference external" href="https://sciyoshi.com/2010/12/gray-codes/">https://sciyoshi.com/2010/12/gray-codes/</a></p>
+</section>
+</section>
+<section id="module-quanta_SL.encode.strategies">
+<span id="strategies"></span><h2>Strategies<a class="headerlink" href="#module-quanta_SL.encode.strategies" title="Permalink to this headline">¶</a></h2>
+<p>code LUT for various strategies</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.strategies.bch_code_LUT">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.strategies.</span></span><span class="sig-name descname"><span class="pre">bch_code_LUT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">bch_tuple:</span> <span class="pre">quanta_SL.encode.metaclass.BCH</span></em>, <em class="sig-param"><span class="pre">message_bits:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">message_mapping:</span> <span class="pre">Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">gray_message&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#quanta_SL.encode.strategies.bch_code_LUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>BCH code LUT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bch_tuple</strong> – BCH code [n,k,t] parameters</p></li>
+<li><p><strong>message_bits</strong> – message dimension</p></li>
+<li><p><strong>message_mapping</strong> – Describes message
+m: [2^message_bits] -&gt; F_2^message_bits</p></li>
+</ul>
+</dd>
+</dl>
+<p>:return Code Look-Up Table</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.strategies.hybrid_code_LUT">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.strategies.</span></span><span class="sig-name descname"><span class="pre">hybrid_code_LUT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">bch_tuple:</span> <span class="pre">quanta_SL.encode.metaclass.BCH</span></em>, <em class="sig-param"><span class="pre">bch_message_bits:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">message_bits:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">overlap_bits:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">message_mapping:</span> <span class="pre">Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">gray_message&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.encode.strategies.hybrid_code_LUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hybrid code LUT (BCH + stripe scanning).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bch_tuple</strong> – BCH code [n,k,t] parameters</p></li>
+<li><p><strong>bch_message_bits</strong> – message bits (from MSB) encoded by BCH</p></li>
+<li><p><strong>message_bits</strong> – message dimension</p></li>
+<li><p><strong>overlap_bits</strong> – message bits encoded by both BCH and stripe</p></li>
+<li><p><strong>message_mapping</strong> – Describes message
+m: [2^message_bits] -&gt; F_2^message_bits</p></li>
+</ul>
+</dd>
+</dl>
+<p>:return Code Look-Up Table</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.strategies.repetition_code_LUT">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.strategies.</span></span><span class="sig-name descname"><span class="pre">repetition_code_LUT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">repetition_tuple:</span> <span class="pre">quanta_SL.encode.metaclass.Repetition</span></em>, <em class="sig-param"><span class="pre">message_bits:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">message_mapping:</span> <span class="pre">Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">gray_message&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#quanta_SL.encode.strategies.repetition_code_LUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Repetition code LUT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repetition_tuple</strong> – Repetition code [n,k] parameters</p></li>
+<li><p><strong>message_bits</strong> – message dimension</p></li>
+<li><p><strong>message_mapping</strong> – Describes message
+m: [2^message_bits] -&gt; F_2^message_bits</p></li>
+</ul>
+</dd>
+</dl>
+<p>:return Code Look-Up Table</p>
+</dd></dl>
+
+<section id="module-quanta_SL.encode.precision_bits">
+<span id="precision-bits"></span><h3>Precision Bits<a class="headerlink" href="#module-quanta_SL.encode.precision_bits" title="Permalink to this headline">¶</a></h3>
+<p>Compare precision frame encoding and decoding</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.precision_bits.circular_shifted_stripes">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.precision_bits.</span></span><span class="sig-name descname"><span class="pre">circular_shifted_stripes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stripe_width</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#quanta_SL.encode.precision_bits.circular_shifted_stripes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate circularly shifted stripe pattern</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>stripe_width</strong> – width of 1’s / 0’s
+Periodicity is 2 * stripe_width</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>code Look Up Table (LUT),
+columns x time</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="module-quanta_SL.encode.generate_projector_patterns">
+<span id="generating-projector-patterns"></span><h2>Generating Projector Patterns<a class="headerlink" href="#module-quanta_SL.encode.generate_projector_patterns" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.generate_projector_patterns.bch_to_projector_frames">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.generate_projector_patterns.</span></span><span class="sig-name descname"><span class="pre">bch_to_projector_frames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">bch_tuple:</span> <span class="pre">quanta_SL.encode.metaclass.BCH,</span> <span class="pre">projector_resolution:</span> <span class="pre">Tuple[int,</span> <span class="pre">int],</span> <span class="pre">message_mapping:</span> <span class="pre">Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">gray_message&gt;,</span> <span class="pre">use_complementary:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">show:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">save:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">folder_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.encode.generate_projector_patterns.bch_to_projector_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert BCH codes to projector frames.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bch_tuple</strong> – BCH code [n,k,t] parameters</p></li>
+<li><p><strong>projector_resolution</strong> – width x height</p></li>
+<li><p><strong>message_mapping</strong> – Describes message
+m: [num_cols] -&gt; F_2^k</p></li>
+<li><p><strong>use_complementary</strong> – whether to save / show complementary (1-frame_i)</p></li>
+<li><p><strong>show</strong> – Plot in pyplot</p></li>
+<li><p><strong>save</strong> – Save as png</p></li>
+<li><p><strong>folder_name</strong> – Folder name to save to</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.generate_projector_patterns.code_LUT_to_projector_frames">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.generate_projector_patterns.</span></span><span class="sig-name descname"><span class="pre">code_LUT_to_projector_frames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code_LUT</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">nptyping.types._ndarray.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">nptyping.types._number.Int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projector_resolution</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_complementary</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">unused_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.encode.generate_projector_patterns.code_LUT_to_projector_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate projector frames from an arbitrary code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>code_LUT</strong> – Describes F_2^k    o F_2^n code</p></li>
+<li><p><strong>projector_resolution</strong> – width x height</p></li>
+<li><p><strong>use_complementary</strong> – whether to save / show complementary (1-frame_i)</p></li>
+<li><p><strong>show</strong> – Plot in pyplot</p></li>
+<li><p><strong>save</strong> – Save as png</p></li>
+<li><p><strong>folder_name</strong> – Folder name to save to</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.generate_projector_patterns.gray_code_to_projector_frames">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.generate_projector_patterns.</span></span><span class="sig-name descname"><span class="pre">gray_code_to_projector_frames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projector_resolution</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_complementary</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.encode.generate_projector_patterns.gray_code_to_projector_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gray codes to projector frames</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>projector_resolution</strong> – width x height</p></li>
+<li><p><strong>show</strong> – Plot in pyplot</p></li>
+<li><p><strong>save</strong> – Save as png</p></li>
+<li><p><strong>folder_name</strong> – Folder name to save to</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.generate_projector_patterns.hybrid_to_projector_frames">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.generate_projector_patterns.</span></span><span class="sig-name descname"><span class="pre">hybrid_to_projector_frames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">bch_tuple:</span> <span class="pre">quanta_SL.encode.metaclass.BCH,</span> <span class="pre">bch_message_bits:</span> <span class="pre">int,</span> <span class="pre">projector_resolution:</span> <span class="pre">Tuple[int,</span> <span class="pre">int],</span> <span class="pre">overlap_bits:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">message_mapping:</span> <span class="pre">Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">gray_message&gt;,</span> <span class="pre">use_complementary:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">show:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">save:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">folder_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.encode.generate_projector_patterns.hybrid_to_projector_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate projector frames for “Hybrid” (BCH + stripe scan) strategy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bch_tuple</strong> – BCH code [n,k,t] parameters</p></li>
+<li><p><strong>bch_message_bits</strong> – message bits (from MSB) encoded by BCH</p></li>
+<li><p><strong>projector_resolution</strong> – width x height</p></li>
+<li><p><strong>overlap_bits</strong> – message bits encoded by both BCH and stripe</p></li>
+<li><p><strong>message_mapping</strong> – Describes message
+m: [num_cols] -&gt; F_2^k</p></li>
+<li><p><strong>use_complementary</strong> – whether to save / show complementary (1-frame_i)</p></li>
+<li><p><strong>show</strong> – Plot in pyplot</p></li>
+<li><p><strong>save</strong> – Save as png</p></li>
+<li><p><strong>folder_name</strong> – Folder name to save to</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.generate_projector_patterns.long_run_gray_code_to_projector_frames">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.generate_projector_patterns.</span></span><span class="sig-name descname"><span class="pre">long_run_gray_code_to_projector_frames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projector_resolution</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_complementary</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.encode.generate_projector_patterns.long_run_gray_code_to_projector_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Long Run Gray codes to projector frames</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>projector_resolution</strong> – width x height</p></li>
+<li><p><strong>show</strong> – Plot in pyplot</p></li>
+<li><p><strong>save</strong> – Save as png</p></li>
+<li><p><strong>folder_name</strong> – Folder name to save to</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.encode.generate_projector_patterns.repetition_to_projector_frames">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.encode.generate_projector_patterns.</span></span><span class="sig-name descname"><span class="pre">repetition_to_projector_frames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">repetition_tuple:</span> <span class="pre">quanta_SL.encode.metaclass.Repetition,</span> <span class="pre">projector_resolution:</span> <span class="pre">Tuple[int,</span> <span class="pre">int],</span> <span class="pre">message_mapping:</span> <span class="pre">Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">gray_message&gt;,</span> <span class="pre">use_complementary:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">show:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">save:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">folder_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.encode.generate_projector_patterns.repetition_to_projector_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert Repetition codes to projector frames.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repetition_tuple</strong> – Repetition code [n,k] parameters</p></li>
+<li><p><strong>projector_resolution</strong> – width x height</p></li>
+<li><p><strong>message_mapping</strong> – Describes message
+m: [num_cols] -&gt; F_2^k</p></li>
+<li><p><strong>use_complementary</strong> – whether to save / show complementary (1-frame_i)</p></li>
+<li><p><strong>show</strong> – Plot in pyplot</p></li>
+<li><p><strong>save</strong> – Save as png</p></li>
+<li><p><strong>folder_name</strong> – Folder name to save to</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Quanta-SL</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">API Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Encoding</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-quanta_SL.encode.message">Messages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-quanta_SL.encode.graycodes.long_run_graycode">GrayCodes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-quanta_SL.encode.strategies">Strategies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-quanta_SL.encode.precision_bits">Precision Bits</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-quanta_SL.encode.generate_projector_patterns">Generating Projector Patterns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="decode.html">Decoding</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to Quanta-SL’s documentation!</a></li>
+      <li>Next: <a href="decode.html" title="next chapter">Decoding</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Varun Sundar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/encode.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

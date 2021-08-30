@@ -6,7 +6,7 @@ PYTHON := python
 HYDRA_FLAGS := -m
 SEED := 0
 
-.PHONY: help
+.PHONY: help docs
 .DEFAULT: help
 
 ## install: Pip requirements, local development mode
@@ -26,13 +26,9 @@ help : Makefile
         endif
     endif
 
-## clean: Remove all outputs
-clean:
-	@rm -rf outputs/*
-
 ## test: Run unit tests wherever present
 test:
-	@pytest -s pypbrt/*
+	@pytest -s quanta_SL/*
 
 # Simulate defaults
 SCENE := sphere
@@ -61,3 +57,8 @@ reconstruct:
 	projector.index=$(PROJ_INDEX) projector.pattern=$(PROJ_PATTERN) \
  	exp_name=$(EXP_NAME) \
 	sensor=$(SENSOR) sensor.exposure=$(EXPOSURE) $(KWARGS) $(HYDRA_FLAGS)
+
+## docs: build HTML docs
+docs :
+	@cd docs; make html
+	@ln -s docs/_build/html/index.html index.html
