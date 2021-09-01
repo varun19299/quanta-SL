@@ -20,3 +20,5 @@ __pycache__
 
 # pbrt binary
 pbrt
+
+quanta_SL.egg-info
