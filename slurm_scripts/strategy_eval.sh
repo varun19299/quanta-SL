@@ -41,4 +41,4 @@ fi
 
 # Start Job here
 export PYTHONPATH=.
-python quanta_SL/vis_tools/error_evaluation/${1}.py
+python quanta_SL/vis_tools/comparison_scripts/${1}.py
