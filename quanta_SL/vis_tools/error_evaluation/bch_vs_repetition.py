@@ -119,7 +119,7 @@ def _compare_repetition_bch(
         Repetition(130, 10, 6),
         Repetition(260, 10, 12),
     ]
-    redundancy_ll = [1, 3, 6, 13, 25]
+    redundancy_ll = [1, 3, 6, 13, 26]
     redundancy_index = redundancy_ll.index(redundancy_factor)
 
     assert redundancy_index, "Comparing at redundancy 1 not supported"
@@ -175,7 +175,7 @@ if __name__ == "__main__":
     coding_kwargs = dict(monte_carlo_iter=5)
 
     # Repetition vs BCH
-    redundancy_ll = [3, 6, 13, 25]
+    redundancy_ll = [3, 6, 13, 26]
     oversampling_ll = [1, 5]
 
     for redundancy_factor in redundancy_ll:

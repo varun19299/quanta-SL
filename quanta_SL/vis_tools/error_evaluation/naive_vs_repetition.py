@@ -1,26 +1,25 @@
 """
-Repeated Conventional Gray
+Naive (no coding)
 vs
-Repeated Long-run Gray
+Repetition
 
-Comparison based on RMSE.
-Both strategies are fairly robust to short-range effects
-(projector defocus, subsurface scattering, etc.)
+Comparison based on RMSE, exact error probability.
 """
 
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List
 
 import numpy as np
 from einops import rearrange
 from loguru import logger
 
-from quanta_SL.encode.message import long_run_gray_message, gray_message
 from quanta_SL.encode.metaclass import CallableEval, Repetition
 from quanta_SL.ops.metrics import exact_error, root_mean_squared_error
+from quanta_SL.utils.gpu_status import CUPY_GPUs
 from quanta_SL.vis_tools.error_evaluation import analytic
 from quanta_SL.vis_tools.error_evaluation.monte_carlo import (
     repetition_coding,
+    no_coding,
 )
 from quanta_SL.vis_tools.error_evaluation.plotting import (
     individual_and_multiple_plots,
@@ -28,37 +27,37 @@ from quanta_SL.vis_tools.error_evaluation.plotting import (
 
 
 def _get_strategies(
-    repetition_tuple: Repetition,
+    repetition_tuple_ll: List[Repetition],
     **coding_kwargs,
 ):
+    assert len(
+        {repetition_tuple.k for repetition_tuple in repetition_tuple_ll}
+    ), "Message lengths do not match."
+
+    message_bits = repetition_tuple_ll[0].k
+
+    # No coding
     strategy_ll = [
+        CallableEval(f"No Coding [{message_bits} bits]", no_coding, coding_kwargs),
+    ]
+
+    # Repetition strategies
+    strategy_ll += [
         CallableEval(
             f"Gray {repetition_tuple}",
             repetition_coding,
             {
                 "repetition_tuple": repetition_tuple,
-                "message_mapping": gray_message,
-                "pbar_header": "Conventional Gray",
                 **coding_kwargs,
             },
-        ),
-        CallableEval(
-            f"Max-minSW {repetition_tuple}",
-            repetition_coding,
-            {
-                "repetition_tuple": repetition_tuple,
-                "message_mapping": long_run_gray_message,
-                "pbar_header": "LongRun Gray",
-                **coding_kwargs,
-            },
-        ),
+        )
+        for repetition_tuple in repetition_tuple_ll
     ]
 
     return strategy_ll
 
 
 def _compare(
-    redundancy_factor: int = 1,
     oversampling_factor: int = 1,
     use_optimal_threshold: bool = True,
     coding_kwargs: Dict = {},
@@ -88,10 +87,10 @@ def _compare(
     }
 
     # Dump dir
-    config_str = f"over={oversampling_factor} | redun={redundancy_factor}"
+    config_str = f"over={oversampling_factor}"
 
     # Plot title
-    title = f"Redundancy {redundancy_factor} | Oversampling {oversampling_factor}"
+    title = f"No Coding vs Repetition | Oversampling {oversampling_factor}"
 
     if oversampling_factor > 1:
         title += f" | Threshold {'optimal' if use_optimal_threshold else 'fixed'}"
@@ -100,19 +99,14 @@ def _compare(
     logger.info(log_str)
 
     repetition_tuple_ll = [
-        Repetition(11, 11, 0),
         Repetition(33, 11, 1),
         Repetition(66, 11, 2),
         Repetition(143, 11, 6),
-        Repetition(275, 11, 12),
+        # Repetition(275, 11, 12),
     ]
-    redundancy_ll = [1, 3, 6, 13, 25]
-    redundancy_index = redundancy_ll.index(redundancy_factor)
-
-    assert redundancy_index, "Comparing at redundancy 1 not supported"
 
     strategy_ll = _get_strategies(
-        repetition_tuple_ll[redundancy_index],
+        repetition_tuple_ll,
         **_coding_kwargs,
     )
 
@@ -130,9 +124,8 @@ def _compare(
 
 
 if __name__ == "__main__":
-    from quanta_SL.utils.gpu_status import FAISS_GPUs
 
-    if FAISS_GPUs:
+    if CUPY_GPUs:
         num = 256
     else:
         num = 64
@@ -148,25 +141,26 @@ if __name__ == "__main__":
         show=False,
         plot_3d=True,
         savefig=True,
-        error_metric=root_mean_squared_error,
-        plot_dir=Path("outputs/strategy_comparison/conventional_vs_longrun_gray/"),
+        plot_dir=Path("outputs/strategy_comparison/naive_vs_repetition/"),
     )
 
     coding_kwargs = dict(monte_carlo_iter=1, num_bits=11)
 
-    if FAISS_GPUs:
+    if CUPY_GPUs:
         coding_kwargs["monte_carlo_iter"] = 5
 
-    # Repetition vs BCH
-    redundancy_ll = [3, 6, 13, 25]
+    # Oversampling (for thresholding, SPAD side)
     oversampling_ll = [1, 5]
 
     # Only RMSE makes sense here
-    for redundancy_factor in redundancy_ll:
-        for oversampling_factor in oversampling_ll:
-            _compare(
-                redundancy_factor,
-                oversampling_factor,
-                coding_kwargs=coding_kwargs,
-                plot_kwargs=plot_kwargs,
-            )
+    for oversampling_factor in oversampling_ll:
+        _compare(
+            oversampling_factor,
+            coding_kwargs=coding_kwargs,
+            plot_kwargs={**plot_kwargs, "error_metric": exact_error},
+        )
+        _compare(
+            oversampling_factor,
+            coding_kwargs=coding_kwargs,
+            plot_kwargs={**plot_kwargs, "error_metric": root_mean_squared_error},
+        )
