@@ -6,6 +6,7 @@ Maximum Likelihood Decoding
 
 import faiss
 import numpy as np
+import galois
 from einops import rearrange
 from loguru import logger
 from nptyping import NDArray
@@ -19,7 +20,9 @@ from quanta_SL.utils.gpu_status import (
     KEOPS_GPUs,
     FAISS_GPUs,
 )
+from quanta_SL.ops.binary import packbits
 from quanta_SL.ops.coding import hamming_distance_8bit
+from quanta_SL.encode import metaclass
 from types import ModuleType
 
 
@@ -253,6 +256,27 @@ def faiss_minimum_distance(x, y, index: faiss.IndexBinaryFlat = None):
     neighbors = neighbors[:, 0]
 
     return neighbors
+
+
+def galois_berlekamp_massey(x, y, bch_tuple: metaclass.BCH = None):
+    """
+    Classical (upto Hamming bound) error correction.
+    For BCH codes.
+
+    Note: ensure this is used with a binary message mapping.
+    Else inverse permutation is required.
+
+    :param x: Shape N_x, n
+    :param y: Shape N_y, n
+    :param bch_tuple: BCH tuple
+    :return: Minimum distance indices of size N_x (with values in 0,...,N_y - 1)
+    """
+    message = bch_tuple.decode(x)
+
+    # Pack it
+    indices = packbits(message)
+
+    return indices
 
 
 """

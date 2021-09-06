@@ -278,6 +278,10 @@ def repetition_coding(
     num_bits = kwargs.get("num_bits", 10)
     use_complementary = kwargs.get("use_complementary")
 
+    assert (
+        num_bits == repetition_tuple.k
+    ), f"Num bits {num_bits} isn't compatible with {repetition_tuple}"
+
     # Generate Repetition codes
     message_ll = message_mapping(num_bits)
     code_LUT = repetition_code_LUT(repetition_tuple, num_bits, message_mapping)

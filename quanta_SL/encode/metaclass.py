@@ -86,6 +86,18 @@ class BCH(_Code):
         out = out.view(np.ndarray)
         return out
 
+    def decode(self, array):
+        """
+        Decoding function
+
+        :param array: Input message (1d or 2d)
+        :return: code words
+        """
+        array = galois.GF2(array)
+        out = self.galois_instance.decode(array)
+        out = out.view(np.ndarray)
+        return out
+
     @property
     def distance(self):
         """

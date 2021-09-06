@@ -1,4 +1,3 @@
-from copy import copy
 from typing import Callable, Dict, Type
 
 import numpy as np
@@ -12,14 +11,15 @@ from quanta_SL.decode.minimum_distance.factory import (
     brute_minimum_distance,
     cupy_minimum_distance,
     faiss_minimum_distance,
-    numba_minimum_distance,
+    galois_berlekamp_massey,
     keops_minimum_distance,
+    numba_minimum_distance,
     pyNNdescent_minimum_distance,
     sklearn_minimum_distance,
-    nndescent_index,
     balltree_index,
     faiss_flat_index,
     faiss_flat_gpu_index,
+    nndescent_index,
 )
 from quanta_SL.encode import metaclass
 from quanta_SL.encode.message import binary_message
@@ -37,8 +37,7 @@ from quanta_SL.utils.gpu_status import (
 from quanta_SL.utils.plotting import save_plot
 from quanta_SL.utils.timer import Timer, CPUTimer, CuPyTimer
 
-
-# plt.style.use(["science", "grid"])
+plt.style.use(["science", "grid"])
 
 
 def bch_dataset_query_points(
@@ -140,17 +139,26 @@ def benchmark_func(
     return indices
 
 
-def cpu_minimum_distance(x: NDArray[int], y: NDArray[int], gt_indices: NDArray[int]):
+def cpu_minimum_distance(
+    x: NDArray[int], y: NDArray[int], gt_indices: NDArray[int], **kwargs
+):
     # Dirty way to store x, y, gt_indices
-    data_query_kwargs = copy(locals())
+    data_query_kwargs = dict(x=x, y=y, gt_indices=gt_indices)
     benchmark_dict = {}
 
     benchmark_func(
-        "Numpy",
-        brute_minimum_distance,
+        "Berlekamp Massey",
+        galois_berlekamp_massey,
         **data_query_kwargs,
         benchmark_dict=benchmark_dict,
+        bch_tuple=kwargs["bch_tuple"],
     )
+    # benchmark_func(
+    #     "Numpy",
+    #     brute_minimum_distance,
+    #     **data_query_kwargs,
+    #     benchmark_dict=benchmark_dict,
+    # )
     benchmark_func(
         "Numpy byte-packed",
         brute_minimum_distance,
@@ -193,9 +201,11 @@ def cpu_minimum_distance(x: NDArray[int], y: NDArray[int], gt_indices: NDArray[i
     return benchmark_dict
 
 
-def gpu_minimum_distance(x: NDArray[int], y: NDArray[int], gt_indices: NDArray[int]):
+def gpu_minimum_distance(
+    x: NDArray[int], y: NDArray[int], gt_indices: NDArray[int], **kwargs
+):
     # Dirty way to store x, y, gt_indices
-    data_query_kwargs = copy(locals())
+    data_query_kwargs = dict(x=x, y=y, gt_indices=gt_indices)
     benchmark_dict = {}
 
     if CUPY_GPUs:
@@ -243,14 +253,13 @@ def plot_timing(
     savefig: bool = True,
     fname: str = "cpu-KNN",
 ):
-    df.plot.barh(figsize=(6, 4))
+    df.plot.barh(figsize=(6, 4), grid=True)
 
     plt.legend()
     plt.tight_layout()
     plt.xscale("log")
     plt.xlabel("Time (in seconds)")
     plt.title(title)
-    plt.grid()
     save_plot(savefig=savefig, show=show, fname=f"outputs/benchmarks/{fname}.pdf")
 
 
@@ -276,7 +285,7 @@ def run_benchmark(
 
     benchmark_dict = {}
 
-    routine = gpu_minimum_distance if device == "gpu" else cpu_minimum_distance
+    minimum_distance = gpu_minimum_distance if device == "gpu" else cpu_minimum_distance
 
     for bch_tuple in bch_tuple_ll:
         logger.info(
@@ -285,7 +294,7 @@ def run_benchmark(
         x, y, gt_indices = bch_dataset_query_points(bch_tuple, num_bits, query_repeat)
 
         # Benchmark
-        timing_dict = routine(x, y, gt_indices)
+        timing_dict = minimum_distance(x, y, gt_indices, bch_tuple=bch_tuple)
 
         timing_dict = {k: v["querying_time"] for k, v in timing_dict.items()}
         benchmark_dict[f"{bch_tuple}"] = timing_dict

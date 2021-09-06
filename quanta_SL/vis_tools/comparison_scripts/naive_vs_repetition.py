@@ -38,13 +38,13 @@ def _get_strategies(
 
     # No coding
     strategy_ll = [
-        CallableEval(f"No Coding [{message_bits} bits]", no_coding, coding_kwargs),
+        CallableEval(f"Gray {message_bits} bits", no_coding, coding_kwargs),
     ]
 
     # Repetition strategies
     strategy_ll += [
         CallableEval(
-            f"Gray {repetition_tuple}",
+            f"Gray {message_bits} bits | Repeated {repetition_tuple.repeat}x",
             repetition_coding,
             {
                 "repetition_tuple": repetition_tuple,
