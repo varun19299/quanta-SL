@@ -313,13 +313,13 @@ if __name__ == "__main__":
 
     long_run_gray_code_to_projector_frames(projector_resolution, **kwargs)
 
-    # hybrid_to_projector_frames(
-    #     metaclass.BCH(63, 10, 13),
-    #     bch_message_bits=8,
-    #     projector_resolution=projector_resolution,
-    #     message_mapping=gray_message,
-    #     **kwargs,
-    # )
+    hybrid_to_projector_frames(
+        metaclass.BCH(63, 10, 13),
+        bch_message_bits=8,
+        projector_resolution=projector_resolution,
+        message_mapping=gray_message,
+        **kwargs,
+    )
 
     # bch_to_projector_frames(
     #     metaclass.BCH(63, 16, 11),

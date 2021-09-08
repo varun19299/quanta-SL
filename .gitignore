@@ -17,6 +17,7 @@ data/SPAD_captures
 .pytest_cache
 __pycache__
 **/__pycache__/
+.cache
 
 # pbrt binary
 pbrt
