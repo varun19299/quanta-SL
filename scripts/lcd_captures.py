@@ -1,10 +1,15 @@
 from functools import partial
 from pathlib import Path
 
+import hydra
 import numpy as np
+from dotmap import DotMap
 from einops import rearrange, repeat
+from hydra.utils import get_original_cwd
 from loguru import logger
-from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt, gridspec
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+from omegaconf import OmegaConf
 
 from quanta_SL.decode.methods import hybrid_decoding, repetition_decoding
 from quanta_SL.decode.minimum_distance.factory import (
@@ -12,18 +17,22 @@ from quanta_SL.decode.minimum_distance.factory import (
     faiss_minimum_distance,
 )
 from quanta_SL.encode import metaclass
-from quanta_SL.encode.message import long_run_gray_message, gray_message, message_to_inverse_permuation
 from quanta_SL.encode import strategies
+from quanta_SL.encode.message import (
+    registry as message_registry,
+    message_to_inverse_permuation,
+)
 from quanta_SL.io import load_swiss_spad_sequence, load_swiss_spad_burst
 from quanta_SL.ops.binary import packbits_strided
-import hydra
-from hydra.utils import get_original_cwd
-from omegaconf import OmegaConf
 from quanta_SL.utils.memoize import MemoizeNumpy
-from dotmap import DotMap
+
+from quanta_SL.utils.plotting import save_plot
 
 # Disable inner logging
 logger.disable("quanta_SL")
+logger.add(f"{__file__.split('.')[0]}.log")
+
+# plt.style.use(["science", "grid"])
 
 
 def setup_args(cfg):
@@ -43,8 +52,9 @@ def setup_args(cfg):
     cfg.hybrid.folder = lcd_captures_folder / cfg.hybrid.folder
     cfg.repetition.folder = lcd_captures_folder / cfg.repetition.folder
 
-    cfg.hybrid.message_mapping = eval(cfg.hybrid.message_mapping)
-    cfg.repetition.message_mapping = eval(cfg.repetition.message_mapping)
+    # Get from
+    cfg.hybrid.message_mapping = message_registry[cfg.hybrid.message_mapping]
+    cfg.repetition.message_mapping = message_registry[cfg.repetition.message_mapping]
 
     return cfg
 
@@ -108,7 +118,7 @@ def get_gt_frame(pattern_folder, pattern_comp_folder, bin_suffix_range, **kwargs
     return pos_frame > neg_frame
 
 
-def get_hybrid_binary_gt_sequence(cfg, hybrid_code_LUT):
+def get_hybrid_binary_gt_sequence(cfg, hybrid_code_LUT, rotate_180: bool = False):
     gt_sequence = []
     binary_sequence = []
 
@@ -139,10 +149,16 @@ def get_hybrid_binary_gt_sequence(cfg, hybrid_code_LUT):
     gt_sequence = np.stack(gt_sequence, axis=0)
     binary_sequence = np.stack(binary_sequence, axis=0)
 
+    if rotate_180:
+        gt_sequence = gt_sequence[:, ::-1, ::-1]
+        binary_sequence = binary_sequence[:, ::-1, ::-1]
+
     return gt_sequence, binary_sequence
 
 
-def get_repetition_binary_gt_sequence(cfg, repetition_code_LUT):
+def get_repetition_binary_gt_sequence(
+    cfg, repetition_code_LUT, rotate_180: bool = False
+):
     gt_sequence = []
     binary_sequence = []
 
@@ -192,6 +208,10 @@ def get_repetition_binary_gt_sequence(cfg, repetition_code_LUT):
     gt_sequence = np.stack(gt_sequence, axis=0)
     binary_sequence = np.concatenate(binary_sequence, axis=0)
 
+    if rotate_180:
+        gt_sequence = gt_sequence[:, ::-1, ::-1]
+        binary_sequence = binary_sequence[:, ::-1, ::-1]
+
     if cfg.repetition.multi_sample:
         gt_sequence = repeat(
             gt_sequence,
@@ -212,6 +232,16 @@ def decode_2d_code(sequence_array, code_LUT, decoding_func):
     return decoded_array
 
 
+def ax_imshow_with_colorbar(img, ax, fig, **imshow_kwargs):
+    im = ax.imshow(img, **imshow_kwargs)
+
+    # create an axes on the right side of ax. The width of cax will be 5%
+    # of ax and the padding between cax and ax will be fixed at 0.05 inch.
+    divider = make_axes_locatable(ax)
+    cax = divider.append_axes("right", size="5%", pad=0.05)
+    fig.colorbar(im, cax=cax)
+
+
 @hydra.main(config_path="../conf/scripts", config_name="lcd_captures")
 def main(cfg):
     print(OmegaConf.to_yaml(cfg))
@@ -224,20 +254,24 @@ def main(cfg):
     )
 
     hybrid_gt_sequence, hybrid_binary_sequence = get_hybrid_binary_gt_sequence(
-        cfg, hybrid_code_LUT
+        cfg, hybrid_code_LUT, rotate_180=cfg.hybrid.rotate_180
     )
+
     (
         repetition_gt_sequence,
         repetition_binary_sequence,
-    ) = get_repetition_binary_gt_sequence(cfg, repetition_code_LUT)
+    ) = get_repetition_binary_gt_sequence(
+        cfg, repetition_code_LUT, rotate_180=cfg.repetition.rotate_180
+    )
 
     # Regions to ignore
     # Ignore shadows and black areas, white pixels
     mean_hybrid_binary = hybrid_binary_sequence.mean(axis=0)
-    mask = (mean_hybrid_binary < 0.1) | (mean_hybrid_binary > 0.95)
-    plt.imshow(mask)
-    plt.colorbar()
-    plt.show()
+    mask = (mean_hybrid_binary < 0.2) | (mean_hybrid_binary > 0.90)
+    # plt.figure(figsize=(8, 6))
+    # plt.imshow(mean_hybrid_binary)
+    # plt.colorbar()
+    # plt.show()
 
     # Decode
     logger.info("Decoding Hybrid GT")
@@ -265,45 +299,56 @@ def main(cfg):
     hybrid_rmse = np.sqrt(
         ((hybrid_gt_decoded[~mask] - hybrid_binary_decoded[~mask]) ** 2).mean()
     )
-    logger.info(f"RMSE {hybrid_rmse}")
+    logger.info(f"RMSE Hybrid {hybrid_rmse}")
 
     repetition_rmse = np.sqrt(
         ((repetition_gt_decoded[~mask] - repetition_binary_decoded[~mask]) ** 2).mean()
     )
-    logger.info(f"RMSE {repetition_rmse}")
+    logger.info(f"RMSE Repetition {repetition_rmse}")
 
-    plt.imshow(hybrid_gt_decoded)
-    plt.title("Hybrid GT")
-    plt.colorbar()
-    plt.show()
-
-    plt.imshow(repetition_gt_decoded)
-    plt.title("Repetition GT")
-    plt.colorbar()
-    plt.show()
-
-    breakpoint()
-
-    abs_error = np.absolute(decoded_binary - decoded_gt)
-    abs_error[mask] = np.nan
+    logger.info("Plotting...")
 
     # Plotting
-    logger.info("Plotting")
-    fig, ax_ll = plt.subplots(1, 3)
-    ax_ll[0].imshow(decoded_gt)
-    ax_ll[0].set_title("Groundtruth Correspondences")
+    n_row = 2
+    n_col = 3
+    fig, ax_ll = plt.subplots(n_row, n_col, figsize=(16, 12))
 
-    ax_ll[1].imshow(decoded_binary)
-    ax_ll[1].set_title("Hybrid Correspondences")
+    # Row 1: Groundtruths, Mask
+    ax = ax_ll[0, 0]
+    ax_imshow_with_colorbar(hybrid_gt_decoded, ax, fig, cmap="gray")
+    ax.set_title("Groundtruth est. from Hybrid")
 
-    im = ax_ll[2].imshow(abs_error)
-    ax_ll[2].set_title("Absolute Error")
+    ax = ax_ll[0, 1]
+    ax_imshow_with_colorbar(repetition_gt_decoded, ax, fig, cmap="gray")
+    ax.set_title("Groundtruth est. from Repeat")
 
-    fig.subplots_adjust(right=0.8)
-    cbar_ax = fig.add_axes([0.85, 0.15, 0.05, 0.7])
-    fig.colorbar(im, cax=cbar_ax)
+    ax = ax_ll[0, 2]
+    ax_imshow_with_colorbar(mask, ax, fig, cmap="jet")
+    ax.set_title("Mask (exclude shadow + hot pixels)")
 
-    plt.show()
+    # Row 2: Hybrid ABS, Repeat ABS, GT discrepancy
+    hybrid_abs_error = np.abs(hybrid_gt_decoded - hybrid_binary_decoded)
+    hybrid_abs_error[mask] = 0
+    ax = ax_ll[1, 0]
+    ax_imshow_with_colorbar(hybrid_abs_error, ax, fig)
+    ax.set_title(f"Hybrid Absolute error | RMSE {hybrid_rmse:.2f}")
+
+    repetition_abs_error = np.abs(repetition_gt_decoded - repetition_binary_decoded)
+    repetition_abs_error[mask] = 0
+    ax = ax_ll[1, 1]
+    ax_imshow_with_colorbar(repetition_abs_error, ax, fig)
+    ax.set_title(f"Repetition Absolute error | RMSE {repetition_rmse:.2f}")
+
+    gt_discrepancy = np.abs(hybrid_gt_decoded - repetition_gt_decoded)
+    gt_discrepancy[mask] = 0
+    ax = ax_ll[1, 2]
+    ax_imshow_with_colorbar(gt_discrepancy, ax, fig)
+    ax.set_title("GT Discrepancy (Hybrid, Repetition)")
+
+    plt.tight_layout()
+    fig.subplots_adjust(hspace=-0.4)
+
+    save_plot(savefig=cfg.savefig, show=cfg.show, fname=cfg.fname)
 
 
 if __name__ == "__main__":

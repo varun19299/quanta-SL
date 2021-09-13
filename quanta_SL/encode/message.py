@@ -16,10 +16,26 @@ from quanta_SL.utils.decorators import named_func
 
 long_run_gray_cache_dict = {}
 
+# Map func names, named func names, long names to dict
+registry = {}
+
+
+def register(func):
+    registry[func.__name__] = func
+
+    if hasattr(func, "name"):
+        registry[func.name] = func
+
+    return func
+
+
+@register
 @named_func("Binary Code")
 def binary_message(num_bits: int):
     return unpackbits(np.arange(pow(2, num_bits))).astype(int)
 
+
+@register
 @named_func("Gray Code")
 def gray_message(num_bits: int):
     binary_ll = binary_message(num_bits)
@@ -27,29 +43,43 @@ def gray_message(num_bits: int):
 
     return binary_ll[graycode_indices, :]
 
+
+@register
 @named_func("max-minSW Code")
 def max_minSW_message(num_bits: int):
     assert num_bits == 10, "Max Min code only designed for 10 bits"
 
     return load_code("MaxMinSWGray")
 
+
+@register
 @named_func("XOR2 Code")
 def xor2_message(num_bits: int):
     assert num_bits == 10, "XOR2 code only designed for 10 bits"
 
     return load_code("XOR02")
 
+
+@register
 @named_func("XOR4 Code")
 def xor4_message(num_bits: int):
     assert num_bits == 10, "XOR4 code only designed for 10 bits"
 
     return load_code("XOR04")
 
+
+@register
 @named_func("Long-run Gray Code")
 def long_run_gray_message(num_bits: int):
+    from pkg_resources import resource_filename
+
     global long_run_gray_cache_dict
     if not long_run_gray_cache_dict:
-        with open("quanta_SL/encode/graycodes/long_run_graycode.json") as f:
+        filepath = resource_filename(
+            "quanta_SL", "encode/graycodes/long_run_graycode.json"
+        )
+
+        with open(filepath) as f:
             long_run_gray_cache_dict = json.load(f)["codes"]
 
     long_run_gray_cache_dict = {int(k): v for k, v in long_run_gray_cache_dict.items()}
@@ -61,6 +91,8 @@ def long_run_gray_message(num_bits: int):
 
     return unpackbits(mapping)
 
+
+@register
 @named_func("Monotonic Gray Code")
 def monotonic_gray_message(num_bits: int):
     code_LUT = []

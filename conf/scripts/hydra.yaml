@@ -2,17 +2,9 @@
 hydra:
   output_subdir: null # disable shifting output directories
   run:
-    dir: ./outputs/${exp_name}/
+    dir: ./scripts/
   sweep:
-    dir: ./outputs/${exp_name}/
-  job_logging:
-    handlers:
-      file:
-        mode: w # comment if you dont want to overwrite
-    root:
-      handlers:
-        - file
-        - console
+    dir: ./scripts/${exp_name}/
   job:
     config:
       override_dirname:

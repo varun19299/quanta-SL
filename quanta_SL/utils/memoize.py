@@ -2,12 +2,14 @@ import atexit
 import inspect
 import shelve
 from pathlib import Path
+from pkg_resources import resource_filename
 
 import h5py
 import numpy as np
 from loguru import logger
 
-Path(".cache").mkdir(exist_ok=True, parents=True)
+cache_path = Path(resource_filename("quanta_SL", ".cache"))
+cache_path.mkdir(exist_ok=True, parents=True)
 
 
 class Memoize(object):
@@ -22,7 +24,7 @@ class Memoize(object):
 
     def __init__(self, func):
         self.func = func
-        self.cache = shelve.open(f".cache/{func.__name__}", "c")
+        self.cache = shelve.open(str(cache_path / func.__name__), "c")
         atexit.register(self.cache.close)
 
     def __call__(self, *args, **kwargs):
@@ -52,7 +54,7 @@ class MemoizeNumpy(Memoize):
 
     def __init__(self, func):
         self.func = func
-        self.cache = h5py.File(f".cache/{func.__name__}.hdf5", "a")
+        self.cache = h5py.File(f"{cache_path}/{func.__name__}.hdf5", "a")
         atexit.register(self.cache.close)
 
     def __call__(self, *args, **kwargs):
@@ -62,9 +64,7 @@ class MemoizeNumpy(Memoize):
 
             assert isinstance(output, np.ndarray), "Output must be a single numpy array"
 
-            self.cache.create_dataset(
-                key, data=output, compression="lzf"
-            )
+            self.cache.create_dataset(key, data=output, compression="lzf")
         else:
             dset = self.cache.get(key)
 
