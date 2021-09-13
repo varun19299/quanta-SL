@@ -32,7 +32,16 @@ from quanta_SL.utils.plotting import save_plot
 logger.disable("quanta_SL")
 logger.add(f"{__file__.split('.')[0]}.log")
 
-# plt.style.use(["science", "grid"])
+plt.style.use(["science", "grid"])
+params = {
+    "legend.fontsize": "x-large",
+    "figure.titlesize": "xx-large",
+    "axes.labelsize": "xx-large",
+    "axes.titlesize": "x-large",
+    "xtick.labelsize": "large",
+    "ytick.labelsize": "large",
+}
+plt.rcParams.update(params)
 
 
 def setup_args(cfg):
@@ -311,7 +320,7 @@ def main(cfg):
     # Plotting
     n_row = 2
     n_col = 3
-    fig, ax_ll = plt.subplots(n_row, n_col, figsize=(16, 12))
+    fig, ax_ll = plt.subplots(n_row, n_col, sharey=True, sharex=True, figsize=(16, 12))
 
     # Row 1: Groundtruths, Mask
     ax = ax_ll[0, 0]
@@ -345,8 +354,11 @@ def main(cfg):
     ax_imshow_with_colorbar(gt_discrepancy, ax, fig)
     ax.set_title("GT Discrepancy (Hybrid, Repetition)")
 
+    plt.suptitle(
+        f"LCD Captures from {cfg.capture_date.replace('_',' ')}", fontsize=28, y=0.75
+    )
     plt.tight_layout()
-    fig.subplots_adjust(hspace=-0.4)
+    fig.subplots_adjust(hspace=-0.65)
 
     save_plot(savefig=cfg.savefig, show=cfg.show, fname=cfg.fname)
 
