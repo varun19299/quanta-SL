@@ -1,0 +1,29 @@
+defaults:
+  - hydra
+
+exp_name: real_captures
+
+groundtruth:
+  bin_suffix_range: "range(10)"
+  folder: ${hybrid.folder}
+
+hybrid:
+  folder: "27th_August/0827-hybridBCH/"
+  message_bits: 11
+  overlap_bits: 1
+  bch_tuple: [63, 10, 13]
+  bch_message_bits: 8
+  message_mapping: gray_message
+  binary_frame:
+    bin_suffix: 3
+    index: 10
+
+repetition:
+  folder: "27th_August/0827-repetition/"
+  message_bits: 11
+  repetition_tuple: [66, 11, 2]
+  multi_sample: True
+  message_mapping: long_run_gray_message
+  binary_frame:
+    bin_suffix: 3
+    index: 10

@@ -40,7 +40,7 @@ def unpackbits(x: NDArray[int], num_bits: int = 0, mode: str = "left-msb") -> ND
     xshape = list(x.shape)
     x = x.reshape([-1, 1])
 
-    mask_size = floor(log2(x.max())) + 1
+    mask_size = floor(log2(max(1, x.max()))) + 1
     mask = 2 ** np.arange(mask_size, dtype=x.dtype).reshape([1, mask_size])
 
     binary_rep = (x & mask).astype(bool).astype(int).reshape(xshape + [mask_size])

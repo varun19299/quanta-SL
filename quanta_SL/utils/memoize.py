@@ -3,10 +3,23 @@ import inspect
 import shelve
 from pathlib import Path
 
+import h5py
+import numpy as np
+from loguru import logger
+
 Path(".cache").mkdir(exist_ok=True, parents=True)
 
 
-class memoize(object):
+class Memoize(object):
+    """
+    Memoize a function via shelve storage (on disk).
+
+    >>> @Memoize
+    >>> def costly_func(*args, **kwargs):
+    >>>     # do some costly stuff
+    >>>     return costly_stuff
+    """
+
     def __init__(self, func):
         self.func = func
         self.cache = shelve.open(f".cache/{func.__name__}", "c")
@@ -27,33 +40,70 @@ class memoize(object):
         return str(sorted(a.items()))
 
 
+class MemoizeNumpy(Memoize):
+    """
+    Memoize a function which produces a single numpy output.
+
+    >>> @MemoizeNumpy
+    >>> def costly_func(*args, **kwargs):
+    >>>     # do some costly stuff
+    >>>     return costly_stuff
+    """
+
+    def __init__(self, func):
+        self.func = func
+        self.cache = h5py.File(f".cache/{func.__name__}.hdf5", "a")
+        atexit.register(self.cache.close)
+
+    def __call__(self, *args, **kwargs):
+        key = self.key(args, kwargs)
+        if key not in self.cache:
+            output = self.func(*args, **kwargs)
+
+            assert isinstance(output, np.ndarray), "Output must be a single numpy array"
+
+            self.cache.create_dataset(
+                key, data=output, compression="lzf"
+            )
+        else:
+            dset = self.cache.get(key)
+
+            # Create empty numpy array
+            output = np.zeros(shape=dset.shape, dtype=dset.dtype)
+            dset.read_direct(output)
+
+        return output
+
+
 def test_memoize():
     from quanta_SL.utils.timer import CPUTimer
     from quanta_SL.io import load_swiss_spad_sequence
 
-    Path(".cache/load_swiss_spad_sequence.db").unlink()
+    Path(".cache/load_swiss_spad_sequence.hdf5").unlink()
 
     # Should be slow
     with CPUTimer() as t:
         load_swiss_spad_sequence(
             Path(
-                r"outputs/real_captures/LCD projector/27th August/0827-hybridBCH/pattern001"
+                "outputs/real_captures/LCD_projector/27th_August/0827-hybridBCH/pattern001"
             ),
             bin_suffix_range=range(10),
         )
 
     non_memoized_time = t.elapsed_time
+    logger.info(f"Non Memoized time {non_memoized_time}")
 
     # Should be fast
     with CPUTimer() as t:
         load_swiss_spad_sequence(
             Path(
-                r"outputs/real_captures/LCD projector/27th August/0827-hybridBCH/pattern001"
+                "outputs/real_captures/LCD_projector/27th_August/0827-hybridBCH/pattern001"
             ),
             bin_suffix_range=range(10),
         )
 
     memoized_time = t.elapsed_time
+    logger.info(f"Memoized time {memoized_time}")
 
     assert (
         memoized_time < non_memoized_time

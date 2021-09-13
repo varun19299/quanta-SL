@@ -18,6 +18,7 @@ def repetition_code_LUT(
     repetition_tuple: metaclass.Repetition,
     message_bits: int = 0,
     message_mapping: Callable = gray_message,
+    **kwargs,
 ) -> NDArray[int]:
     """
     Repetition code LUT.
@@ -48,6 +49,7 @@ def bch_code_LUT(
     bch_tuple: metaclass.BCH,
     message_bits: int,
     message_mapping: Callable = gray_message,
+    **kwargs,
 ) -> NDArray[int]:
     """
     BCH code LUT.
@@ -77,6 +79,7 @@ def hybrid_code_LUT(
     message_bits: int,
     overlap_bits: int = 1,
     message_mapping: Callable = gray_message,
+    **kwargs,
 ):
     """
     Hybrid code LUT (BCH + stripe scanning).

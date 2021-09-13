@@ -1,14 +1,14 @@
-import numpy as np
-from quanta_SL.ops.binary import unpackbits
-from einops import rearrange
-from scipy.io import loadmat
 from pathlib import Path
-from nptyping import NDArray
-from loguru import logger
-import cv2
-from quanta_SL.utils.memoize import memoize
 
+import cv2
+import numpy as np
+from einops import rearrange
+from loguru import logger
 from matplotlib import pyplot as plt
+from nptyping import NDArray
+from scipy.io import loadmat
+
+from quanta_SL.ops.binary import unpackbits
 
 
 def load_swiss_spad_burst(
@@ -73,7 +73,6 @@ def load_swiss_spad_burst(
     return array
 
 
-@memoize
 def load_swiss_spad_sequence(
     folder_name: Path,
     file_name: str = "filename",
@@ -141,7 +140,7 @@ def load_swiss_spad_sequence(
     return image
 
 
-def test_load_swiss_spad_frame():
+def test_load_swiss_spad_burst():
     spad_dump_foldername = "data/test_spad_matlab_dump"
     spad_dump_filename = "filename"
 
