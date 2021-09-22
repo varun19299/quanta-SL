@@ -10,7 +10,13 @@ SEED := 0
 .DEFAULT: help
 
 ## install: Pip requirements, local development mode
-install:
+install.cpu:
+	conda install -f environment.yml
+	pip install -r requirements.txt
+	pip install -e .
+
+install.gpu:
+	conda install -f environment_gpu.yml
 	pip install -r requirements.txt
 	pip install -e .
 

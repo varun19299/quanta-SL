@@ -77,7 +77,7 @@ class MemoizeNumpy(Memoize):
 
 def test_memoize():
     from quanta_SL.utils.timer import CPUTimer
-    from quanta_SL.io import load_swiss_spad_sequence
+    from quanta_SL.io.sequential import load_swiss_spad_sequence
 
     Path(".cache/load_swiss_spad_sequence.hdf5").unlink()
 

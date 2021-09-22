@@ -7,7 +7,7 @@ from dotmap import DotMap
 from einops import rearrange, repeat
 from hydra.utils import get_original_cwd
 from loguru import logger
-from matplotlib import pyplot as plt, gridspec
+from matplotlib import pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from omegaconf import OmegaConf
 
@@ -22,7 +22,7 @@ from quanta_SL.encode.message import (
     registry as message_registry,
     message_to_inverse_permuation,
 )
-from quanta_SL.io import load_swiss_spad_sequence, load_swiss_spad_burst
+from quanta_SL.io.sequential import load_swiss_spad_sequence, load_swiss_spad_burst
 from quanta_SL.ops.binary import packbits_strided
 from quanta_SL.utils.memoize import MemoizeNumpy
 
