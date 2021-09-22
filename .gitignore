@@ -12,6 +12,9 @@ data/patterns
 # SPAD captures
 data/SPAD_captures
 
+# BCH reference text
+docs/1981_Bookmatter_Error-CorrectionCodingForDigit.pdf
+
 .idea
 .DS_Store
 .pytest_cache

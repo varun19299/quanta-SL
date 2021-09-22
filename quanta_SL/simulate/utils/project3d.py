@@ -289,10 +289,3 @@ def test_triangulate_ray_plane():
     # Must pass through origin
     # we set up the "look" that way
     assert (intersection == np.zeros((3,))).all()
-
-
-if __name__ == "__main__":
-    test_intersect_ray_plane()
-    test_ray_through_pixel()
-    test_plane_through_pixel()
-    test_triangulate_ray_plane()

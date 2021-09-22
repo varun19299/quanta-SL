@@ -96,7 +96,7 @@ def hybrid_code_LUT(
     :return Code Look-Up Table
     """
     assert (
-            bch_message_bits < message_bits
+        bch_message_bits < message_bits
     ), f"Bits coded by BCH ({bch_message_bits} bits) must be lesser than {message_bits} bits."
 
     stripe_bits = message_bits - bch_message_bits + overlap_bits
@@ -105,6 +105,50 @@ def hybrid_code_LUT(
     code_LUT = bch_code_LUT(bch_tuple, bch_message_bits, message_mapping)
     code_LUT = repeat(
         code_LUT, "N c -> (N repeat) c", repeat=pow(2, message_bits - bch_message_bits)
+    )
+
+    # Precision bits
+    stripe_LUT = circular_shifted_stripes(pow(2, stripe_bits - 1))
+    stripe_LUT = repeat(
+        stripe_LUT, "N c -> (repeat N) c", repeat=pow(2, message_bits - stripe_bits)
+    )
+
+    # Concatenate along time axis
+    code_LUT = np.concatenate([code_LUT, stripe_LUT], axis=-1)
+
+    return code_LUT
+
+
+def gray_stripe_code_LUT(
+    gray_message_bits: int,
+    message_bits: int,
+    overlap_bits: int = 1,
+    message_mapping: Callable = gray_message,
+    **kwargs,
+):
+    """
+    Gray Code (conventional / long run / variants) + stripe scan.
+
+    :param gray_message_bits: message bits (from MSB) encoded by Gray
+
+    :param message_bits: message dimension
+    :param overlap_bits: message bits encoded by both BCH and stripe
+
+    :param message_mapping: Describes message
+        m: [2^message_bits] -> F_2^message_bits
+
+    :return Code Look-Up Table
+    """
+    assert (
+        gray_message_bits < message_bits
+    ), f"Bits coded by Gray ({gray_message_bits} bits) must be lesser than {message_bits} bits."
+
+    stripe_bits = message_bits - gray_message_bits + overlap_bits
+
+    # message mapping used only for Gray
+    code_LUT = message_mapping(gray_message_bits)
+    code_LUT = repeat(
+        code_LUT, "N c -> (N repeat) c", repeat=pow(2, message_bits - gray_message_bits)
     )
 
     # Precision bits

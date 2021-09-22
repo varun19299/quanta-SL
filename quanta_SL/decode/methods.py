@@ -15,6 +15,9 @@ from quanta_SL.ops.binary import (
     packbits_strided,
     unpackbits_strided,
 )
+from quanta_SL.encode.message import (
+    message_to_inverse_permuation,
+)
 
 
 def _pack_or_unpack(
@@ -291,3 +294,72 @@ def hybrid_decoding(
     )
 
     return indices
+
+
+def gray_stripe_decoding(
+    queries,
+    code_LUT,
+    gray_message_bits: int,
+    overlap_bits: int = 1,
+    pack: bool = False,
+    unpack: bool = False,
+):
+    """
+    Decoding (Gray + Stripe) patterns
+
+    :param queries:  (N, n) sized binary matrix
+    :param code_LUT: Not used, kept for consistency across funcs.
+
+    :param gray_message_bits: Gray message dims
+    :param overlap_bits: Bits that BCH and Stripe encode
+
+    :param pack: Pack bits into bytes for memory efficiency
+    :param unpack: Unpack bytes into bits if a certain algorithm needs.
+
+    :return: Decoded indices.
+    """
+    # First bits are BCH
+    # Account for puncturing (if any)
+    gray_code_LUT = code_LUT[:, :gray_message_bits]
+    code_bits = code_LUT.shape[1]
+
+    stripe_width = (code_bits - gray_message_bits) // 2
+    stripe_bits = int(np.log2(stripe_width)) + 1
+
+    message_bits = gray_message_bits + stripe_bits - overlap_bits
+
+    inverse_permuation = message_to_inverse_permuation(
+        gray_code_LUT[:: pow(2, message_bits - gray_message_bits), :]
+    )
+
+    bch_indices = read_off_decoding(
+        queries[:, :gray_message_bits],
+        gray_code_LUT,
+        inverse_permuation,
+        pack,
+        unpack,
+    )
+
+    # Followed by stripe scan
+    # No inverse perm for stripe scan
+    stripe_indices = phase_decoding(
+        queries[:, gray_message_bits:],
+        code_LUT[:, gray_message_bits:],
+        stripe_width,
+        pack,
+        unpack,
+    )
+
+    # Merge BCH and stripe
+    indices = merge_bch_stripe_indices(
+        bch_indices, stripe_indices, code_bits, gray_message_bits, overlap_bits
+    )
+
+    return indices
+
+
+if __name__ == "__main__":
+    from quanta_SL.encode.strategies import gray_stripe_code_LUT
+
+    code_LUT = gray_stripe_code_LUT(8, 11)
+    decoded_LUT = gray_stripe_decoding(code_LUT, code_LUT, 8)

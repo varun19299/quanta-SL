@@ -9,7 +9,7 @@ capture_date: 27th_August
 fname: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}/results.pdf
 
 groundtruth:
-  bin_suffix_range: "range(10)"
+  bin_suffix_range: range(10)
   folder: ${hybrid.folder}
 
 hybrid:
@@ -27,7 +27,7 @@ hybrid:
 repetition:
   folder: "${capture_date}/0827-repetition/"
   message_bits: 11
-  repetition_tuple: [66, 11, 2]
+  repetition_tuple: [77, 11, 3]
   multi_sample: True
   message_mapping: long_run_gray_message
   rotate_180: True

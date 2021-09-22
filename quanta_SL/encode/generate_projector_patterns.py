@@ -1,6 +1,6 @@
 from math import ceil, log2
 from pathlib import Path
-from typing import Tuple, Callable
+from typing import Callable, Union, Tuple
 
 import cv2
 import numpy as np
@@ -16,6 +16,7 @@ from quanta_SL.encode.strategies import (
     repetition_code_LUT,
     bch_code_LUT,
     hybrid_code_LUT,
+    gray_stripe_code_LUT,
 )
 from quanta_SL.utils.plotting import plot_code_LUT
 
@@ -27,6 +28,7 @@ Strategy to Projector frames
 def code_LUT_to_projector_frames(
     code_LUT: NDArray[int],
     projector_resolution: Tuple[int, int],
+    encoded_dim: Union[int, str] = "columns",
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
@@ -38,23 +40,37 @@ def code_LUT_to_projector_frames(
 
     :param code_LUT: Describes F_2^k \to F_2^n code
     :param projector_resolution: width x height
+
+    :param encoded_dim: Whether to encode rows or columns
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
     :param folder_name: Folder name to save to
     """
+    assert encoded_dim in [0, 1, "columns", "rows"]
     width, height = projector_resolution
     N, n = code_LUT.shape
 
-    assert (
-        N >= width
-    ), f"Coding scheme has only {N} codes, not sufficient to cover {width} projector columns."
+    if encoded_dim in [0, "columns"]:
+        assert (
+            N >= width
+        ), f"Coding scheme has only {N} codes, not sufficient to cover {width} projector columns."
 
-    # Crop to fit projector width
-    code_LUT = code_LUT[(N - width) // 2 : (N + width) // 2]
+        encoded_len = width
+
+    else:
+        assert (
+            N >= height
+        ), f"Coding scheme has only {N} codes, not sufficient to cover {height} projector rows."
+
+        encoded_len = height
+        folder_name += " [rows]"
+
+    # Crop to fit projector width / height
+    code_LUT = code_LUT[(N - encoded_len) // 2 : (N + encoded_len) // 2]
 
     if use_complementary:
-        code_ll_gray_comp = np.zeros((width, 2 * n))
+        code_ll_gray_comp = np.zeros((encoded_len, 2 * n))
 
         # Interleave
         # Can do more cleverly via np.ravel
@@ -63,7 +79,10 @@ def code_LUT_to_projector_frames(
         code_ll_gray_comp[:, 1::2] = 1 - code_LUT
         code_LUT = code_ll_gray_comp
 
-    code_LUT = repeat(code_LUT, "width n -> height width n", height=height)
+    if encoded_dim in [0, "columns"]:
+        code_LUT = repeat(code_LUT, "width n -> height width n", height=height)
+    else:
+        code_LUT = repeat(code_LUT, "height n -> height width n", width=width)
 
     if save:
         assert folder_name, f"No output folder provided"
@@ -91,6 +110,7 @@ def code_LUT_to_projector_frames(
 
 def gray_code_to_projector_frames(
     projector_resolution: Tuple[int, int],
+    encoded_dim: Union[int, str] = "columns",
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
@@ -100,6 +120,10 @@ def gray_code_to_projector_frames(
     Gray codes to projector frames
 
     :param projector_resolution: width x height
+
+    :param encoded_dim: Whether to encode rows or columns
+    :param use_complementary: whether to save / show complementary (1-frame_i)
+
     :param show: Plot in pyplot
     :param save: Save as png
     :param folder_name: Folder name to save to
@@ -121,8 +145,10 @@ def gray_code_to_projector_frames(
     # Generate gray code mapping on projector resolution
     code_LUT_to_projector_frames(code_LUT, **kwargs)
 
+
 def long_run_gray_code_to_projector_frames(
     projector_resolution: Tuple[int, int],
+    encoded_dim: Union[int, str] = "columns",
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
@@ -132,6 +158,10 @@ def long_run_gray_code_to_projector_frames(
     Long Run Gray codes to projector frames
 
     :param projector_resolution: width x height
+
+    :param encoded_dim: Whether to encode rows or columns
+    :param use_complementary: whether to save / show complementary (1-frame_i)
+
     :param show: Plot in pyplot
     :param save: Save as png
     :param folder_name: Folder name to save to
@@ -153,10 +183,12 @@ def long_run_gray_code_to_projector_frames(
     # Generate gray code mapping on projector resolution
     code_LUT_to_projector_frames(code_LUT, **kwargs)
 
+
 def bch_to_projector_frames(
     bch_tuple: metaclass.BCH,
     projector_resolution: Tuple[int, int],
     message_mapping: Callable = gray_message,
+    encoded_dim: Union[int, str] = "columns",
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
@@ -169,6 +201,8 @@ def bch_to_projector_frames(
     :param projector_resolution: width x height
     :param message_mapping: Describes message
         m: [num_cols] -> F_2^k
+
+    :param encoded_dim: Whether to encode rows or columns
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
@@ -203,6 +237,7 @@ def repetition_to_projector_frames(
     repetition_tuple: metaclass.Repetition,
     projector_resolution: Tuple[int, int],
     message_mapping: Callable = gray_message,
+    encoded_dim: Union[int, str] = "columns",
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
@@ -215,6 +250,8 @@ def repetition_to_projector_frames(
     :param projector_resolution: width x height
     :param message_mapping: Describes message
         m: [num_cols] -> F_2^k
+
+    :param encoded_dim: Whether to encode rows or columns
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
@@ -251,6 +288,7 @@ def hybrid_to_projector_frames(
     projector_resolution: Tuple[int, int],
     overlap_bits: int = 1,
     message_mapping: Callable = gray_message,
+    encoded_dim: Union[int, str] = "columns",
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
@@ -267,6 +305,7 @@ def hybrid_to_projector_frames(
     :param message_mapping: Describes message
         m: [num_cols] -> F_2^k
 
+    :param encoded_dim: Whether to encode rows or columns
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
@@ -303,34 +342,137 @@ def hybrid_to_projector_frames(
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
 
 
+def gray_stripe_to_projector_frames(
+    gray_message_bits: int,
+    projector_resolution: Tuple[int, int],
+    overlap_bits: int = 1,
+    message_mapping: Callable = gray_message,
+    encoded_dim: Union[int, str] = "columns",
+    use_complementary: bool = False,
+    show: bool = False,
+    save: bool = False,
+    folder_name: str = "",
+):
+    """
+    Generate projector frames for (Gray + stripe scan) strategy
+
+    :param gray_message_bits: message bits (from MSB) encoded by BCH
+
+    :param projector_resolution: width x height
+    :param overlap_bits: message bits encoded by both BCH and stripe
+    :param message_mapping: Describes message
+        m: [num_cols] -> F_2^k
+
+    :param encoded_dim: Whether to encode rows or columns
+    :param use_complementary: whether to save / show complementary (1-frame_i)
+    :param show: Plot in pyplot
+    :param save: Save as png
+    :param folder_name: Folder name to save to
+    """
+    # Find bits required to represent columns
+    width, height = projector_resolution
+    num_bits = ceil(log2(width))
+
+    if not folder_name:
+        folder_name = f"GrayStripe [{num_bits} bits] [{message_mapping.__name__}]"
+
+    if use_complementary:
+        folder_name += " comp"
+
+    kwargs = locals().copy()
+
+    code_LUT = gray_stripe_code_LUT(
+        gray_message_bits,
+        num_bits,
+        overlap_bits=1,
+        message_mapping=message_mapping,
+    )
+
+    if save:
+        path = Path("outputs/code_images/graystripe")
+        plot_code_LUT(
+            code_LUT,
+            show,
+            fname=path / f"{folder_name}.png",
+        )
+
+    code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
+
+
 if __name__ == "__main__":
     num_bits = 11
     projector_resolution = (1920, 1080)
 
-    kwargs = {"show": False, "save": True, "use_complementary": True}
+    kwargs = {
+        "projector_resolution": projector_resolution,
+        "show": False,
+        "save": True,
+        "use_complementary": True,
+    }
 
-    # gray_code_to_projector_frames(projector_resolution, **kwargs)
+    # Gray stripe (for calibration)
+    gray_stripe_to_projector_frames(8, **kwargs)
+    gray_stripe_to_projector_frames(8, encoded_dim="rows", **kwargs)
 
-    long_run_gray_code_to_projector_frames(projector_resolution, **kwargs)
+    # No coding
+    gray_code_to_projector_frames(**kwargs)
 
-    hybrid_to_projector_frames(
+    long_run_gray_code_to_projector_frames(**kwargs)
+
+    bch_tuple_ll = [
+        metaclass.BCH(63, 16, 11),
+        metaclass.BCH(127, 15, 27),
+        metaclass.BCH(255, 13, 59),
+    ]
+    hybrid_bch_tuple_ll = [
         metaclass.BCH(63, 10, 13),
-        bch_message_bits=8,
-        projector_resolution=projector_resolution,
-        message_mapping=gray_message,
-        **kwargs,
-    )
+        metaclass.BCH(127, 8, 31),
+        metaclass.BCH(255, 9, 63),
+    ]
+    repetition_tuple_ll = [
+        metaclass.Repetition(77, 11, 3),
+        metaclass.Repetition(143, 11, 6),
+        metaclass.Repetition(275, 11, 12),
+    ]
+    bch_message_bits = 8
 
-    # bch_to_projector_frames(
-    #     metaclass.BCH(63, 16, 11),
-    #     projector_resolution,
-    #     message_mapping=gray_message,
-    #     **kwargs,
-    # )
+    # BCH, Hybrid, Repetition for various redundancies
+    for bch_tuple, hybrid_bch_tuple, repetition_tuple in zip(
+        bch_tuple_ll, hybrid_bch_tuple_ll, repetition_tuple_ll
+    ):
+        # BCH
+        bch_to_projector_frames(
+            bch_tuple,
+            message_mapping=gray_message,
+            **kwargs,
+        )
 
-    # repetition_to_projector_frames(
-    #     metaclass.Repetition(77, 11, 3),
-    #     projector_resolution,
-    #     message_mapping=long_run_gray_message,
-    #     **kwargs,
-    # )
+        # Hybrid with gray
+        hybrid_to_projector_frames(
+            hybrid_bch_tuple,
+            bch_message_bits=bch_message_bits,
+            message_mapping=gray_message,
+            **kwargs,
+        )
+
+        # Hybrid with long run
+        hybrid_to_projector_frames(
+            hybrid_bch_tuple,
+            bch_message_bits=bch_message_bits,
+            message_mapping=long_run_gray_message,
+            **kwargs,
+        )
+
+        # Repeat Conv. Gray
+        repetition_to_projector_frames(
+            repetition_tuple,
+            message_mapping=gray_message,
+            **kwargs,
+        )
+
+        # Repeat long run
+        repetition_to_projector_frames(
+            repetition_tuple,
+            message_mapping=long_run_gray_message,
+            **kwargs,
+        )

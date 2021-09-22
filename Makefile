@@ -58,6 +58,9 @@ reconstruct:
  	exp_name=$(EXP_NAME) \
 	sensor=$(SENSOR) sensor.exposure=$(EXPOSURE) $(KWARGS) $(HYDRA_FLAGS)
 
+encode.generate_projector_patterns:
+	${PYTHON} quanta_SL/encode/generate_projector_patterns.py
+
 ## docs: build HTML docs
 docs :
 	@cd docs; make html

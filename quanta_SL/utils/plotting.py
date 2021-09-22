@@ -164,6 +164,9 @@ def plot_code_LUT(
 
     if kwargs.get("savefig") or kwargs.get("fname"):
         assert kwargs.get("fname")
+        path = Path(kwargs["fname"])
+        path.parent.mkdir(exist_ok=True, parents=True)
+
         cv2.imwrite(str(kwargs["fname"]), code_img * 255)
 
     if show:
