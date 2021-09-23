@@ -22,10 +22,9 @@ from quanta_SL.encode.message import (
     registry as message_registry,
     message_to_inverse_permuation,
 )
-from quanta_SL.io.sequential import load_swiss_spad_sequence, load_swiss_spad_burst
+from quanta_SL.io import load_swiss_spad_sequence, load_swiss_spad_bin
 from quanta_SL.ops.binary import packbits_strided
 from quanta_SL.utils.memoize import MemoizeNumpy
-
 from quanta_SL.utils.plotting import save_plot
 
 # Disable inner logging
@@ -146,7 +145,7 @@ def get_hybrid_binary_gt_sequence(cfg, hybrid_code_LUT, rotate_180: bool = False
         )
 
         # Single binary sample
-        binary_frame = load_swiss_spad_burst(
+        binary_frame = load_swiss_spad_bin(
             pattern_folder,
             bin_suffix=cfg.hybrid.binary_frame.bin_suffix,
             num_rows=256,
@@ -190,7 +189,7 @@ def get_repetition_binary_gt_sequence(
         )
 
         # Single binary sample
-        binary_frame = load_swiss_spad_burst(
+        binary_frame = load_swiss_spad_bin(
             pattern_folder,
             bin_suffix=cfg.repetition.binary_frame.bin_suffix,
             num_rows=256,

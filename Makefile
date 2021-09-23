@@ -12,12 +12,10 @@ SEED := 0
 ## install: Pip requirements, local development mode
 install.cpu:
 	conda install -f environment.yml
-	pip install -r requirements.txt
 	pip install -e .
 
 install.gpu:
 	conda install -f environment_gpu.yml
-	pip install -r requirements.txt
 	pip install -e .
 
 help : Makefile
@@ -64,8 +62,12 @@ reconstruct:
  	exp_name=$(EXP_NAME) \
 	sensor=$(SENSOR) sensor.exposure=$(EXPOSURE) $(KWARGS) $(HYDRA_FLAGS)
 
-encode.generate_projector_patterns:
+## projector_patterns: Generate Gray, Repeat, Hybrid and Gray Stripe
+projector_patterns:
 	${PYTHON} quanta_SL/encode/generate_projector_patterns.py
+
+lcd.%:
+	${PYTHON} scripts/lcd_$*.py
 
 ## docs: build HTML docs
 docs :

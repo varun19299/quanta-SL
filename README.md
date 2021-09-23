@@ -11,7 +11,7 @@ cmake -DCUDAToolkit_ROOT=/usr/local/cuda-prefix/x86_64/default/11.0/ -DPBRT_OPTI
     ```
     ln -s <path-to-pbrt-v4-repo>/build/pbrt pbrt 
     ```
-* `make install`
+* `make install.cpu`
 
 * Catches:
     * **PyKeops**: load correct CUDA version. Eg: `module load nvidia/cuda/11.3.1`

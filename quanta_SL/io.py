@@ -2,11 +2,75 @@ from pathlib import Path
 
 import cv2
 import numpy as np
+from einops import rearrange
+from loguru import logger
 from matplotlib import pyplot as plt
 from nptyping import NDArray
 from scipy.io import loadmat
 
-from quanta_SL.io.sequential import load_swiss_spad_burst
+from quanta_SL.ops.binary import unpackbits
+
+
+def load_swiss_spad_bin(
+    folder_name: Path,
+    file_name: str = "filename",
+    bin_suffix: int = 0,
+    num_rows: int = 256,
+    num_cols: int = 512,
+) -> NDArray[int]:
+    """
+    Load a single SwissSPAD2 binary (.bin) file
+    Dumped by MATLAB code.
+
+    Each capture consists of .bin files, nested as:
+
+    `folder_name/outer/inner/file_name.bin`
+
+    Where `outer` goes from 0...2^11,
+        `inner` goes from 0...2^6
+
+    :param folder_name: Capture folder name
+    :param file_name: Binary file name
+    :param bin_suffix: Bin index, will be
+        sorted accordingly into inner and outer
+    :param num_rows: Sensor height
+    :param num_cols: Sensor width
+    :return: SPAD frames [burst x rows x cols]
+    """
+    # 8 MB
+    file_size = 8 * 1024 * 1024 * 8
+    num_frames = file_size // num_rows // num_cols
+
+    if not isinstance(folder_name, Path):
+        folder_name = Path(folder_name)
+
+    outer_folder = bin_suffix // pow(2, 11)
+    inner_folder = bin_suffix // pow(2, 6)
+    path = folder_name / f"{outer_folder}/{inner_folder}/{file_name}{bin_suffix}.bin"
+
+    # Flat array
+    # (N,)
+    array = np.fromfile(path, dtype=np.uint8)
+
+    # Unpack uint8 to (N, 8)
+    array = unpackbits(array, num_bits=8).astype(np.uint8)
+
+    array = np.reshape(array.T, (file_size, 1), order="F")
+
+    # Extract frames
+    array = np.reshape(array, (num_frames, num_rows, num_cols), order="F")
+
+    # Fix read-out order of bits
+    # FIXME: exact reasoning unclear here. Changes welcome!
+    array = np.reshape(array, (4, 2, num_frames * num_rows * num_cols // 8), order="F")
+    array = np.flip(array, 0)
+    array = array[:, ::-1, ::]
+    array = np.reshape(array, (num_cols, num_rows, num_frames), order="F")
+    array = rearrange(array, "c r n -> n r c")
+
+    logger.info(f"Loaded {array.shape} [n x r x c] burst from {path}")
+
+    return array
 
 
 def load_swiss_spad_sequence(
@@ -53,7 +117,7 @@ def load_swiss_spad_sequence(
 
         # To pick a certain burst of frames
         for block_index in block_range:
-            frame += load_swiss_spad_burst(
+            frame += load_swiss_spad_bin(
                 folder_name, file_name, bin_suffix + block_index, num_rows, num_cols
             ).mean(axis=0)
 
@@ -81,7 +145,7 @@ def test_load_swiss_spad_burst():
     spad_dump_filename = "filename"
 
     matlab_filename = "data/test_spad_io.mat"
-    array = load_swiss_spad_burst(
+    array = load_swiss_spad_bin(
         spad_dump_foldername,
         spad_dump_filename,
         bin_suffix=0,

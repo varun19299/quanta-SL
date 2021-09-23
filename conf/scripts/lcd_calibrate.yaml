@@ -1,0 +1,34 @@
+defaults:
+  - hydra
+  - override hydra/job_logging: none
+
+exp_name: real_captures
+show: True
+savefig: True
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+
+projector:
+  width: 1920
+  height: 1080
+  crop_mode: center
+
+pose:
+  range: range(1, 11)
+
+# Gray Stripe Used to Calibrate
+gray_stripe:
+  folder: ${capture_date}/calibration/
+  # Each pose
+  # Under folder/subfolder{n}
+  # n from 0, 1, 2, ..., n
+  subfolder: pose
+  message_bits: 11
+  overlap_bits: 1
+  gray_message_bits: 8
+  message_mapping: gray_message
+  rotate_180: True
+  binary_frame:
+    # Each burst has 512 frames
+    bursts_per_pattern: 10
+    bin_suffix_range: range(2,9)
