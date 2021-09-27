@@ -2,8 +2,8 @@ defaults:
   - hydra
   - override hydra/job_logging: none
 
-exp_name: real_captures
-show: True
+exp_name: decode_correspondences
+show: False
 savefig: True
 capture_date: 22nd_September
 outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
@@ -14,7 +14,7 @@ projector:
   crop_mode: center
 
 pose:
-  range: range(1, 11)
+  range: range(1, 31)
 
 # Gray Stripe Used to Calibrate
 gray_stripe:

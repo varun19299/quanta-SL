@@ -1,0 +1,1012 @@
+2021-09-26 10:20:33.179 | INFO     | __main__:main:68 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+
+2021-09-26 10:21:54.729 | INFO     | __main__:main:68 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+
+2021-09-26 10:21:54.820 | INFO     | __main__:main:84 - Pose01
+2021-09-26 10:22:20.065 | INFO     | __main__:main:68 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+
+2021-09-26 10:22:20.476 | INFO     | __main__:main:84 - Pose01
+2021-09-26 10:22:48.335 | INFO     | __main__:main:68 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+
+2021-09-26 10:22:48.416 | INFO     | __main__:main:84 - Pose01
+2021-09-26 10:23:53.889 | INFO     | __main__:main:68 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+
+2021-09-26 10:23:53.972 | INFO     | __main__:main:84 - Pose01
+2021-09-26 10:24:23.339 | INFO     | __main__:main:68 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+
+2021-09-26 10:24:23.427 | INFO     | __main__:main:84 - Pose01
+2021-09-26 10:24:26.769 | INFO     | __main__:main:88 - Pose02
+2021-09-26 10:24:48.869 | INFO     | __main__:main:68 - exp_name: intrinsic_extrinsic
+show: true
+savefig: false
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+
+2021-09-26 10:24:49.178 | INFO     | __main__:main:84 - Pose01
+2021-09-26 10:26:21.204 | INFO     | __main__:main:84 - Pose02
+2021-09-26 10:26:28.396 | INFO     | __main__:main:84 - Pose03
+2021-09-26 10:26:32.696 | INFO     | __main__:main:84 - Pose04
+2021-09-26 10:26:35.160 | INFO     | __main__:main:84 - Pose05
+2021-09-26 10:26:36.356 | INFO     | __main__:main:84 - Pose06
+2021-09-26 10:26:37.195 | INFO     | __main__:main:84 - Pose07
+2021-09-26 10:26:38.125 | INFO     | __main__:main:84 - Pose08
+2021-09-26 10:26:39.216 | INFO     | __main__:main:84 - Pose09
+2021-09-26 10:26:40.120 | INFO     | __main__:main:84 - Pose10
+2021-09-26 10:26:41.104 | INFO     | __main__:main:84 - Pose11
+2021-09-26 10:26:42.187 | INFO     | __main__:main:84 - Pose12
+2021-09-26 10:26:43.178 | INFO     | __main__:main:84 - Pose13
+2021-09-26 10:26:44.073 | INFO     | __main__:main:84 - Pose14
+2021-09-26 10:27:16.429 | INFO     | __main__:main:68 - exp_name: intrinsic_extrinsic
+show: true
+savefig: false
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+
+2021-09-26 10:27:16.904 | INFO     | __main__:main:84 - Pose01
+2021-09-26 10:29:13.262 | INFO     | __main__:main:68 - exp_name: intrinsic_extrinsic
+show: true
+savefig: false
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+
+2021-09-26 10:29:13.358 | INFO     | __main__:main:84 - Pose01
+2021-09-26 10:31:16.859 | INFO     | __main__:main:68 - exp_name: intrinsic_extrinsic
+show: true
+savefig: false
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+
+2021-09-26 10:31:16.940 | INFO     | __main__:main:84 - Pose01
+2021-09-26 10:32:42.585 | INFO     | __main__:main:71 - exp_name: intrinsic_extrinsic
+show: true
+savefig: false
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+
+2021-09-26 10:32:42.667 | INFO     | __main__:main:87 - Pose01
+2021-09-26 10:33:19.832 | INFO     | __main__:main:71 - exp_name: intrinsic_extrinsic
+show: true
+savefig: false
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+
+2021-09-26 10:33:19.913 | INFO     | __main__:main:87 - Pose01
+2021-09-26 10:38:35.263 | INFO     | __main__:main:105 - exp_name: intrinsic_extrinsic
+show: true
+savefig: false
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+
+2021-09-26 10:38:35.360 | INFO     | __main__:main:121 - Pose01
+2021-09-26 10:38:56.675 | INFO     | __main__:main:105 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+
+2021-09-26 10:38:56.763 | INFO     | __main__:main:121 - Pose01
+2021-09-26 10:39:00.365 | INFO     | __main__:main:121 - Pose02
+2021-09-26 10:39:01.754 | INFO     | __main__:main:121 - Pose03
+2021-09-26 10:39:03.410 | INFO     | __main__:main:121 - Pose04
+2021-09-26 10:39:04.963 | INFO     | __main__:main:121 - Pose05
+2021-09-26 10:39:06.580 | INFO     | __main__:main:121 - Pose06
+2021-09-26 10:39:08.404 | INFO     | __main__:main:121 - Pose07
+2021-09-26 10:39:09.889 | INFO     | __main__:main:121 - Pose08
+2021-09-26 10:39:11.672 | INFO     | __main__:main:121 - Pose09
+2021-09-26 10:39:13.159 | INFO     | __main__:main:121 - Pose10
+2021-09-26 10:39:15.136 | INFO     | __main__:main:121 - Pose11
+2021-09-26 10:39:16.785 | INFO     | __main__:main:121 - Pose12
+2021-09-26 10:39:18.279 | INFO     | __main__:main:121 - Pose13
+2021-09-26 10:39:19.977 | INFO     | __main__:main:121 - Pose14
+2021-09-26 10:39:21.466 | INFO     | __main__:main:121 - Pose15
+2021-09-26 10:39:23.075 | INFO     | __main__:main:121 - Pose16
+2021-09-26 10:39:24.538 | INFO     | __main__:main:121 - Pose17
+2021-09-26 10:39:25.944 | INFO     | __main__:main:121 - Pose18
+2021-09-26 10:39:27.779 | INFO     | __main__:main:121 - Pose19
+2021-09-26 10:39:29.466 | INFO     | __main__:main:121 - Pose20
+2021-09-26 10:39:30.900 | INFO     | __main__:main:121 - Pose21
+2021-09-26 10:39:32.400 | INFO     | __main__:main:121 - Pose22
+2021-09-26 10:39:33.732 | INFO     | __main__:main:121 - Pose23
+2021-09-26 10:39:35.370 | INFO     | __main__:main:121 - Pose24
+2021-09-26 10:39:36.824 | INFO     | __main__:main:121 - Pose25
+2021-09-26 10:39:38.188 | INFO     | __main__:main:121 - Pose26
+2021-09-26 10:39:39.713 | INFO     | __main__:main:121 - Pose27
+2021-09-26 10:39:41.281 | INFO     | __main__:main:121 - Pose28
+2021-09-26 10:39:42.714 | INFO     | __main__:main:121 - Pose29
+2021-09-26 10:39:44.509 | INFO     | __main__:main:121 - Pose30
+2021-09-26 10:50:50.679 | INFO     | __main__:main:105 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-26 10:50:51.107 | INFO     | __main__:main:135 - Pose01
+2021-09-26 10:51:21.713 | INFO     | __main__:main:105 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-26 10:51:21.796 | INFO     | __main__:main:135 - Pose01
+2021-09-26 10:52:33.841 | INFO     | __main__:main:105 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-26 10:52:33.938 | INFO     | __main__:main:135 - Pose01
+2021-09-26 10:53:01.581 | INFO     | __main__:main:135 - Pose02
+2021-09-26 10:53:06.183 | INFO     | __main__:main:135 - Pose03
+2021-09-26 10:53:12.659 | INFO     | __main__:main:135 - Pose04
+2021-09-26 10:56:15.288 | INFO     | __main__:main:105 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-26 10:56:15.374 | INFO     | __main__:main:135 - Pose01
+2021-09-26 10:57:11.449 | INFO     | __main__:main:105 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-26 10:57:11.895 | INFO     | __main__:main:135 - Pose01
+2021-09-26 10:58:20.491 | INFO     | __main__:main:105 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-26 10:58:20.990 | INFO     | __main__:main:135 - Pose01
+2021-09-26 11:00:33.861 | INFO     | __main__:main:110 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-26 11:00:33.956 | INFO     | __main__:main:140 - Pose01
+2021-09-26 11:00:37.971 | INFO     | __main__:main:140 - Pose02
+2021-09-26 11:00:39.532 | INFO     | __main__:main:140 - Pose03
+2021-09-26 11:00:41.391 | INFO     | __main__:main:140 - Pose04
+2021-09-26 11:00:43.192 | INFO     | __main__:main:140 - Pose05
+2021-09-26 11:00:44.745 | INFO     | __main__:main:140 - Pose06
+2021-09-26 11:00:46.369 | INFO     | __main__:main:140 - Pose07
+2021-09-26 11:00:48.141 | INFO     | __main__:main:140 - Pose08
+2021-09-26 11:00:49.798 | INFO     | __main__:main:140 - Pose09
+2021-09-26 11:00:51.601 | INFO     | __main__:main:140 - Pose10
+2021-09-26 11:00:53.445 | INFO     | __main__:main:140 - Pose11
+2021-09-26 11:00:55.503 | INFO     | __main__:main:140 - Pose12
+2021-09-26 11:00:57.342 | INFO     | __main__:main:140 - Pose13
+2021-09-26 11:00:58.792 | INFO     | __main__:main:140 - Pose14
+2021-09-26 11:01:00.559 | INFO     | __main__:main:140 - Pose15
+2021-09-26 11:01:02.322 | INFO     | __main__:main:140 - Pose16
+2021-09-26 11:01:04.156 | INFO     | __main__:main:140 - Pose17
+2021-09-26 11:01:05.907 | INFO     | __main__:main:140 - Pose18
+2021-09-26 11:01:08.388 | INFO     | __main__:main:140 - Pose19
+2021-09-26 11:01:10.021 | INFO     | __main__:main:140 - Pose20
+2021-09-26 11:01:11.620 | INFO     | __main__:main:140 - Pose21
+2021-09-26 11:01:13.391 | INFO     | __main__:main:140 - Pose22
+2021-09-26 11:01:14.813 | INFO     | __main__:main:140 - Pose23
+2021-09-26 11:01:16.664 | INFO     | __main__:main:140 - Pose24
+2021-09-26 11:01:18.577 | INFO     | __main__:main:140 - Pose25
+2021-09-26 11:01:20.107 | INFO     | __main__:main:140 - Pose26
+2021-09-26 11:01:21.777 | INFO     | __main__:main:140 - Pose27
+2021-09-26 11:01:23.481 | INFO     | __main__:main:140 - Pose28
+2021-09-26 11:01:25.180 | INFO     | __main__:main:140 - Pose29
+2021-09-26 11:01:28.015 | INFO     | __main__:main:140 - Pose30
+2021-09-27 10:49:20.620 | INFO     | __main__:main:132 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 10:49:21.217 | INFO     | __main__:main:169 - Pose01
+2021-09-27 10:49:24.863 | INFO     | __main__:main:169 - Pose02
+2021-09-27 10:49:26.283 | INFO     | __main__:main:169 - Pose03
+2021-09-27 10:49:27.632 | INFO     | __main__:main:169 - Pose04
+2021-09-27 10:49:29.217 | INFO     | __main__:main:169 - Pose05
+2021-09-27 10:49:30.592 | INFO     | __main__:main:169 - Pose06
+2021-09-27 10:49:32.165 | INFO     | __main__:main:169 - Pose07
+2021-09-27 10:49:34.109 | INFO     | __main__:main:169 - Pose08
+2021-09-27 10:49:35.713 | INFO     | __main__:main:169 - Pose09
+2021-09-27 10:49:37.460 | INFO     | __main__:main:169 - Pose10
+2021-09-27 10:49:39.175 | INFO     | __main__:main:169 - Pose11
+2021-09-27 10:49:41.318 | INFO     | __main__:main:169 - Pose12
+2021-09-27 10:49:43.139 | INFO     | __main__:main:169 - Pose13
+2021-09-27 10:49:45.006 | INFO     | __main__:main:169 - Pose14
+2021-09-27 10:49:47.046 | INFO     | __main__:main:169 - Pose15
+2021-09-27 10:49:49.020 | INFO     | __main__:main:169 - Pose16
+2021-09-27 10:49:50.679 | INFO     | __main__:main:169 - Pose17
+2021-09-27 10:49:52.306 | INFO     | __main__:main:169 - Pose18
+2021-09-27 10:49:54.114 | INFO     | __main__:main:169 - Pose19
+2021-09-27 10:49:55.457 | INFO     | __main__:main:169 - Pose20
+2021-09-27 10:49:56.840 | INFO     | __main__:main:169 - Pose21
+2021-09-27 10:49:58.307 | INFO     | __main__:main:169 - Pose22
+2021-09-27 10:49:59.943 | INFO     | __main__:main:169 - Pose23
+2021-09-27 10:50:01.898 | INFO     | __main__:main:169 - Pose24
+2021-09-27 10:50:03.397 | INFO     | __main__:main:169 - Pose25
+2021-09-27 10:50:04.954 | INFO     | __main__:main:169 - Pose26
+2021-09-27 10:50:06.413 | INFO     | __main__:main:169 - Pose27
+2021-09-27 10:50:07.934 | INFO     | __main__:main:169 - Pose28
+2021-09-27 10:50:09.850 | INFO     | __main__:main:169 - Pose29
+2021-09-27 10:50:12.134 | INFO     | __main__:main:169 - Pose30
+2021-09-27 10:51:57.694 | INFO     | __main__:main:132 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 10:51:57.780 | INFO     | __main__:main:169 - Pose01
+2021-09-27 10:52:03.699 | INFO     | __main__:main:132 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 10:52:03.782 | INFO     | __main__:main:169 - Pose01
+2021-09-27 10:52:07.338 | INFO     | __main__:main:169 - Pose02
+2021-09-27 10:52:08.759 | INFO     | __main__:main:169 - Pose03
+2021-09-27 10:52:10.223 | INFO     | __main__:main:169 - Pose04
+2021-09-27 10:52:11.817 | INFO     | __main__:main:169 - Pose05
+2021-09-27 10:52:13.220 | INFO     | __main__:main:169 - Pose06
+2021-09-27 10:54:50.162 | INFO     | __main__:main:132 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 10:54:50.825 | INFO     | __main__:main:169 - Pose01
+2021-09-27 10:54:50.847 | INFO     | __main__:main:169 - Pose02
+2021-09-27 10:54:50.859 | INFO     | __main__:main:169 - Pose03
+2021-09-27 10:54:50.866 | INFO     | __main__:main:169 - Pose04
+2021-09-27 10:54:51.009 | INFO     | __main__:main:169 - Pose05
+2021-09-27 10:54:51.018 | INFO     | __main__:main:169 - Pose06
+2021-09-27 10:54:51.028 | INFO     | __main__:main:169 - Pose07
+2021-09-27 10:54:51.036 | INFO     | __main__:main:169 - Pose08
+2021-09-27 10:54:51.043 | INFO     | __main__:main:169 - Pose09
+2021-09-27 10:54:51.050 | INFO     | __main__:main:169 - Pose10
+2021-09-27 10:54:51.081 | INFO     | __main__:main:169 - Pose11
+2021-09-27 10:54:51.106 | INFO     | __main__:main:169 - Pose12
+2021-09-27 10:54:51.114 | INFO     | __main__:main:169 - Pose13
+2021-09-27 10:54:51.120 | INFO     | __main__:main:169 - Pose14
+2021-09-27 10:54:51.165 | INFO     | __main__:main:169 - Pose15
+2021-09-27 10:54:51.198 | INFO     | __main__:main:169 - Pose16
+2021-09-27 10:54:51.329 | INFO     | __main__:main:169 - Pose17
+2021-09-27 10:54:51.462 | INFO     | __main__:main:169 - Pose18
+2021-09-27 10:54:51.473 | INFO     | __main__:main:169 - Pose19
+2021-09-27 10:54:51.482 | INFO     | __main__:main:169 - Pose20
+2021-09-27 10:54:51.492 | INFO     | __main__:main:169 - Pose21
+2021-09-27 10:54:51.510 | INFO     | __main__:main:169 - Pose22
+2021-09-27 10:54:51.518 | INFO     | __main__:main:169 - Pose23
+2021-09-27 10:54:51.526 | INFO     | __main__:main:169 - Pose24
+2021-09-27 10:54:51.535 | INFO     | __main__:main:169 - Pose25
+2021-09-27 10:54:51.546 | INFO     | __main__:main:169 - Pose26
+2021-09-27 10:54:51.556 | INFO     | __main__:main:169 - Pose27
+2021-09-27 10:54:51.565 | INFO     | __main__:main:169 - Pose28
+2021-09-27 10:54:51.576 | INFO     | __main__:main:169 - Pose29
+2021-09-27 10:54:51.724 | INFO     | __main__:main:169 - Pose30
+2021-09-27 10:55:15.035 | INFO     | __main__:main:132 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 10:55:15.123 | INFO     | __main__:main:169 - Pose01
+2021-09-27 10:55:15.142 | INFO     | __main__:main:169 - Pose02
+2021-09-27 10:55:15.153 | INFO     | __main__:main:169 - Pose03
+2021-09-27 10:55:15.160 | INFO     | __main__:main:169 - Pose04
+2021-09-27 10:55:15.299 | INFO     | __main__:main:169 - Pose05
+2021-09-27 10:55:15.309 | INFO     | __main__:main:169 - Pose06
+2021-09-27 10:55:15.317 | INFO     | __main__:main:169 - Pose07
+2021-09-27 10:55:15.325 | INFO     | __main__:main:169 - Pose08
+2021-09-27 10:55:15.332 | INFO     | __main__:main:169 - Pose09
+2021-09-27 10:55:15.339 | INFO     | __main__:main:169 - Pose10
+2021-09-27 10:55:15.369 | INFO     | __main__:main:169 - Pose11
+2021-09-27 10:55:15.393 | INFO     | __main__:main:169 - Pose12
+2021-09-27 10:55:15.401 | INFO     | __main__:main:169 - Pose13
+2021-09-27 10:55:15.408 | INFO     | __main__:main:169 - Pose14
+2021-09-27 10:55:15.451 | INFO     | __main__:main:169 - Pose15
+2021-09-27 10:55:15.485 | INFO     | __main__:main:169 - Pose16
+2021-09-27 10:55:15.610 | INFO     | __main__:main:169 - Pose17
+2021-09-27 10:55:15.737 | INFO     | __main__:main:169 - Pose18
+2021-09-27 10:55:15.748 | INFO     | __main__:main:169 - Pose19
+2021-09-27 10:55:15.756 | INFO     | __main__:main:169 - Pose20
+2021-09-27 10:55:15.766 | INFO     | __main__:main:169 - Pose21
+2021-09-27 10:55:15.783 | INFO     | __main__:main:169 - Pose22
+2021-09-27 10:55:15.791 | INFO     | __main__:main:169 - Pose23
+2021-09-27 10:55:15.798 | INFO     | __main__:main:169 - Pose24
+2021-09-27 10:55:15.807 | INFO     | __main__:main:169 - Pose25
+2021-09-27 10:55:15.817 | INFO     | __main__:main:169 - Pose26
+2021-09-27 10:55:15.828 | INFO     | __main__:main:169 - Pose27
+2021-09-27 10:55:15.846 | INFO     | __main__:main:169 - Pose28
+2021-09-27 10:55:15.856 | INFO     | __main__:main:169 - Pose29
+2021-09-27 10:55:16.012 | INFO     | __main__:main:169 - Pose30
+2021-09-27 10:55:16.924 | INFO     | __main__:main:263 - Reprojection Error 127.74792657523489
+2021-09-27 11:00:23.327 | INFO     | __main__:main:132 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:00:23.785 | INFO     | __main__:main:169 - Pose01
+2021-09-27 11:00:23.802 | INFO     | __main__:main:169 - Pose02
+2021-09-27 11:00:23.811 | INFO     | __main__:main:169 - Pose03
+2021-09-27 11:00:23.818 | INFO     | __main__:main:169 - Pose04
+2021-09-27 11:00:23.948 | INFO     | __main__:main:169 - Pose05
+2021-09-27 11:00:23.957 | INFO     | __main__:main:169 - Pose06
+2021-09-27 11:00:23.965 | INFO     | __main__:main:169 - Pose07
+2021-09-27 11:00:23.972 | INFO     | __main__:main:169 - Pose08
+2021-09-27 11:00:23.979 | INFO     | __main__:main:169 - Pose09
+2021-09-27 11:00:23.985 | INFO     | __main__:main:169 - Pose10
+2021-09-27 11:00:24.014 | INFO     | __main__:main:169 - Pose11
+2021-09-27 11:00:24.036 | INFO     | __main__:main:169 - Pose12
+2021-09-27 11:00:24.044 | INFO     | __main__:main:169 - Pose13
+2021-09-27 11:00:24.051 | INFO     | __main__:main:169 - Pose14
+2021-09-27 11:00:24.096 | INFO     | __main__:main:169 - Pose15
+2021-09-27 11:00:24.127 | INFO     | __main__:main:169 - Pose16
+2021-09-27 11:00:24.244 | INFO     | __main__:main:169 - Pose17
+2021-09-27 11:00:24.366 | INFO     | __main__:main:169 - Pose18
+2021-09-27 11:00:24.377 | INFO     | __main__:main:169 - Pose19
+2021-09-27 11:00:24.385 | INFO     | __main__:main:169 - Pose20
+2021-09-27 11:00:24.395 | INFO     | __main__:main:169 - Pose21
+2021-09-27 11:00:24.411 | INFO     | __main__:main:169 - Pose22
+2021-09-27 11:00:24.418 | INFO     | __main__:main:169 - Pose23
+2021-09-27 11:00:24.425 | INFO     | __main__:main:169 - Pose24
+2021-09-27 11:00:24.434 | INFO     | __main__:main:169 - Pose25
+2021-09-27 11:00:24.443 | INFO     | __main__:main:169 - Pose26
+2021-09-27 11:00:24.455 | INFO     | __main__:main:169 - Pose27
+2021-09-27 11:00:24.464 | INFO     | __main__:main:169 - Pose28
+2021-09-27 11:00:24.475 | INFO     | __main__:main:169 - Pose29
+2021-09-27 11:00:24.620 | INFO     | __main__:main:169 - Pose30
+2021-09-27 11:00:25.518 | INFO     | __main__:main:263 - Reprojection Error 127.74792657523489
+2021-09-27 11:01:33.886 | INFO     | __main__:main:132 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:01:33.967 | INFO     | __main__:main:169 - Pose01
+2021-09-27 11:01:33.986 | INFO     | __main__:main:169 - Pose02
+2021-09-27 11:01:33.995 | INFO     | __main__:main:169 - Pose03
+2021-09-27 11:01:34.002 | INFO     | __main__:main:169 - Pose04
+2021-09-27 11:01:34.130 | INFO     | __main__:main:169 - Pose05
+2021-09-27 11:01:34.139 | INFO     | __main__:main:169 - Pose06
+2021-09-27 11:01:34.147 | INFO     | __main__:main:169 - Pose07
+2021-09-27 11:01:34.154 | INFO     | __main__:main:169 - Pose08
+2021-09-27 11:01:34.161 | INFO     | __main__:main:169 - Pose09
+2021-09-27 11:01:34.167 | INFO     | __main__:main:169 - Pose10
+2021-09-27 11:01:34.195 | INFO     | __main__:main:169 - Pose11
+2021-09-27 11:01:34.217 | INFO     | __main__:main:169 - Pose12
+2021-09-27 11:01:34.225 | INFO     | __main__:main:169 - Pose13
+2021-09-27 11:01:34.232 | INFO     | __main__:main:169 - Pose14
+2021-09-27 11:01:34.275 | INFO     | __main__:main:169 - Pose15
+2021-09-27 11:01:34.306 | INFO     | __main__:main:169 - Pose16
+2021-09-27 11:01:34.422 | INFO     | __main__:main:169 - Pose17
+2021-09-27 11:01:34.541 | INFO     | __main__:main:169 - Pose18
+2021-09-27 11:01:34.552 | INFO     | __main__:main:169 - Pose19
+2021-09-27 11:01:34.560 | INFO     | __main__:main:169 - Pose20
+2021-09-27 11:01:34.568 | INFO     | __main__:main:169 - Pose21
+2021-09-27 11:01:34.584 | INFO     | __main__:main:169 - Pose22
+2021-09-27 11:01:34.591 | INFO     | __main__:main:169 - Pose23
+2021-09-27 11:01:34.599 | INFO     | __main__:main:169 - Pose24
+2021-09-27 11:01:34.608 | INFO     | __main__:main:169 - Pose25
+2021-09-27 11:01:34.617 | INFO     | __main__:main:169 - Pose26
+2021-09-27 11:01:34.627 | INFO     | __main__:main:169 - Pose27
+2021-09-27 11:01:34.635 | INFO     | __main__:main:169 - Pose28
+2021-09-27 11:01:34.645 | INFO     | __main__:main:169 - Pose29
+2021-09-27 11:01:34.788 | INFO     | __main__:main:169 - Pose30
+2021-09-27 11:01:35.687 | INFO     | __main__:main:263 - Reprojection Error 127.74792657523489
+2021-09-27 11:15:01.144 | INFO     | __main__:main:189 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:22:11.490 | INFO     | __main__:main:202 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:22:11.572 | INFO     | __main__:main:239 - Pose01
+2021-09-27 11:22:11.614 | INFO     | __main__:main:239 - Pose02
+2021-09-27 11:22:11.662 | INFO     | __main__:main:239 - Pose03
+2021-09-27 11:22:11.706 | INFO     | __main__:main:239 - Pose04
+2021-09-27 11:22:11.839 | INFO     | __main__:main:239 - Pose05
+2021-09-27 11:22:11.892 | INFO     | __main__:main:239 - Pose06
+2021-09-27 11:22:11.943 | INFO     | __main__:main:239 - Pose07
+2021-09-27 11:22:11.981 | INFO     | __main__:main:239 - Pose08
+2021-09-27 11:22:12.017 | INFO     | __main__:main:239 - Pose09
+2021-09-27 11:22:12.061 | INFO     | __main__:main:239 - Pose10
+2021-09-27 11:22:12.132 | INFO     | __main__:main:239 - Pose11
+2021-09-27 11:22:12.244 | INFO     | __main__:main:239 - Pose12
+2021-09-27 11:22:12.550 | INFO     | __main__:main:239 - Pose13
+2021-09-27 11:22:14.151 | INFO     | __main__:main:239 - Pose14
+2021-09-27 11:22:14.325 | INFO     | __main__:main:239 - Pose15
+2021-09-27 11:22:14.771 | INFO     | __main__:main:239 - Pose16
+2021-09-27 11:22:16.570 | INFO     | __main__:main:239 - Pose17
+2021-09-27 11:22:16.692 | INFO     | __main__:main:239 - Pose18
+2021-09-27 11:22:18.341 | INFO     | __main__:main:239 - Pose19
+2021-09-27 11:22:19.919 | INFO     | __main__:main:239 - Pose20
+2021-09-27 11:22:21.460 | INFO     | __main__:main:239 - Pose21
+2021-09-27 11:22:22.994 | INFO     | __main__:main:239 - Pose22
+2021-09-27 11:22:23.123 | INFO     | __main__:main:239 - Pose23
+2021-09-27 11:22:24.515 | INFO     | __main__:main:239 - Pose24
+2021-09-27 11:22:26.043 | INFO     | __main__:main:239 - Pose25
+2021-09-27 11:22:27.661 | INFO     | __main__:main:239 - Pose26
+2021-09-27 11:22:29.427 | INFO     | __main__:main:239 - Pose27
+2021-09-27 11:22:30.937 | INFO     | __main__:main:239 - Pose28
+2021-09-27 11:22:32.277 | INFO     | __main__:main:239 - Pose29
+2021-09-27 11:22:32.429 | INFO     | __main__:main:239 - Pose30
+2021-09-27 11:22:34.941 | INFO     | __main__:main:325 - Reprojection Error 79.53609644626628
+2021-09-27 11:24:07.577 | INFO     | __main__:main:206 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:24:07.669 | INFO     | __main__:main:243 - Pose01
+2021-09-27 11:27:26.334 | INFO     | __main__:main:212 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:27:26.413 | INFO     | __main__:main:249 - Pose01
+2021-09-27 11:27:26.457 | INFO     | __main__:main:249 - Pose02
+2021-09-27 11:27:26.506 | INFO     | __main__:main:249 - Pose03
+2021-09-27 11:27:26.556 | INFO     | __main__:main:249 - Pose04
+2021-09-27 11:27:26.686 | INFO     | __main__:main:249 - Pose05
+2021-09-27 11:27:26.741 | INFO     | __main__:main:249 - Pose06
+2021-09-27 11:27:26.795 | INFO     | __main__:main:249 - Pose07
+2021-09-27 11:27:26.833 | INFO     | __main__:main:249 - Pose08
+2021-09-27 11:27:26.868 | INFO     | __main__:main:249 - Pose09
+2021-09-27 11:27:26.911 | INFO     | __main__:main:249 - Pose10
+2021-09-27 11:27:26.983 | INFO     | __main__:main:249 - Pose11
+2021-09-27 11:27:27.094 | INFO     | __main__:main:249 - Pose12
+2021-09-27 11:27:27.408 | INFO     | __main__:main:249 - Pose13
+2021-09-27 11:27:29.045 | INFO     | __main__:main:249 - Pose14
+2021-09-27 11:27:29.226 | INFO     | __main__:main:249 - Pose15
+2021-09-27 11:27:29.692 | INFO     | __main__:main:249 - Pose16
+2021-09-27 11:27:31.435 | INFO     | __main__:main:249 - Pose17
+2021-09-27 11:27:31.559 | INFO     | __main__:main:249 - Pose18
+2021-09-27 11:27:33.181 | INFO     | __main__:main:249 - Pose19
+2021-09-27 11:27:34.810 | INFO     | __main__:main:249 - Pose20
+2021-09-27 11:27:36.454 | INFO     | __main__:main:249 - Pose21
+2021-09-27 11:27:38.143 | INFO     | __main__:main:249 - Pose22
+2021-09-27 11:27:38.292 | INFO     | __main__:main:249 - Pose23
+2021-09-27 11:27:39.836 | INFO     | __main__:main:249 - Pose24
+2021-09-27 11:27:41.496 | INFO     | __main__:main:249 - Pose25
+2021-09-27 11:27:43.139 | INFO     | __main__:main:249 - Pose26
+2021-09-27 11:27:44.853 | INFO     | __main__:main:249 - Pose27
+2021-09-27 11:27:46.656 | INFO     | __main__:main:249 - Pose28
+2021-09-27 11:27:48.079 | INFO     | __main__:main:249 - Pose29
+2021-09-27 11:27:48.245 | INFO     | __main__:main:249 - Pose30
+2021-09-27 11:27:50.774 | INFO     | __main__:main:335 - Reprojection Error 79.53609644626628
+2021-09-27 11:40:13.139 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 10
+  height: 7
+
+2021-09-27 11:40:13.218 | INFO     | __main__:main:268 - Pose01
+2021-09-27 11:40:23.583 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 7
+
+2021-09-27 11:40:23.670 | INFO     | __main__:main:268 - Pose01
+2021-09-27 11:40:28.847 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:40:28.943 | INFO     | __main__:main:268 - Pose01
+2021-09-27 11:40:32.546 | INFO     | __main__:main:268 - Pose02
+2021-09-27 11:40:33.902 | INFO     | __main__:main:268 - Pose03

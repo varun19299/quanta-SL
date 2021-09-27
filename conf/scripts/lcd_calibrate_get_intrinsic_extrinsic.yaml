@@ -1,0 +1,35 @@
+defaults:
+  - hydra
+  - override hydra/job_logging: none
+
+exp_name: intrinsic_extrinsic
+
+plot: True
+show: False
+savefig: True
+
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography # or rounding, homography
+  method_kwargs:
+    window_size: 10
+
+projector:
+  height: 1080
+  width: 1920
+
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major # or row-major
+    rotate_180: True
+
+chessboard:
+  width: 9 # internal corners
+  height: 6 # internal corners

@@ -3,7 +3,6 @@ UNAME_S := $(shell uname -s)
 PYTHON := python
 
 ## HYDRA_FLAGS : set as -m for multirun
-HYDRA_FLAGS := -m
 SEED := 0
 
 .PHONY: help docs
@@ -18,7 +17,7 @@ install.gpu:
 	conda install -f environment_gpu.yml
 	pip install -e .
 
-help : Makefile
+help : Makefile makefiles/*.mk
     ifeq ($(UNAME_S),Linux)
 		@sed -ns -e '$$a\\' -e 's/^##//p' $^
     endif
@@ -66,10 +65,9 @@ reconstruct:
 projector_patterns:
 	${PYTHON} quanta_SL/encode/generate_projector_patterns.py
 
-lcd.%:
-	${PYTHON} scripts/lcd_$*.py
-
 ## docs: build HTML docs
 docs :
 	@cd docs; make html
 	@ln -s docs/_build/html/index.html index.html
+
+include makefiles/*.mk

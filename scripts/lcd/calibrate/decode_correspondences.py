@@ -4,29 +4,25 @@ from pathlib import Path
 import hydra
 import numpy as np
 from dotmap import DotMap
-from einops import rearrange, repeat
+from einops import rearrange
 from hydra.utils import get_original_cwd
 from loguru import logger
 from matplotlib import pyplot as plt
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 from omegaconf import OmegaConf
+from scipy.io import savemat
 
 from quanta_SL.decode.methods import gray_stripe_decoding
 from quanta_SL.encode import strategies
 from quanta_SL.encode.message import (
     registry as message_registry,
-    message_to_inverse_permuation,
 )
-from quanta_SL.io import load_swiss_spad_sequence, load_swiss_spad_bin
+from quanta_SL.io import load_swiss_spad_sequence
 from quanta_SL.utils.memoize import MemoizeNumpy
-from quanta_SL.utils.plotting import save_plot
-from scripts.lcd_captures import ax_imshow_with_colorbar
-from copy import copy
-from scipy.io import savemat
+from quanta_SL.utils.plotting import save_plot, ax_imshow_with_colorbar
 
 # Disable inner logging
 logger.disable("quanta_SL")
-logger.add(f"{__file__.split('.')[0]}.log")
+logger.add(f"logs/lcd_calibrate_{Path(__file__).stem}.log", rotation="daily", retention=3)
 
 plt.style.use(["science", "grid"])
 params = {
@@ -183,7 +179,10 @@ def decode_2d_code(sequence_array, code_LUT, decoding_func):
     return decoded_array
 
 
-@hydra.main(config_path="../conf/scripts", config_name="lcd_calibrate")
+@hydra.main(
+    config_path="../../../conf/scripts",
+    config_name=f"lcd_calibrate_{Path(__file__).stem}",
+)
 def main(cfg):
     print(OmegaConf.to_yaml(cfg))
 
@@ -214,10 +213,10 @@ def main(cfg):
         img_ll.append(img)
 
         # Decode
-        logger.info("Decoding Cols")
+        logger.info(f"Pose {pose_index} | Decoding Cols")
         col_correspondence = decode_2d_code(col_sequence, code_LUT, decoding_func)
 
-        logger.info("Decoding Rows")
+        logger.info(f"Pose {pose_index} | Decoding Rows")
         row_correspondence = decode_2d_code(row_sequence, code_LUT, decoding_func)
 
         if cfg.projector.crop_mode == "center":
@@ -255,7 +254,7 @@ def main(cfg):
         save_plot(
             savefig=cfg.savefig,
             show=cfg.show,
-            fname=f"{cfg.outfolder}/result_pose{pose_index:02d}.pdf",
+            fname=f"{cfg.outfolder}/decoded_correspondences/pose{pose_index:02d}.pdf",
         )
 
     img_ll = np.stack(img_ll, axis=0)

@@ -1,0 +1,8 @@
+2021-09-24 15:13:19.762 | INFO     | __main__:main:40 - exp_name: intrinsic_extrinsic
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+

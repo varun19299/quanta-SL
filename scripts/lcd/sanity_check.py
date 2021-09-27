@@ -8,7 +8,6 @@ from einops import rearrange, repeat
 from hydra.utils import get_original_cwd
 from loguru import logger
 from matplotlib import pyplot as plt
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 from omegaconf import OmegaConf
 
 from quanta_SL.decode.methods import hybrid_decoding, repetition_decoding
@@ -25,11 +24,11 @@ from quanta_SL.encode.message import (
 from quanta_SL.io import load_swiss_spad_sequence, load_swiss_spad_bin
 from quanta_SL.ops.binary import packbits_strided
 from quanta_SL.utils.memoize import MemoizeNumpy
-from quanta_SL.utils.plotting import save_plot
+from quanta_SL.utils.plotting import save_plot, ax_imshow_with_colorbar
 
 # Disable inner logging
 logger.disable("quanta_SL")
-logger.add(f"{__file__.split('.')[0]}.log")
+logger.add(f"logs/lcd_{Path(__file__).stem}{{time}}.log", rotation="daily", retention=3)
 
 plt.style.use(["science", "grid"])
 params = {
@@ -240,17 +239,7 @@ def decode_2d_code(sequence_array, code_LUT, decoding_func):
     return decoded_array
 
 
-def ax_imshow_with_colorbar(img, ax, fig, **imshow_kwargs):
-    im = ax.imshow(img, **imshow_kwargs)
-
-    # create an axes on the right side of ax. The width of cax will be 5%
-    # of ax and the padding between cax and ax will be fixed at 0.05 inch.
-    divider = make_axes_locatable(ax)
-    cax = divider.append_axes("right", size="5%", pad=0.05)
-    fig.colorbar(im, cax=cax)
-
-
-@hydra.main(config_path="../conf/scripts", config_name="lcd_captures")
+@hydra.main(config_path="../../conf/scripts", config_name=f"lcd_{Path(__file__).stem}")
 def main(cfg):
     print(OmegaConf.to_yaml(cfg))
 
