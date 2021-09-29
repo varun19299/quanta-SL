@@ -20,6 +20,10 @@ nptyping
 numba
 numpy>=1.20,<1.21
 opencv-python
+
+# Open3d for python3
+--pre https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.13.0+5e047b8-cp39-cp39-macosx_10_14_x86_64.whl
+
 pandas
 plotly
 pytest

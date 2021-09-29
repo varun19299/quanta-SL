@@ -15,7 +15,7 @@ import quanta_SL.ops.linalg
 from quanta_SL.simulate.pbrt import parser
 from quanta_SL.simulate import decode
 from quanta_SL.simulate import sensor
-from quanta_SL.simulate.utils import project3d
+from quanta_SL.reconstruct import project3d
 from quanta_SL.simulate.pbrt import set_paths
 
 def load_exr2grayscale(path: str) -> NDArray[(Any, Any, 3), Float32]:

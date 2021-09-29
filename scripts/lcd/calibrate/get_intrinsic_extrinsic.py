@@ -10,6 +10,7 @@ from scipy.io import loadmat, savemat
 import numpy as np
 import cv2
 from einops import rearrange
+from copy import copy
 
 from collections import namedtuple
 
@@ -52,15 +53,39 @@ StereoCalibrateOutput = namedtuple(
     ],
 )
 
+# termination criteria
+criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100_000, 1e-6)
 
-def setup_args(cfg):
-    cfg = DotMap(OmegaConf.to_object(cfg))
+camera_criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100_000, 1e-10)
+calib_flags = (
+    cv2.CALIB_ZERO_TANGENT_DIST
+    + cv2.CALIB_FIX_K1
+    + cv2.CALIB_FIX_K2
+    + cv2.CALIB_FIX_K3
+    + cv2.CALIB_FIX_K4
+    + cv2.CALIB_FIX_K5
+    + cv2.CALIB_FIX_K6
+)
 
-    # Setup args
-    cfg.outfolder = Path(cfg.outfolder)
-    cfg.correspondence.mat_file = cfg.outfolder / cfg.correspondence.mat_file
+stereo_criteria = (cv2.TERM_CRITERIA_MAX_ITER + cv2.TERM_CRITERIA_EPS, 100_000, 1e-56)
+stereo_flags = (
+    cv2.CALIB_ZERO_TANGENT_DIST
+    + cv2.CALIB_FIX_K1
+    + cv2.CALIB_FIX_K2
+    + cv2.CALIB_FIX_K3
+    + cv2.CALIB_FIX_K4
+    + cv2.CALIB_FIX_K5
+    + cv2.CALIB_FIX_K6
+)
 
-    return cfg
+
+# def setup_args(cfg):
+#     # Setup args
+#     cfg.outfolder = Path(cfg.outfolder)
+#     cfg.correspondence.mat_file = f"{cfg.outfolder}/{cfg.correspondence.mat_file}"
+#     cfg.correspondence.exclude_poses = eval(cfg_copy.correspondence.exclude_poses)
+#
+#     return cfg
 
 
 def get_mask(cfg: DotMap) -> NDArray[int]:
@@ -86,29 +111,48 @@ def get_mask(cfg: DotMap) -> NDArray[int]:
     return mask
 
 
-def _plot_inpainted(pose_index, img, inpainted_img, marked_inpainted_img, mask, cfg):
+def _plot_inpainted(
+    pose_index,
+    img,
+    inpainted_img,
+    mask,
+    marked_inpainted_img,
+    col_correspondences,
+    row_correspondences,
+    cfg,
+):
     # Plotting
-    fig, ax_ll = plt.subplots(1, 4, sharey=True, sharex=True, figsize=(16, 6))
+    fig, ax_ll = plt.subplots(2, 3, sharey=True, sharex=True, figsize=(16, 12))
 
     # All White image
-    ax = ax_ll[0]
+    ax = ax_ll[0, 0]
     ax_imshow_with_colorbar(img, ax, fig, cmap="gray")
     ax.set_title("All White Image")
 
-    # Inpainted
-    ax = ax_ll[1]
-    ax_imshow_with_colorbar(inpainted_img, ax, fig, cmap="gray")
-    ax.set_title("Inpainted Version")
-
     # Mask
-    ax = ax_ll[2]
+    ax = ax_ll[0, 1]
     ax_imshow_with_colorbar(mask, ax, fig, cmap="gray")
     ax.set_title("Inpaint Mask")
 
+    # Inpainted
+    ax = ax_ll[0, 2]
+    ax_imshow_with_colorbar(inpainted_img, ax, fig, cmap="gray")
+    ax.set_title("Inpainted Version")
+
     # Chessboard marked
-    ax = ax_ll[3]
+    ax = ax_ll[1, 0]
     ax_imshow_with_colorbar(marked_inpainted_img, ax, fig, cmap="gray")
     ax.set_title("Marked chessboard")
+
+    # Column Correspondences
+    ax = ax_ll[1, 1]
+    ax_imshow_with_colorbar(col_correspondences, ax, fig)
+    ax.set_title("Column Correspondences")
+
+    # Row Correspondences
+    ax = ax_ll[1, 2]
+    ax_imshow_with_colorbar(row_correspondences, ax, fig)
+    ax.set_title("Row Correspondences")
 
     plt.suptitle(
         f"Pose {pose_index} | Date {cfg.capture_date.replace('_', ' ')}",
@@ -230,7 +274,7 @@ def find_projector_corners(
 def main(cfg: DictConfig):
     logger.info(OmegaConf.to_yaml(cfg))
 
-    cfg = setup_args(cfg)
+    # cfg = setup_args(cfg)
 
     # Open mat file
     f = loadmat(cfg.correspondence.mat_file)
@@ -250,22 +294,15 @@ def main(cfg: DictConfig):
     img_points = []  # 2d points in image plane.
     proj_points = []
 
-    # termination criteria
-    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
-
-    camera_criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 1e-10)
-    calib_flags = cv2.CALIB_ZERO_TANGENT_DIST
-
-    stereo_criteria = (cv2.TERM_CRITERIA_MAX_ITER + cv2.TERM_CRITERIA_EPS, 30, 1e-56)
-    stereo_flags = cv2.CALIB_ZERO_TANGENT_DIST
-
     # Load mask
     mask = get_mask(cfg)
 
     for pose_index, (img, col_correspondences, row_correspondences) in enumerate(
         zip(img_ll, col_correspondences_ll, row_correspondences_ll), start=1
     ):
-        logger.info(f"Pose{pose_index:02d}")
+        if pose_index in cfg.correspondence.exclude_poses:
+            logger.info(f"Excluding Pose{pose_index:02d}")
+            continue
 
         # Inpainting
         inpainted_img = cv2.inpaint(
@@ -274,15 +311,31 @@ def main(cfg: DictConfig):
             inpaintRadius=5,
             flags=cv2.INPAINT_NS,
         )
+        col_correspondences = cv2.inpaint(
+            src=col_correspondences.astype(np.float32),
+            inpaintMask=mask,
+            inpaintRadius=5,
+            flags=cv2.INPAINT_NS,
+        )
+        row_correspondences = cv2.inpaint(
+            src=row_correspondences.astype(np.float32),
+            inpaintMask=mask,
+            inpaintRadius=5,
+            flags=cv2.INPAINT_NS,
+        )
 
         # Find the chess board corners
         inpainted_img_8bit = (inpainted_img * 255).astype(np.uint8)
         ret, corners = cv2.findChessboardCorners(
-            inpainted_img_8bit, (cfg.chessboard.height, cfg.chessboard.width), None
+            inpainted_img_8bit,
+            (cfg.chessboard.height, cfg.chessboard.width),
+            flags=cv2.CALIB_CB_ADAPTIVE_THRESH,
         )
 
         # If found, add object points, image points (after refining them)
         if ret:
+            logger.info(f"Pose{pose_index:02d} | Chessboard detected")
+
             obj_points.append(objp)
             corners_subpixel = cv2.cornerSubPix(
                 inpainted_img,
@@ -306,13 +359,23 @@ def main(cfg: DictConfig):
                 )
             )
 
-        if cfg.plot:
-            # Plot image and inpainted version
-            _plot_inpainted(
-                pose_index, img, inpainted_img, marked_inpainted_img, mask, cfg
-            )
+            if cfg.plot:
+                # Plot image and inpainted version
+                _plot_inpainted(
+                    pose_index,
+                    img,
+                    inpainted_img,
+                    mask,
+                    marked_inpainted_img,
+                    col_correspondences,
+                    row_correspondences,
+                    cfg,
+                )
+        else:
+            logger.info(f"Pose{pose_index:02d} | Chessboard NOT detected")
 
     # Calibrate Intrinsics
+    logger.info("Calibrating Intrinsics")
     camera_intrinsics = CalibrateCameraOutput(
         *cv2.calibrateCamera(
             obj_points,
@@ -337,18 +400,21 @@ def main(cfg: DictConfig):
     )
 
     # Stereo Calibrate
+    logger.info("Calibrating Stereo")
     stereo_model = StereoCalibrateOutput(
         *cv2.stereoCalibrate(
             obj_points,
             img_points,
             proj_points,
             camera_intrinsics.matrix,
-            camera_intrinsics.distortion,
+            None,
             projector_intrinsics.matrix,
-            projector_intrinsics.distortion,
+            None,
             img.shape[::-1],
+            flags=stereo_flags,
+            criteria=stereo_criteria,
         )
-    )  # , flags = stereoFlags, criteria = stereoCriteria)
+    )
 
     # Reprojection Error
     logger.info(f"Reprojection Error {stereo_model.ret}")

@@ -22,7 +22,9 @@ from quanta_SL.utils.plotting import save_plot, ax_imshow_with_colorbar
 
 # Disable inner logging
 logger.disable("quanta_SL")
-logger.add(f"logs/lcd_calibrate_{Path(__file__).stem}.log", rotation="daily", retention=3)
+logger.add(
+    f"logs/lcd_calibrate_{Path(__file__).stem}.log", rotation="daily", retention=3
+)
 
 plt.style.use(["science", "grid"])
 params = {
@@ -134,9 +136,16 @@ def get_sequence(cfg, code_LUT, pose_index: int, rotate_180: bool = False):
         )
         bin_suffix_offset += cfg.gray_stripe.binary_frame.bursts_per_pattern
 
-        col_sequence.append(
-            get_frame(pose_folder, bin_suffix_range, comp_bin_suffix_range)
-        )
+        col_frame = get_frame(pose_folder, bin_suffix_range, comp_bin_suffix_range)
+        col_sequence.append(col_frame)
+
+        if cfg.gray_stripe.visualize_frame:
+            plt.imshow(col_frame, cmap="gray")
+            save_plot(
+                savefig=cfg.savefig,
+                show=cfg.show,
+                fname=f"{cfg.outfolder}/decoded_correspondences/pose{pose_index:02d}/col_frame{pattern_index:02d}.pdf",
+            )
 
     # Row encoding
     for pattern_index in pattern_range:
@@ -153,9 +162,16 @@ def get_sequence(cfg, code_LUT, pose_index: int, rotate_180: bool = False):
         )
         bin_suffix_offset += cfg.gray_stripe.binary_frame.bursts_per_pattern
 
-        row_sequence.append(
-            get_frame(pose_folder, bin_suffix_range, comp_bin_suffix_range)
-        )
+        row_frame = get_frame(pose_folder, bin_suffix_range, comp_bin_suffix_range)
+        row_sequence.append(row_frame)
+
+        if cfg.gray_stripe.visualize_frame:
+            plt.imshow(row_frame, cmap="gray")
+            save_plot(
+                savefig=cfg.savefig,
+                show=cfg.show,
+                fname=f"{cfg.outfolder}/decoded_correspondences/pose{pose_index:02d}/row_frame{pattern_index:02d}.pdf",
+            )
 
     # Stack
     col_sequence = np.stack(col_sequence, axis=0)
@@ -199,15 +215,6 @@ def main(cfg):
         img, col_sequence, row_sequence = get_sequence(
             cfg, code_LUT, pose_index, cfg.gray_stripe.rotate_180
         )
-
-        # Regions to ignore
-        # Ignore shadows and black areas, white pixels
-        # mean_hybrid_binary = hybrid_binary_sequence.mean(axis=0)
-        # mask = (mean_hybrid_binary < 0.2) | (mean_hybrid_binary > 0.90)
-        # plt.figure(figsize=(8, 6))
-        # plt.imshow(mean_hybrid_binary)
-        # plt.colorbar()
-        # plt.show()
 
         # Images
         img_ll.append(img)

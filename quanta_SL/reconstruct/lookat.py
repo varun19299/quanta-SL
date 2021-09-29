@@ -32,7 +32,7 @@ from einops import rearrange
 from nptyping import NDArray
 from scipy.spatial.transform import Rotation
 
-from quanta_SL.simulate import (
+from quanta_SL.reconstruct.conversions import (
     convert_points_from_homogeneous,
     convert_points_to_homogeneous,
 )

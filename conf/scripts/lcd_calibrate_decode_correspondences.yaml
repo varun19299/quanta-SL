@@ -28,7 +28,8 @@ gray_stripe:
   gray_message_bits: 8
   message_mapping: gray_message
   rotate_180: True
+  visualize_frame: False
   binary_frame:
     # Each burst has 512 frames
     bursts_per_pattern: 10
-    bin_suffix_range: range(2,9)
+    bin_suffix_range: range(6, 10)

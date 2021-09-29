@@ -11,7 +11,7 @@ from einops import rearrange, repeat
 import numpy as np
 
 import quanta_SL.ops.linalg
-from quanta_SL.simulate.utils import conversions, lookat
+from quanta_SL.reconstruct import conversions, lookat
 
 from typing import Any, Tuple
 from nptyping import NDArray
@@ -252,7 +252,8 @@ def test_ray_through_pixel():
     # must start at camera centre
     assert (ray_start == camera_loc.pos).all()
     assert (
-            quanta_SL.ops.linalg.normalized(ray_dir) == quanta_SL.ops.linalg.normalized(camera_loc.look - camera_loc.pos)
+        quanta_SL.ops.linalg.normalized(ray_dir)
+        == quanta_SL.ops.linalg.normalized(camera_loc.look - camera_loc.pos)
     ).all()
 
 

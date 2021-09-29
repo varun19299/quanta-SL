@@ -1010,3 +1010,2342 @@ chessboard:
 2021-09-27 11:40:28.943 | INFO     | __main__:main:268 - Pose01
 2021-09-27 11:40:32.546 | INFO     | __main__:main:268 - Pose02
 2021-09-27 11:40:33.902 | INFO     | __main__:main:268 - Pose03
+2021-09-27 11:44:13.927 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:44:14.486 | INFO     | __main__:main:268 - Pose01
+2021-09-27 11:44:14.536 | INFO     | __main__:main:268 - Pose02
+2021-09-27 11:44:14.583 | INFO     | __main__:main:268 - Pose03
+2021-09-27 11:44:14.626 | INFO     | __main__:main:268 - Pose04
+2021-09-27 11:44:14.754 | INFO     | __main__:main:268 - Pose05
+2021-09-27 11:44:14.811 | INFO     | __main__:main:268 - Pose06
+2021-09-27 11:44:14.867 | INFO     | __main__:main:268 - Pose07
+2021-09-27 11:44:14.905 | INFO     | __main__:main:268 - Pose08
+2021-09-27 11:44:14.948 | INFO     | __main__:main:268 - Pose09
+2021-09-27 11:44:14.992 | INFO     | __main__:main:268 - Pose10
+2021-09-27 11:44:15.063 | INFO     | __main__:main:268 - Pose11
+2021-09-27 11:44:15.180 | INFO     | __main__:main:268 - Pose12
+2021-09-27 11:44:15.498 | INFO     | __main__:main:268 - Pose13
+2021-09-27 11:44:17.143 | INFO     | __main__:main:268 - Pose14
+2021-09-27 11:44:17.312 | INFO     | __main__:main:268 - Pose15
+2021-09-27 11:44:17.756 | INFO     | __main__:main:268 - Pose16
+2021-09-27 11:44:19.673 | INFO     | __main__:main:268 - Pose17
+2021-09-27 11:44:19.814 | INFO     | __main__:main:268 - Pose18
+2021-09-27 11:44:21.543 | INFO     | __main__:main:268 - Pose19
+2021-09-27 11:44:23.240 | INFO     | __main__:main:268 - Pose20
+2021-09-27 11:44:24.912 | INFO     | __main__:main:268 - Pose21
+2021-09-27 11:44:26.683 | INFO     | __main__:main:268 - Pose22
+2021-09-27 11:44:26.835 | INFO     | __main__:main:268 - Pose23
+2021-09-27 11:44:28.359 | INFO     | __main__:main:268 - Pose24
+2021-09-27 11:44:30.020 | INFO     | __main__:main:268 - Pose25
+2021-09-27 11:44:31.781 | INFO     | __main__:main:268 - Pose26
+2021-09-27 11:44:33.581 | INFO     | __main__:main:268 - Pose27
+2021-09-27 11:44:35.117 | INFO     | __main__:main:268 - Pose28
+2021-09-27 11:44:36.577 | INFO     | __main__:main:268 - Pose29
+2021-09-27 11:44:36.763 | INFO     | __main__:main:268 - Pose30
+2021-09-27 11:44:59.737 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:44:59.827 | INFO     | __main__:main:268 - Pose01
+2021-09-27 11:44:59.871 | INFO     | __main__:main:268 - Pose02
+2021-09-27 11:44:59.917 | INFO     | __main__:main:268 - Pose03
+2021-09-27 11:44:59.960 | INFO     | __main__:main:268 - Pose04
+2021-09-27 11:45:00.096 | INFO     | __main__:main:268 - Pose05
+2021-09-27 11:45:00.156 | INFO     | __main__:main:268 - Pose06
+2021-09-27 11:45:00.215 | INFO     | __main__:main:268 - Pose07
+2021-09-27 11:45:00.256 | INFO     | __main__:main:268 - Pose08
+2021-09-27 11:45:00.301 | INFO     | __main__:main:268 - Pose09
+2021-09-27 11:45:00.347 | INFO     | __main__:main:268 - Pose10
+2021-09-27 11:45:00.429 | INFO     | __main__:main:268 - Pose11
+2021-09-27 11:45:00.555 | INFO     | __main__:main:268 - Pose12
+2021-09-27 11:45:00.885 | INFO     | __main__:main:268 - Pose13
+2021-09-27 11:45:02.569 | INFO     | __main__:main:268 - Pose14
+2021-09-27 11:45:02.751 | INFO     | __main__:main:268 - Pose15
+2021-09-27 11:45:03.215 | INFO     | __main__:main:268 - Pose16
+2021-09-27 11:45:05.030 | INFO     | __main__:main:268 - Pose17
+2021-09-27 11:45:05.164 | INFO     | __main__:main:268 - Pose18
+2021-09-27 11:45:06.929 | INFO     | __main__:main:268 - Pose19
+2021-09-27 11:45:08.687 | INFO     | __main__:main:268 - Pose20
+2021-09-27 11:45:10.463 | INFO     | __main__:main:268 - Pose21
+2021-09-27 11:45:12.295 | INFO     | __main__:main:268 - Pose22
+2021-09-27 11:45:12.443 | INFO     | __main__:main:268 - Pose23
+2021-09-27 11:45:13.985 | INFO     | __main__:main:268 - Pose24
+2021-09-27 11:45:16.022 | INFO     | __main__:main:268 - Pose25
+2021-09-27 11:45:17.927 | INFO     | __main__:main:268 - Pose26
+2021-09-27 11:45:19.692 | INFO     | __main__:main:268 - Pose27
+2021-09-27 11:45:21.509 | INFO     | __main__:main:268 - Pose28
+2021-09-27 11:45:23.125 | INFO     | __main__:main:268 - Pose29
+2021-09-27 11:45:23.279 | INFO     | __main__:main:268 - Pose30
+2021-09-27 11:45:26.364 | INFO     | __main__:main:356 - Reprojection Error 68.09661516568742
+2021-09-27 11:46:00.833 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 10
+  height: 7
+
+2021-09-27 11:46:01.027 | INFO     | __main__:main:315 - Pose01 | Chessboard NOT detected
+2021-09-27 11:46:01.138 | INFO     | __main__:main:315 - Pose02 | Chessboard NOT detected
+2021-09-27 11:46:01.236 | INFO     | __main__:main:315 - Pose03 | Chessboard NOT detected
+2021-09-27 11:46:01.371 | INFO     | __main__:main:315 - Pose04 | Chessboard NOT detected
+2021-09-27 11:46:01.486 | INFO     | __main__:main:315 - Pose05 | Chessboard NOT detected
+2021-09-27 11:46:01.588 | INFO     | __main__:main:315 - Pose06 | Chessboard NOT detected
+2021-09-27 11:46:01.680 | INFO     | __main__:main:315 - Pose07 | Chessboard NOT detected
+2021-09-27 11:46:01.776 | INFO     | __main__:main:315 - Pose08 | Chessboard NOT detected
+2021-09-27 11:46:01.882 | INFO     | __main__:main:315 - Pose09 | Chessboard NOT detected
+2021-09-27 11:46:01.996 | INFO     | __main__:main:315 - Pose10 | Chessboard NOT detected
+2021-09-27 11:46:02.078 | INFO     | __main__:main:315 - Pose11 | Chessboard NOT detected
+2021-09-27 11:46:02.176 | INFO     | __main__:main:315 - Pose12 | Chessboard NOT detected
+2021-09-27 11:46:02.268 | INFO     | __main__:main:315 - Pose13 | Chessboard NOT detected
+2021-09-27 11:46:02.357 | INFO     | __main__:main:315 - Pose14 | Chessboard NOT detected
+2021-09-27 11:46:02.472 | INFO     | __main__:main:315 - Pose15 | Chessboard NOT detected
+2021-09-27 11:46:02.588 | INFO     | __main__:main:315 - Pose16 | Chessboard NOT detected
+2021-09-27 11:46:02.710 | INFO     | __main__:main:315 - Pose17 | Chessboard NOT detected
+2021-09-27 11:46:02.850 | INFO     | __main__:main:315 - Pose18 | Chessboard NOT detected
+2021-09-27 11:46:02.987 | INFO     | __main__:main:315 - Pose19 | Chessboard NOT detected
+2021-09-27 11:46:03.136 | INFO     | __main__:main:315 - Pose20 | Chessboard NOT detected
+2021-09-27 11:46:03.228 | INFO     | __main__:main:315 - Pose21 | Chessboard NOT detected
+2021-09-27 11:46:03.334 | INFO     | __main__:main:315 - Pose22 | Chessboard NOT detected
+2021-09-27 11:46:03.431 | INFO     | __main__:main:315 - Pose23 | Chessboard NOT detected
+2021-09-27 11:46:03.563 | INFO     | __main__:main:315 - Pose24 | Chessboard NOT detected
+2021-09-27 11:46:03.704 | INFO     | __main__:main:315 - Pose25 | Chessboard NOT detected
+2021-09-27 11:46:03.851 | INFO     | __main__:main:315 - Pose26 | Chessboard NOT detected
+2021-09-27 11:46:04.001 | INFO     | __main__:main:315 - Pose27 | Chessboard NOT detected
+2021-09-27 11:46:04.149 | INFO     | __main__:main:315 - Pose28 | Chessboard NOT detected
+2021-09-27 11:46:04.290 | INFO     | __main__:main:315 - Pose29 | Chessboard NOT detected
+2021-09-27 11:46:04.379 | INFO     | __main__:main:315 - Pose30 | Chessboard NOT detected
+2021-09-27 11:46:09.688 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 10
+  height: 6
+
+2021-09-27 11:46:09.859 | INFO     | __main__:main:315 - Pose01 | Chessboard NOT detected
+2021-09-27 11:46:09.971 | INFO     | __main__:main:315 - Pose02 | Chessboard NOT detected
+2021-09-27 11:46:10.071 | INFO     | __main__:main:315 - Pose03 | Chessboard NOT detected
+2021-09-27 11:46:10.201 | INFO     | __main__:main:315 - Pose04 | Chessboard NOT detected
+2021-09-27 11:46:10.320 | INFO     | __main__:main:315 - Pose05 | Chessboard NOT detected
+2021-09-27 11:46:10.423 | INFO     | __main__:main:315 - Pose06 | Chessboard NOT detected
+2021-09-27 11:46:10.517 | INFO     | __main__:main:315 - Pose07 | Chessboard NOT detected
+2021-09-27 11:46:10.615 | INFO     | __main__:main:315 - Pose08 | Chessboard NOT detected
+2021-09-27 11:46:10.716 | INFO     | __main__:main:315 - Pose09 | Chessboard NOT detected
+2021-09-27 11:46:10.828 | INFO     | __main__:main:315 - Pose10 | Chessboard NOT detected
+2021-09-27 11:46:10.907 | INFO     | __main__:main:315 - Pose11 | Chessboard NOT detected
+2021-09-27 11:46:11.006 | INFO     | __main__:main:315 - Pose12 | Chessboard NOT detected
+2021-09-27 11:46:11.098 | INFO     | __main__:main:315 - Pose13 | Chessboard NOT detected
+2021-09-27 11:46:11.188 | INFO     | __main__:main:315 - Pose14 | Chessboard NOT detected
+2021-09-27 11:46:11.302 | INFO     | __main__:main:315 - Pose15 | Chessboard NOT detected
+2021-09-27 11:46:11.418 | INFO     | __main__:main:315 - Pose16 | Chessboard NOT detected
+2021-09-27 11:46:11.538 | INFO     | __main__:main:315 - Pose17 | Chessboard NOT detected
+2021-09-27 11:46:11.677 | INFO     | __main__:main:315 - Pose18 | Chessboard NOT detected
+2021-09-27 11:46:11.814 | INFO     | __main__:main:315 - Pose19 | Chessboard NOT detected
+2021-09-27 11:46:11.959 | INFO     | __main__:main:315 - Pose20 | Chessboard NOT detected
+2021-09-27 11:46:12.046 | INFO     | __main__:main:315 - Pose21 | Chessboard NOT detected
+2021-09-27 11:46:12.143 | INFO     | __main__:main:315 - Pose22 | Chessboard NOT detected
+2021-09-27 11:46:12.236 | INFO     | __main__:main:315 - Pose23 | Chessboard NOT detected
+2021-09-27 11:46:12.361 | INFO     | __main__:main:315 - Pose24 | Chessboard NOT detected
+2021-09-27 11:46:12.491 | INFO     | __main__:main:315 - Pose25 | Chessboard NOT detected
+2021-09-27 11:46:12.629 | INFO     | __main__:main:315 - Pose26 | Chessboard NOT detected
+2021-09-27 11:46:12.771 | INFO     | __main__:main:315 - Pose27 | Chessboard NOT detected
+2021-09-27 11:46:12.907 | INFO     | __main__:main:315 - Pose28 | Chessboard NOT detected
+2021-09-27 11:46:13.051 | INFO     | __main__:main:315 - Pose29 | Chessboard NOT detected
+2021-09-27 11:46:13.141 | INFO     | __main__:main:315 - Pose30 | Chessboard NOT detected
+2021-09-27 11:46:18.499 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 7
+
+2021-09-27 11:46:18.674 | INFO     | __main__:main:315 - Pose01 | Chessboard NOT detected
+2021-09-27 11:46:18.787 | INFO     | __main__:main:315 - Pose02 | Chessboard NOT detected
+2021-09-27 11:46:18.885 | INFO     | __main__:main:315 - Pose03 | Chessboard NOT detected
+2021-09-27 11:46:19.017 | INFO     | __main__:main:315 - Pose04 | Chessboard NOT detected
+2021-09-27 11:46:19.134 | INFO     | __main__:main:315 - Pose05 | Chessboard NOT detected
+2021-09-27 11:46:19.236 | INFO     | __main__:main:315 - Pose06 | Chessboard NOT detected
+2021-09-27 11:46:19.329 | INFO     | __main__:main:315 - Pose07 | Chessboard NOT detected
+2021-09-27 11:46:19.424 | INFO     | __main__:main:315 - Pose08 | Chessboard NOT detected
+2021-09-27 11:46:19.524 | INFO     | __main__:main:315 - Pose09 | Chessboard NOT detected
+2021-09-27 11:46:19.639 | INFO     | __main__:main:315 - Pose10 | Chessboard NOT detected
+2021-09-27 11:46:19.720 | INFO     | __main__:main:315 - Pose11 | Chessboard NOT detected
+2021-09-27 11:46:19.819 | INFO     | __main__:main:315 - Pose12 | Chessboard NOT detected
+2021-09-27 11:46:19.911 | INFO     | __main__:main:315 - Pose13 | Chessboard NOT detected
+2021-09-27 11:46:20.002 | INFO     | __main__:main:315 - Pose14 | Chessboard NOT detected
+2021-09-27 11:46:20.117 | INFO     | __main__:main:315 - Pose15 | Chessboard NOT detected
+2021-09-27 11:46:20.233 | INFO     | __main__:main:315 - Pose16 | Chessboard NOT detected
+2021-09-27 11:46:20.353 | INFO     | __main__:main:315 - Pose17 | Chessboard NOT detected
+2021-09-27 11:46:20.494 | INFO     | __main__:main:315 - Pose18 | Chessboard NOT detected
+2021-09-27 11:46:20.640 | INFO     | __main__:main:315 - Pose19 | Chessboard NOT detected
+2021-09-27 11:46:20.787 | INFO     | __main__:main:315 - Pose20 | Chessboard NOT detected
+2021-09-27 11:46:20.875 | INFO     | __main__:main:315 - Pose21 | Chessboard NOT detected
+2021-09-27 11:46:20.971 | INFO     | __main__:main:315 - Pose22 | Chessboard NOT detected
+2021-09-27 11:46:21.064 | INFO     | __main__:main:315 - Pose23 | Chessboard NOT detected
+2021-09-27 11:46:21.188 | INFO     | __main__:main:315 - Pose24 | Chessboard NOT detected
+2021-09-27 11:46:21.320 | INFO     | __main__:main:315 - Pose25 | Chessboard NOT detected
+2021-09-27 11:46:21.456 | INFO     | __main__:main:315 - Pose26 | Chessboard NOT detected
+2021-09-27 11:46:21.598 | INFO     | __main__:main:315 - Pose27 | Chessboard NOT detected
+2021-09-27 11:46:21.737 | INFO     | __main__:main:315 - Pose28 | Chessboard NOT detected
+2021-09-27 11:46:21.878 | INFO     | __main__:main:315 - Pose29 | Chessboard NOT detected
+2021-09-27 11:46:21.964 | INFO     | __main__:main:315 - Pose30 | Chessboard NOT detected
+2021-09-27 11:46:26.692 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 8
+  height: 7
+
+2021-09-27 11:46:26.861 | INFO     | __main__:main:315 - Pose01 | Chessboard NOT detected
+2021-09-27 11:46:26.973 | INFO     | __main__:main:315 - Pose02 | Chessboard NOT detected
+2021-09-27 11:46:27.068 | INFO     | __main__:main:315 - Pose03 | Chessboard NOT detected
+2021-09-27 11:46:27.201 | INFO     | __main__:main:315 - Pose04 | Chessboard NOT detected
+2021-09-27 11:46:27.317 | INFO     | __main__:main:315 - Pose05 | Chessboard NOT detected
+2021-09-27 11:46:27.418 | INFO     | __main__:main:315 - Pose06 | Chessboard NOT detected
+2021-09-27 11:46:27.509 | INFO     | __main__:main:315 - Pose07 | Chessboard NOT detected
+2021-09-27 11:46:27.606 | INFO     | __main__:main:315 - Pose08 | Chessboard NOT detected
+2021-09-27 11:46:27.702 | INFO     | __main__:main:315 - Pose09 | Chessboard NOT detected
+2021-09-27 11:46:27.811 | INFO     | __main__:main:315 - Pose10 | Chessboard NOT detected
+2021-09-27 11:46:27.890 | INFO     | __main__:main:315 - Pose11 | Chessboard NOT detected
+2021-09-27 11:46:27.990 | INFO     | __main__:main:315 - Pose12 | Chessboard NOT detected
+2021-09-27 11:46:28.082 | INFO     | __main__:main:315 - Pose13 | Chessboard NOT detected
+2021-09-27 11:46:28.173 | INFO     | __main__:main:315 - Pose14 | Chessboard NOT detected
+2021-09-27 11:46:28.291 | INFO     | __main__:main:315 - Pose15 | Chessboard NOT detected
+2021-09-27 11:46:28.410 | INFO     | __main__:main:315 - Pose16 | Chessboard NOT detected
+2021-09-27 11:46:28.530 | INFO     | __main__:main:315 - Pose17 | Chessboard NOT detected
+2021-09-27 11:46:28.670 | INFO     | __main__:main:315 - Pose18 | Chessboard NOT detected
+2021-09-27 11:46:28.807 | INFO     | __main__:main:315 - Pose19 | Chessboard NOT detected
+2021-09-27 11:46:28.952 | INFO     | __main__:main:315 - Pose20 | Chessboard NOT detected
+2021-09-27 11:46:29.039 | INFO     | __main__:main:315 - Pose21 | Chessboard NOT detected
+2021-09-27 11:46:29.136 | INFO     | __main__:main:315 - Pose22 | Chessboard NOT detected
+2021-09-27 11:46:29.230 | INFO     | __main__:main:315 - Pose23 | Chessboard NOT detected
+2021-09-27 11:46:29.356 | INFO     | __main__:main:315 - Pose24 | Chessboard NOT detected
+2021-09-27 11:46:29.488 | INFO     | __main__:main:315 - Pose25 | Chessboard NOT detected
+2021-09-27 11:46:29.623 | INFO     | __main__:main:315 - Pose26 | Chessboard NOT detected
+2021-09-27 11:46:29.764 | INFO     | __main__:main:315 - Pose27 | Chessboard NOT detected
+2021-09-27 11:46:29.902 | INFO     | __main__:main:315 - Pose28 | Chessboard NOT detected
+2021-09-27 11:46:30.043 | INFO     | __main__:main:315 - Pose29 | Chessboard NOT detected
+2021-09-27 11:46:30.131 | INFO     | __main__:main:315 - Pose30 | Chessboard NOT detected
+2021-09-27 11:46:34.245 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 8
+  height: 6
+
+2021-09-27 11:46:34.423 | INFO     | __main__:main:315 - Pose01 | Chessboard NOT detected
+2021-09-27 11:46:34.534 | INFO     | __main__:main:315 - Pose02 | Chessboard NOT detected
+2021-09-27 11:46:34.632 | INFO     | __main__:main:315 - Pose03 | Chessboard NOT detected
+2021-09-27 11:46:34.763 | INFO     | __main__:main:315 - Pose04 | Chessboard NOT detected
+2021-09-27 11:46:34.864 | INFO     | __main__:main:284 - Pose05 | Chessboard detected
+2021-09-27 11:46:35.012 | INFO     | __main__:main:315 - Pose06 | Chessboard NOT detected
+2021-09-27 11:46:35.105 | INFO     | __main__:main:315 - Pose07 | Chessboard NOT detected
+2021-09-27 11:46:35.200 | INFO     | __main__:main:315 - Pose08 | Chessboard NOT detected
+2021-09-27 11:46:35.300 | INFO     | __main__:main:315 - Pose09 | Chessboard NOT detected
+2021-09-27 11:46:35.416 | INFO     | __main__:main:315 - Pose10 | Chessboard NOT detected
+2021-09-27 11:46:35.501 | INFO     | __main__:main:315 - Pose11 | Chessboard NOT detected
+2021-09-27 11:46:35.617 | INFO     | __main__:main:315 - Pose12 | Chessboard NOT detected
+2021-09-27 11:46:35.688 | INFO     | __main__:main:284 - Pose13 | Chessboard detected
+2021-09-27 11:46:37.235 | INFO     | __main__:main:284 - Pose14 | Chessboard detected
+2021-09-27 11:46:37.483 | INFO     | __main__:main:315 - Pose15 | Chessboard NOT detected
+2021-09-27 11:46:37.605 | INFO     | __main__:main:315 - Pose16 | Chessboard NOT detected
+2021-09-27 11:46:37.733 | INFO     | __main__:main:315 - Pose17 | Chessboard NOT detected
+2021-09-27 11:46:37.880 | INFO     | __main__:main:315 - Pose18 | Chessboard NOT detected
+2021-09-27 11:46:37.967 | INFO     | __main__:main:284 - Pose19 | Chessboard detected
+2021-09-27 11:46:39.637 | INFO     | __main__:main:315 - Pose20 | Chessboard NOT detected
+2021-09-27 11:46:39.727 | INFO     | __main__:main:315 - Pose21 | Chessboard NOT detected
+2021-09-27 11:46:39.825 | INFO     | __main__:main:315 - Pose22 | Chessboard NOT detected
+2021-09-27 11:46:39.907 | INFO     | __main__:main:284 - Pose23 | Chessboard detected
+2021-09-27 11:46:41.327 | INFO     | __main__:main:315 - Pose24 | Chessboard NOT detected
+2021-09-27 11:46:41.460 | INFO     | __main__:main:315 - Pose25 | Chessboard NOT detected
+2021-09-27 11:46:41.599 | INFO     | __main__:main:315 - Pose26 | Chessboard NOT detected
+2021-09-27 11:46:41.747 | INFO     | __main__:main:315 - Pose27 | Chessboard NOT detected
+2021-09-27 11:46:41.892 | INFO     | __main__:main:315 - Pose28 | Chessboard NOT detected
+2021-09-27 11:46:41.929 | INFO     | __main__:main:284 - Pose29 | Chessboard detected
+2021-09-27 11:46:43.415 | INFO     | __main__:main:315 - Pose30 | Chessboard NOT detected
+2021-09-27 11:46:43.615 | INFO     | __main__:main:358 - Reprojection Error 83.72517243678618
+2021-09-27 11:46:50.703 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:46:50.806 | INFO     | __main__:main:284 - Pose01 | Chessboard detected
+2021-09-27 11:46:50.843 | INFO     | __main__:main:284 - Pose02 | Chessboard detected
+2021-09-27 11:46:50.906 | INFO     | __main__:main:284 - Pose03 | Chessboard detected
+2021-09-27 11:46:51.077 | INFO     | __main__:main:315 - Pose04 | Chessboard NOT detected
+2021-09-27 11:46:51.084 | INFO     | __main__:main:284 - Pose05 | Chessboard detected
+2021-09-27 11:46:51.137 | INFO     | __main__:main:284 - Pose06 | Chessboard detected
+2021-09-27 11:46:51.189 | INFO     | __main__:main:284 - Pose07 | Chessboard detected
+2021-09-27 11:46:51.227 | INFO     | __main__:main:284 - Pose08 | Chessboard detected
+2021-09-27 11:46:51.265 | INFO     | __main__:main:284 - Pose09 | Chessboard detected
+2021-09-27 11:46:51.325 | INFO     | __main__:main:284 - Pose10 | Chessboard detected
+2021-09-27 11:46:51.399 | INFO     | __main__:main:284 - Pose11 | Chessboard detected
+2021-09-27 11:46:51.506 | INFO     | __main__:main:284 - Pose12 | Chessboard detected
+2021-09-27 11:46:51.817 | INFO     | __main__:main:284 - Pose13 | Chessboard detected
+2021-09-27 11:46:53.479 | INFO     | __main__:main:284 - Pose14 | Chessboard detected
+2021-09-27 11:46:53.649 | INFO     | __main__:main:284 - Pose15 | Chessboard detected
+2021-09-27 11:46:54.207 | INFO     | __main__:main:284 - Pose16 | Chessboard detected
+2021-09-27 11:46:55.992 | INFO     | __main__:main:315 - Pose17 | Chessboard NOT detected
+2021-09-27 11:46:55.998 | INFO     | __main__:main:284 - Pose18 | Chessboard detected
+2021-09-27 11:46:57.574 | INFO     | __main__:main:284 - Pose19 | Chessboard detected
+2021-09-27 11:46:59.182 | INFO     | __main__:main:284 - Pose20 | Chessboard detected
+2021-09-27 11:47:00.804 | INFO     | __main__:main:284 - Pose21 | Chessboard detected
+2021-09-27 11:47:02.364 | INFO     | __main__:main:284 - Pose22 | Chessboard detected
+2021-09-27 11:47:02.499 | INFO     | __main__:main:284 - Pose23 | Chessboard detected
+2021-09-27 11:47:03.974 | INFO     | __main__:main:284 - Pose24 | Chessboard detected
+2021-09-27 11:47:05.525 | INFO     | __main__:main:284 - Pose25 | Chessboard detected
+2021-09-27 11:47:07.192 | INFO     | __main__:main:284 - Pose26 | Chessboard detected
+2021-09-27 11:47:08.838 | INFO     | __main__:main:284 - Pose27 | Chessboard detected
+2021-09-27 11:47:10.248 | INFO     | __main__:main:284 - Pose28 | Chessboard detected
+2021-09-27 11:47:11.685 | INFO     | __main__:main:315 - Pose29 | Chessboard NOT detected
+2021-09-27 11:47:11.693 | INFO     | __main__:main:284 - Pose30 | Chessboard detected
+2021-09-27 11:47:14.620 | INFO     | __main__:main:358 - Reprojection Error 68.09661516568742
+2021-09-27 11:48:30.433 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 10
+  height: 6
+
+2021-09-27 11:48:31.113 | INFO     | __main__:main:315 - Pose01 | Chessboard NOT detected
+2021-09-27 11:48:31.226 | INFO     | __main__:main:315 - Pose02 | Chessboard NOT detected
+2021-09-27 11:48:31.323 | INFO     | __main__:main:315 - Pose03 | Chessboard NOT detected
+2021-09-27 11:48:31.472 | INFO     | __main__:main:315 - Pose04 | Chessboard NOT detected
+2021-09-27 11:48:31.587 | INFO     | __main__:main:315 - Pose05 | Chessboard NOT detected
+2021-09-27 11:48:31.688 | INFO     | __main__:main:315 - Pose06 | Chessboard NOT detected
+2021-09-27 11:48:31.783 | INFO     | __main__:main:315 - Pose07 | Chessboard NOT detected
+2021-09-27 11:48:31.880 | INFO     | __main__:main:315 - Pose08 | Chessboard NOT detected
+2021-09-27 11:48:31.982 | INFO     | __main__:main:315 - Pose09 | Chessboard NOT detected
+2021-09-27 11:48:32.094 | INFO     | __main__:main:315 - Pose10 | Chessboard NOT detected
+2021-09-27 11:48:32.174 | INFO     | __main__:main:315 - Pose11 | Chessboard NOT detected
+2021-09-27 11:48:32.273 | INFO     | __main__:main:315 - Pose12 | Chessboard NOT detected
+2021-09-27 11:48:32.364 | INFO     | __main__:main:315 - Pose13 | Chessboard NOT detected
+2021-09-27 11:48:32.452 | INFO     | __main__:main:315 - Pose14 | Chessboard NOT detected
+2021-09-27 11:48:32.566 | INFO     | __main__:main:315 - Pose15 | Chessboard NOT detected
+2021-09-27 11:48:32.681 | INFO     | __main__:main:315 - Pose16 | Chessboard NOT detected
+2021-09-27 11:48:32.801 | INFO     | __main__:main:315 - Pose17 | Chessboard NOT detected
+2021-09-27 11:48:32.941 | INFO     | __main__:main:315 - Pose18 | Chessboard NOT detected
+2021-09-27 11:48:33.077 | INFO     | __main__:main:315 - Pose19 | Chessboard NOT detected
+2021-09-27 11:48:33.223 | INFO     | __main__:main:315 - Pose20 | Chessboard NOT detected
+2021-09-27 11:48:33.313 | INFO     | __main__:main:315 - Pose21 | Chessboard NOT detected
+2021-09-27 11:48:33.409 | INFO     | __main__:main:315 - Pose22 | Chessboard NOT detected
+2021-09-27 11:48:33.504 | INFO     | __main__:main:315 - Pose23 | Chessboard NOT detected
+2021-09-27 11:48:33.631 | INFO     | __main__:main:315 - Pose24 | Chessboard NOT detected
+2021-09-27 11:48:33.762 | INFO     | __main__:main:315 - Pose25 | Chessboard NOT detected
+2021-09-27 11:48:33.900 | INFO     | __main__:main:315 - Pose26 | Chessboard NOT detected
+2021-09-27 11:48:34.056 | INFO     | __main__:main:315 - Pose27 | Chessboard NOT detected
+2021-09-27 11:48:34.198 | INFO     | __main__:main:315 - Pose28 | Chessboard NOT detected
+2021-09-27 11:48:34.342 | INFO     | __main__:main:315 - Pose29 | Chessboard NOT detected
+2021-09-27 11:48:34.444 | INFO     | __main__:main:315 - Pose30 | Chessboard NOT detected
+2021-09-27 11:48:42.545 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 7
+
+2021-09-27 11:48:42.712 | INFO     | __main__:main:315 - Pose01 | Chessboard NOT detected
+2021-09-27 11:48:42.824 | INFO     | __main__:main:315 - Pose02 | Chessboard NOT detected
+2021-09-27 11:48:42.923 | INFO     | __main__:main:315 - Pose03 | Chessboard NOT detected
+2021-09-27 11:48:43.052 | INFO     | __main__:main:315 - Pose04 | Chessboard NOT detected
+2021-09-27 11:48:43.173 | INFO     | __main__:main:315 - Pose05 | Chessboard NOT detected
+2021-09-27 11:48:43.275 | INFO     | __main__:main:315 - Pose06 | Chessboard NOT detected
+2021-09-27 11:48:43.368 | INFO     | __main__:main:315 - Pose07 | Chessboard NOT detected
+2021-09-27 11:48:43.462 | INFO     | __main__:main:315 - Pose08 | Chessboard NOT detected
+2021-09-27 11:48:43.561 | INFO     | __main__:main:315 - Pose09 | Chessboard NOT detected
+2021-09-27 11:48:43.680 | INFO     | __main__:main:315 - Pose10 | Chessboard NOT detected
+2021-09-27 11:48:43.760 | INFO     | __main__:main:315 - Pose11 | Chessboard NOT detected
+2021-09-27 11:48:43.857 | INFO     | __main__:main:315 - Pose12 | Chessboard NOT detected
+2021-09-27 11:48:43.950 | INFO     | __main__:main:315 - Pose13 | Chessboard NOT detected
+2021-09-27 11:48:44.047 | INFO     | __main__:main:315 - Pose14 | Chessboard NOT detected
+2021-09-27 11:48:44.160 | INFO     | __main__:main:315 - Pose15 | Chessboard NOT detected
+2021-09-27 11:48:44.275 | INFO     | __main__:main:315 - Pose16 | Chessboard NOT detected
+2021-09-27 11:48:44.396 | INFO     | __main__:main:315 - Pose17 | Chessboard NOT detected
+2021-09-27 11:48:44.534 | INFO     | __main__:main:315 - Pose18 | Chessboard NOT detected
+2021-09-27 11:48:44.672 | INFO     | __main__:main:315 - Pose19 | Chessboard NOT detected
+2021-09-27 11:48:44.823 | INFO     | __main__:main:315 - Pose20 | Chessboard NOT detected
+2021-09-27 11:48:44.912 | INFO     | __main__:main:315 - Pose21 | Chessboard NOT detected
+2021-09-27 11:48:45.009 | INFO     | __main__:main:315 - Pose22 | Chessboard NOT detected
+2021-09-27 11:48:45.101 | INFO     | __main__:main:315 - Pose23 | Chessboard NOT detected
+2021-09-27 11:48:45.225 | INFO     | __main__:main:315 - Pose24 | Chessboard NOT detected
+2021-09-27 11:48:45.357 | INFO     | __main__:main:315 - Pose25 | Chessboard NOT detected
+2021-09-27 11:48:45.502 | INFO     | __main__:main:315 - Pose26 | Chessboard NOT detected
+2021-09-27 11:48:45.650 | INFO     | __main__:main:315 - Pose27 | Chessboard NOT detected
+2021-09-27 11:48:45.798 | INFO     | __main__:main:315 - Pose28 | Chessboard NOT detected
+2021-09-27 11:48:45.945 | INFO     | __main__:main:315 - Pose29 | Chessboard NOT detected
+2021-09-27 11:48:46.035 | INFO     | __main__:main:315 - Pose30 | Chessboard NOT detected
+2021-09-27 11:48:52.067 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 7
+  height: 6
+
+2021-09-27 11:48:52.247 | INFO     | __main__:main:315 - Pose01 | Chessboard NOT detected
+2021-09-27 11:48:52.360 | INFO     | __main__:main:315 - Pose02 | Chessboard NOT detected
+2021-09-27 11:48:52.460 | INFO     | __main__:main:315 - Pose03 | Chessboard NOT detected
+2021-09-27 11:48:52.591 | INFO     | __main__:main:315 - Pose04 | Chessboard NOT detected
+2021-09-27 11:48:52.708 | INFO     | __main__:main:315 - Pose05 | Chessboard NOT detected
+2021-09-27 11:48:52.809 | INFO     | __main__:main:315 - Pose06 | Chessboard NOT detected
+2021-09-27 11:48:52.900 | INFO     | __main__:main:315 - Pose07 | Chessboard NOT detected
+2021-09-27 11:48:52.997 | INFO     | __main__:main:315 - Pose08 | Chessboard NOT detected
+2021-09-27 11:48:53.095 | INFO     | __main__:main:315 - Pose09 | Chessboard NOT detected
+2021-09-27 11:48:53.207 | INFO     | __main__:main:315 - Pose10 | Chessboard NOT detected
+2021-09-27 11:48:53.287 | INFO     | __main__:main:315 - Pose11 | Chessboard NOT detected
+2021-09-27 11:48:53.387 | INFO     | __main__:main:315 - Pose12 | Chessboard NOT detected
+2021-09-27 11:48:53.480 | INFO     | __main__:main:315 - Pose13 | Chessboard NOT detected
+2021-09-27 11:48:53.570 | INFO     | __main__:main:315 - Pose14 | Chessboard NOT detected
+2021-09-27 11:48:53.684 | INFO     | __main__:main:315 - Pose15 | Chessboard NOT detected
+2021-09-27 11:48:53.801 | INFO     | __main__:main:315 - Pose16 | Chessboard NOT detected
+2021-09-27 11:48:53.920 | INFO     | __main__:main:315 - Pose17 | Chessboard NOT detected
+2021-09-27 11:48:54.062 | INFO     | __main__:main:315 - Pose18 | Chessboard NOT detected
+2021-09-27 11:48:54.199 | INFO     | __main__:main:315 - Pose19 | Chessboard NOT detected
+2021-09-27 11:48:54.346 | INFO     | __main__:main:315 - Pose20 | Chessboard NOT detected
+2021-09-27 11:48:54.433 | INFO     | __main__:main:315 - Pose21 | Chessboard NOT detected
+2021-09-27 11:48:54.530 | INFO     | __main__:main:315 - Pose22 | Chessboard NOT detected
+2021-09-27 11:48:54.623 | INFO     | __main__:main:315 - Pose23 | Chessboard NOT detected
+2021-09-27 11:48:54.746 | INFO     | __main__:main:315 - Pose24 | Chessboard NOT detected
+2021-09-27 11:48:54.877 | INFO     | __main__:main:315 - Pose25 | Chessboard NOT detected
+2021-09-27 11:48:55.009 | INFO     | __main__:main:315 - Pose26 | Chessboard NOT detected
+2021-09-27 11:48:55.149 | INFO     | __main__:main:315 - Pose27 | Chessboard NOT detected
+2021-09-27 11:48:55.287 | INFO     | __main__:main:315 - Pose28 | Chessboard NOT detected
+2021-09-27 11:48:55.433 | INFO     | __main__:main:315 - Pose29 | Chessboard NOT detected
+2021-09-27 11:48:55.528 | INFO     | __main__:main:315 - Pose30 | Chessboard NOT detected
+2021-09-27 11:48:59.144 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: false
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:48:59.239 | INFO     | __main__:main:284 - Pose01 | Chessboard detected
+2021-09-27 11:48:59.270 | INFO     | __main__:main:284 - Pose02 | Chessboard detected
+2021-09-27 11:48:59.315 | INFO     | __main__:main:284 - Pose03 | Chessboard detected
+2021-09-27 11:48:59.482 | INFO     | __main__:main:315 - Pose04 | Chessboard NOT detected
+2021-09-27 11:48:59.489 | INFO     | __main__:main:284 - Pose05 | Chessboard detected
+2021-09-27 11:48:59.543 | INFO     | __main__:main:284 - Pose06 | Chessboard detected
+2021-09-27 11:48:59.596 | INFO     | __main__:main:284 - Pose07 | Chessboard detected
+2021-09-27 11:48:59.632 | INFO     | __main__:main:284 - Pose08 | Chessboard detected
+2021-09-27 11:48:59.671 | INFO     | __main__:main:284 - Pose09 | Chessboard detected
+2021-09-27 11:48:59.741 | INFO     | __main__:main:284 - Pose10 | Chessboard detected
+2021-09-27 11:48:59.814 | INFO     | __main__:main:284 - Pose11 | Chessboard detected
+2021-09-27 11:48:59.912 | INFO     | __main__:main:284 - Pose12 | Chessboard detected
+2021-09-27 11:49:00.219 | INFO     | __main__:main:284 - Pose13 | Chessboard detected
+2021-09-27 11:49:01.857 | INFO     | __main__:main:284 - Pose14 | Chessboard detected
+2021-09-27 11:49:02.016 | INFO     | __main__:main:284 - Pose15 | Chessboard detected
+2021-09-27 11:49:02.530 | INFO     | __main__:main:284 - Pose16 | Chessboard detected
+2021-09-27 11:49:04.275 | INFO     | __main__:main:315 - Pose17 | Chessboard NOT detected
+2021-09-27 11:49:04.281 | INFO     | __main__:main:284 - Pose18 | Chessboard detected
+2021-09-27 11:49:05.937 | INFO     | __main__:main:284 - Pose19 | Chessboard detected
+2021-09-27 11:49:07.758 | INFO     | __main__:main:284 - Pose20 | Chessboard detected
+2021-09-27 11:49:09.839 | INFO     | __main__:main:284 - Pose21 | Chessboard detected
+2021-09-27 11:49:11.517 | INFO     | __main__:main:284 - Pose22 | Chessboard detected
+2021-09-27 11:49:11.649 | INFO     | __main__:main:284 - Pose23 | Chessboard detected
+2021-09-27 11:49:13.101 | INFO     | __main__:main:284 - Pose24 | Chessboard detected
+2021-09-27 11:49:14.693 | INFO     | __main__:main:284 - Pose25 | Chessboard detected
+2021-09-27 11:49:16.382 | INFO     | __main__:main:284 - Pose26 | Chessboard detected
+2021-09-27 11:49:18.035 | INFO     | __main__:main:284 - Pose27 | Chessboard detected
+2021-09-27 11:49:19.465 | INFO     | __main__:main:284 - Pose28 | Chessboard detected
+2021-09-27 11:49:20.898 | INFO     | __main__:main:315 - Pose29 | Chessboard NOT detected
+2021-09-27 11:49:20.905 | INFO     | __main__:main:284 - Pose30 | Chessboard detected
+2021-09-27 11:49:23.902 | INFO     | __main__:main:358 - Reprojection Error 68.09661516568742
+2021-09-27 11:50:14.535 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:50:14.628 | INFO     | __main__:main:284 - Pose01 | Chessboard detected
+2021-09-27 11:50:19.046 | INFO     | __main__:main:284 - Pose02 | Chessboard detected
+2021-09-27 11:50:20.827 | INFO     | __main__:main:284 - Pose03 | Chessboard detected
+2021-09-27 11:50:23.345 | INFO     | __main__:main:315 - Pose04 | Chessboard NOT detected
+2021-09-27 11:50:23.353 | INFO     | __main__:main:284 - Pose05 | Chessboard detected
+2021-09-27 11:50:25.140 | INFO     | __main__:main:284 - Pose06 | Chessboard detected
+2021-09-27 11:50:26.795 | INFO     | __main__:main:284 - Pose07 | Chessboard detected
+2021-09-27 11:50:28.704 | INFO     | __main__:main:284 - Pose08 | Chessboard detected
+2021-09-27 11:50:30.265 | INFO     | __main__:main:284 - Pose09 | Chessboard detected
+2021-09-27 11:50:32.155 | INFO     | __main__:main:284 - Pose10 | Chessboard detected
+2021-09-27 11:50:33.969 | INFO     | __main__:main:284 - Pose11 | Chessboard detected
+2021-09-27 11:50:35.531 | INFO     | __main__:main:284 - Pose12 | Chessboard detected
+2021-09-27 11:50:37.650 | INFO     | __main__:main:284 - Pose13 | Chessboard detected
+2021-09-27 11:50:41.186 | INFO     | __main__:main:284 - Pose14 | Chessboard detected
+2021-09-27 11:50:43.063 | INFO     | __main__:main:284 - Pose15 | Chessboard detected
+2021-09-27 11:50:45.442 | INFO     | __main__:main:284 - Pose16 | Chessboard detected
+2021-09-27 11:50:49.088 | INFO     | __main__:main:315 - Pose17 | Chessboard NOT detected
+2021-09-27 11:50:49.098 | INFO     | __main__:main:284 - Pose18 | Chessboard detected
+2021-09-27 11:50:52.430 | INFO     | __main__:main:284 - Pose19 | Chessboard detected
+2021-09-27 11:50:55.912 | INFO     | __main__:main:284 - Pose20 | Chessboard detected
+2021-09-27 11:51:00.048 | INFO     | __main__:main:284 - Pose21 | Chessboard detected
+2021-09-27 11:51:03.395 | INFO     | __main__:main:284 - Pose22 | Chessboard detected
+2021-09-27 11:51:04.924 | INFO     | __main__:main:284 - Pose23 | Chessboard detected
+2021-09-27 11:51:08.086 | INFO     | __main__:main:284 - Pose24 | Chessboard detected
+2021-09-27 11:51:11.111 | INFO     | __main__:main:284 - Pose25 | Chessboard detected
+2021-09-27 11:51:15.040 | INFO     | __main__:main:284 - Pose26 | Chessboard detected
+2021-09-27 11:51:19.307 | INFO     | __main__:main:284 - Pose27 | Chessboard detected
+2021-09-27 11:51:22.878 | INFO     | __main__:main:284 - Pose28 | Chessboard detected
+2021-09-27 11:51:26.535 | INFO     | __main__:main:315 - Pose29 | Chessboard NOT detected
+2021-09-27 11:51:26.546 | INFO     | __main__:main:284 - Pose30 | Chessboard detected
+2021-09-27 11:51:31.407 | INFO     | __main__:main:358 - Reprojection Error 68.09661516568742
+2021-09-27 11:52:04.080 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:52:04.173 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 11:52:04.179 | INFO     | __main__:main:288 - Pose02 | Chessboard detected
+2021-09-27 11:52:07.761 | INFO     | __main__:main:288 - Pose03 | Chessboard detected
+2021-09-27 11:52:09.528 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 11:52:09.537 | INFO     | __main__:main:288 - Pose05 | Chessboard detected
+2021-09-27 11:52:12.056 | INFO     | __main__:main:288 - Pose06 | Chessboard detected
+2021-09-27 11:52:13.752 | INFO     | __main__:main:288 - Pose07 | Chessboard detected
+2021-09-27 11:52:15.359 | INFO     | __main__:main:288 - Pose08 | Chessboard detected
+2021-09-27 11:52:17.130 | INFO     | __main__:main:288 - Pose09 | Chessboard detected
+2021-09-27 11:52:18.941 | INFO     | __main__:main:288 - Pose10 | Chessboard detected
+2021-09-27 11:52:20.718 | INFO     | __main__:main:288 - Pose11 | Chessboard detected
+2021-09-27 11:52:22.445 | INFO     | __main__:main:288 - Pose12 | Chessboard detected
+2021-09-27 11:52:24.461 | INFO     | __main__:main:288 - Pose13 | Chessboard detected
+2021-09-27 11:52:27.985 | INFO     | __main__:main:319 - Pose14 | Chessboard NOT detected
+2021-09-27 11:52:28.017 | INFO     | __main__:main:288 - Pose15 | Chessboard detected
+2021-09-27 11:52:30.313 | INFO     | __main__:main:288 - Pose16 | Chessboard detected
+2021-09-27 11:52:33.887 | INFO     | __main__:main:319 - Pose17 | Chessboard NOT detected
+2021-09-27 11:52:33.896 | INFO     | __main__:main:288 - Pose18 | Chessboard detected
+2021-09-27 11:52:37.858 | INFO     | __main__:main:288 - Pose19 | Chessboard detected
+2021-09-27 11:52:41.110 | INFO     | __main__:main:288 - Pose20 | Chessboard detected
+2021-09-27 11:52:44.865 | INFO     | __main__:main:288 - Pose21 | Chessboard detected
+2021-09-27 11:52:48.165 | INFO     | __main__:main:288 - Pose22 | Chessboard detected
+2021-09-27 11:52:50.510 | INFO     | __main__:main:288 - Pose23 | Chessboard detected
+2021-09-27 11:52:53.870 | INFO     | __main__:main:288 - Pose24 | Chessboard detected
+2021-09-27 11:52:57.310 | INFO     | __main__:main:288 - Pose25 | Chessboard detected
+2021-09-27 11:53:00.598 | INFO     | __main__:main:288 - Pose26 | Chessboard detected
+2021-09-27 11:53:04.163 | INFO     | __main__:main:288 - Pose27 | Chessboard detected
+2021-09-27 11:53:07.912 | INFO     | __main__:main:288 - Pose28 | Chessboard detected
+2021-09-27 11:53:11.080 | INFO     | __main__:main:319 - Pose29 | Chessboard NOT detected
+2021-09-27 11:53:11.089 | INFO     | __main__:main:288 - Pose30 | Chessboard detected
+2021-09-27 11:53:15.890 | INFO     | __main__:main:362 - Reprojection Error 70.9001721832315
+2021-09-27 11:54:12.570 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 10
+  height: 6
+
+2021-09-27 11:54:12.672 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 11:54:12.793 | INFO     | __main__:main:319 - Pose02 | Chessboard NOT detected
+2021-09-27 11:54:12.897 | INFO     | __main__:main:319 - Pose03 | Chessboard NOT detected
+2021-09-27 11:54:13.036 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 11:54:13.165 | INFO     | __main__:main:319 - Pose05 | Chessboard NOT detected
+2021-09-27 11:54:13.272 | INFO     | __main__:main:319 - Pose06 | Chessboard NOT detected
+2021-09-27 11:54:13.364 | INFO     | __main__:main:319 - Pose07 | Chessboard NOT detected
+2021-09-27 11:54:13.461 | INFO     | __main__:main:319 - Pose08 | Chessboard NOT detected
+2021-09-27 11:54:13.562 | INFO     | __main__:main:319 - Pose09 | Chessboard NOT detected
+2021-09-27 11:54:13.672 | INFO     | __main__:main:319 - Pose10 | Chessboard NOT detected
+2021-09-27 11:54:13.760 | INFO     | __main__:main:319 - Pose11 | Chessboard NOT detected
+2021-09-27 11:54:13.858 | INFO     | __main__:main:319 - Pose12 | Chessboard NOT detected
+2021-09-27 11:54:13.951 | INFO     | __main__:main:319 - Pose13 | Chessboard NOT detected
+2021-09-27 11:54:13.962 | INFO     | __main__:main:319 - Pose14 | Chessboard NOT detected
+2021-09-27 11:54:14.077 | INFO     | __main__:main:319 - Pose15 | Chessboard NOT detected
+2021-09-27 11:54:14.193 | INFO     | __main__:main:319 - Pose16 | Chessboard NOT detected
+2021-09-27 11:54:14.318 | INFO     | __main__:main:319 - Pose17 | Chessboard NOT detected
+2021-09-27 11:54:14.459 | INFO     | __main__:main:319 - Pose18 | Chessboard NOT detected
+2021-09-27 11:54:14.597 | INFO     | __main__:main:319 - Pose19 | Chessboard NOT detected
+2021-09-27 11:54:14.763 | INFO     | __main__:main:319 - Pose20 | Chessboard NOT detected
+2021-09-27 11:54:14.857 | INFO     | __main__:main:319 - Pose21 | Chessboard NOT detected
+2021-09-27 11:54:14.954 | INFO     | __main__:main:319 - Pose22 | Chessboard NOT detected
+2021-09-27 11:54:15.048 | INFO     | __main__:main:319 - Pose23 | Chessboard NOT detected
+2021-09-27 11:54:15.172 | INFO     | __main__:main:319 - Pose24 | Chessboard NOT detected
+2021-09-27 11:54:15.302 | INFO     | __main__:main:319 - Pose25 | Chessboard NOT detected
+2021-09-27 11:54:15.447 | INFO     | __main__:main:319 - Pose26 | Chessboard NOT detected
+2021-09-27 11:54:15.590 | INFO     | __main__:main:319 - Pose27 | Chessboard NOT detected
+2021-09-27 11:54:15.729 | INFO     | __main__:main:319 - Pose28 | Chessboard NOT detected
+2021-09-27 11:54:15.870 | INFO     | __main__:main:319 - Pose29 | Chessboard NOT detected
+2021-09-27 11:54:15.959 | INFO     | __main__:main:319 - Pose30 | Chessboard NOT detected
+2021-09-27 11:54:23.141 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 9
+
+2021-09-27 11:54:23.233 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 11:54:23.345 | INFO     | __main__:main:319 - Pose02 | Chessboard NOT detected
+2021-09-27 11:54:23.445 | INFO     | __main__:main:319 - Pose03 | Chessboard NOT detected
+2021-09-27 11:54:23.576 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 11:54:23.692 | INFO     | __main__:main:319 - Pose05 | Chessboard NOT detected
+2021-09-27 11:54:23.795 | INFO     | __main__:main:319 - Pose06 | Chessboard NOT detected
+2021-09-27 11:54:23.886 | INFO     | __main__:main:319 - Pose07 | Chessboard NOT detected
+2021-09-27 11:54:23.984 | INFO     | __main__:main:319 - Pose08 | Chessboard NOT detected
+2021-09-27 11:54:24.087 | INFO     | __main__:main:319 - Pose09 | Chessboard NOT detected
+2021-09-27 11:54:27.656 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 7
+
+2021-09-27 11:54:27.745 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 11:54:27.859 | INFO     | __main__:main:319 - Pose02 | Chessboard NOT detected
+2021-09-27 11:54:27.960 | INFO     | __main__:main:319 - Pose03 | Chessboard NOT detected
+2021-09-27 11:54:28.093 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 11:54:28.210 | INFO     | __main__:main:319 - Pose05 | Chessboard NOT detected
+2021-09-27 11:54:28.312 | INFO     | __main__:main:319 - Pose06 | Chessboard NOT detected
+2021-09-27 11:54:28.405 | INFO     | __main__:main:319 - Pose07 | Chessboard NOT detected
+2021-09-27 11:54:28.511 | INFO     | __main__:main:319 - Pose08 | Chessboard NOT detected
+2021-09-27 11:54:28.618 | INFO     | __main__:main:319 - Pose09 | Chessboard NOT detected
+2021-09-27 11:54:28.732 | INFO     | __main__:main:319 - Pose10 | Chessboard NOT detected
+2021-09-27 11:54:28.820 | INFO     | __main__:main:319 - Pose11 | Chessboard NOT detected
+2021-09-27 11:54:28.920 | INFO     | __main__:main:319 - Pose12 | Chessboard NOT detected
+2021-09-27 11:54:29.017 | INFO     | __main__:main:319 - Pose13 | Chessboard NOT detected
+2021-09-27 11:54:29.030 | INFO     | __main__:main:319 - Pose14 | Chessboard NOT detected
+2021-09-27 11:54:29.148 | INFO     | __main__:main:319 - Pose15 | Chessboard NOT detected
+2021-09-27 11:54:29.265 | INFO     | __main__:main:319 - Pose16 | Chessboard NOT detected
+2021-09-27 11:54:29.385 | INFO     | __main__:main:319 - Pose17 | Chessboard NOT detected
+2021-09-27 11:54:29.547 | INFO     | __main__:main:319 - Pose18 | Chessboard NOT detected
+2021-09-27 11:54:29.714 | INFO     | __main__:main:319 - Pose19 | Chessboard NOT detected
+2021-09-27 11:54:29.878 | INFO     | __main__:main:319 - Pose20 | Chessboard NOT detected
+2021-09-27 11:54:29.889 | INFO     | __main__:main:319 - Pose21 | Chessboard NOT detected
+2021-09-27 11:54:35.711 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 7
+  height: 6
+
+2021-09-27 11:54:35.800 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 11:54:35.912 | INFO     | __main__:main:319 - Pose02 | Chessboard NOT detected
+2021-09-27 11:54:36.013 | INFO     | __main__:main:319 - Pose03 | Chessboard NOT detected
+2021-09-27 11:54:36.145 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 11:54:36.264 | INFO     | __main__:main:319 - Pose05 | Chessboard NOT detected
+2021-09-27 11:54:36.377 | INFO     | __main__:main:319 - Pose06 | Chessboard NOT detected
+2021-09-27 11:54:36.471 | INFO     | __main__:main:319 - Pose07 | Chessboard NOT detected
+2021-09-27 11:54:36.569 | INFO     | __main__:main:319 - Pose08 | Chessboard NOT detected
+2021-09-27 11:54:44.210 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 7
+  height: 7
+
+2021-09-27 11:54:44.300 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 11:54:44.417 | INFO     | __main__:main:319 - Pose02 | Chessboard NOT detected
+2021-09-27 11:54:44.517 | INFO     | __main__:main:319 - Pose03 | Chessboard NOT detected
+2021-09-27 11:54:44.649 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 11:54:44.780 | INFO     | __main__:main:319 - Pose05 | Chessboard NOT detected
+2021-09-27 11:54:44.889 | INFO     | __main__:main:319 - Pose06 | Chessboard NOT detected
+2021-09-27 11:54:44.982 | INFO     | __main__:main:319 - Pose07 | Chessboard NOT detected
+2021-09-27 11:54:45.080 | INFO     | __main__:main:319 - Pose08 | Chessboard NOT detected
+2021-09-27 11:54:45.183 | INFO     | __main__:main:319 - Pose09 | Chessboard NOT detected
+2021-09-27 11:54:45.299 | INFO     | __main__:main:319 - Pose10 | Chessboard NOT detected
+2021-09-27 11:54:45.393 | INFO     | __main__:main:319 - Pose11 | Chessboard NOT detected
+2021-09-27 11:54:45.493 | INFO     | __main__:main:319 - Pose12 | Chessboard NOT detected
+2021-09-27 11:54:45.586 | INFO     | __main__:main:319 - Pose13 | Chessboard NOT detected
+2021-09-27 11:54:45.596 | INFO     | __main__:main:319 - Pose14 | Chessboard NOT detected
+2021-09-27 11:54:55.206 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 8
+  height: 8
+
+2021-09-27 11:54:55.305 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 11:54:55.429 | INFO     | __main__:main:319 - Pose02 | Chessboard NOT detected
+2021-09-27 11:54:55.529 | INFO     | __main__:main:319 - Pose03 | Chessboard NOT detected
+2021-09-27 11:54:55.663 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 11:54:55.782 | INFO     | __main__:main:319 - Pose05 | Chessboard NOT detected
+2021-09-27 11:54:55.888 | INFO     | __main__:main:319 - Pose06 | Chessboard NOT detected
+2021-09-27 11:54:55.981 | INFO     | __main__:main:319 - Pose07 | Chessboard NOT detected
+2021-09-27 11:54:56.078 | INFO     | __main__:main:319 - Pose08 | Chessboard NOT detected
+2021-09-27 11:54:56.181 | INFO     | __main__:main:319 - Pose09 | Chessboard NOT detected
+2021-09-27 11:54:56.293 | INFO     | __main__:main:319 - Pose10 | Chessboard NOT detected
+2021-09-27 11:54:56.383 | INFO     | __main__:main:319 - Pose11 | Chessboard NOT detected
+2021-09-27 11:55:03.252 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 5
+
+2021-09-27 11:55:03.346 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 11:55:03.470 | INFO     | __main__:main:319 - Pose02 | Chessboard NOT detected
+2021-09-27 11:55:03.578 | INFO     | __main__:main:319 - Pose03 | Chessboard NOT detected
+2021-09-27 11:55:03.715 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 11:55:03.832 | INFO     | __main__:main:319 - Pose05 | Chessboard NOT detected
+2021-09-27 11:55:03.933 | INFO     | __main__:main:319 - Pose06 | Chessboard NOT detected
+2021-09-27 11:55:04.026 | INFO     | __main__:main:319 - Pose07 | Chessboard NOT detected
+2021-09-27 11:55:04.124 | INFO     | __main__:main:319 - Pose08 | Chessboard NOT detected
+2021-09-27 11:55:04.226 | INFO     | __main__:main:319 - Pose09 | Chessboard NOT detected
+2021-09-27 11:55:04.337 | INFO     | __main__:main:319 - Pose10 | Chessboard NOT detected
+2021-09-27 11:55:04.423 | INFO     | __main__:main:319 - Pose11 | Chessboard NOT detected
+2021-09-27 11:55:04.525 | INFO     | __main__:main:319 - Pose12 | Chessboard NOT detected
+2021-09-27 11:55:08.719 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 8
+  height: 5
+
+2021-09-27 11:55:08.808 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 11:55:08.921 | INFO     | __main__:main:319 - Pose02 | Chessboard NOT detected
+2021-09-27 11:55:09.022 | INFO     | __main__:main:319 - Pose03 | Chessboard NOT detected
+2021-09-27 11:55:09.155 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 11:55:09.272 | INFO     | __main__:main:319 - Pose05 | Chessboard NOT detected
+2021-09-27 11:55:09.372 | INFO     | __main__:main:319 - Pose06 | Chessboard NOT detected
+2021-09-27 11:55:09.418 | INFO     | __main__:main:288 - Pose07 | Chessboard detected
+2021-09-27 11:55:13.013 | INFO     | __main__:main:319 - Pose08 | Chessboard NOT detected
+2021-09-27 11:55:13.118 | INFO     | __main__:main:319 - Pose09 | Chessboard NOT detected
+2021-09-27 11:55:13.236 | INFO     | __main__:main:319 - Pose10 | Chessboard NOT detected
+2021-09-27 11:55:13.326 | INFO     | __main__:main:319 - Pose11 | Chessboard NOT detected
+2021-09-27 11:55:13.429 | INFO     | __main__:main:319 - Pose12 | Chessboard NOT detected
+2021-09-27 11:55:13.534 | INFO     | __main__:main:319 - Pose13 | Chessboard NOT detected
+2021-09-27 11:55:13.545 | INFO     | __main__:main:319 - Pose14 | Chessboard NOT detected
+2021-09-27 11:55:13.667 | INFO     | __main__:main:319 - Pose15 | Chessboard NOT detected
+2021-09-27 11:55:13.785 | INFO     | __main__:main:319 - Pose16 | Chessboard NOT detected
+2021-09-27 11:55:13.908 | INFO     | __main__:main:319 - Pose17 | Chessboard NOT detected
+2021-09-27 11:55:14.065 | INFO     | __main__:main:319 - Pose18 | Chessboard NOT detected
+2021-09-27 11:55:14.220 | INFO     | __main__:main:319 - Pose19 | Chessboard NOT detected
+2021-09-27 11:55:14.389 | INFO     | __main__:main:319 - Pose20 | Chessboard NOT detected
+2021-09-27 11:55:14.484 | INFO     | __main__:main:319 - Pose21 | Chessboard NOT detected
+2021-09-27 11:55:14.589 | INFO     | __main__:main:319 - Pose22 | Chessboard NOT detected
+2021-09-27 11:55:14.699 | INFO     | __main__:main:319 - Pose23 | Chessboard NOT detected
+2021-09-27 11:55:14.849 | INFO     | __main__:main:319 - Pose24 | Chessboard NOT detected
+2021-09-27 11:55:14.996 | INFO     | __main__:main:319 - Pose25 | Chessboard NOT detected
+2021-09-27 11:55:15.150 | INFO     | __main__:main:319 - Pose26 | Chessboard NOT detected
+2021-09-27 11:55:15.294 | INFO     | __main__:main:319 - Pose27 | Chessboard NOT detected
+2021-09-27 11:55:15.434 | INFO     | __main__:main:319 - Pose28 | Chessboard NOT detected
+2021-09-27 11:55:15.578 | INFO     | __main__:main:319 - Pose29 | Chessboard NOT detected
+2021-09-27 11:55:15.666 | INFO     | __main__:main:319 - Pose30 | Chessboard NOT detected
+2021-09-27 11:55:15.698 | INFO     | __main__:main:362 - Reprojection Error 0.20612425034542864
+2021-09-27 11:57:07.610 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 11:57:07.752 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 11:57:07.758 | INFO     | __main__:main:288 - Pose02 | Chessboard detected
+2021-09-27 11:57:11.412 | INFO     | __main__:main:288 - Pose03 | Chessboard detected
+2021-09-27 11:57:12.899 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 11:57:12.908 | INFO     | __main__:main:288 - Pose05 | Chessboard detected
+2021-09-27 11:57:14.317 | INFO     | __main__:main:288 - Pose06 | Chessboard detected
+2021-09-27 11:57:16.066 | INFO     | __main__:main:288 - Pose07 | Chessboard detected
+2021-09-27 11:57:17.696 | INFO     | __main__:main:288 - Pose08 | Chessboard detected
+2021-09-27 11:57:19.293 | INFO     | __main__:main:288 - Pose09 | Chessboard detected
+2021-09-27 11:57:21.589 | INFO     | __main__:main:288 - Pose10 | Chessboard detected
+2021-09-27 11:57:23.455 | INFO     | __main__:main:288 - Pose11 | Chessboard detected
+2021-09-27 11:57:25.060 | INFO     | __main__:main:288 - Pose12 | Chessboard detected
+2021-09-27 11:57:27.114 | INFO     | __main__:main:288 - Pose13 | Chessboard detected
+2021-09-27 11:57:30.381 | INFO     | __main__:main:319 - Pose14 | Chessboard NOT detected
+2021-09-27 11:57:30.411 | INFO     | __main__:main:288 - Pose15 | Chessboard detected
+2021-09-27 11:57:32.528 | INFO     | __main__:main:288 - Pose16 | Chessboard detected
+2021-09-27 11:57:36.217 | INFO     | __main__:main:319 - Pose17 | Chessboard NOT detected
+2021-09-27 11:57:36.227 | INFO     | __main__:main:288 - Pose18 | Chessboard detected
+2021-09-27 11:57:39.943 | INFO     | __main__:main:288 - Pose19 | Chessboard detected
+2021-09-27 11:57:43.031 | INFO     | __main__:main:288 - Pose20 | Chessboard detected
+2021-09-27 11:57:46.449 | INFO     | __main__:main:288 - Pose21 | Chessboard detected
+2021-09-27 11:57:49.598 | INFO     | __main__:main:288 - Pose22 | Chessboard detected
+2021-09-27 11:57:51.452 | INFO     | __main__:main:288 - Pose23 | Chessboard detected
+2021-09-27 11:57:54.265 | INFO     | __main__:main:288 - Pose24 | Chessboard detected
+2021-09-27 11:57:57.474 | INFO     | __main__:main:288 - Pose25 | Chessboard detected
+2021-09-27 11:58:00.522 | INFO     | __main__:main:288 - Pose26 | Chessboard detected
+2021-09-27 11:58:03.517 | INFO     | __main__:main:288 - Pose27 | Chessboard detected
+2021-09-27 11:58:06.803 | INFO     | __main__:main:288 - Pose28 | Chessboard detected
+2021-09-27 11:58:09.738 | INFO     | __main__:main:319 - Pose29 | Chessboard NOT detected
+2021-09-27 11:58:09.747 | INFO     | __main__:main:288 - Pose30 | Chessboard detected
+2021-09-27 11:58:30.422 | INFO     | __main__:main:362 - Reprojection Error 70.34532333362462
+2021-09-27 12:05:09.473 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:05:33.901 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:05:34.001 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 12:05:34.009 | INFO     | __main__:main:288 - Pose02 | Chessboard detected
+2021-09-27 12:05:37.552 | INFO     | __main__:main:288 - Pose03 | Chessboard detected
+2021-09-27 12:05:39.014 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 12:05:39.021 | INFO     | __main__:main:288 - Pose05 | Chessboard detected
+2021-09-27 12:05:40.380 | INFO     | __main__:main:288 - Pose06 | Chessboard detected
+2021-09-27 12:05:42.502 | INFO     | __main__:main:288 - Pose07 | Chessboard detected
+2021-09-27 12:05:44.090 | INFO     | __main__:main:288 - Pose08 | Chessboard detected
+2021-09-27 12:05:45.975 | INFO     | __main__:main:288 - Pose09 | Chessboard detected
+2021-09-27 12:05:47.827 | INFO     | __main__:main:288 - Pose10 | Chessboard detected
+2021-09-27 12:05:49.683 | INFO     | __main__:main:288 - Pose11 | Chessboard detected
+2021-09-27 12:05:51.343 | INFO     | __main__:main:288 - Pose12 | Chessboard detected
+2021-09-27 12:05:53.186 | INFO     | __main__:main:288 - Pose13 | Chessboard detected
+2021-09-27 12:05:56.510 | INFO     | __main__:main:319 - Pose14 | Chessboard NOT detected
+2021-09-27 12:05:56.542 | INFO     | __main__:main:288 - Pose15 | Chessboard detected
+2021-09-27 12:05:58.884 | INFO     | __main__:main:288 - Pose16 | Chessboard detected
+2021-09-27 12:06:02.090 | INFO     | __main__:main:319 - Pose17 | Chessboard NOT detected
+2021-09-27 12:06:02.097 | INFO     | __main__:main:288 - Pose18 | Chessboard detected
+2021-09-27 12:06:05.535 | INFO     | __main__:main:288 - Pose19 | Chessboard detected
+2021-09-27 12:06:08.820 | INFO     | __main__:main:288 - Pose20 | Chessboard detected
+2021-09-27 12:06:12.134 | INFO     | __main__:main:288 - Pose21 | Chessboard detected
+2021-09-27 12:06:15.276 | INFO     | __main__:main:288 - Pose22 | Chessboard detected
+2021-09-27 12:06:17.368 | INFO     | __main__:main:288 - Pose23 | Chessboard detected
+2021-09-27 12:06:20.550 | INFO     | __main__:main:288 - Pose24 | Chessboard detected
+2021-09-27 12:06:23.564 | INFO     | __main__:main:288 - Pose25 | Chessboard detected
+2021-09-27 12:06:27.396 | INFO     | __main__:main:288 - Pose26 | Chessboard detected
+2021-09-27 12:06:30.772 | INFO     | __main__:main:288 - Pose27 | Chessboard detected
+2021-09-27 12:06:34.295 | INFO     | __main__:main:288 - Pose28 | Chessboard detected
+2021-09-27 12:06:37.440 | INFO     | __main__:main:319 - Pose29 | Chessboard NOT detected
+2021-09-27 12:06:37.449 | INFO     | __main__:main:288 - Pose30 | Chessboard detected
+2021-09-27 12:06:44.352 | INFO     | __main__:main:362 - Reprojection Error 103.30418569475287
+2021-09-27 12:07:01.454 | INFO     | __main__:main:231 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:07:01.544 | INFO     | __main__:main:319 - Pose01 | Chessboard NOT detected
+2021-09-27 12:07:01.551 | INFO     | __main__:main:288 - Pose02 | Chessboard detected
+2021-09-27 12:07:05.087 | INFO     | __main__:main:288 - Pose03 | Chessboard detected
+2021-09-27 12:07:06.636 | INFO     | __main__:main:319 - Pose04 | Chessboard NOT detected
+2021-09-27 12:07:06.644 | INFO     | __main__:main:288 - Pose05 | Chessboard detected
+2021-09-27 12:07:08.029 | INFO     | __main__:main:288 - Pose06 | Chessboard detected
+2021-09-27 12:07:09.561 | INFO     | __main__:main:288 - Pose07 | Chessboard detected
+2021-09-27 12:07:10.903 | INFO     | __main__:main:288 - Pose08 | Chessboard detected
+2021-09-27 12:07:12.339 | INFO     | __main__:main:288 - Pose09 | Chessboard detected
+2021-09-27 12:07:13.895 | INFO     | __main__:main:288 - Pose10 | Chessboard detected
+2021-09-27 12:07:15.553 | INFO     | __main__:main:288 - Pose11 | Chessboard detected
+2021-09-27 12:07:17.017 | INFO     | __main__:main:288 - Pose12 | Chessboard detected
+2021-09-27 12:07:18.656 | INFO     | __main__:main:288 - Pose13 | Chessboard detected
+2021-09-27 12:07:21.816 | INFO     | __main__:main:319 - Pose14 | Chessboard NOT detected
+2021-09-27 12:07:21.847 | INFO     | __main__:main:288 - Pose15 | Chessboard detected
+2021-09-27 12:07:23.831 | INFO     | __main__:main:288 - Pose16 | Chessboard detected
+2021-09-27 12:07:27.017 | INFO     | __main__:main:319 - Pose17 | Chessboard NOT detected
+2021-09-27 12:07:27.026 | INFO     | __main__:main:288 - Pose18 | Chessboard detected
+2021-09-27 12:07:30.226 | INFO     | __main__:main:288 - Pose19 | Chessboard detected
+2021-09-27 12:07:33.230 | INFO     | __main__:main:288 - Pose20 | Chessboard detected
+2021-09-27 12:07:36.431 | INFO     | __main__:main:288 - Pose21 | Chessboard detected
+2021-09-27 12:07:39.555 | INFO     | __main__:main:288 - Pose22 | Chessboard detected
+2021-09-27 12:07:41.319 | INFO     | __main__:main:288 - Pose23 | Chessboard detected
+2021-09-27 12:07:44.343 | INFO     | __main__:main:288 - Pose24 | Chessboard detected
+2021-09-27 12:07:47.470 | INFO     | __main__:main:288 - Pose25 | Chessboard detected
+2021-09-27 12:07:50.635 | INFO     | __main__:main:288 - Pose26 | Chessboard detected
+2021-09-27 12:07:54.182 | INFO     | __main__:main:288 - Pose27 | Chessboard detected
+2021-09-27 12:07:57.562 | INFO     | __main__:main:288 - Pose28 | Chessboard detected
+2021-09-27 12:08:00.504 | INFO     | __main__:main:319 - Pose29 | Chessboard NOT detected
+2021-09-27 12:08:00.514 | INFO     | __main__:main:288 - Pose30 | Chessboard detected
+2021-09-27 12:08:18.083 | INFO     | __main__:main:362 - Reprojection Error 77.02309013285594
+2021-09-27 12:12:12.907 | INFO     | __main__:main:256 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:12:12.998 | INFO     | __main__:main:302 - Pose01 | Chessboard detected
+2021-09-27 12:12:16.493 | INFO     | __main__:main:302 - Pose02 | Chessboard detected
+2021-09-27 12:12:17.881 | INFO     | __main__:main:302 - Pose03 | Chessboard detected
+2021-09-27 12:12:19.437 | INFO     | __main__:main:333 - Pose04 | Chessboard NOT detected
+2021-09-27 12:12:19.446 | INFO     | __main__:main:302 - Pose05 | Chessboard detected
+2021-09-27 12:12:21.091 | INFO     | __main__:main:302 - Pose06 | Chessboard detected
+2021-09-27 12:12:22.417 | INFO     | __main__:main:302 - Pose07 | Chessboard detected
+2021-09-27 12:12:23.848 | INFO     | __main__:main:302 - Pose08 | Chessboard detected
+2021-09-27 12:12:25.185 | INFO     | __main__:main:302 - Pose09 | Chessboard detected
+2021-09-27 12:12:26.737 | INFO     | __main__:main:302 - Pose10 | Chessboard detected
+2021-09-27 12:12:28.128 | INFO     | __main__:main:302 - Pose11 | Chessboard detected
+2021-09-27 12:12:29.713 | INFO     | __main__:main:302 - Pose12 | Chessboard detected
+2021-09-27 12:12:31.700 | INFO     | __main__:main:302 - Pose13 | Chessboard detected
+2021-09-27 12:12:34.647 | INFO     | __main__:main:302 - Pose14 | Chessboard detected
+2021-09-27 12:12:36.174 | INFO     | __main__:main:302 - Pose15 | Chessboard detected
+2021-09-27 12:12:38.159 | INFO     | __main__:main:302 - Pose16 | Chessboard detected
+2021-09-27 12:12:41.490 | INFO     | __main__:main:302 - Pose17 | Chessboard detected
+2021-09-27 12:12:43.956 | INFO     | __main__:main:302 - Pose18 | Chessboard detected
+2021-09-27 12:12:47.285 | INFO     | __main__:main:302 - Pose19 | Chessboard detected
+2021-09-27 12:12:50.680 | INFO     | __main__:main:302 - Pose20 | Chessboard detected
+2021-09-27 12:12:53.798 | INFO     | __main__:main:302 - Pose21 | Chessboard detected
+2021-09-27 12:12:56.808 | INFO     | __main__:main:302 - Pose22 | Chessboard detected
+2021-09-27 12:12:58.277 | INFO     | __main__:main:302 - Pose23 | Chessboard detected
+2021-09-27 12:13:01.211 | INFO     | __main__:main:302 - Pose24 | Chessboard detected
+2021-09-27 12:13:04.912 | INFO     | __main__:main:302 - Pose25 | Chessboard detected
+2021-09-27 12:13:08.093 | INFO     | __main__:main:302 - Pose26 | Chessboard detected
+2021-09-27 12:13:11.232 | INFO     | __main__:main:302 - Pose27 | Chessboard detected
+2021-09-27 12:13:14.162 | INFO     | __main__:main:302 - Pose28 | Chessboard detected
+2021-09-27 12:13:16.935 | INFO     | __main__:main:333 - Pose29 | Chessboard NOT detected
+2021-09-27 12:13:16.943 | INFO     | __main__:main:302 - Pose30 | Chessboard detected
+2021-09-27 12:13:51.687 | INFO     | __main__:main:376 - Reprojection Error 77.49346633366983
+2021-09-27 12:21:58.681 | INFO     | __main__:main:256 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses:
+  - 5
+  - 10
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:22:25.576 | INFO     | __main__:main:256 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses:
+  - 5
+  - 10
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:22:25.678 | INFO     | __main__:main:318 - Pose01 | Chessboard detected
+2021-09-27 12:22:29.367 | INFO     | __main__:main:318 - Pose02 | Chessboard detected
+2021-09-27 12:22:30.750 | INFO     | __main__:main:318 - Pose03 | Chessboard detected
+2021-09-27 12:22:32.231 | INFO     | __main__:main:349 - Pose04 | Chessboard NOT detected
+2021-09-27 12:22:32.247 | INFO     | __main__:main:318 - Pose05 | Chessboard detected
+2021-09-27 12:22:33.864 | INFO     | __main__:main:318 - Pose06 | Chessboard detected
+2021-09-27 12:22:35.221 | INFO     | __main__:main:318 - Pose07 | Chessboard detected
+2021-09-27 12:22:36.830 | INFO     | __main__:main:318 - Pose08 | Chessboard detected
+2021-09-27 12:22:38.415 | INFO     | __main__:main:318 - Pose09 | Chessboard detected
+2021-09-27 12:22:40.329 | INFO     | __main__:main:318 - Pose10 | Chessboard detected
+2021-09-27 12:22:42.114 | INFO     | __main__:main:318 - Pose11 | Chessboard detected
+2021-09-27 12:22:43.708 | INFO     | __main__:main:318 - Pose12 | Chessboard detected
+2021-09-27 12:22:45.799 | INFO     | __main__:main:318 - Pose13 | Chessboard detected
+2021-09-27 12:22:49.556 | INFO     | __main__:main:318 - Pose14 | Chessboard detected
+2021-09-27 12:22:51.193 | INFO     | __main__:main:318 - Pose15 | Chessboard detected
+2021-09-27 12:22:53.403 | INFO     | __main__:main:318 - Pose16 | Chessboard detected
+2021-09-27 12:22:56.654 | INFO     | __main__:main:318 - Pose17 | Chessboard detected
+2021-09-27 12:22:59.661 | INFO     | __main__:main:318 - Pose18 | Chessboard detected
+2021-09-27 12:23:02.820 | INFO     | __main__:main:318 - Pose19 | Chessboard detected
+2021-09-27 12:23:06.340 | INFO     | __main__:main:318 - Pose20 | Chessboard detected
+2021-09-27 12:23:09.499 | INFO     | __main__:main:318 - Pose21 | Chessboard detected
+2021-09-27 12:23:12.539 | INFO     | __main__:main:318 - Pose22 | Chessboard detected
+2021-09-27 12:23:14.191 | INFO     | __main__:main:318 - Pose23 | Chessboard detected
+2021-09-27 12:23:17.860 | INFO     | __main__:main:318 - Pose24 | Chessboard detected
+2021-09-27 12:23:21.632 | INFO     | __main__:main:318 - Pose25 | Chessboard detected
+2021-09-27 12:23:24.739 | INFO     | __main__:main:318 - Pose26 | Chessboard detected
+2021-09-27 12:23:28.359 | INFO     | __main__:main:318 - Pose27 | Chessboard detected
+2021-09-27 12:23:31.194 | INFO     | __main__:main:318 - Pose28 | Chessboard detected
+2021-09-27 12:23:34.032 | INFO     | __main__:main:349 - Pose29 | Chessboard NOT detected
+2021-09-27 12:23:34.051 | INFO     | __main__:main:318 - Pose30 | Chessboard detected
+2021-09-27 12:23:37.062 | INFO     | __main__:main:352 - Calibrating Intrinsics
+2021-09-27 12:23:47.746 | INFO     | __main__:main:377 - Calibrating Stereo
+2021-09-27 12:24:06.049 | INFO     | __main__:main:394 - Reprojection Error 212.92281196377635
+2021-09-27 12:27:34.348 | INFO     | __main__:main:256 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses:
+  - 5
+  - 10
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:30:46.724 | INFO     | __main__:main:256 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses: '[5, 10]'
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:31:20.677 | INFO     | __main__:main:257 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses: '[5, 10]'
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:31:21.446 | INFO     | __main__:main:286 - Pose01 | Chessboard detected
+2021-09-27 12:34:17.675 | INFO     | __main__:main:276 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses: '[5, 10]'
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:34:37.090 | INFO     | __main__:main:276 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses: '[5, 10]'
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:34:37.275 | INFO     | __main__:main:338 - Pose01 | Chessboard detected
+2021-09-27 12:34:42.257 | INFO     | __main__:main:338 - Pose02 | Chessboard detected
+2021-09-27 12:34:45.792 | INFO     | __main__:main:338 - Pose03 | Chessboard detected
+2021-09-27 12:34:48.892 | INFO     | __main__:main:376 - Pose04 | Chessboard NOT detected
+2021-09-27 12:34:48.910 | INFO     | __main__:main:338 - Pose05 | Chessboard detected
+2021-09-27 12:34:51.617 | INFO     | __main__:main:338 - Pose06 | Chessboard detected
+2021-09-27 12:34:54.295 | INFO     | __main__:main:338 - Pose07 | Chessboard detected
+2021-09-27 12:34:56.846 | INFO     | __main__:main:338 - Pose08 | Chessboard detected
+2021-09-27 12:34:59.639 | INFO     | __main__:main:338 - Pose09 | Chessboard detected
+2021-09-27 12:35:02.096 | INFO     | __main__:main:338 - Pose10 | Chessboard detected
+2021-09-27 12:35:04.786 | INFO     | __main__:main:338 - Pose11 | Chessboard detected
+2021-09-27 12:35:07.507 | INFO     | __main__:main:338 - Pose12 | Chessboard detected
+2021-09-27 12:35:10.657 | INFO     | __main__:main:338 - Pose13 | Chessboard detected
+2021-09-27 12:35:14.779 | INFO     | __main__:main:338 - Pose14 | Chessboard detected
+2021-09-27 12:35:17.510 | INFO     | __main__:main:338 - Pose15 | Chessboard detected
+2021-09-27 12:35:21.357 | INFO     | __main__:main:338 - Pose16 | Chessboard detected
+2021-09-27 12:35:25.957 | INFO     | __main__:main:338 - Pose17 | Chessboard detected
+2021-09-27 12:35:30.314 | INFO     | __main__:main:338 - Pose18 | Chessboard detected
+2021-09-27 12:35:35.551 | INFO     | __main__:main:338 - Pose19 | Chessboard detected
+2021-09-27 12:35:40.538 | INFO     | __main__:main:338 - Pose20 | Chessboard detected
+2021-09-27 12:35:44.987 | INFO     | __main__:main:338 - Pose21 | Chessboard detected
+2021-09-27 12:35:49.708 | INFO     | __main__:main:338 - Pose22 | Chessboard detected
+2021-09-27 12:35:53.477 | INFO     | __main__:main:338 - Pose23 | Chessboard detected
+2021-09-27 12:35:57.721 | INFO     | __main__:main:338 - Pose24 | Chessboard detected
+2021-09-27 12:36:02.964 | INFO     | __main__:main:338 - Pose25 | Chessboard detected
+2021-09-27 12:36:07.640 | INFO     | __main__:main:338 - Pose26 | Chessboard detected
+2021-09-27 12:36:12.414 | INFO     | __main__:main:338 - Pose27 | Chessboard detected
+2021-09-27 12:36:16.973 | INFO     | __main__:main:338 - Pose28 | Chessboard detected
+2021-09-27 12:36:21.740 | INFO     | __main__:main:376 - Pose29 | Chessboard NOT detected
+2021-09-27 12:36:21.762 | INFO     | __main__:main:338 - Pose30 | Chessboard detected
+2021-09-27 12:36:27.131 | INFO     | __main__:main:379 - Calibrating Intrinsics
+2021-09-27 12:36:39.128 | INFO     | __main__:main:404 - Calibrating Stereo
+2021-09-27 12:36:58.035 | INFO     | __main__:main:421 - Reprojection Error 212.92281196377635
+2021-09-27 12:39:05.763 | INFO     | __main__:main:276 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses: '[5, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26,
+    27, 28, 29, 30]'
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:39:05.864 | INFO     | __main__:main:338 - Pose01 | Chessboard detected
+2021-09-27 12:39:10.491 | INFO     | __main__:main:338 - Pose02 | Chessboard detected
+2021-09-27 12:39:12.978 | INFO     | __main__:main:338 - Pose03 | Chessboard detected
+2021-09-27 12:39:15.597 | INFO     | __main__:main:376 - Pose04 | Chessboard NOT detected
+2021-09-27 12:39:15.612 | INFO     | __main__:main:338 - Pose05 | Chessboard detected
+2021-09-27 12:39:18.176 | INFO     | __main__:main:338 - Pose06 | Chessboard detected
+2021-09-27 12:39:20.809 | INFO     | __main__:main:338 - Pose07 | Chessboard detected
+2021-09-27 12:39:43.427 | INFO     | __main__:main:276 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses: '[5, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26,
+    27, 28, 29, 30]'
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:40:05.709 | INFO     | __main__:main:276 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses: '[5, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26,
+    27, 28, 29, 30]'
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:40:46.221 | INFO     | __main__:main:278 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses: '[5, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26,
+    27, 28, 29, 30]'
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:41:58.366 | INFO     | __main__:main:275 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses: '[5, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26,
+    27, 28, 29, 30]'
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:42:39.790 | INFO     | __main__:main:275 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses: '[5, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26,
+    27, 28, 29, 30]'
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:42:55.666 | INFO     | __main__:main:275 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses:
+  - 5
+  - 10
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:42:55.768 | INFO     | __main__:main:337 - Pose01 | Chessboard detected
+2021-09-27 12:43:00.394 | INFO     | __main__:main:337 - Pose02 | Chessboard detected
+2021-09-27 12:43:03.191 | INFO     | __main__:main:337 - Pose03 | Chessboard detected
+2021-09-27 12:43:05.990 | INFO     | __main__:main:375 - Pose04 | Chessboard NOT detected
+2021-09-27 12:43:05.990 | INFO     | __main__:main:304 - Excluding Pose05
+2021-09-27 12:43:06.006 | INFO     | __main__:main:337 - Pose06 | Chessboard detected
+2021-09-27 12:43:08.780 | INFO     | __main__:main:337 - Pose07 | Chessboard detected
+2021-09-27 12:43:11.585 | INFO     | __main__:main:337 - Pose08 | Chessboard detected
+2021-09-27 12:43:14.190 | INFO     | __main__:main:337 - Pose09 | Chessboard detected
+2021-09-27 12:43:17.020 | INFO     | __main__:main:304 - Excluding Pose10
+2021-09-27 12:43:17.038 | INFO     | __main__:main:337 - Pose11 | Chessboard detected
+2021-09-27 12:43:19.642 | INFO     | __main__:main:304 - Excluding Pose12
+2021-09-27 12:43:19.643 | INFO     | __main__:main:304 - Excluding Pose13
+2021-09-27 12:43:19.644 | INFO     | __main__:main:304 - Excluding Pose14
+2021-09-27 12:43:19.644 | INFO     | __main__:main:304 - Excluding Pose15
+2021-09-27 12:43:19.645 | INFO     | __main__:main:304 - Excluding Pose16
+2021-09-27 12:43:19.646 | INFO     | __main__:main:304 - Excluding Pose17
+2021-09-27 12:43:19.646 | INFO     | __main__:main:304 - Excluding Pose18
+2021-09-27 12:43:19.647 | INFO     | __main__:main:304 - Excluding Pose19
+2021-09-27 12:43:19.648 | INFO     | __main__:main:304 - Excluding Pose20
+2021-09-27 12:43:19.649 | INFO     | __main__:main:304 - Excluding Pose21
+2021-09-27 12:43:19.662 | INFO     | __main__:main:337 - Pose22 | Chessboard detected
+2021-09-27 12:43:22.451 | INFO     | __main__:main:304 - Excluding Pose23
+2021-09-27 12:43:22.452 | INFO     | __main__:main:304 - Excluding Pose24
+2021-09-27 12:43:22.453 | INFO     | __main__:main:304 - Excluding Pose25
+2021-09-27 12:43:22.454 | INFO     | __main__:main:304 - Excluding Pose26
+2021-09-27 12:43:22.454 | INFO     | __main__:main:304 - Excluding Pose27
+2021-09-27 12:43:22.455 | INFO     | __main__:main:304 - Excluding Pose28
+2021-09-27 12:43:22.456 | INFO     | __main__:main:304 - Excluding Pose29
+2021-09-27 12:43:22.457 | INFO     | __main__:main:304 - Excluding Pose30
+2021-09-27 12:43:22.457 | INFO     | __main__:main:378 - Calibrating Intrinsics
+2021-09-27 12:43:22.513 | INFO     | __main__:main:403 - Calibrating Stereo
+2021-09-27 12:43:26.663 | INFO     | __main__:main:420 - Reprojection Error 0.8920203893880715
+2021-09-27 12:44:53.936 | INFO     | __main__:main:275 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses:
+  - 5
+  - 10
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:44:54.033 | INFO     | __main__:main:337 - Pose01 | Chessboard detected
+2021-09-27 12:44:58.690 | INFO     | __main__:main:337 - Pose02 | Chessboard detected
+2021-09-27 12:45:01.278 | INFO     | __main__:main:337 - Pose03 | Chessboard detected
+2021-09-27 12:45:04.121 | INFO     | __main__:main:375 - Pose04 | Chessboard NOT detected
+2021-09-27 12:45:04.124 | INFO     | __main__:main:304 - Excluding Pose05
+2021-09-27 12:45:04.139 | INFO     | __main__:main:337 - Pose06 | Chessboard detected
+2021-09-27 12:45:06.648 | INFO     | __main__:main:337 - Pose07 | Chessboard detected
+2021-09-27 12:45:09.426 | INFO     | __main__:main:337 - Pose08 | Chessboard detected
+2021-09-27 12:45:11.784 | INFO     | __main__:main:337 - Pose09 | Chessboard detected
+2021-09-27 12:45:14.334 | INFO     | __main__:main:304 - Excluding Pose10
+2021-09-27 12:45:14.354 | INFO     | __main__:main:337 - Pose11 | Chessboard detected
+2021-09-27 12:45:17.001 | INFO     | __main__:main:304 - Excluding Pose12
+2021-09-27 12:45:17.004 | INFO     | __main__:main:304 - Excluding Pose13
+2021-09-27 12:45:17.007 | INFO     | __main__:main:304 - Excluding Pose14
+2021-09-27 12:45:17.010 | INFO     | __main__:main:304 - Excluding Pose15
+2021-09-27 12:45:17.014 | INFO     | __main__:main:304 - Excluding Pose16
+2021-09-27 12:45:17.018 | INFO     | __main__:main:304 - Excluding Pose17
+2021-09-27 12:45:17.021 | INFO     | __main__:main:304 - Excluding Pose18
+2021-09-27 12:45:17.024 | INFO     | __main__:main:304 - Excluding Pose19
+2021-09-27 12:45:17.026 | INFO     | __main__:main:304 - Excluding Pose20
+2021-09-27 12:45:17.028 | INFO     | __main__:main:304 - Excluding Pose21
+2021-09-27 12:45:17.043 | INFO     | __main__:main:337 - Pose22 | Chessboard detected
+2021-09-27 12:45:19.859 | INFO     | __main__:main:304 - Excluding Pose23
+2021-09-27 12:45:19.861 | INFO     | __main__:main:304 - Excluding Pose24
+2021-09-27 12:45:19.864 | INFO     | __main__:main:304 - Excluding Pose25
+2021-09-27 12:45:19.868 | INFO     | __main__:main:304 - Excluding Pose26
+2021-09-27 12:45:19.870 | INFO     | __main__:main:304 - Excluding Pose27
+2021-09-27 12:45:19.872 | INFO     | __main__:main:304 - Excluding Pose28
+2021-09-27 12:45:19.874 | INFO     | __main__:main:304 - Excluding Pose29
+2021-09-27 12:45:19.888 | INFO     | __main__:main:337 - Pose30 | Chessboard detected
+2021-09-27 12:45:24.067 | INFO     | __main__:main:378 - Calibrating Intrinsics
+2021-09-27 12:45:24.171 | INFO     | __main__:main:403 - Calibrating Stereo
+2021-09-27 12:45:28.832 | INFO     | __main__:main:420 - Reprojection Error 17.303237114452298
+2021-09-27 12:46:26.496 | INFO     | __main__:main:275 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses:
+  - 5
+  - 10
+  - 12
+  - 13
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:46:26.599 | INFO     | __main__:main:337 - Pose01 | Chessboard detected
+2021-09-27 12:46:31.966 | INFO     | __main__:main:337 - Pose02 | Chessboard detected
+2021-09-27 12:46:34.822 | INFO     | __main__:main:337 - Pose03 | Chessboard detected
+2021-09-27 12:46:37.719 | INFO     | __main__:main:375 - Pose04 | Chessboard NOT detected
+2021-09-27 12:46:37.719 | INFO     | __main__:main:304 - Excluding Pose05
+2021-09-27 12:46:37.735 | INFO     | __main__:main:337 - Pose06 | Chessboard detected
+2021-09-27 12:46:40.691 | INFO     | __main__:main:337 - Pose07 | Chessboard detected
+2021-09-27 12:46:43.889 | INFO     | __main__:main:337 - Pose08 | Chessboard detected
+2021-09-27 12:46:47.161 | INFO     | __main__:main:337 - Pose09 | Chessboard detected
+2021-09-27 12:46:50.469 | INFO     | __main__:main:304 - Excluding Pose10
+2021-09-27 12:46:50.491 | INFO     | __main__:main:337 - Pose11 | Chessboard detected
+2021-09-27 12:46:53.664 | INFO     | __main__:main:304 - Excluding Pose12
+2021-09-27 12:46:53.665 | INFO     | __main__:main:304 - Excluding Pose13
+2021-09-27 12:46:53.689 | INFO     | __main__:main:337 - Pose14 | Chessboard detected
+2021-09-27 12:46:56.792 | INFO     | __main__:main:304 - Excluding Pose15
+2021-09-27 12:46:56.793 | INFO     | __main__:main:304 - Excluding Pose16
+2021-09-27 12:46:56.794 | INFO     | __main__:main:304 - Excluding Pose17
+2021-09-27 12:46:56.794 | INFO     | __main__:main:304 - Excluding Pose18
+2021-09-27 12:46:56.795 | INFO     | __main__:main:304 - Excluding Pose19
+2021-09-27 12:46:56.796 | INFO     | __main__:main:304 - Excluding Pose20
+2021-09-27 12:46:56.796 | INFO     | __main__:main:304 - Excluding Pose21
+2021-09-27 12:46:56.812 | INFO     | __main__:main:337 - Pose22 | Chessboard detected
+2021-09-27 12:47:00.224 | INFO     | __main__:main:304 - Excluding Pose23
+2021-09-27 12:47:00.225 | INFO     | __main__:main:304 - Excluding Pose24
+2021-09-27 12:47:00.226 | INFO     | __main__:main:304 - Excluding Pose25
+2021-09-27 12:47:00.228 | INFO     | __main__:main:304 - Excluding Pose26
+2021-09-27 12:47:00.229 | INFO     | __main__:main:304 - Excluding Pose27
+2021-09-27 12:47:00.230 | INFO     | __main__:main:304 - Excluding Pose28
+2021-09-27 12:47:00.231 | INFO     | __main__:main:304 - Excluding Pose29
+2021-09-27 12:47:00.233 | INFO     | __main__:main:304 - Excluding Pose30
+2021-09-27 12:47:00.235 | INFO     | __main__:main:378 - Calibrating Intrinsics
+2021-09-27 12:47:00.305 | INFO     | __main__:main:403 - Calibrating Stereo
+2021-09-27 12:47:05.623 | INFO     | __main__:main:420 - Reprojection Error 0.8989434494195174
+2021-09-27 12:47:32.888 | INFO     | __main__:main:275 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses:
+  - 10
+  - 12
+  - 13
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-27 12:47:32.995 | INFO     | __main__:main:337 - Pose01 | Chessboard detected
+2021-09-27 12:47:37.428 | INFO     | __main__:main:337 - Pose02 | Chessboard detected
+2021-09-27 12:47:40.173 | INFO     | __main__:main:337 - Pose03 | Chessboard detected
+2021-09-27 12:47:43.544 | INFO     | __main__:main:375 - Pose04 | Chessboard NOT detected
+2021-09-27 12:47:43.562 | INFO     | __main__:main:337 - Pose05 | Chessboard detected
+2021-09-27 12:47:46.338 | INFO     | __main__:main:337 - Pose06 | Chessboard detected
+2021-09-27 12:47:49.663 | INFO     | __main__:main:337 - Pose07 | Chessboard detected
+2021-09-27 12:47:52.579 | INFO     | __main__:main:337 - Pose08 | Chessboard detected
+2021-09-27 12:47:55.476 | INFO     | __main__:main:337 - Pose09 | Chessboard detected
+2021-09-27 12:47:58.274 | INFO     | __main__:main:304 - Excluding Pose10
+2021-09-27 12:47:58.291 | INFO     | __main__:main:337 - Pose11 | Chessboard detected
+2021-09-27 12:48:00.950 | INFO     | __main__:main:304 - Excluding Pose12
+2021-09-27 12:48:00.951 | INFO     | __main__:main:304 - Excluding Pose13
+2021-09-27 12:48:00.976 | INFO     | __main__:main:337 - Pose14 | Chessboard detected
+2021-09-27 12:48:04.262 | INFO     | __main__:main:304 - Excluding Pose15
+2021-09-27 12:48:04.263 | INFO     | __main__:main:304 - Excluding Pose16
+2021-09-27 12:48:04.264 | INFO     | __main__:main:304 - Excluding Pose17
+2021-09-27 12:48:04.266 | INFO     | __main__:main:304 - Excluding Pose18
+2021-09-27 12:48:04.266 | INFO     | __main__:main:304 - Excluding Pose19
+2021-09-27 12:48:04.267 | INFO     | __main__:main:304 - Excluding Pose20
+2021-09-27 12:48:04.268 | INFO     | __main__:main:304 - Excluding Pose21
+2021-09-27 12:48:04.290 | INFO     | __main__:main:337 - Pose22 | Chessboard detected
+2021-09-27 12:48:07.474 | INFO     | __main__:main:304 - Excluding Pose23
+2021-09-27 12:48:07.475 | INFO     | __main__:main:304 - Excluding Pose24
+2021-09-27 12:48:07.476 | INFO     | __main__:main:304 - Excluding Pose25
+2021-09-27 12:48:07.477 | INFO     | __main__:main:304 - Excluding Pose26
+2021-09-27 12:48:07.477 | INFO     | __main__:main:304 - Excluding Pose27
+2021-09-27 12:48:07.478 | INFO     | __main__:main:304 - Excluding Pose28
+2021-09-27 12:48:07.478 | INFO     | __main__:main:304 - Excluding Pose29
+2021-09-27 12:48:07.479 | INFO     | __main__:main:304 - Excluding Pose30
+2021-09-27 12:48:07.479 | INFO     | __main__:main:378 - Calibrating Intrinsics
+2021-09-27 12:48:07.556 | INFO     | __main__:main:403 - Calibrating Stereo
+2021-09-27 12:48:13.072 | INFO     | __main__:main:420 - Reprojection Error 2.32818298396308
+2021-09-28 06:56:59.549 | INFO     | __main__:main:275 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses:
+  - 5
+  - 10
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-28 06:57:01.608 | INFO     | __main__:main:337 - Pose01 | Chessboard detected
+2021-09-28 06:57:07.892 | INFO     | __main__:main:337 - Pose02 | Chessboard detected
+2021-09-28 06:57:11.863 | INFO     | __main__:main:337 - Pose03 | Chessboard detected
+2021-09-28 06:57:16.820 | INFO     | __main__:main:375 - Pose04 | Chessboard NOT detected
+2021-09-28 06:57:16.821 | INFO     | __main__:main:304 - Excluding Pose05
+2021-09-28 06:57:16.842 | INFO     | __main__:main:337 - Pose06 | Chessboard detected
+2021-09-28 06:57:20.112 | INFO     | __main__:main:337 - Pose07 | Chessboard detected
+2021-09-28 06:57:23.911 | INFO     | __main__:main:337 - Pose08 | Chessboard detected
+2021-09-28 06:57:28.095 | INFO     | __main__:main:337 - Pose09 | Chessboard detected
+2021-09-28 06:57:31.744 | INFO     | __main__:main:304 - Excluding Pose10
+2021-09-28 06:57:31.769 | INFO     | __main__:main:337 - Pose11 | Chessboard detected
+2021-09-28 06:57:34.899 | INFO     | __main__:main:337 - Pose12 | Chessboard detected
+2021-09-28 06:57:38.624 | INFO     | __main__:main:337 - Pose13 | Chessboard detected
+2021-09-28 06:57:41.873 | INFO     | __main__:main:337 - Pose14 | Chessboard detected
+2021-09-28 06:57:45.881 | INFO     | __main__:main:337 - Pose15 | Chessboard detected
+2021-09-28 06:57:49.195 | INFO     | __main__:main:337 - Pose16 | Chessboard detected
+2021-09-28 06:57:52.294 | INFO     | __main__:main:337 - Pose17 | Chessboard detected
+2021-09-28 06:57:56.086 | INFO     | __main__:main:337 - Pose18 | Chessboard detected
+2021-09-28 06:57:58.681 | INFO     | __main__:main:337 - Pose19 | Chessboard detected
+2021-09-28 06:58:01.284 | INFO     | __main__:main:337 - Pose20 | Chessboard detected
+2021-09-28 06:58:03.950 | INFO     | __main__:main:337 - Pose21 | Chessboard detected
+2021-09-28 06:58:08.060 | INFO     | __main__:main:337 - Pose22 | Chessboard detected
+2021-09-28 06:58:10.694 | INFO     | __main__:main:337 - Pose23 | Chessboard detected
+2021-09-28 06:58:13.737 | INFO     | __main__:main:337 - Pose24 | Chessboard detected
+2021-09-28 06:58:16.993 | INFO     | __main__:main:337 - Pose25 | Chessboard detected
+2021-09-28 06:58:20.707 | INFO     | __main__:main:337 - Pose26 | Chessboard detected
+2021-09-28 06:58:24.545 | INFO     | __main__:main:337 - Pose27 | Chessboard detected
+2021-09-28 06:58:28.035 | INFO     | __main__:main:337 - Pose28 | Chessboard detected
+2021-09-28 06:58:31.715 | INFO     | __main__:main:375 - Pose29 | Chessboard NOT detected
+2021-09-28 06:58:31.729 | INFO     | __main__:main:337 - Pose30 | Chessboard detected
+2021-09-28 06:58:35.173 | INFO     | __main__:main:378 - Calibrating Intrinsics
+2021-09-28 06:58:35.821 | INFO     | __main__:main:403 - Calibrating Stereo
+2021-09-28 06:58:54.815 | INFO     | __main__:main:420 - Reprojection Error 6.726209154847078
+2021-09-28 07:02:45.826 | INFO     | __main__:main:275 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses:
+  - 10
+  - 15
+  - 16
+  - 17
+  - 18
+  - 25
+  - 26
+  - 28
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-28 07:02:46.495 | INFO     | __main__:main:337 - Pose01 | Chessboard detected
+2021-09-28 07:02:51.202 | INFO     | __main__:main:337 - Pose02 | Chessboard detected
+2021-09-28 07:02:53.847 | INFO     | __main__:main:337 - Pose03 | Chessboard detected
+2021-09-28 07:02:56.829 | INFO     | __main__:main:375 - Pose04 | Chessboard NOT detected
+2021-09-28 07:02:56.845 | INFO     | __main__:main:337 - Pose05 | Chessboard detected
+2021-09-28 07:03:00.127 | INFO     | __main__:main:337 - Pose06 | Chessboard detected
+2021-09-28 07:03:03.609 | INFO     | __main__:main:337 - Pose07 | Chessboard detected
+2021-09-28 07:03:06.698 | INFO     | __main__:main:337 - Pose08 | Chessboard detected
+2021-09-28 07:03:09.558 | INFO     | __main__:main:337 - Pose09 | Chessboard detected
+2021-09-28 07:03:12.119 | INFO     | __main__:main:304 - Excluding Pose10
+2021-09-28 07:03:12.139 | INFO     | __main__:main:337 - Pose11 | Chessboard detected
+2021-09-28 07:03:14.886 | INFO     | __main__:main:337 - Pose12 | Chessboard detected
+2021-09-28 07:03:17.354 | INFO     | __main__:main:337 - Pose13 | Chessboard detected
+2021-09-28 07:03:20.193 | INFO     | __main__:main:337 - Pose14 | Chessboard detected
+2021-09-28 07:03:22.873 | INFO     | __main__:main:304 - Excluding Pose15
+2021-09-28 07:03:22.876 | INFO     | __main__:main:304 - Excluding Pose16
+2021-09-28 07:03:22.877 | INFO     | __main__:main:304 - Excluding Pose17
+2021-09-28 07:03:22.879 | INFO     | __main__:main:304 - Excluding Pose18
+2021-09-28 07:03:22.893 | INFO     | __main__:main:337 - Pose19 | Chessboard detected
+2021-09-28 07:03:25.469 | INFO     | __main__:main:337 - Pose20 | Chessboard detected
+2021-09-28 07:03:28.296 | INFO     | __main__:main:337 - Pose21 | Chessboard detected
+2021-09-28 07:03:30.841 | INFO     | __main__:main:337 - Pose22 | Chessboard detected
+2021-09-28 07:03:33.442 | INFO     | __main__:main:337 - Pose23 | Chessboard detected
+2021-09-28 07:03:36.155 | INFO     | __main__:main:337 - Pose24 | Chessboard detected
+2021-09-28 07:03:39.166 | INFO     | __main__:main:304 - Excluding Pose25
+2021-09-28 07:03:39.168 | INFO     | __main__:main:304 - Excluding Pose26
+2021-09-28 07:03:39.195 | INFO     | __main__:main:337 - Pose27 | Chessboard detected
+2021-09-28 07:03:41.929 | INFO     | __main__:main:304 - Excluding Pose28
+2021-09-28 07:03:42.022 | INFO     | __main__:main:375 - Pose29 | Chessboard NOT detected
+2021-09-28 07:03:42.038 | INFO     | __main__:main:337 - Pose30 | Chessboard detected
+2021-09-28 07:03:44.643 | INFO     | __main__:main:378 - Calibrating Intrinsics
+2021-09-28 07:03:44.989 | INFO     | __main__:main:403 - Calibrating Stereo
+2021-09-28 07:03:56.827 | INFO     | __main__:main:420 - Reprojection Error 4.851621516330715
+2021-09-28 07:04:21.013 | INFO     | __main__:main:275 - exp_name: intrinsic_extrinsic
+plot: true
+show: false
+savefig: true
+capture_date: 22nd_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+  exclude_poses:
+  - 10
+  - 15
+  - 16
+  - 17
+  - 18
+  - 25
+  - 26
+  - 28
+  method: local_homography
+  method_kwargs:
+    window_size: 10
+projector:
+  height: 1080
+  width: 1920
+spad:
+  height: 256
+  width: 512
+  mask:
+    file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major
+    rotate_180: true
+chessboard:
+  width: 9
+  height: 6
+
+2021-09-28 07:04:21.117 | INFO     | __main__:main:337 - Pose01 | Chessboard detected
+2021-09-28 07:04:25.756 | INFO     | __main__:main:337 - Pose02 | Chessboard detected
+2021-09-28 07:04:28.198 | INFO     | __main__:main:337 - Pose03 | Chessboard detected
+2021-09-28 07:04:30.774 | INFO     | __main__:main:375 - Pose04 | Chessboard NOT detected
+2021-09-28 07:04:30.783 | INFO     | __main__:main:337 - Pose05 | Chessboard detected
+2021-09-28 07:04:33.366 | INFO     | __main__:main:337 - Pose06 | Chessboard detected
+2021-09-28 07:04:36.035 | INFO     | __main__:main:337 - Pose07 | Chessboard detected
+2021-09-28 07:04:38.450 | INFO     | __main__:main:337 - Pose08 | Chessboard detected
+2021-09-28 07:04:41.092 | INFO     | __main__:main:337 - Pose09 | Chessboard detected
+2021-09-28 07:04:43.688 | INFO     | __main__:main:304 - Excluding Pose10
+2021-09-28 07:04:43.700 | INFO     | __main__:main:337 - Pose11 | Chessboard detected
+2021-09-28 07:04:46.433 | INFO     | __main__:main:337 - Pose12 | Chessboard detected
+2021-09-28 07:04:48.922 | INFO     | __main__:main:337 - Pose13 | Chessboard detected
+2021-09-28 07:04:51.747 | INFO     | __main__:main:337 - Pose14 | Chessboard detected
+2021-09-28 07:04:54.383 | INFO     | __main__:main:304 - Excluding Pose15
+2021-09-28 07:04:54.385 | INFO     | __main__:main:304 - Excluding Pose16
+2021-09-28 07:04:54.386 | INFO     | __main__:main:304 - Excluding Pose17
+2021-09-28 07:04:54.388 | INFO     | __main__:main:304 - Excluding Pose18
+2021-09-28 07:04:54.395 | INFO     | __main__:main:337 - Pose19 | Chessboard detected
+2021-09-28 07:04:56.905 | INFO     | __main__:main:337 - Pose20 | Chessboard detected
+2021-09-28 07:04:59.741 | INFO     | __main__:main:337 - Pose21 | Chessboard detected
+2021-09-28 07:05:02.221 | INFO     | __main__:main:337 - Pose22 | Chessboard detected
+2021-09-28 07:05:04.918 | INFO     | __main__:main:337 - Pose23 | Chessboard detected
+2021-09-28 07:05:07.494 | INFO     | __main__:main:337 - Pose24 | Chessboard detected
+2021-09-28 07:05:10.456 | INFO     | __main__:main:304 - Excluding Pose25
+2021-09-28 07:05:10.458 | INFO     | __main__:main:304 - Excluding Pose26
+2021-09-28 07:05:10.465 | INFO     | __main__:main:337 - Pose27 | Chessboard detected
+2021-09-28 07:05:13.102 | INFO     | __main__:main:304 - Excluding Pose28
+2021-09-28 07:05:13.208 | INFO     | __main__:main:375 - Pose29 | Chessboard NOT detected
+2021-09-28 07:05:13.217 | INFO     | __main__:main:337 - Pose30 | Chessboard detected
+2021-09-28 07:05:15.868 | INFO     | __main__:main:378 - Calibrating Intrinsics
+2021-09-28 07:05:16.138 | INFO     | __main__:main:403 - Calibrating Stereo
+2021-09-28 07:05:28.102 | INFO     | __main__:main:420 - Reprojection Error 4.851856431013295

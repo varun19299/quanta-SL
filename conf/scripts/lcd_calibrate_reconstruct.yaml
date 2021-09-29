@@ -2,35 +2,34 @@ defaults:
   - hydra
   - override hydra/job_logging: none
 
-exp_name: intrinsic_extrinsic
-
-plot: True
+exp_name: reconstruct
 show: False
 savefig: True
-
 capture_date: 22nd_September
+
 outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}
 
-correspondence:
-  mat_file: ${outfolder}/correspondence_data.mat
-  exclude_poses: [10, 15, 16, 17, 18, 25, 26, 28]
-  method: local_homography # or rounding, homography
-  method_kwargs:
-    window_size: 10
+# Numbered 1,...,30
+pose:
+  index: 20
 
 projector:
-  height: 1080
   width: 1920
+  height: 1080
 
 spad:
-  height: 256
   width: 512
+  height: 256
   mask:
     file: ${outfolder}/calibration/bpIndex_3000_0.7_8.mat
     key: bpIndices
     order: col-major # or row-major
     rotate_180: True
 
-chessboard:
-  width: 9 # internal corners
-  height: 6 # internal corners
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+
+calibration:
+  file_name: stereo_model
+  mat_file: ${outfolder}/${calibration.file_name}.mat
+  npz_file: ${outfolder}/${calibration.file_name}.npz
