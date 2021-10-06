@@ -1,4 +1,5 @@
 from pathlib import Path
+from roipoly import RoiPoly
 
 import hydra
 from loguru import logger
@@ -80,7 +81,11 @@ def main(cfg):
     height_range = np.arange(cfg.spad.height)
     camera_pixels = np.meshgrid(width_range, height_range)
 
-    mask = img > 0.07
+    plt.imshow(img)
+    my_roi = RoiPoly(color='r')
+    my_roi.display_roi()
+
+    mask = my_roi.get_mask(img)
     valid_indices = np.where(mask)
 
     camera_pixels = np.stack(

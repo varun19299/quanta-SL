@@ -7,17 +7,19 @@ from loguru import logger
 
 logger.disable("quanta_SL")
 
-pose_index_range = range(1, 31)
+pose_index_range = range(10, 31)
 
 frame_range = range(1, 25)
 frame_index = 1
 bin_range = range(0, 10)
 bursts_per_pattern = 10
 bin_offset = 0
+capture_date = "22nd_September"
+capture_date = "30th_September"
 
 for pose_index in pose_index_range:
     folder = Path(
-        f"outputs/real_captures/LCD_projector/22nd_September/calibration/pose{pose_index:02d}/"
+        f"outputs/real_captures/LCD_projector/{capture_date}/calibration/pose{pose_index:02d}/"
     )
 
     transition_folder = folder / "transition"
