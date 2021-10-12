@@ -268,8 +268,8 @@ def find_projector_corners(
 
 
 @hydra.main(
-    config_path="../../../conf/scripts",
-    config_name=f"lcd_calibrate_{Path(__file__).stem}",
+    config_path="../../conf/lcd/calibrate",
+    config_name=Path(__file__).stem,
 )
 def main(cfg: DictConfig):
     logger.info(OmegaConf.to_yaml(cfg))

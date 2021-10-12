@@ -1,0 +1,12 @@
+# Hydra configs
+hydra:
+  output_subdir: null # disable shifting output directories
+  run:
+    dir: ./scripts/
+  sweep:
+    dir: ./scripts/${exp_name}/
+  job:
+    config:
+      override_dirname:
+        exclude_keys:
+          - exp_name

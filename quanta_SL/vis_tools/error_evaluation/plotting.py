@@ -425,8 +425,8 @@ def multiple_surface_plotly_3d(
             zaxis=dict(title=error_metric.long_name, tickfont_size=12),
         ),
         scene_aspectmode="cube",
-        scene_camera_eye=dict(x=1.4, y=1.4, z=1.4),
-        legend=dict(yanchor="top", y=0.99, xanchor="right", x=0.99),
+        scene_camera_eye=dict(x=1.61, y=1.61, z=0.25),
+        legend=dict(yanchor="top", y=0.9, xanchor="right", x=0.87),
         font=dict(size=18),
     )
 
@@ -441,8 +441,8 @@ def multiple_surface_plotly_3d(
     if savefig:
         out_path = plot_dir / f"{outname}/comparison_of_{'_'.join(names)}"
         out_path.parent.mkdir(exist_ok=True, parents=True)
-        fig.write_image(str(out_path) + ".pdf")
-        fig.write_image(str(out_path) + ".png")
+        fig.write_image(str(out_path) + ".pdf", scale=4)
+        fig.write_image(str(out_path) + ".png", scale=4)
         fig.write_html(str(out_path) + ".html", include_plotlyjs="cdn")
 
 

@@ -33,7 +33,7 @@ def _get_strategies(
 ):
     strategy_ll = [
         CallableEval(
-            f"No Coding [{repetition_tuple.k} bits]", no_coding, coding_kwargs
+            f"Conv. Gray [{repetition_tuple.k} bits]", no_coding, coding_kwargs
         ),
         CallableEval(
             f"{repetition_tuple}",
@@ -157,10 +157,10 @@ if __name__ == "__main__":
     if FAISS_GPUs:
         num = 256
     else:
-        num = 64
+        num = 256
 
     phi_proj = np.logspace(4, 5, num=num)
-    phi_A = np.logspace(3, 4, num=num)
+    phi_A = np.logspace(2.75, 3.75, num=num)
 
     # DMD framerate
     # 0.1 millisecond or 10^4 FPS
@@ -170,12 +170,16 @@ if __name__ == "__main__":
         show=False,
         plot_3d=True,
         savefig=True,
-        plot_dir=Path("outputs/strategy_comparison/bch_vs_repetition/"),
+        plot_dir=Path("outputs/strategy_comparison/bch_vs_repetition_paper/"),
     )
-    coding_kwargs = dict(monte_carlo_iter=5)
+    coding_kwargs = dict(monte_carlo_iter=1)
+
+    if FAISS_GPUs:
+        coding_kwargs["monte_carlo_iter"] = 10
 
     # Repetition vs BCH
-    redundancy_ll = [3, 6, 13, 26]
+    # redundancy_ll = [3, 6, 13, 26]
+    redundancy_ll = [26]
     oversampling_ll = [1, 5]
 
     for redundancy_factor in redundancy_ll:

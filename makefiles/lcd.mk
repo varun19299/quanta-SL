@@ -1,10 +1,10 @@
 # lcd.%: Generic lcd make command
 #lcd.%:
-#	${PYTHON} scripts/lcd/$*.py
+#	${PYTHON} quanta_SL/lcd/$*.py
 
 ## lcd.calibrate.% : Generic lcd calibrate command
 lcd.calibrate.%:
-	${PYTHON} scripts/lcd/calibrate/$*.py $(HYDRA_FLAGS)
+	${PYTHON} quanta_SL/lcd/calibrate/$*.py $(HYDRA_FLAGS)
 
 ## lcd_calibrate: Run all calibration steps
 LCD_CALIBRATE_DEPS := lcd.calibrate.decode_correspondences

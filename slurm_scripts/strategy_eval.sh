@@ -8,7 +8,7 @@
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 #SBATCH --cpus-per-task=8       # cpu-cores per task (>1 if multi-threaded tasks)
 #SBATCH --mem-per-cpu=4G         # memory per cpu-core
-#SBATCH --time=3:00:00          # total run time limit (HH:MM:SS)
+#SBATCH --time=8:00:00          # total run time limit (HH:MM:SS)
 #SBATCH --gres=gpu:1 # GPU needed ##SBATCH --array=0-1
 
 # Mailing stuff
@@ -27,6 +27,7 @@ nvidia-smi
 
 # Conda stuff
 module load nvidia/cuda/11.3.1
+zsh
 source ~/.zshrc
 micromamba activate torch38
 
@@ -41,4 +42,4 @@ fi
 
 # Start Job here
 export PYTHONPATH=.
-python quanta_SL/vis_tools/comparison_scripts/${1}.py
+make eval.comparison.${1}

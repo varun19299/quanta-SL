@@ -10,7 +10,7 @@ import numpy as np
 import cv2
 import open3d
 from quanta_SL.reconstruct.project3d import CameraMatrix, triangulate_ray_plane
-from scripts.lcd.calibrate import get_intrinsic_extrinsic
+from quanta_SL.lcd.calibrate import get_intrinsic_extrinsic
 
 # Disable inner logging
 logger.disable("quanta_SL")
@@ -31,7 +31,7 @@ plt.rcParams.update(params)
 
 
 @hydra.main(
-    config_path="../../../conf/scripts",
+    config_path="../../conf/scripts",
     config_name=f"lcd_calibrate_{Path(__file__).stem}",
 )
 def main(cfg):

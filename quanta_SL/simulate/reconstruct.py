@@ -248,7 +248,7 @@ def single_exposure_run(cfg: DictConfig) -> float:
     return mean_l1_error
 
 
-@hydra.main(config_path="../../conf", config_name="config")
+@hydra.main(config_path="../conf", config_name="config")
 def main(cfg: DictConfig) -> float:
     if isinstance(cfg.sensor.get("exposure", None), ListConfig):
         mean_l1_error_ll = []

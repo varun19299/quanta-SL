@@ -4,7 +4,7 @@ from pathlib import Path
 import hydra
 import numpy as np
 from dotmap import DotMap
-from einops import rearrange, repeat
+from einops import repeat
 from hydra.utils import get_original_cwd
 from loguru import logger
 from matplotlib import pyplot as plt
@@ -25,10 +25,11 @@ from quanta_SL.io import load_swiss_spad_sequence, load_swiss_spad_bin
 from quanta_SL.ops.binary import packbits_strided
 from quanta_SL.utils.memoize import MemoizeNumpy
 from quanta_SL.utils.plotting import save_plot, ax_imshow_with_colorbar
+from quanta_SL.lcd.decode_helper import decode_2d_code
 
 # Disable inner logging
 logger.disable("quanta_SL")
-logger.add(f"logs/lcd_{Path(__file__).stem}{{time}}.log", rotation="daily", retention=3)
+logger.add(f"logs/lcd_{Path(__file__).stem}.log", rotation="daily", retention=3)
 
 plt.style.use(["science", "grid"])
 params = {
@@ -229,17 +230,7 @@ def get_repetition_binary_gt_sequence(
     return gt_sequence, binary_sequence
 
 
-def decode_2d_code(sequence_array, code_LUT, decoding_func):
-    n, r, c = sequence_array.shape
-
-    sequence_flat = rearrange(sequence_array, "n r c -> (r c) n")
-    decoded_flat = decoding_func(sequence_flat, code_LUT)
-    decoded_array = rearrange(decoded_flat, "(r c) -> r c", r=r, c=c)
-
-    return decoded_array
-
-
-@hydra.main(config_path="../../conf/scripts", config_name=f"lcd_{Path(__file__).stem}")
+@hydra.main(config_path="../conf/lcd", config_name=Path(__file__))
 def main(cfg):
     print(OmegaConf.to_yaml(cfg))
 
