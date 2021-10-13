@@ -1,6 +1,11 @@
 defaults:
+  - methods:
+    - repetition_conv_77
+    - hybrid_63
+    - hybrid_255
   - ../hydra
   - override hydra/job_logging: none
+
 
 exp_name: real_captures
 show: False
@@ -13,36 +18,3 @@ projector:
   width: 1920
   height: 1080
   crop_mode: center
-
-hybrid:
-  folder: ${outfolder}/Hybrid BCH [255, 9] [gray_message] comp/
-  message_bits: 11
-  overlap_bits: 1
-  bch_tuple: [255, 9, 63]
-  bch_message_bits: 8
-  message_mapping: gray_message
-  rotate_180: True
-  visualize_frame: False
-  binary_frame:
-    # Each burst has 512 frames
-    # For GT
-    bursts_per_pattern: 10
-    bin_suffix_range: range(6, 10)
-    # For single binary frame
-    index: 10
-
-repetition:
-  folder: ${outfolder}/Long Run Gray Code [11 bits] comp/
-  message_bits: 11
-  repetition_tuple: [275, 11, 12]
-  multi_sample: True
-  message_mapping: long_run_gray_message
-  rotate_180: True
-  visualize_frame: True
-  binary_frame:
-    # Each burst has 512 frames
-    # For GT
-    bursts_per_pattern: 10
-    bin_suffix_range: range(6, 10)
-    # For single binary frame
-    index: 10
