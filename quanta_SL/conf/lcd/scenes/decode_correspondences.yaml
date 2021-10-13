@@ -15,14 +15,14 @@ projector:
   crop_mode: center
 
 hybrid:
-  folder: ${outfolder}/Hybrid BCH [127, 8] [gray_message] comp/
+  folder: ${outfolder}/Hybrid BCH [255, 9] [gray_message] comp/
   message_bits: 11
   overlap_bits: 1
-  bch_tuple: [127, 8, 31]
+  bch_tuple: [255, 9, 63]
   bch_message_bits: 8
   message_mapping: gray_message
   rotate_180: True
-  visualize_frame: True
+  visualize_frame: False
   binary_frame:
     # Each burst has 512 frames
     # For GT
@@ -34,7 +34,7 @@ hybrid:
 repetition:
   folder: ${outfolder}/Long Run Gray Code [11 bits] comp/
   message_bits: 11
-  repetition_tuple: [143, 11, 6]
+  repetition_tuple: [275, 11, 12]
   multi_sample: True
   message_mapping: long_run_gray_message
   rotate_180: True
