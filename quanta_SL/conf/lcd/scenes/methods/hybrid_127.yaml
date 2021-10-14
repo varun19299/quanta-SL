@@ -10,7 +10,7 @@ hybrid_127:
   bch_message_bits: 8
   message_mapping: gray_message
   rotate_180: True
-  visualize_frame: False
+  visualize_frame: True
   binary_frame:
     # Each burst has 512 frames
     # For GT
@@ -18,4 +18,4 @@ hybrid_127:
     bin_suffix_range: range(6, 10)
     # For single binary frame
     index: 10
-    bin_suffix: 8
+    bin_suffix: 6

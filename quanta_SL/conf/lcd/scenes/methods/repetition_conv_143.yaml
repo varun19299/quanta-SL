@@ -5,10 +5,11 @@ repetition_conv_143:
   repetition_tuple:
     n: 143
     k: 11
-    t: 3
+    t: 6
   multi_sample: True
   message_mapping: gray_message
   rotate_180: True
+  use_complementary: False
   visualize_frame: True
   binary_frame:
     # Each burst has 512 frames

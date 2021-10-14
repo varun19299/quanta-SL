@@ -1,11 +1,11 @@
-repetition_long_275:
-  name: Long Run Gray Code [${methods.repetition_long_275.repetition_tuple.k} bits] comp
-  folder: ${outfolder}/${methods.repetition_long_275.name}/
+repetition_long_143:
+  name: Long Run Gray Code [${methods.repetition_long_143.repetition_tuple.k} bits] comp
+  folder: ${outfolder}/${methods.repetition_long_143.name}/
   message_bits: 11
   repetition_tuple:
-    n: 275
+    n: 143
     k: 11
-    t: 12
+    t: 6
   multi_sample: True
   message_mapping: long_run_gray_message
   rotate_180: True

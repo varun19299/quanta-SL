@@ -1,12 +1,13 @@
 repetition_long_77:
   name: Long Run Gray Code [${methods.repetition_long_77.repetition_tuple.k} bits] comp
-  folder: ${outfolder}/${methods.repetition_77.name}/
+  folder: ${outfolder}/${methods.repetition_long_77.name}/
   message_bits: 11
   repetition_tuple:
     n: 77
     k: 11
     t: 3
   multi_sample: True
+  use_complementary: True
   message_mapping: long_run_gray_message
   rotate_180: True
   visualize_frame: True
@@ -17,4 +18,4 @@ repetition_long_77:
     bin_suffix_range: range(6, 10)
     # For single binary frame
     index: 10
-    bin_suffix: 8
+    bin_suffix: 9

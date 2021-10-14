@@ -78,8 +78,7 @@ def setup_args(cfg):
 
 
 def get_code_LUT_decoding_func(method_cfg, method: str = "hybrid"):
-    # Generate hybrid LUT, decoding func
-    logger.info(f"Generating {method} LUT")
+    # Generate code LUT, decoding func
 
     if method == "hybrid":
         hybrid_code_LUT = strategies.hybrid_code_LUT(**method_cfg)
@@ -144,6 +143,16 @@ def get_gt_frame(
     return pos_frame
 
 
+@MemoizeNumpy
+def get_binary_frame(folder: Path, bin_suffix: int, samples: int = 1, **kwargs):
+    kwargs = {**dict(num_rows=256, num_cols=512), **kwargs}
+    binary_burst = load_swiss_spad_bin(folder, bin_suffix=bin_suffix, **kwargs)
+
+    indices = np.random.choice(len(binary_burst), size=samples)
+
+    return binary_burst[indices]
+
+
 def get_binary_gt_sequence(method_cfg, cfg, code_LUT):
     """
     Get Groundtruth (averaged and thresholded via complementary)
@@ -178,24 +187,37 @@ def get_binary_gt_sequence(method_cfg, cfg, code_LUT):
         logger.info(f"Sequence #{pattern_index}/{len(pattern_range)}")
 
         # Single binary sample
-        binary_frame_ll = load_swiss_spad_bin(
+        if not method_cfg.multi_sample:
+            samples = 1
+        else:
+            if method_cfg.use_complementary:
+                samples = method_cfg.repetition_tuple.repeat // 2
+            else:
+                samples = method_cfg.repetition_tuple.repeat
+
+        binary_burst = get_binary_frame(
             folder,
             bin_suffix=method_cfg.binary_frame.bin_suffix + bin_suffix_offset,
-            num_rows=256,
-            num_cols=512,
+            samples=samples,
         )
 
-        # Pick multiple samples
-        if method_cfg.multi_sample:
-            indices = np.random.choice(
-                len(binary_frame_ll), size=method_cfg.repetition_tuple.repeat
+        if method_cfg.use_complementary:
+            comp_burst = get_binary_frame(
+                folder,
+                bin_suffix=method_cfg.binary_frame.bin_suffix
+                + bin_suffix_offset
+                + method_cfg.binary_frame.bursts_per_pattern,
+                samples=samples,
             )
-            binary_frame_ll = binary_frame_ll[indices]
-            binary_frame = binary_frame_ll[0]
-            binary_sequence += [binary_frame for binary_frame in binary_frame_ll]
-        else:
-            binary_frame = binary_frame_ll[method_cfg.binary_frame.index]
-            binary_sequence.append(binary_frame)
+
+            binary_burst = binary_burst.mean(axis=0) > comp_burst.mean(axis=0)
+            binary_burst = repeat(
+                binary_burst, "h w -> n h w", n=method_cfg.repetition_tuple.repeat
+            )
+
+        # Pick multiple samples
+        binary_frame = binary_burst.mean(axis=0)
+        binary_sequence += [frame for frame in binary_burst]
 
         # Filename with leading zeros
         bin_suffix_range = (
@@ -256,6 +278,7 @@ def main(cfg):
 
     for method_key in cfg.methods.keys():
         method_cfg = cfg.methods[method_key]
+        logger.info(f"Generating {method_key} code LUT, decoding func")
         if "hybrid" in method_key:
             code_LUT, decoding_func = get_code_LUT_decoding_func(method_cfg, "hybrid")
 
@@ -313,9 +336,11 @@ def main(cfg):
     )
 
     gt_decoded = methods_dict[hybrid_key]["gt_decoded"]
+    hybrid_binary_decoded = methods_dict[hybrid_key]["binary_decoded"]
 
     for method_key in methods_dict:
         binary_decoded = methods_dict[method_key]["binary_decoded"]
+        method_gt_decoded = methods_dict[method_key]["gt_decoded"]
         rmse = mean_squared_error(gt_decoded[mask], binary_decoded[mask], squared=False)
         logger.info(f"RMSE {method_key} {rmse}")
 
@@ -326,9 +351,9 @@ def main(cfg):
 
         # Plotting
         n_row = 2
-        n_col = 2
+        n_col = 3
         fig, ax_ll = plt.subplots(
-            n_row, n_col, sharey=True, sharex=True, figsize=(12, 12)
+            n_row, n_col, sharey=True, sharex=True, figsize=(16, 12)
         )
 
         # Row 1: Groundtruths, Mask
@@ -339,6 +364,12 @@ def main(cfg):
         )
 
         ax = ax_ll[0, 1]
+        ax_imshow_with_colorbar(method_gt_decoded, ax, fig, cmap="gray")
+        ax.set_title(
+            f"Groundtruth est. from {method_key.replace('_', ' ').capitalize()}"
+        )
+
+        ax = ax_ll[0, 2]
         ax_imshow_with_colorbar(mask, ax, fig, cmap="jet")
         ax.set_title("Mask (exclude shadow + hot pixels)")
 
@@ -348,6 +379,10 @@ def main(cfg):
         ax.set_title(f"Method Correspondences")
 
         ax = ax_ll[1, 1]
+        ax_imshow_with_colorbar(hybrid_binary_decoded, ax, fig)
+        ax.set_title(f"{hybrid_key.replace('_',' ').capitalize()} Correspondences")
+
+        ax = ax_ll[1, 2]
         abs_error_map = np.abs(gt_decoded - binary_decoded)
         abs_error_map[~mask] = 0
         ax_imshow_with_colorbar(abs_error_map, ax, fig)
@@ -362,6 +397,13 @@ def main(cfg):
             savefig=cfg.savefig,
             show=cfg.show,
             fname=f"{cfg.outfolder}/results/{method_key}.pdf",
+        )
+
+        # Save binary and gt correspondences
+        np.savez(
+            f"{cfg.outfolder}/results/{method_key}_correspondences.npz",
+            binary_decoded=binary_decoded,
+            gt_decoded=gt_decoded,
         )
 
 

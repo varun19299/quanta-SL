@@ -9,6 +9,7 @@ repetition_conv_77:
   multi_sample: True
   message_mapping: gray_message
   rotate_180: True
+  use_complementary: False
   visualize_frame: True
   binary_frame:
     # Each burst has 512 frames
