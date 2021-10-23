@@ -8,14 +8,16 @@ SEED := 0
 .PHONY: help docs
 .DEFAULT: help
 
-## install: Pip requirements, local development mode
-install.cpu:
-	conda install -f environment.yml
-	pip install -e .
+## install.mamba: Mamba package manager
+install.mamba:
+	conda install -y mamba -c conda-forge
 
-install.gpu:
-	conda install -f environment_gpu.yml
-	pip install -e .
+## install: Pip requirements, local development mode
+install.cpu: install.mamba
+	mamba env update -n torch39 -f environment.yml --prune
+
+install.gpu: install.mamba
+	mamba env update -n torch39 -f environment_gpu.yml --prune
 
 help : Makefile makefiles/*.mk
     ifeq ($(UNAME_S),Linux)

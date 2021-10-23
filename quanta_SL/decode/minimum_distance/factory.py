@@ -333,11 +333,11 @@ def faiss_IVF_index(y):
     quantizer = faiss.IndexBinaryFlat(d)
 
     # Number of clusters.
-    ncluster = 4
+    ncluster = 10
 
     # Initializing index.
     faiss_index = faiss.IndexBinaryIVF(quantizer, d, ncluster)
-    faiss_index.nprobe = 4  # Number of nearest clusters to be searched per query.
+    faiss_index.nprobe = 6  # Number of nearest clusters to be searched per query.
 
     # Training the quantizer.
     # Our dataset is small and training is a one-time step

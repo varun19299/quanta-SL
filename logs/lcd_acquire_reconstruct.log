@@ -1,0 +1,70 @@
+2021-10-22 11:53:52.489 | INFO     | __main__:main:126 - Loading groundtruth
+2021-10-22 11:53:52.577 | INFO     | __main__:main:138 - Loading stereo params
+2021-10-22 11:54:35.538 | INFO     | __main__:main:127 - Loading groundtruth
+2021-10-22 11:54:35.627 | INFO     | __main__:main:139 - Loading stereo params
+2021-10-22 11:54:41.151 | INFO     | __main__:main:155 - Method repetition_conv_77
+2021-10-22 11:55:10.331 | INFO     | __main__:main:125 - Loading groundtruth
+2021-10-22 11:55:10.516 | INFO     | __main__:main:137 - Loading stereo params
+2021-10-22 11:55:13.448 | INFO     | __main__:main:153 - Method repetition_conv_77
+2021-10-22 11:55:17.651 | INFO     | __main__:main:182 - repetition_conv_77 rmse 1.4321360325694115
+2021-10-22 11:55:17.653 | INFO     | __main__:main:153 - Method repetition_conv_143
+2021-10-22 11:55:21.988 | INFO     | __main__:main:182 - repetition_conv_143 rmse 1.3071467294919663
+2021-10-22 11:55:21.989 | INFO     | __main__:main:153 - Method repetition_conv_275
+2021-10-22 11:55:26.576 | INFO     | __main__:main:182 - repetition_conv_275 rmse 1.480545846664737
+2021-10-22 11:55:26.578 | INFO     | __main__:main:153 - Method repetition_long_77
+2021-10-22 11:55:29.189 | INFO     | __main__:main:182 - repetition_long_77 rmse 18026.48949186084
+2021-10-22 11:55:29.191 | INFO     | __main__:main:153 - Method repetition_long_143
+2021-10-22 11:55:33.217 | INFO     | __main__:main:182 - repetition_long_143 rmse 350.1116258485209
+2021-10-22 11:55:33.219 | INFO     | __main__:main:153 - Method repetition_long_275
+2021-10-22 11:55:36.186 | INFO     | __main__:main:182 - repetition_long_275 rmse 53.19569023333044
+2021-10-22 11:55:36.187 | INFO     | __main__:main:153 - Method hybrid_63
+2021-10-22 11:55:39.297 | INFO     | __main__:main:182 - hybrid_63 rmse 3.5320756993482725
+2021-10-22 11:55:39.301 | INFO     | __main__:main:153 - Method hybrid_127
+2021-10-22 11:55:42.717 | INFO     | __main__:main:182 - hybrid_127 rmse 2.2316702929594823
+2021-10-22 11:55:42.720 | INFO     | __main__:main:153 - Method hybrid_255
+2021-10-22 11:55:46.035 | INFO     | __main__:main:182 - hybrid_255 rmse 0.27340556786441483
+2021-10-22 11:56:45.661 | INFO     | __main__:main:126 - Loading groundtruth
+2021-10-22 11:56:45.766 | INFO     | __main__:main:138 - Loading stereo params
+2021-10-22 11:57:25.568 | INFO     | __main__:main:125 - Loading groundtruth
+2021-10-22 11:57:25.644 | INFO     | __main__:main:137 - Loading stereo params
+2021-10-22 11:57:28.703 | INFO     | __main__:main:153 - Method repetition_conv_77
+2021-10-22 11:57:39.278 | INFO     | __main__:main:182 - repetition_conv_77 rmse 1.0064923382118844
+2021-10-22 11:57:39.279 | INFO     | __main__:main:153 - Method repetition_conv_143
+2021-10-22 11:57:43.089 | INFO     | __main__:main:182 - repetition_conv_143 rmse 0.9198193813226487
+2021-10-22 11:57:43.092 | INFO     | __main__:main:153 - Method repetition_conv_275
+2021-10-22 11:57:46.413 | INFO     | __main__:main:182 - repetition_conv_275 rmse 0.9186316754643745
+2021-10-22 11:57:46.416 | INFO     | __main__:main:153 - Method repetition_long_77
+2021-10-22 11:57:49.677 | INFO     | __main__:main:182 - repetition_long_77 rmse 16730.738616350787
+2021-10-22 11:57:49.681 | INFO     | __main__:main:153 - Method repetition_long_143
+2021-10-22 11:57:52.130 | INFO     | __main__:main:182 - repetition_long_143 rmse 124.41328119452697
+2021-10-22 11:57:52.132 | INFO     | __main__:main:153 - Method repetition_long_275
+2021-10-22 11:57:54.706 | INFO     | __main__:main:182 - repetition_long_275 rmse 18.760485320261516
+2021-10-22 11:57:54.707 | INFO     | __main__:main:153 - Method hybrid_63
+2021-10-22 11:57:57.527 | INFO     | __main__:main:182 - hybrid_63 rmse 0.9161507293342035
+2021-10-22 11:57:57.529 | INFO     | __main__:main:153 - Method hybrid_127
+2021-10-22 11:58:05.094 | INFO     | __main__:main:182 - hybrid_127 rmse 1.0994608620117625
+2021-10-22 11:58:05.096 | INFO     | __main__:main:153 - Method hybrid_255
+2021-10-22 11:58:08.702 | INFO     | __main__:main:182 - hybrid_255 rmse 0.14667211318280507
+2021-10-22 16:19:14.134 | INFO     | __main__:main:125 - Loading groundtruth
+2021-10-22 16:19:14.717 | INFO     | __main__:main:137 - Loading stereo params
+2021-10-22 16:19:19.426 | INFO     | __main__:main:153 - Method repetition_conv_77
+2021-10-22 16:19:55.491 | INFO     | __main__:main:125 - Loading groundtruth
+2021-10-22 16:19:55.582 | INFO     | __main__:main:137 - Loading stereo params
+2021-10-22 16:19:58.491 | INFO     | __main__:main:153 - Method repetition_conv_77
+2021-10-22 16:20:02.138 | INFO     | __main__:main:182 - repetition_conv_77 rmse 1.0064923382118844
+2021-10-22 16:20:02.139 | INFO     | __main__:main:153 - Method repetition_conv_143
+2021-10-22 16:20:05.358 | INFO     | __main__:main:182 - repetition_conv_143 rmse 0.9198193813226487
+2021-10-22 16:20:05.362 | INFO     | __main__:main:153 - Method repetition_conv_275
+2021-10-22 16:20:07.913 | INFO     | __main__:main:182 - repetition_conv_275 rmse 0.9186316754643745
+2021-10-22 16:20:07.915 | INFO     | __main__:main:153 - Method repetition_long_77
+2021-10-22 16:20:11.090 | INFO     | __main__:main:182 - repetition_long_77 rmse 16730.738616350787
+2021-10-22 16:20:11.093 | INFO     | __main__:main:153 - Method repetition_long_143
+2021-10-22 16:20:14.709 | INFO     | __main__:main:182 - repetition_long_143 rmse 124.41328119452697
+2021-10-22 16:20:14.711 | INFO     | __main__:main:153 - Method repetition_long_275
+2021-10-22 16:20:21.346 | INFO     | __main__:main:182 - repetition_long_275 rmse 18.760485320261516
+2021-10-22 16:20:21.348 | INFO     | __main__:main:153 - Method hybrid_63
+2021-10-22 16:20:24.578 | INFO     | __main__:main:182 - hybrid_63 rmse 0.9161507293342035
+2021-10-22 16:20:24.580 | INFO     | __main__:main:153 - Method hybrid_127
+2021-10-22 16:20:27.259 | INFO     | __main__:main:182 - hybrid_127 rmse 1.0994608620117625
+2021-10-22 16:20:27.261 | INFO     | __main__:main:153 - Method hybrid_255
+2021-10-22 16:20:30.596 | INFO     | __main__:main:182 - hybrid_255 rmse 0.14667211318280507

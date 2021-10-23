@@ -3,12 +3,14 @@ from pathlib import Path
 import cv2
 import numpy as np
 from einops import repeat
-
 from matplotlib import pyplot as plt
+from matplotlib.transforms import Bbox
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+from typing import Dict
+import open3d
 
 
-def save_plot(savefig: bool = False, show: bool = True, **kwargs):
+def save_plot(savefig: bool = False, show: bool = True, **kwargs) -> object:
     """
     Helper function for saving plots
     :param savefig: Whether to save the figure
@@ -32,6 +34,25 @@ def save_plot(savefig: bool = False, show: bool = True, **kwargs):
         plt.close()
 
 
+def subplot_extent(ax, fig, pad=0.0):
+    """
+    Get the full extent of an axes, including axes labels, tick labels, and
+    titles.
+    """
+    # For text objects, we need to draw the figure first, otherwise the extents
+    # are undefined.
+    ax.figure.canvas.draw()
+    items = ax.get_xticklabels() + ax.get_yticklabels()
+    # items += [ax, ax.title, ax.xaxis.label, ax.yaxis.label]
+    items += [ax.get_xaxis().get_label(), ax.get_yaxis().get_label()]
+    items += [ax, ax.title]
+    bbox = Bbox.union([item.get_window_extent() for item in items])
+
+    return bbox.expanded(1.0 + pad, 1.0 + pad).transformed(
+        fig.dpi_scale_trans.inverted()
+    )
+
+
 def arrowed_spines(
     ax,
     x_width_fraction=0.05,
@@ -40,7 +61,7 @@ def arrowed_spines(
     ohg=0.3,
     locations=("bottom right", "left up"),
     remove_spine: bool = False,
-    **arrow_kwargs
+    **arrow_kwargs,
 ):
     """
     Add arrows to the requested spines
@@ -144,7 +165,7 @@ def arrowed_spines(
             lw=lw,
             head_width=head_width,
             head_length=head_length,
-            **arrow_kwargs
+            **arrow_kwargs,
         )
 
     return annots
@@ -178,6 +199,13 @@ def plot_code_LUT(
 
 
 def ax_imshow_with_colorbar(img, ax, fig, **imshow_kwargs):
+    """
+    Plotting colorbars in subplots
+    :param img: Image to plot
+    :param ax: mpl axis object
+    :param fig: mpl figure object
+    :param imshow_kwargs: passed to ax.imshow
+    """
     im = ax.imshow(img, **imshow_kwargs)
 
     # create an axes on the right side of ax. The width of cax will be 5%
@@ -185,3 +213,63 @@ def ax_imshow_with_colorbar(img, ax, fig, **imshow_kwargs):
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
     fig.colorbar(im, cax=cax)
+
+
+def visualize_point_cloud(
+    points_3d,
+    colors,
+    view_kwargs: Dict = {},
+    poisson_kwargs: Dict = {},
+    savefig: bool = False,
+    show: bool = True,
+    create_mesh: bool=False,
+    **kwargs,
+):
+    # 3D plot
+    pcd = open3d.geometry.PointCloud()
+    pcd.points = open3d.utility.Vector3dVector(points_3d)
+    pcd.colors = open3d.utility.Vector3dVector(colors)
+    pcd.remove_statistical_outlier(nb_neighbors=20, std_ratio=0.5)
+    pcd.remove_radius_outlier(nb_points=16, radius=0.05)
+
+    if show:
+        open3d.visualization.draw_geometries([pcd], point_show_normal=True, **view_kwargs)
+
+    if savefig:
+        ply_path = Path(kwargs.get("fname") + "_point_cloud.ply")
+        ply_path.parent.mkdir(exist_ok=True, parents=True)
+        open3d.io.write_point_cloud(str(ply_path), pcd)
+
+    if not create_mesh:
+        return
+
+    pcd = pcd.voxel_down_sample(voxel_size=0.02)
+    pcd.estimate_normals()
+
+    # Flip normals
+    pcd.normals = open3d.utility.Vector3dVector(-np.asarray(pcd.normals))
+    pcd.orient_normals_consistent_tangent_plane(100)
+
+    # Poisson meshing
+    poisson_kwargs = {
+        **dict(depth=9, width=0, scale=2, linear_fit=False),
+        **poisson_kwargs,
+    }
+    (
+        poisson_mesh,
+        densities,
+    ) = open3d.geometry.TriangleMesh.create_from_point_cloud_poisson(
+        pcd, **poisson_kwargs
+    )
+
+    vertices_to_remove = densities < np.quantile(densities, 0.01)
+    poisson_mesh.remove_vertices_by_mask(vertices_to_remove)
+
+    bbox = pcd.get_axis_aligned_bounding_box()
+    p_mesh_crop = poisson_mesh.crop(bbox)
+
+    if show:
+        open3d.visualization.draw_geometries([p_mesh_crop], **view_kwargs)
+
+    if savefig:
+        open3d.io.write_triangle_mesh(kwargs.get("fname") + "_mesh.ply", p_mesh_crop)

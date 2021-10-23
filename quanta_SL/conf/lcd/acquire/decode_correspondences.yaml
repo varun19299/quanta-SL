@@ -1,0 +1,26 @@
+defaults:
+  - methods:
+    - repetition_conv_77
+    - repetition_conv_143
+    - repetition_conv_275
+    - repetition_long_77
+    - repetition_long_143
+    - repetition_long_275
+    - hybrid_63
+    - hybrid_127
+    - hybrid_255
+  - hydra
+  - scene: mary_bust
+  - override hydra/job_logging: none
+
+
+exp_name: decode_correspondences
+show: False
+savefig: True
+capture_date: 30th_September
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}/${scene.name}
+
+groundtruth:
+  img: ${outfolder}/results/img.png
+  correspondences: ${outfolder}/results/gt_correspondences.npy
+  mask_path: ${outfolder}/roi_mask.npy

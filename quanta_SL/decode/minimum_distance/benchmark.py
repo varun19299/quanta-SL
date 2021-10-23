@@ -37,7 +37,7 @@ from quanta_SL.utils.gpu_status import (
 from quanta_SL.utils.plotting import save_plot
 from quanta_SL.utils.timer import Timer, CPUTimer, CuPyTimer
 
-plt.style.use(["science", "grid"])
+# plt.style.use(["science", "grid"])
 
 
 def bch_dataset_query_points(
@@ -326,4 +326,4 @@ if __name__ == "__main__":
     run_benchmark("cpu", query_repeat=100)
 
     if GPU_AVAILABLE:
-        run_benchmark("gpu", query_repeat=1024, show=False)
+        run_benchmark("gpu", query_repeat=100, show=False)

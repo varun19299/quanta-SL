@@ -1,0 +1,326 @@
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    subdir: ${hydra.job.num}
+  launcher:
+    _target_: hydra._internal.core_plugins.basic_launcher.BasicLauncher
+  sweeper:
+    _target_: hydra._internal.core_plugins.basic_sweeper.BasicSweeper
+    max_batch_size: null
+  help:
+    app_name: ${hydra.job.name}
+    header: '${hydra.help.app_name} is powered by Hydra.
+
+      '
+    footer: 'Powered by Hydra (https://hydra.cc)
+
+      Use --hydra-help to view Hydra specific help
+
+      '
+    template: '${hydra.help.header}
+
+      == Configuration groups ==
+
+      Compose your configuration from those groups (group=option)
+
+
+      $APP_CONFIG_GROUPS
+
+
+      == Config ==
+
+      Override anything in the config (foo.bar=value)
+
+
+      $CONFIG
+
+
+      ${hydra.help.footer}
+
+      '
+  hydra_help:
+    template: 'Hydra (${hydra.runtime.version})
+
+      See https://hydra.cc for more info.
+
+
+      == Flags ==
+
+      $FLAGS_HELP
+
+
+      == Configuration groups ==
+
+      Compose your configuration from those groups (For example, append hydra/job_logging=disabled
+      to command line)
+
+
+      $HYDRA_CONFIG_GROUPS
+
+
+      Use ''--cfg hydra'' to Show the Hydra config.
+
+      '
+    hydra_help: ???
+  hydra_logging:
+    version: 1
+    formatters:
+      simple:
+        format: '[%(asctime)s][HYDRA] %(message)s'
+    handlers:
+      console:
+        class: logging.StreamHandler
+        formatter: simple
+        stream: ext://sys.stdout
+    root:
+      level: INFO
+      handlers:
+      - console
+    loggers:
+      logging_example:
+        level: DEBUG
+    disable_existing_loggers: false
+  job_logging:
+    version: 1
+    root: null
+    disable_existing_loggers: false
+  env: {}
+  searchpath: []
+  callbacks: {}
+  output_subdir: .hydra
+  overrides:
+    hydra: []
+    task:
+    - scene=mary_bust,earth_mover,green_vase,gray_vase,specular_bust,dragon,mary_bust_indoor_light,mary_bust_work_light_mini
+  job:
+    name: decode_correspondences
+    override_dirname: scene=mary_bust,earth_mover,green_vase,gray_vase,specular_bust,dragon,mary_bust_indoor_light,mary_bust_work_light_mini
+    id: ???
+    num: ???
+    config_name: decode_correspondences
+    env_set: {}
+    env_copy: []
+    config:
+      override_dirname:
+        kv_sep: '='
+        item_sep: ','
+        exclude_keys: []
+  runtime:
+    version: 1.1.1
+    cwd: /Volumes/GoogleDrive/My Drive/quanta_structured_light/code
+    config_sources:
+    - path: hydra.conf
+      schema: pkg
+      provider: hydra
+    - path: /Volumes/GoogleDrive/My Drive/quanta_structured_light/code/quanta_SL/conf/lcd/acquire
+      schema: file
+      provider: main
+    - path: hydra_plugins.hydra_colorlog.conf
+      schema: pkg
+      provider: hydra-colorlog
+    - path: ''
+      schema: structured
+      provider: schema
+    choices:
+      hydra/env: default
+      hydra/callbacks: null
+      hydra/job_logging: none
+      hydra/hydra_logging: default
+      hydra/hydra_help: default
+      hydra/help: default
+      hydra/sweeper: basic
+      hydra/launcher: basic
+      hydra/output: default
+  verbose: false
+methods:
+  repetition_conv_77:
+    name: Gray Code [${methods.repetition_conv_77.repetition_tuple.k} bits] comp
+    folder: ${outfolder}/${methods.repetition_conv_77.name}/
+    message_bits: 11
+    repetition_tuple:
+      'n': 77
+      k: 11
+      t: 3
+    multi_sample: true
+    message_mapping: gray_message
+    rotate_180: true
+    use_complementary: false
+    visualize_frame: false
+    binary_frame:
+      bursts_per_pattern: 10
+      bin_suffix_range: range(6, 10)
+      index: 10
+      bin_suffix: 8
+  repetition_conv_143:
+    name: Gray Code [${methods.repetition_conv_143.repetition_tuple.k} bits] comp
+    folder: ${outfolder}/${methods.repetition_conv_143.name}/
+    message_bits: 11
+    repetition_tuple:
+      'n': 143
+      k: 11
+      t: 6
+    multi_sample: true
+    message_mapping: gray_message
+    rotate_180: true
+    use_complementary: false
+    visualize_frame: false
+    binary_frame:
+      bursts_per_pattern: 10
+      bin_suffix_range: range(6, 10)
+      index: 10
+      bin_suffix: 8
+  repetition_conv_275:
+    name: Gray Code [${methods.repetition_conv_275.repetition_tuple.k} bits] comp
+    folder: ${outfolder}/${methods.repetition_conv_275.name}/
+    message_bits: 11
+    repetition_tuple:
+      'n': 275
+      k: 11
+      t: 3
+    multi_sample: true
+    message_mapping: gray_message
+    rotate_180: true
+    use_complementary: false
+    visualize_frame: false
+    binary_frame:
+      bursts_per_pattern: 10
+      bin_suffix_range: range(6, 10)
+      index: 10
+      bin_suffix: 8
+  repetition_long_77:
+    name: Long Run Gray Code [${methods.repetition_long_77.repetition_tuple.k} bits]
+      comp
+    folder: ${outfolder}/${methods.repetition_long_77.name}/
+    message_bits: 11
+    repetition_tuple:
+      'n': 77
+      k: 11
+      t: 3
+    multi_sample: true
+    use_complementary: true
+    message_mapping: long_run_gray_message
+    rotate_180: true
+    visualize_frame: false
+    binary_frame:
+      bursts_per_pattern: 10
+      bin_suffix_range: range(6, 10)
+      index: 10
+      bin_suffix: 9
+  repetition_long_143:
+    name: Long Run Gray Code [${methods.repetition_long_143.repetition_tuple.k} bits]
+      comp
+    folder: ${outfolder}/${methods.repetition_long_143.name}/
+    message_bits: 11
+    repetition_tuple:
+      'n': 143
+      k: 11
+      t: 6
+    multi_sample: true
+    message_mapping: long_run_gray_message
+    rotate_180: true
+    use_complementary: true
+    visualize_frame: false
+    binary_frame:
+      bursts_per_pattern: 10
+      bin_suffix_range: range(6, 10)
+      index: 10
+      bin_suffix: 8
+  repetition_long_275:
+    name: Long Run Gray Code [${methods.repetition_long_275.repetition_tuple.k} bits]
+      comp
+    folder: ${outfolder}/${methods.repetition_long_275.name}/
+    message_bits: 11
+    repetition_tuple:
+      'n': 275
+      k: 11
+      t: 12
+    multi_sample: true
+    message_mapping: long_run_gray_message
+    rotate_180: true
+    use_complementary: true
+    visualize_frame: true
+    binary_frame:
+      bursts_per_pattern: 10
+      bin_suffix_range: range(6, 10)
+      index: 10
+      bin_suffix: 8
+  hybrid_63:
+    name: Hybrid BCH [63, 10] [gray_message] comp
+    folder: ${outfolder}/${methods.hybrid_63.name}/
+    message_bits: 11
+    overlap_bits: 1
+    bch_tuple:
+      'n': 63
+      k: 10
+      t: 13
+    bch_message_bits: 8
+    message_mapping: gray_message
+    rotate_180: true
+    visualize_frame: false
+    binary_frame:
+      bursts_per_pattern: 10
+      bin_suffix_range: range(6, 10)
+      index: 10
+      bin_suffix: 8
+  hybrid_127:
+    name: Hybrid BCH [127, 8] [gray_message] comp
+    folder: ${outfolder}/${methods.hybrid_127.name}/
+    message_bits: 11
+    overlap_bits: 1
+    bch_tuple:
+      'n': 127
+      k: 8
+      t: 31
+    bch_message_bits: 8
+    message_mapping: gray_message
+    rotate_180: true
+    visualize_frame: false
+    binary_frame:
+      bursts_per_pattern: 10
+      bin_suffix_range: range(6, 10)
+      index: 10
+      bin_suffix: 6
+  hybrid_255:
+    name: Hybrid BCH [255, 9] [gray_message] comp
+    folder: ${outfolder}/${methods.hybrid_255.name}/
+    message_bits: 11
+    overlap_bits: 1
+    bch_tuple:
+      'n': 255
+      k: 9
+      t: 63
+    bch_message_bits: 8
+    message_mapping: gray_message
+    rotate_180: true
+    visualize_frame: false
+    binary_frame:
+      bursts_per_pattern: 10
+      bin_suffix_range: range(6, 10)
+      index: 10
+      bin_suffix: 8
+? ''
+: ? ''
+  : ? ''
+    : hydra:
+        output_subdir: null
+        run:
+          dir: ./scripts/
+        sweep:
+          dir: ./scripts/${exp_name}/
+        job:
+          config:
+            override_dirname:
+              exclude_keys:
+              - exp_name
+exp_name: real_captures
+show: false
+savefig: true
+capture_date: 30th_September
+scene: mary_bust
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}/${scene}
+projector:
+  width: 1920
+  height: 1080
+  crop_mode: center

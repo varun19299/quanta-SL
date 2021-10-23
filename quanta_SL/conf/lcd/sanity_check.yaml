@@ -2,7 +2,7 @@ defaults:
   - hydra
   - override hydra/job_logging: none
 
-exp_name: real_captures
+exp_name: sanity_check
 show: True
 savefig: True
 capture_date: 27th_August

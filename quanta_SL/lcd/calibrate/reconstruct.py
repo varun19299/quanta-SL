@@ -1,16 +1,18 @@
 from pathlib import Path
-from roipoly import RoiPoly
 
+import cv2
 import hydra
+import numpy as np
+from einops import repeat
 from loguru import logger
 from matplotlib import pyplot as plt
 from omegaconf import OmegaConf
+from roipoly import RoiPoly
 from scipy.io import loadmat
-import numpy as np
-import cv2
-import open3d
-from quanta_SL.reconstruct.project3d import CameraMatrix, triangulate_ray_plane
+
 from quanta_SL.lcd.calibrate import get_intrinsic_extrinsic
+from quanta_SL.reconstruct.project3d import CameraMatrix, triangulate_ray_plane
+from quanta_SL.utils.plotting import visualize_point_cloud
 
 # Disable inner logging
 logger.disable("quanta_SL")
@@ -82,7 +84,7 @@ def main(cfg):
     camera_pixels = np.meshgrid(width_range, height_range)
 
     plt.imshow(img)
-    my_roi = RoiPoly(color='r')
+    my_roi = RoiPoly(color="r")
     my_roi.display_roi()
 
     mask = my_roi.get_mask(img)
@@ -100,18 +102,18 @@ def main(cfg):
     points_3d = triangulate_ray_plane(
         camera_matrix, projector_matrix, camera_pixels, projector_pixels, axis=0
     )
+    gray_colors = img[valid_indices]
+    gray_colors = gray_colors[~np.isnan(points_3d).any(axis=1)]
+    gray_colors = repeat(gray_colors, "n -> n c", c=3)
     points_3d = points_3d[~np.isnan(points_3d).any(axis=1)]
 
-    # 3D plot
-    pcd = open3d.geometry.PointCloud()
-    pcd.points = open3d.utility.Vector3dVector(points_3d)
-    open3d.visualization.draw_geometries([pcd])
-
-    if cfg.savefig:
-        path = Path(f"{cfg.outfolder}/point_cloud/pose{cfg.pose.index:02d}.ply")
-        path.parent.mkdir(exist_ok=True, parents=True)
-        open3d.io.write_point_cloud(str(path), pcd)
-
+    visualize_point_cloud(
+        points_3d,
+        gray_colors,
+        savefig=cfg.savefig,
+        show=cfg.show,
+        fname=f"{cfg.outfolder}/point_cloud/pose{cfg.pose.index:02d}",
+    )
 
 if __name__ == "__main__":
     main()

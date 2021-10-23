@@ -1,0 +1,21 @@
+repetition_conv_275:
+  name: Gray Code [${methods.repetition_conv_275.repetition_tuple.k} bits] comp
+  folder: ${outfolder}/${methods.repetition_conv_275.name}/
+  message_bits: 11
+  repetition_tuple:
+    n: 275
+    k: 11
+    t: 3
+  multi_sample: True
+  message_mapping: gray_message
+  rotate_180: True
+  use_complementary: False
+  visualize_frame: False
+  binary_frame:
+    # Each burst has 512 frames
+    # For GT
+    bursts_per_pattern: 10
+    bin_suffix_range: range(6, 10)
+    # For single binary frame
+    index: 10
+    bin_suffix: 8

@@ -178,8 +178,7 @@ if __name__ == "__main__":
         coding_kwargs["monte_carlo_iter"] = 10
 
     # Repetition vs BCH
-    # redundancy_ll = [3, 6, 13, 26]
-    redundancy_ll = [26]
+    redundancy_ll = [3, 6, 13, 26]
     oversampling_ll = [1, 5]
 
     for redundancy_factor in redundancy_ll:

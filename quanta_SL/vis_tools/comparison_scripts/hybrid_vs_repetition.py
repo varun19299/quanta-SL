@@ -37,12 +37,12 @@ def _get_strategies(
 ):
     strategy_ll = [
         CallableEval(
-            f"No Coding [{repetition_tuple.k} bits]",
+            f"Long-run Gray [{repetition_tuple.k} bits]",
             no_coding,
-            {"num_bits": 11, **coding_kwargs},
+            {"num_bits": 11, "message_mapping": long_run_gray_message, **coding_kwargs},
         ),
         CallableEval(
-            f"Max-minSW {repetition_tuple}",
+            f"{repetition_tuple}",
             repetition_coding,
             {
                 "repetition_tuple": repetition_tuple,
@@ -52,7 +52,7 @@ def _get_strategies(
             },
         ),
         CallableEval(
-            f"Hybrid {bch_tuple} SW-8",
+            f"Hybrid [{bch_tuple}]",
             hybrid_coding,
             {
                 "bch_tuple": bch_tuple,
@@ -180,7 +180,7 @@ if __name__ == "__main__":
         num = 64
 
     phi_proj = np.logspace(4, 5, num=num)
-    phi_A = np.logspace(3, 4, num=num)
+    phi_A = np.logspace(2.75, 3.75, num=num)
 
     # DMD framerate
     # 0.1 millisecond or 10^4 FPS
@@ -191,13 +191,16 @@ if __name__ == "__main__":
         plot_3d=True,
         savefig=True,
         error_metric=root_mean_squared_error,
-        plot_dir=Path("outputs/strategy_comparison/hybrid_vs_repeated_longrun/"),
+        plot_dir=Path("outputs/strategy_comparison/hybrid_vs_repeated_longrun_paper/"),
     )
-    coding_kwargs = dict(monte_carlo_iter=5)
+    coding_kwargs = dict(monte_carlo_iter=1)
+
+    if FAISS_GPUs:
+        coding_kwargs["monte_carlo_iter"] = 10
 
     # Repetition vs BCH
     redundancy_ll = [3, 6, 13, 25]
-    oversampling_ll = [1, 5]
+    oversampling_ll = [1]
 
     # Only RMSE makes sense here
     for redundancy_factor in redundancy_ll:

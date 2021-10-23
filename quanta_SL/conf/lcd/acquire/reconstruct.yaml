@@ -1,0 +1,47 @@
+defaults:
+  - methods:
+    - repetition_conv_77
+    - repetition_conv_143
+    - repetition_conv_275
+    - repetition_long_77
+    - repetition_long_143
+    - repetition_long_275
+    - hybrid_63
+    - hybrid_127
+    - hybrid_255
+  - hydra
+  - scene: mary_bust
+  - override hydra/job_logging: none
+
+
+exp_name: reconstruct
+show: True
+savefig: True
+create_mesh: false
+capture_date: 30th_September
+
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}/${scene.name}
+
+projector:
+  width: 1920
+  height: 1080
+  crop_mode: center
+
+spad:
+  width: 512
+  height: 256
+  mask:
+    file: ${scene.calibration.folder}/calibration/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major # or row-major
+    rotate_180: True
+
+calibration:
+  file_name: stereo_model
+  mat_file: ${outfolder}/${calibration.file_name}.mat
+  npz_file: ${outfolder}/${calibration.file_name}.npz
+
+groundtruth:
+  img: ${outfolder}/results/img.png
+  correspondences: ${outfolder}/results/gt_correspondences.npy
+  mask_path: ${outfolder}/roi_mask_hybrid_filtered.npy
