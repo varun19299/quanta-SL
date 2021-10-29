@@ -148,8 +148,7 @@ ALP_SEQ_DMD_LINES = 2125  # Area of Interest: Value = MAKELONG(StartRow, RowCoun
 
 ALP_X_SHEAR_SELECT = 2132 # ALP_DEFAULT or ALP_ENABLE
 
-ALP_DMD_MASK_SELECT = 2134 # ALP_DEFAULT or ALP_ENABLE, ALP_DMD_MASK_16X8 
-ALP_DMD_MASK_16X16 = ALP_ENABLE
+ALP_DMD_MASK_SELECT = 2134 # ALP_DEFAULT or ALP_ENABLE, ALP_DMD_MASK_16X8 ALP_DMD_MASK_16X16 = ALP_ENABLE
 ALP_DMD_MASK_16X8 = 2 # XGA only
 
 
@@ -366,7 +365,7 @@ class ALP4(object):
             try:
                 reg = _winreg.ConnectRegistry(None, _winreg.HKEY_LOCAL_MACHINE)
                 key = _winreg.OpenKey(reg, r"SOFTWARE\ViALUX\ALP-" + version)
-                libDir = (_winreg.QueryValueEx(key, "Path"))[0] + "/ALP-{0} API/".format(version)
+                libDir = (_winreg.QueryValueEx(key, "Path"))[0] + "/ALP-{0} high-speed API/".format(version)
             except EnvironmentError:
                 raise ValueError("Cannot auto detect libDir! Please specify it manually.")
 
@@ -386,7 +385,7 @@ class ALP4(object):
         if (version == '4.1'):
             libPath += 'alpD41.dll'
         elif (version == '4.2'):
-            libPath += 'alpD41.dll'
+            libPath += 'alpV42.dll'
         elif (version == '4.3'):
             libPath += 'alp4395.dll'
 
