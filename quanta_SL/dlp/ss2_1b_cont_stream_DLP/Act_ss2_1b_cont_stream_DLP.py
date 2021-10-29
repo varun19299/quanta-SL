@@ -171,7 +171,7 @@ def start_acq(obj):
     img_seq = [cv2.imread(fpath, -1) for fpath in img_file_list]
 
     # Repeat first frame
-    num_buffer = 5
+    num_buffer = 2
     img_first = [img_seq[0].ravel()] * num_buffer
 
     # Interleave repeat
@@ -188,7 +188,7 @@ def start_acq(obj):
     img_seq = np.concatenate(img_seq)
 
     # Save metadata
-    initial_sleep = 0.05
+    initial_sleep = 0.5
     metadata = {
         "capture_time": capture_time,
         "frame_period": frame_period,
