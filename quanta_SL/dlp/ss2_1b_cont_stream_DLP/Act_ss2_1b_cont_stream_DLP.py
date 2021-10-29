@@ -171,7 +171,7 @@ def start_acq(obj):
     img_seq = [cv2.imread(fpath, -1) for fpath in img_file_list]
 
     # Repeat first frame
-    num_buffer = 20
+    num_buffer = 5
     img_first = [img_seq[0].ravel()] * num_buffer
 
     # Interleave repeat
@@ -188,7 +188,7 @@ def start_acq(obj):
     img_seq = np.concatenate(img_seq)
 
     # Save metadata
-    initial_sleep = 1
+    initial_sleep = 0.1
     metadata = {
         "capture_time": capture_time,
         "frame_period": frame_period,
@@ -220,7 +220,6 @@ def start_acq(obj):
     p = subprocess.Popen(r"%s" % argument)
 
     # Takes a little while before SPAD actually captures
-    intial_sleep = 1
     time.sleep(initial_sleep)
 
     # Project
