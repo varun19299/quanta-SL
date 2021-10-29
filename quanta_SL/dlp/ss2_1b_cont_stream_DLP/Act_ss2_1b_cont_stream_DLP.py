@@ -206,7 +206,7 @@ def start_acq(obj):
     print(f"DMD size {(DMD.nSizeY,DMD.nSizeX)}")
 
     # Allocate the onboard memory for the image sequence
-    DMD.SeqAlloc(nbImg=len(img_seq), bitDepth=1)
+    DMD.SeqAlloc(nbImg=num_patterns, bitDepth=1)
     # Send the image sequence as a 1D list/array/numpy array
     DMD.SeqPut(imgData=img_seq)
 
