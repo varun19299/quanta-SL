@@ -170,7 +170,7 @@ def start_acq(obj):
     img_seq = [cv2.imread(fpath, -1) for fpath in img_file_list]
 
     # Repeat first frame
-    num_buffer = 1000
+    num_buffer = 20
     img_first = [img_seq[0].ravel()] * num_buffer
 
     # Interleave repeat
@@ -215,11 +215,11 @@ def start_acq(obj):
     # in microseconds
     DMD.SetTiming(pictureTime=int(1e6 * project_frame_time))
 
-    # Project
-    DMD.Run(loop=True)
-
     # Call cont-stream exe
     p = subprocess.Popen(r"%s" % argument)
+
+    # Project
+    DMD.Run(loop=False)
 
     # Wait until cont-stream finishes and exit
     p.wait()
