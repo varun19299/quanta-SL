@@ -17,7 +17,7 @@ import pyqtgraph as pg
 from PyQt5 import QtWidgets
 from natsort import natsorted
 
-from quanta_SL.dlp.ALP4 import ALP4
+from ALP4 import ALP4
 
 
 def connectUI(obj):
