@@ -9,10 +9,12 @@ import cv2
 
 logger.disable("quanta_SL")
 
-bin_range = range(0, 128)
+bin_range = range(0, 10)
 bin_offset = 0
 capture_date = "29th_October"
 folder_name = "sanity"
+folder_name = "loop_after_spad"
+
 
 folder = Path(f"outputs/real_captures/DLP_projector/{capture_date}/{folder_name}/")
 out_folder = folder / "binary_frames"

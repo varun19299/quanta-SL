@@ -18,6 +18,7 @@ from PyQt5 import QtWidgets
 from natsort import natsorted
 
 from ALP4 import ALP4
+import time
 
 
 def connectUI(obj):
@@ -217,6 +218,10 @@ def start_acq(obj):
 
     # Call cont-stream exe
     p = subprocess.Popen(r"%s" % argument)
+
+    # Takes a little while before SPAD actually captures
+    intial_sleep = 1
+    time.sleep(initial_sleep)
 
     # Project
     DMD.Run()
