@@ -167,7 +167,7 @@ def start_acq(obj):
     if len(img_file_list) == 0:
         print("Finished.")
         return
-    img_seq = [cv2.imread(fpath, -1) for fpath in img_file_list]
+    img_seq = [(cv2.imread(fpath, -1) /255.0).astype(int) for fpath in img_file_list]
 
     # Repeat first frame
     num_buffer = 10
@@ -202,6 +202,8 @@ def start_acq(obj):
     DMD = ALP4(version="4.2")
     # Initialize the device
     DMD.Initialize()
+
+    print(f"DMD size {(DMD.nSizeY,DMD.nSizeX)}")
 
     # Allocate the onboard memory for the image sequence
     DMD.SeqAlloc(nbImg=len(img_seq), bitDepth=1)
