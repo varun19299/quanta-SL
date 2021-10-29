@@ -216,13 +216,16 @@ def start_acq(obj):
     DMD.SetTiming(pictureTime=int(1e6 * project_frame_time))
 
     # Project
-    DMD.Run(loop=False)
+    DMD.Run(loop=True)
 
     # Call cont-stream exe
     p = subprocess.Popen(r"%s" % argument)
 
+    # Wait until cont-stream finishes and exit
+    p.wait()
+
     # Close the DMD
-    DMD.Wait()
+    # DMD.Wait()
     # Stop the sequence display
     DMD.Halt()
     # Free the sequence from the onboard memory
@@ -230,8 +233,6 @@ def start_acq(obj):
     # De-allocate the device
     DMD.Free()
 
-    # Wait until cont-stream finishes and exit
-    p.wait()
     print("Finished.")
 
 
