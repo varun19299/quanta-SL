@@ -170,7 +170,7 @@ def start_acq(obj):
     img_seq = [cv2.imread(fpath, -1) for fpath in img_file_list]
 
     # Repeat first frame
-    num_buffer = 10
+    num_buffer = 1000
     img_first = [img_seq[0].ravel()] * num_buffer
 
     # Interleave repeat
