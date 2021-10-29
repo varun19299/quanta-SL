@@ -167,7 +167,7 @@ def start_acq(obj):
     if len(img_file_list) == 0:
         print("Finished.")
         return
-    img_seq = [(cv2.imread(fpath, -1) /255.0).astype(int) for fpath in img_file_list]
+    img_seq = [cv2.imread(fpath, -1) for fpath in img_file_list]
 
     # Repeat first frame
     num_buffer = 10
@@ -183,6 +183,7 @@ def start_acq(obj):
     # Concatenate
     img_seq = [*img_first, *img_seq_except_first]
     num_patterns = len(img_seq)
+    print(f"Num patterns after buffering and repeating {num_patterns}")
     img_seq = np.concatenate(img_seq)
 
     # Save metadata
