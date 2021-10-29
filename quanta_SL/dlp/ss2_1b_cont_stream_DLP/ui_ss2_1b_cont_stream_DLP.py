@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_ss2_1b_cont_stream_SL(object):
+class Ui_ss2_1b_cont_stream_DLP(object):
     def setupUi(self, ss2_1b_cont_stream_SL):
         ss2_1b_cont_stream_SL.setObjectName("ss2_1b_cont_stream_SL")
         ss2_1b_cont_stream_SL.resize(992, 692)
@@ -142,56 +142,145 @@ class Ui_ss2_1b_cont_stream_SL(object):
 
     def retranslateUi(self, ss2_1b_cont_stream_SL):
         _translate = QtCore.QCoreApplication.translate
-        ss2_1b_cont_stream_SL.setWindowTitle(_translate("ss2_1b_cont_stream_SL", "Form"))
-        self.capture_time.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        ss2_1b_cont_stream_SL.setWindowTitle(
+            _translate("ss2_1b_cont_stream_SL", "Form")
+        )
+        self.capture_time.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.capture_time.setText(_translate("ss2_1b_cont_stream_SL", "10"))
         self.label.setText(_translate("ss2_1b_cont_stream_SL", "Capture time[s]"))
-        self.frame_period.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        self.frame_period.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.frame_period.setText(_translate("ss2_1b_cont_stream_SL", "6.5e-5"))
-        self.column_en.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        self.column_en.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.column_en.setText(_translate("ss2_1b_cont_stream_SL", "0xFF"))
-        self.row_start.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        self.row_start.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.row_start.setText(_translate("ss2_1b_cont_stream_SL", "0"))
         self.label_2.setText(_translate("ss2_1b_cont_stream_SL", "Frame period"))
         self.label_3.setText(_translate("ss2_1b_cont_stream_SL", "Column enable"))
         self.label_4.setText(_translate("ss2_1b_cont_stream_SL", "Row start"))
         self.label_5.setText(_translate("ss2_1b_cont_stream_SL", "Row end"))
-        self.row_end.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        self.row_end.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.row_end.setText(_translate("ss2_1b_cont_stream_SL", "255"))
         self.break_seq.setText(_translate("ss2_1b_cont_stream_SL", "Break"))
-        self.filename.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        self.filename.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.filename.setText(_translate("ss2_1b_cont_stream_SL", "filename"))
         self.label_8.setText(_translate("ss2_1b_cont_stream_SL", "Filename"))
-        self.visualize_data.setText(_translate("ss2_1b_cont_stream_SL", "visualize_data"))
-        self.bits_size.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        self.visualize_data.setText(
+            _translate("ss2_1b_cont_stream_SL", "visualize_data")
+        )
+        self.bits_size.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.bits_size.setText(_translate("ss2_1b_cont_stream_SL", "8"))
         self.label_9.setText(_translate("ss2_1b_cont_stream_SL", "Bits per pixel"))
-        self.usb_call_init.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        self.usb_call_init.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.usb_call_init.setText(_translate("ss2_1b_cont_stream_SL", "0"))
         self.label_6.setText(_translate("ss2_1b_cont_stream_SL", "Init usb call"))
         self.start_acq.setText(_translate("ss2_1b_cont_stream_SL", "start acquisition"))
         self.debug_mode.setText(_translate("ss2_1b_cont_stream_SL", "test pattern"))
-        self.limited_gate_mode.setText(_translate("ss2_1b_cont_stream_SL", "limited gate mode"))
-        self.gate_length.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        self.limited_gate_mode.setText(
+            _translate("ss2_1b_cont_stream_SL", "limited gate mode")
+        )
+        self.gate_length.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.gate_length.setText(_translate("ss2_1b_cont_stream_SL", "1e-8"))
         self.label_10.setText(_translate("ss2_1b_cont_stream_SL", "Gate length"))
-        self.op_mode.setItemText(0, _translate("ss2_1b_cont_stream_SL", "Global shutter"))
-        self.op_mode.setItemText(1, _translate("ss2_1b_cont_stream_SL", "Rolling shutter"))
-        self.file_path.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        self.op_mode.setItemText(
+            0, _translate("ss2_1b_cont_stream_SL", "Global shutter")
+        )
+        self.op_mode.setItemText(
+            1, _translate("ss2_1b_cont_stream_SL", "Rolling shutter")
+        )
+        self.file_path.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.file_path.setText(_translate("ss2_1b_cont_stream_SL", "results/"))
         self.label_11.setText(_translate("ss2_1b_cont_stream_SL", "File path"))
         self.check_mode.setItemText(0, _translate("ss2_1b_cont_stream_SL", "No check"))
-        self.check_mode.setItemText(1, _translate("ss2_1b_cont_stream_SL", "Headers only"))
-        self.check_mode.setItemText(2, _translate("ss2_1b_cont_stream_SL", "Full check"))
-        self.check_mode.setItemText(3, _translate("ss2_1b_cont_stream_SL", "Histogram lost frames"))
-        self.stop_frame.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        self.check_mode.setItemText(
+            1, _translate("ss2_1b_cont_stream_SL", "Headers only")
+        )
+        self.check_mode.setItemText(
+            2, _translate("ss2_1b_cont_stream_SL", "Full check")
+        )
+        self.check_mode.setItemText(
+            3, _translate("ss2_1b_cont_stream_SL", "Histogram lost frames")
+        )
+        self.stop_frame.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.stop_frame.setText(_translate("ss2_1b_cont_stream_SL", "400000"))
         self.label_12.setText(_translate("ss2_1b_cont_stream_SL", "Stop frame"))
-        self.use_ext_trg.setText(_translate("ss2_1b_cont_stream_SL", "use external trigger"))
-        self.label_13.setText(_translate("ss2_1b_cont_stream_SL", "Projector Patterns Folder"))
+        self.use_ext_trg.setText(
+            _translate("ss2_1b_cont_stream_SL", "use external trigger")
+        )
+        self.label_13.setText(
+            _translate("ss2_1b_cont_stream_SL", "Projector Patterns Folder")
+        )
         self.browse_button.setText(_translate("ss2_1b_cont_stream_SL", "Browse"))
-        self.pattern_line.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
-        self.label_14.setText(_translate("ss2_1b_cont_stream_SL", "Projector Frame Time"))
-        self.pattern_time_line.setWhatsThis(_translate("ss2_1b_cont_stream_SL", "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>"))
+        self.pattern_line.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
+        self.label_14.setText(
+            _translate("ss2_1b_cont_stream_SL", "Projector Frame Time")
+        )
+        self.pattern_time_line.setWhatsThis(
+            _translate(
+                "ss2_1b_cont_stream_SL",
+                "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
+            )
+        )
         self.pattern_time_line.setText(_translate("ss2_1b_cont_stream_SL", "1"))
+
+
 from pyqtgraph import PlotWidget

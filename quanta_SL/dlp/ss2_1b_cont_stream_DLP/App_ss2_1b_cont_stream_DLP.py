@@ -1,6 +1,6 @@
 import sys, os
 from PyQt5.QtWidgets import QApplication, QWidget, qApp
-from ui_ss2_1b_cont_stream_SL import Ui_ss2_1b_cont_stream_SL
+from ui_ss2_1b_cont_stream_DLP import Ui_ss2_1b_cont_stream_DLP
 from PyQt5 import QtCore, QtGui, uic
 import pyqtgraph as pq
 
