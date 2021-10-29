@@ -215,7 +215,7 @@ def start_acq(obj):
     DMD.SetTiming(pictureTime=int(1e6 * project_frame_time))
 
     # Project
-    DMD.Run()
+    DMD.Run(loop=False)
 
     # Call cont-stream exe
     p = subprocess.Popen(r"%s" % argument)
