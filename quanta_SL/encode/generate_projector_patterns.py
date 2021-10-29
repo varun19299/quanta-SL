@@ -365,7 +365,6 @@ def hybrid_to_projector_frames(
         message_mapping=message_mapping,
     )
 
-
     if save:
         path = Path(f"outputs/code_images/{projector_resolution}/hybrid")
         plot_code_LUT(
@@ -415,6 +414,9 @@ def gray_stripe_to_projector_frames(
         out_dir = f"outputs/projector_frames/lcd/{folder_name}"
     else:
         out_dir = f"{out_dir}/{folder_name}"
+
+    if use_complementary:
+        out_dir += " comp"
 
     kwargs = locals().copy()
 
@@ -528,11 +530,14 @@ def dlp_patterns():
     }
 
     # Gray stripe (for calibration)
-    gray_stripe_to_projector_frames(8, **kwargs)
-    gray_stripe_to_projector_frames(8, encoded_dim="rows", **kwargs)
+    gray_stripe_to_projector_frames(7, **kwargs)
+    gray_stripe_to_projector_frames(7, encoded_dim="rows", **kwargs)
+
+    kwargs["use_complementary"] = False
 
     # Hybrid
     hybrid_bch_tuple_ll = [
+        metaclass.BCH(31, 11, 5),
         metaclass.BCH(63, 7, 15),
         metaclass.BCH(127, 8, 31),
         metaclass.BCH(255, 9, 63),
@@ -561,4 +566,4 @@ def dlp_patterns():
 
 if __name__ == "__main__":
     dlp_patterns()
-    lcd_patterns()
+    # lcd_patterns()

@@ -13,7 +13,7 @@ bin_range = range(0, 3)
 bin_offset = 0
 capture_date = "29th_October"
 folder_name = "sanity"
-folder_name = "with_sleep"
+folder_name = "with_sleep_over"
 
 
 folder = Path(f"outputs/real_captures/DLP_projector/{capture_date}/{folder_name}/")
