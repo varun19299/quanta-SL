@@ -16,6 +16,7 @@ ipdb
 line_profiler
 loguru
 matplotlib
+natsort
 nptyping
 numba
 numpy>=1.20,<1.21
@@ -29,6 +30,9 @@ plotly
 pytest
 pykeops
 pynndescent
+PyQt5
+pyqtgraph
+qtwidgets
 roipoly
 SciencePlots
 scipy
