@@ -219,7 +219,7 @@ def start_acq(obj):
     p = subprocess.Popen(r"%s" % argument)
 
     # Project
-    DMD.Run(loop=False)
+    DMD.Run()
 
     # Wait until cont-stream finishes and exit
     p.wait()
