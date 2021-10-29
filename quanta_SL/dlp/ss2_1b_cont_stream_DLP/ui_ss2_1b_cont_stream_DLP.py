@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\ss2_1b_cont_stream_SL.ui'
+# Form implementation generated from reading ui file '.\ss2_1b_cont_stream_DLP.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -12,97 +12,97 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_ss2_1b_cont_stream_DLP(object):
-    def setupUi(self, ss2_1b_cont_stream_SL):
-        ss2_1b_cont_stream_SL.setObjectName("ss2_1b_cont_stream_SL")
-        ss2_1b_cont_stream_SL.resize(992, 692)
-        self.capture_time = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+    def setupUi(self, ss2_1b_cont_stream_DLP):
+        ss2_1b_cont_stream_DLP.setObjectName("ss2_1b_cont_stream_DLP")
+        ss2_1b_cont_stream_DLP.resize(992, 692)
+        self.capture_time = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.capture_time.setGeometry(QtCore.QRect(440, 20, 133, 20))
         self.capture_time.setObjectName("capture_time")
-        self.label = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label.setGeometry(QtCore.QRect(350, 20, 79, 16))
         self.label.setObjectName("label")
-        self.frame_period = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.frame_period = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.frame_period.setGeometry(QtCore.QRect(440, 50, 133, 20))
         self.frame_period.setObjectName("frame_period")
-        self.column_en = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.column_en = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.column_en.setGeometry(QtCore.QRect(440, 80, 133, 20))
         self.column_en.setObjectName("column_en")
-        self.row_start = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.row_start = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.row_start.setGeometry(QtCore.QRect(440, 110, 133, 20))
         self.row_start.setObjectName("row_start")
-        self.label_2 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_2 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_2.setGeometry(QtCore.QRect(350, 50, 79, 16))
         self.label_2.setObjectName("label_2")
-        self.label_3 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_3 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_3.setGeometry(QtCore.QRect(350, 80, 79, 16))
         self.label_3.setObjectName("label_3")
-        self.label_4 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_4 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_4.setGeometry(QtCore.QRect(350, 110, 79, 16))
         self.label_4.setObjectName("label_4")
-        self.label_5 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_5 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_5.setGeometry(QtCore.QRect(350, 140, 79, 16))
         self.label_5.setObjectName("label_5")
-        self.row_end = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.row_end = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.row_end.setGeometry(QtCore.QRect(440, 140, 133, 20))
         self.row_end.setObjectName("row_end")
-        self.break_seq = QtWidgets.QCheckBox(ss2_1b_cont_stream_SL)
+        self.break_seq = QtWidgets.QCheckBox(ss2_1b_cont_stream_DLP)
         self.break_seq.setGeometry(QtCore.QRect(870, 120, 131, 17))
         self.break_seq.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.break_seq.setObjectName("break_seq")
-        self.filename = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.filename = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.filename.setGeometry(QtCore.QRect(440, 170, 133, 20))
         self.filename.setObjectName("filename")
-        self.label_8 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_8 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_8.setGeometry(QtCore.QRect(350, 170, 79, 16))
         self.label_8.setObjectName("label_8")
-        self.graphicsView = PlotWidget(ss2_1b_cont_stream_SL)
+        self.graphicsView = PlotWidget(ss2_1b_cont_stream_DLP)
         self.graphicsView.setGeometry(QtCore.QRect(10, 260, 971, 391))
         self.graphicsView.setObjectName("graphicsView")
-        self.visualize_data = QtWidgets.QPushButton(ss2_1b_cont_stream_SL)
+        self.visualize_data = QtWidgets.QPushButton(ss2_1b_cont_stream_DLP)
         self.visualize_data.setGeometry(QtCore.QRect(730, 120, 111, 23))
         self.visualize_data.setObjectName("visualize_data")
-        self.bits_size = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.bits_size = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.bits_size.setGeometry(QtCore.QRect(820, 60, 133, 20))
         self.bits_size.setObjectName("bits_size")
-        self.label_9 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_9 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_9.setGeometry(QtCore.QRect(730, 60, 79, 16))
         self.label_9.setObjectName("label_9")
-        self.usb_call_init = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.usb_call_init = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.usb_call_init.setGeometry(QtCore.QRect(820, 30, 133, 20))
         self.usb_call_init.setObjectName("usb_call_init")
-        self.label_6 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_6 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_6.setGeometry(QtCore.QRect(730, 30, 79, 16))
         self.label_6.setObjectName("label_6")
-        self.start_acq = QtWidgets.QPushButton(ss2_1b_cont_stream_SL)
+        self.start_acq = QtWidgets.QPushButton(ss2_1b_cont_stream_DLP)
         self.start_acq.setGeometry(QtCore.QRect(20, 220, 111, 23))
         self.start_acq.setObjectName("start_acq")
-        self.debug_mode = QtWidgets.QCheckBox(ss2_1b_cont_stream_SL)
+        self.debug_mode = QtWidgets.QCheckBox(ss2_1b_cont_stream_DLP)
         self.debug_mode.setGeometry(QtCore.QRect(20, 20, 131, 17))
         self.debug_mode.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.debug_mode.setObjectName("debug_mode")
-        self.limited_gate_mode = QtWidgets.QCheckBox(ss2_1b_cont_stream_SL)
+        self.limited_gate_mode = QtWidgets.QCheckBox(ss2_1b_cont_stream_DLP)
         self.limited_gate_mode.setGeometry(QtCore.QRect(20, 50, 131, 17))
         self.limited_gate_mode.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.limited_gate_mode.setObjectName("limited_gate_mode")
-        self.gate_length = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.gate_length = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.gate_length.setGeometry(QtCore.QRect(440, 230, 133, 20))
         self.gate_length.setObjectName("gate_length")
-        self.label_10 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_10 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_10.setGeometry(QtCore.QRect(350, 230, 79, 16))
         self.label_10.setObjectName("label_10")
-        self.op_mode = QtWidgets.QComboBox(ss2_1b_cont_stream_SL)
+        self.op_mode = QtWidgets.QComboBox(ss2_1b_cont_stream_DLP)
         self.op_mode.setGeometry(QtCore.QRect(20, 80, 106, 20))
         self.op_mode.setMinimumContentsLength(0)
         self.op_mode.setObjectName("op_mode")
         self.op_mode.addItem("")
         self.op_mode.addItem("")
-        self.file_path = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.file_path = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.file_path.setGeometry(QtCore.QRect(440, 200, 133, 20))
         self.file_path.setObjectName("file_path")
-        self.label_11 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_11 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_11.setGeometry(QtCore.QRect(350, 200, 79, 16))
         self.label_11.setObjectName("label_11")
-        self.check_mode = QtWidgets.QComboBox(ss2_1b_cont_stream_SL)
+        self.check_mode = QtWidgets.QComboBox(ss2_1b_cont_stream_DLP)
         self.check_mode.setGeometry(QtCore.QRect(870, 150, 106, 20))
         self.check_mode.setMinimumContentsLength(0)
         self.check_mode.setObjectName("check_mode")
@@ -110,177 +110,177 @@ class Ui_ss2_1b_cont_stream_DLP(object):
         self.check_mode.addItem("")
         self.check_mode.addItem("")
         self.check_mode.addItem("")
-        self.stop_frame = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.stop_frame = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.stop_frame.setGeometry(QtCore.QRect(820, 90, 133, 20))
         self.stop_frame.setObjectName("stop_frame")
-        self.label_12 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_12 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_12.setGeometry(QtCore.QRect(730, 90, 79, 16))
         self.label_12.setObjectName("label_12")
-        self.use_ext_trg = QtWidgets.QCheckBox(ss2_1b_cont_stream_SL)
+        self.use_ext_trg = QtWidgets.QCheckBox(ss2_1b_cont_stream_DLP)
         self.use_ext_trg.setGeometry(QtCore.QRect(150, 20, 131, 17))
         self.use_ext_trg.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.use_ext_trg.setObjectName("use_ext_trg")
-        self.label_13 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_13 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_13.setGeometry(QtCore.QRect(20, 120, 151, 16))
         self.label_13.setObjectName("label_13")
-        self.browse_button = QtWidgets.QPushButton(ss2_1b_cont_stream_SL)
+        self.browse_button = QtWidgets.QPushButton(ss2_1b_cont_stream_DLP)
         self.browse_button.setGeometry(QtCore.QRect(180, 120, 71, 23))
         self.browse_button.setObjectName("browse_button")
-        self.pattern_line = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.pattern_line = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.pattern_line.setGeometry(QtCore.QRect(20, 150, 231, 20))
         self.pattern_line.setText("")
         self.pattern_line.setObjectName("pattern_line")
-        self.label_14 = QtWidgets.QLabel(ss2_1b_cont_stream_SL)
+        self.label_14 = QtWidgets.QLabel(ss2_1b_cont_stream_DLP)
         self.label_14.setGeometry(QtCore.QRect(20, 180, 131, 16))
         self.label_14.setObjectName("label_14")
-        self.pattern_time_line = QtWidgets.QLineEdit(ss2_1b_cont_stream_SL)
+        self.pattern_time_line = QtWidgets.QLineEdit(ss2_1b_cont_stream_DLP)
         self.pattern_time_line.setGeometry(QtCore.QRect(160, 180, 91, 20))
         self.pattern_time_line.setObjectName("pattern_time_line")
 
-        self.retranslateUi(ss2_1b_cont_stream_SL)
-        QtCore.QMetaObject.connectSlotsByName(ss2_1b_cont_stream_SL)
+        self.retranslateUi(ss2_1b_cont_stream_DLP)
+        QtCore.QMetaObject.connectSlotsByName(ss2_1b_cont_stream_DLP)
 
-    def retranslateUi(self, ss2_1b_cont_stream_SL):
+    def retranslateUi(self, ss2_1b_cont_stream_DLP):
         _translate = QtCore.QCoreApplication.translate
-        ss2_1b_cont_stream_SL.setWindowTitle(
-            _translate("ss2_1b_cont_stream_SL", "Form")
+        ss2_1b_cont_stream_DLP.setWindowTitle(
+            _translate("ss2_1b_cont_stream_DLP", "Form")
         )
         self.capture_time.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.capture_time.setText(_translate("ss2_1b_cont_stream_SL", "10"))
-        self.label.setText(_translate("ss2_1b_cont_stream_SL", "Capture time[s]"))
+        self.capture_time.setText(_translate("ss2_1b_cont_stream_DLP", "10"))
+        self.label.setText(_translate("ss2_1b_cont_stream_DLP", "Capture time[s]"))
         self.frame_period.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.frame_period.setText(_translate("ss2_1b_cont_stream_SL", "6.5e-5"))
+        self.frame_period.setText(_translate("ss2_1b_cont_stream_DLP", "6.5e-5"))
         self.column_en.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.column_en.setText(_translate("ss2_1b_cont_stream_SL", "0xFF"))
+        self.column_en.setText(_translate("ss2_1b_cont_stream_DLP", "0xFF"))
         self.row_start.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.row_start.setText(_translate("ss2_1b_cont_stream_SL", "0"))
-        self.label_2.setText(_translate("ss2_1b_cont_stream_SL", "Frame period"))
-        self.label_3.setText(_translate("ss2_1b_cont_stream_SL", "Column enable"))
-        self.label_4.setText(_translate("ss2_1b_cont_stream_SL", "Row start"))
-        self.label_5.setText(_translate("ss2_1b_cont_stream_SL", "Row end"))
+        self.row_start.setText(_translate("ss2_1b_cont_stream_DLP", "0"))
+        self.label_2.setText(_translate("ss2_1b_cont_stream_DLP", "Frame period"))
+        self.label_3.setText(_translate("ss2_1b_cont_stream_DLP", "Column enable"))
+        self.label_4.setText(_translate("ss2_1b_cont_stream_DLP", "Row start"))
+        self.label_5.setText(_translate("ss2_1b_cont_stream_DLP", "Row end"))
         self.row_end.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.row_end.setText(_translate("ss2_1b_cont_stream_SL", "255"))
-        self.break_seq.setText(_translate("ss2_1b_cont_stream_SL", "Break"))
+        self.row_end.setText(_translate("ss2_1b_cont_stream_DLP", "255"))
+        self.break_seq.setText(_translate("ss2_1b_cont_stream_DLP", "Break"))
         self.filename.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.filename.setText(_translate("ss2_1b_cont_stream_SL", "filename"))
-        self.label_8.setText(_translate("ss2_1b_cont_stream_SL", "Filename"))
+        self.filename.setText(_translate("ss2_1b_cont_stream_DLP", "filename"))
+        self.label_8.setText(_translate("ss2_1b_cont_stream_DLP", "Filename"))
         self.visualize_data.setText(
-            _translate("ss2_1b_cont_stream_SL", "visualize_data")
+            _translate("ss2_1b_cont_stream_DLP", "visualize_data")
         )
         self.bits_size.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.bits_size.setText(_translate("ss2_1b_cont_stream_SL", "8"))
-        self.label_9.setText(_translate("ss2_1b_cont_stream_SL", "Bits per pixel"))
+        self.bits_size.setText(_translate("ss2_1b_cont_stream_DLP", "8"))
+        self.label_9.setText(_translate("ss2_1b_cont_stream_DLP", "Bits per pixel"))
         self.usb_call_init.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.usb_call_init.setText(_translate("ss2_1b_cont_stream_SL", "0"))
-        self.label_6.setText(_translate("ss2_1b_cont_stream_SL", "Init usb call"))
-        self.start_acq.setText(_translate("ss2_1b_cont_stream_SL", "start acquisition"))
-        self.debug_mode.setText(_translate("ss2_1b_cont_stream_SL", "test pattern"))
+        self.usb_call_init.setText(_translate("ss2_1b_cont_stream_DLP", "0"))
+        self.label_6.setText(_translate("ss2_1b_cont_stream_DLP", "Init usb call"))
+        self.start_acq.setText(_translate("ss2_1b_cont_stream_DLP", "start acquisition"))
+        self.debug_mode.setText(_translate("ss2_1b_cont_stream_DLP", "test pattern"))
         self.limited_gate_mode.setText(
-            _translate("ss2_1b_cont_stream_SL", "limited gate mode")
+            _translate("ss2_1b_cont_stream_DLP", "limited gate mode")
         )
         self.gate_length.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.gate_length.setText(_translate("ss2_1b_cont_stream_SL", "1e-8"))
-        self.label_10.setText(_translate("ss2_1b_cont_stream_SL", "Gate length"))
+        self.gate_length.setText(_translate("ss2_1b_cont_stream_DLP", "1e-8"))
+        self.label_10.setText(_translate("ss2_1b_cont_stream_DLP", "Gate length"))
         self.op_mode.setItemText(
-            0, _translate("ss2_1b_cont_stream_SL", "Global shutter")
+            0, _translate("ss2_1b_cont_stream_DLP", "Global shutter")
         )
         self.op_mode.setItemText(
-            1, _translate("ss2_1b_cont_stream_SL", "Rolling shutter")
+            1, _translate("ss2_1b_cont_stream_DLP", "Rolling shutter")
         )
         self.file_path.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.file_path.setText(_translate("ss2_1b_cont_stream_SL", "results/"))
-        self.label_11.setText(_translate("ss2_1b_cont_stream_SL", "File path"))
-        self.check_mode.setItemText(0, _translate("ss2_1b_cont_stream_SL", "No check"))
+        self.file_path.setText(_translate("ss2_1b_cont_stream_DLP", "results/"))
+        self.label_11.setText(_translate("ss2_1b_cont_stream_DLP", "File path"))
+        self.check_mode.setItemText(0, _translate("ss2_1b_cont_stream_DLP", "No check"))
         self.check_mode.setItemText(
-            1, _translate("ss2_1b_cont_stream_SL", "Headers only")
+            1, _translate("ss2_1b_cont_stream_DLP", "Headers only")
         )
         self.check_mode.setItemText(
-            2, _translate("ss2_1b_cont_stream_SL", "Full check")
+            2, _translate("ss2_1b_cont_stream_DLP", "Full check")
         )
         self.check_mode.setItemText(
-            3, _translate("ss2_1b_cont_stream_SL", "Histogram lost frames")
+            3, _translate("ss2_1b_cont_stream_DLP", "Histogram lost frames")
         )
         self.stop_frame.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.stop_frame.setText(_translate("ss2_1b_cont_stream_SL", "400000"))
-        self.label_12.setText(_translate("ss2_1b_cont_stream_SL", "Stop frame"))
+        self.stop_frame.setText(_translate("ss2_1b_cont_stream_DLP", "400000"))
+        self.label_12.setText(_translate("ss2_1b_cont_stream_DLP", "Stop frame"))
         self.use_ext_trg.setText(
-            _translate("ss2_1b_cont_stream_SL", "use external trigger")
+            _translate("ss2_1b_cont_stream_DLP", "use external trigger")
         )
         self.label_13.setText(
-            _translate("ss2_1b_cont_stream_SL", "Projector Patterns Folder")
+            _translate("ss2_1b_cont_stream_DLP", "Projector Patterns Folder")
         )
-        self.browse_button.setText(_translate("ss2_1b_cont_stream_SL", "Browse"))
+        self.browse_button.setText(_translate("ss2_1b_cont_stream_DLP", "Browse"))
         self.pattern_line.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
         self.label_14.setText(
-            _translate("ss2_1b_cont_stream_SL", "Projector Frame Time")
+            _translate("ss2_1b_cont_stream_DLP", "Projector Frame Time")
         )
         self.pattern_time_line.setWhatsThis(
             _translate(
-                "ss2_1b_cont_stream_SL",
+                "ss2_1b_cont_stream_DLP",
                 "<html><head/><body><p>Set the time in seconds. For continuous integration set to -1 .</p><p><br/></p></body></html>",
             )
         )
-        self.pattern_time_line.setText(_translate("ss2_1b_cont_stream_SL", "1"))
+        self.pattern_time_line.setText(_translate("ss2_1b_cont_stream_DLP", "1"))
 
 
 from pyqtgraph import PlotWidget
