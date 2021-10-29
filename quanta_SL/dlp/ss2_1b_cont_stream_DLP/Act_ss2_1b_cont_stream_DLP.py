@@ -188,7 +188,7 @@ def start_acq(obj):
     img_seq = np.concatenate(img_seq)
 
     # Save metadata
-    initial_sleep = 0.5
+    initial_sleep = 1
     metadata = {
         "capture_time": capture_time,
         "frame_period": frame_period,

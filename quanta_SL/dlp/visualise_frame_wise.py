@@ -12,7 +12,7 @@ logger.disable("quanta_SL")
 bin_range = range(0, 3)
 bin_offset = 0
 capture_date = "29th_October"
-folder_name = "gray_stripe_no_comp"
+folder_name = "gray_stripe_2pm"
 
 
 folder = Path(f"outputs/real_captures/DLP_projector/{capture_date}/{folder_name}/")
