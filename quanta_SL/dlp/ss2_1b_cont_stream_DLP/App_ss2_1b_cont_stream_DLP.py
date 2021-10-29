@@ -4,7 +4,7 @@ from ui_ss2_1b_cont_stream_DLP import Ui_ss2_1b_cont_stream_DLP
 from PyQt5 import QtCore, QtGui, uic
 import pyqtgraph as pq
 
-class App_ss2_1b_cont_stream_SL(QWidget):    
+class App_ss2_1b_cont_stream_DLP(QWidget):
     ####################################################################    
     ########################### Constructor ############################
     def __init__(self, parent=None):
@@ -15,7 +15,7 @@ class App_ss2_1b_cont_stream_SL(QWidget):
 ########################################################################
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    myapp = App_ss2_1b_cont_stream_SL()
+    myapp = App_ss2_1b_cont_stream_DLP()
     myapp.show()
     
     sys.exit(app.exec_())   
