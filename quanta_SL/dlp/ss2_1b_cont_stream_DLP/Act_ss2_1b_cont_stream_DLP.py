@@ -21,9 +21,9 @@ from quanta_SL.dlp.ALP4 import ALP4
 
 
 def connectUI(obj):
-    obj.ss2_1b_cont_stream_SL.ui.visualize_data.clicked.connect(lambda: print_img(obj))
-    obj.ss2_1b_cont_stream_SL.ui.start_acq.clicked.connect(lambda: start_acq(obj))
-    obj.ss2_1b_cont_stream_SL.ui.browse_button.clicked.connect(
+    obj.ss2_1b_cont_stream_DLP.ui.visualize_data.clicked.connect(lambda: print_img(obj))
+    obj.ss2_1b_cont_stream_DLP.ui.start_acq.clicked.connect(lambda: start_acq(obj))
+    obj.ss2_1b_cont_stream_DLP.ui.browse_button.clicked.connect(
         lambda: browse_patterns(obj)
     )
 
@@ -33,18 +33,18 @@ def start_acq(obj):
     # data_packs_size=1024*1024*4
     data_packs_size = 1024 * 1024 * 8
     data_chunk = 1024 * 1024 * 1024
-    capture_time = float(obj.ss2_1b_cont_stream_SL.ui.capture_time.text())
-    frame_period = float(obj.ss2_1b_cont_stream_SL.ui.frame_period.text())
-    column_en = int(obj.ss2_1b_cont_stream_SL.ui.column_en.text(), 16)
-    row_start = int(obj.ss2_1b_cont_stream_SL.ui.row_start.text())
-    row_end = int(obj.ss2_1b_cont_stream_SL.ui.row_end.text())
-    gate_length = float(obj.ss2_1b_cont_stream_SL.ui.gate_length.text())
+    capture_time = float(obj.ss2_1b_cont_stream_DLP.ui.capture_time.text())
+    frame_period = float(obj.ss2_1b_cont_stream_DLP.ui.frame_period.text())
+    column_en = int(obj.ss2_1b_cont_stream_DLP.ui.column_en.text(), 16)
+    row_start = int(obj.ss2_1b_cont_stream_DLP.ui.row_start.text())
+    row_end = int(obj.ss2_1b_cont_stream_DLP.ui.row_end.text())
+    gate_length = float(obj.ss2_1b_cont_stream_DLP.ui.gate_length.text())
     cont_acq = 0
-    test_pattern = int(obj.ss2_1b_cont_stream_SL.ui.debug_mode.isChecked())
-    limited_gate_mode = int(obj.ss2_1b_cont_stream_SL.ui.limited_gate_mode.isChecked())
-    use_ext_trg = int(obj.ss2_1b_cont_stream_SL.ui.use_ext_trg.isChecked())
+    test_pattern = int(obj.ss2_1b_cont_stream_DLP.ui.debug_mode.isChecked())
+    limited_gate_mode = int(obj.ss2_1b_cont_stream_DLP.ui.limited_gate_mode.isChecked())
+    use_ext_trg = int(obj.ss2_1b_cont_stream_DLP.ui.use_ext_trg.isChecked())
     cont_chip_ctrl = 0
-    op_mode = obj.ss2_1b_cont_stream_SL.ui.op_mode.currentText()
+    op_mode = obj.ss2_1b_cont_stream_DLP.ui.op_mode.currentText()
     print("gate length", int(gate_length / float(5e-9)))
     print("frame_period", int(frame_period / float(5e-9)))
     print("column_en", column_en)
@@ -57,14 +57,14 @@ def start_acq(obj):
         no_frames = int(capture_time / frame_period)
     print("no_frames", no_frames)
 
-    filename = str(obj.ss2_1b_cont_stream_SL.ui.filename.text())
+    filename = str(obj.ss2_1b_cont_stream_DLP.ui.filename.text())
     file_path = os.path.join(str(pathlib.Path().absolute()), "usrsrc")
-    file_path = os.path.join(file_path, "ss2_1b_cont_stream_SL")
+    file_path = os.path.join(file_path, "ss2_1b_cont_stream_DLP")
     file_path = os.path.join(
-        file_path, str(obj.ss2_1b_cont_stream_SL.ui.file_path.text())
+        file_path, str(obj.ss2_1b_cont_stream_DLP.ui.file_path.text())
     )
 
-    column_en_str = obj.ss2_1b_cont_stream_SL.ui.column_en.text()
+    column_en_str = obj.ss2_1b_cont_stream_DLP.ui.column_en.text()
     column_en_int = int(column_en_str, 16)
     column_en_bin = bin(column_en_int)
     read_size = (((row_end - row_start + 1) * 64 * column_en_bin.count("1"))) / 8
@@ -155,10 +155,10 @@ def start_acq(obj):
     )
     print(argument)
     # Load images
-    pattern_folder = Path(obj.ss2_1b_cont_stream_SL.ui.pattern_line.text())
+    pattern_folder = Path(obj.ss2_1b_cont_stream_DLP.ui.pattern_line.text())
 
     # in seconds
-    project_frame_time = float(obj.ss2_1b_cont_stream_SL.ui.pattern_time_line.text())
+    project_frame_time = float(obj.ss2_1b_cont_stream_DLP.ui.pattern_time_line.text())
 
     img_file_list = [str(fpath) for fpath in pattern_folder.glob("*.png")]
     img_file_list += [str(fpath) for fpath in pattern_folder.glob("*.tiff")]
@@ -236,15 +236,15 @@ def print_img(obj):
     # data_packs_size=1048576*4
     data_packs_size = 1048576 * 8
     data_chunk = 1024 * 1024 * 1024
-    capture_time = float(obj.ss2_1b_cont_stream_SL.ui.capture_time.text())
-    frame_period = float(obj.ss2_1b_cont_stream_SL.ui.frame_period.text())
+    capture_time = float(obj.ss2_1b_cont_stream_DLP.ui.capture_time.text())
+    frame_period = float(obj.ss2_1b_cont_stream_DLP.ui.frame_period.text())
     no_frames = int(capture_time / frame_period)
-    row_end = int(obj.ss2_1b_cont_stream_SL.ui.row_end.text())
-    row_start = int(obj.ss2_1b_cont_stream_SL.ui.row_start.text())
-    usb_call_init = int(obj.ss2_1b_cont_stream_SL.ui.usb_call_init.text())
-    bits_size = int(obj.ss2_1b_cont_stream_SL.ui.bits_size.text())
-    stop_frame = int(obj.ss2_1b_cont_stream_SL.ui.stop_frame.text())
-    column_en_str = obj.ss2_1b_cont_stream_SL.ui.column_en.text()
+    row_end = int(obj.ss2_1b_cont_stream_DLP.ui.row_end.text())
+    row_start = int(obj.ss2_1b_cont_stream_DLP.ui.row_start.text())
+    usb_call_init = int(obj.ss2_1b_cont_stream_DLP.ui.usb_call_init.text())
+    bits_size = int(obj.ss2_1b_cont_stream_DLP.ui.bits_size.text())
+    stop_frame = int(obj.ss2_1b_cont_stream_DLP.ui.stop_frame.text())
+    column_en_str = obj.ss2_1b_cont_stream_DLP.ui.column_en.text()
     column_en_int = int(column_en_str, 16)
     column_en = bin(column_en_int)
     column_en_bin = format(column_en_int, "08b")
@@ -255,20 +255,20 @@ def print_img(obj):
     usb_calls = int(int(ceiled_read_size / data_packs_size) / 128) * 128
     if usb_calls < 128:
         usb_calls = 128
-    filename = str(obj.ss2_1b_cont_stream_SL.ui.filename.text())
-    file_path = "./usrsrc/ss2_1b_cont_stream_SL/" + str(
-        obj.ss2_1b_cont_stream_SL.ui.file_path.text()
+    filename = str(obj.ss2_1b_cont_stream_DLP.ui.filename.text())
+    file_path = "./usrsrc/ss2_1b_cont_stream_DLP/" + str(
+        obj.ss2_1b_cont_stream_DLP.ui.file_path.text()
     )
     full_file_path = (
         str(pathlib.Path().absolute())
-        + "/usrsrc/ss2_1b_cont_stream_SL/"
-        + str(obj.ss2_1b_cont_stream_SL.ui.file_path.text())
+        + "/usrsrc/ss2_1b_cont_stream_DLP/"
+        + str(obj.ss2_1b_cont_stream_DLP.ui.file_path.text())
     )
     data_per_frame = 2 * (row_end - row_start + 1) * column_en.count("1")
     print("data_per_frame", data_per_frame, "usb_calls", usb_calls)
     current_frame = 0
     count_frame = 0
-    break_seq = int(obj.ss2_1b_cont_stream_SL.ui.break_seq.isChecked())
+    break_seq = int(obj.ss2_1b_cont_stream_DLP.ui.break_seq.isChecked())
     frame = np.zeros([256, 512], dtype=np.uint8)
     col = 0
     row = 0
@@ -276,7 +276,7 @@ def print_img(obj):
     col_no = column_en.count("1")
     col_en_int_v = [int(i) for i in column_en_bin]
     col_en_int_v = np.flip(col_en_int_v)
-    check_bin_data = obj.ss2_1b_cont_stream_SL.ui.check_mode.currentText()
+    check_bin_data = obj.ss2_1b_cont_stream_DLP.ui.check_mode.currentText()
     print(check_bin_data)
     if check_bin_data == "No check":
         check_headers = 0
@@ -382,7 +382,7 @@ def print_img(obj):
             data_32px = data2[x_col]
             if count_frame == 0:
                 print("frane no", data_32px)
-                break_seq = int(obj.ss2_1b_cont_stream_SL.ui.break_seq.isChecked())
+                break_seq = int(obj.ss2_1b_cont_stream_DLP.ui.break_seq.isChecked())
             if count_frame >= 0:
                 col_loc = np.where(np.array(col_en_int_v) == 1)
                 col_v = 15 - int(2 * col_loc[0][col >> 1] + (col & 1))
@@ -402,7 +402,7 @@ def print_img(obj):
             if count_frame == data_per_frame:
                 count_frame = 0
                 img = pg.ImageItem(np.transpose(frame))
-                obj.ss2_1b_cont_stream_SL.ui.graphicsView.addItem(img)
+                obj.ss2_1b_cont_stream_DLP.ui.graphicsView.addItem(img)
                 pg.QtGui.QApplication.processEvents()
                 if current_frame >= stop_frame:
                     return 0
@@ -421,4 +421,4 @@ def browse_patterns(obj):
     dir = PyQt5.QtWidgets.QFileDialog.getExistingDirectory(
         None, "Choose Pattern Folder", "D:/Downloads/projector_frames"
     )
-    obj.ss2_1b_cont_stream_SL.ui.pattern_line.setText(dir)
+    obj.ss2_1b_cont_stream_DLP.ui.pattern_line.setText(dir)

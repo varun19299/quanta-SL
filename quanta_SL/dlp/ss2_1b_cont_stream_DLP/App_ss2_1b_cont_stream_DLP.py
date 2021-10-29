@@ -9,7 +9,7 @@ class App_ss2_1b_cont_stream_SL(QWidget):
     ########################### Constructor ############################
     def __init__(self, parent=None):
         super(App_ss2_1b_cont_stream_SL,self).__init__()
-        self.ui = Ui_ss2_1b_cont_stream_SL()
+        self.ui = Ui_ss2_1b_cont_stream_DLP()
         self.ui.setupUi(self)
 
 ########################################################################
