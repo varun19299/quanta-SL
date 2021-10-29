@@ -1,16 +1,16 @@
-hybrid_255:
-  name: Hybrid BCH [255, 9] [${methods.hybrid_255.message_mapping}] comp
-  folder: ${outfolder}/${methods.hybrid_255.name}/
+conv_gray:
+  name: Gray Code [${methods.conv_gray.repetition_tuple.k} bits] comp
+  folder: ${outfolder}/${methods.conv_gray.name}/
   message_bits: 11
-  overlap_bits: 1
-  bch_tuple:
-    n: 255
-    k: 9
-    t: 63
-  bch_message_bits: 8
+  repetition_tuple:
+    n: 11
+    k: 11
+    t: 0
+  multi_sample: False
   message_mapping: gray_message
   rotate_180: True
-  visualize_frame: False
+  use_complementary: False
+  visualize_frame: True
   binary_frame:
     # Each burst has 512 frames
     # For GT

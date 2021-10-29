@@ -10,3 +10,6 @@ hydra:
       override_dirname:
         exclude_keys:
           - exp_name
+  job_logging:
+      file:
+        mode: w # comment if you dont want to overwrite

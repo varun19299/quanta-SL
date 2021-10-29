@@ -180,7 +180,7 @@ def plot_code_LUT(
     """
     h, c = code_LUT.shape
 
-    num_repeat = kwargs.get("num_repeat", int(h / c / aspect_ratio))
+    num_repeat = kwargs.get("num_repeat", max(int(h / c / aspect_ratio), 1))
 
     code_img = repeat(code_LUT, "h c -> (c repeat) h", repeat=num_repeat)
 
@@ -222,18 +222,20 @@ def visualize_point_cloud(
     poisson_kwargs: Dict = {},
     savefig: bool = False,
     show: bool = True,
-    create_mesh: bool=False,
+    create_mesh: bool = False,
     **kwargs,
 ):
     # 3D plot
     pcd = open3d.geometry.PointCloud()
     pcd.points = open3d.utility.Vector3dVector(points_3d)
     pcd.colors = open3d.utility.Vector3dVector(colors)
-    pcd.remove_statistical_outlier(nb_neighbors=20, std_ratio=0.5)
-    pcd.remove_radius_outlier(nb_points=16, radius=0.05)
+    pcd.remove_statistical_outlier(nb_neighbors=20, std_ratio=0.2)
+    pcd.remove_radius_outlier(nb_points=16, radius=0.1)
 
     if show:
-        open3d.visualization.draw_geometries([pcd], point_show_normal=True, **view_kwargs)
+        open3d.visualization.draw_geometries(
+            [pcd], point_show_normal=True, **view_kwargs
+        )
 
     if savefig:
         ply_path = Path(kwargs.get("fname") + "_point_cloud.ply")

@@ -10,7 +10,7 @@ repetition_conv_77:
   message_mapping: gray_message
   rotate_180: True
   use_complementary: False
-  visualize_frame: True
+  visualize_frame: False
   binary_frame:
     # Each burst has 512 frames
     # For GT

@@ -1,5 +1,5 @@
 hybrid_63:
-  name: Hybrid BCH [63, 10] [gray_message] comp
+  name: Hybrid BCH [63, 10] [${methods.hybrid_63.message_mapping}] comp
   folder: ${outfolder}/${methods.hybrid_63.name}/
   message_bits: 11
   overlap_bits: 1

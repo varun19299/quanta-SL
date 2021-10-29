@@ -32,7 +32,8 @@ def code_LUT_to_projector_frames(
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
-    folder_name: str = "",
+    out_dir: str = "",
+    include_all_white: bool = False,
     **unused_kwargs,
 ):
     """
@@ -45,7 +46,8 @@ def code_LUT_to_projector_frames(
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
-    :param folder_name: Folder name to save to
+    :param out_dir: Folder name to save to
+    :param include_all_white: Include an all-white frame
     """
     assert encoded_dim in [0, 1, "columns", "rows"]
     width, height = projector_resolution
@@ -64,7 +66,7 @@ def code_LUT_to_projector_frames(
         ), f"Coding scheme has only {N} codes, not sufficient to cover {height} projector rows."
 
         encoded_len = height
-        folder_name += " [rows]"
+        out_dir += " [rows]"
 
     # Crop to fit projector width / height
     code_LUT = code_LUT[(N - encoded_len) // 2 : (N + encoded_len) // 2]
@@ -79,23 +81,28 @@ def code_LUT_to_projector_frames(
         code_ll_gray_comp[:, 1::2] = 1 - code_LUT
         code_LUT = code_ll_gray_comp
 
+    if include_all_white:
+        all_white = np.ones((encoded_len, 1), dtype=int)
+        code_LUT = np.concatenate((all_white, code_LUT), axis=1)
+
     if encoded_dim in [0, "columns"]:
         code_LUT = repeat(code_LUT, "width n -> height width n", height=height)
     else:
         code_LUT = repeat(code_LUT, "height n -> height width n", width=width)
 
     if save:
-        assert folder_name, f"No output folder provided"
-        out_dir = Path("outputs/projector_frames") / folder_name
+        assert out_dir, f"No output folder provided"
+        out_dir = Path(out_dir)
         out_dir.mkdir(exist_ok=True, parents=True)
 
     # Write out files
     if show or save:
-        logger.info(f"Saving / showing strategy {folder_name}")
+        logger.info(f"Saving / showing strategy {out_dir}")
 
         pbar = tqdm(rearrange(code_LUT, "height width n -> n height width"))
 
-        for e, frame in enumerate(pbar, start=1):
+        start = 1 if not include_all_white else 0
+        for e, frame in enumerate(pbar, start=start):
             pbar.set_description(f"Frame {e}")
 
             if show:
@@ -114,7 +121,8 @@ def gray_code_to_projector_frames(
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
-    folder_name: str = "",
+    out_dir: str = "",
+    include_all_white: bool = False,
 ):
     """
     Gray codes to projector frames
@@ -126,17 +134,21 @@ def gray_code_to_projector_frames(
 
     :param show: Plot in pyplot
     :param save: Save as png
-    :param folder_name: Folder name to save to
+    :param out_dir: Folder to save to
+    :param include_all_white: Include an all-white frame
     """
     # Find bits required to represent columns
     width, height = projector_resolution
     num_bits = ceil(log2(width))
 
-    if not folder_name:
-        folder_name = f"Gray Code [{num_bits} bits]"
+    folder_name = f"Gray Code [{num_bits} bits]"
+    if not out_dir:
+        out_dir = f"outputs/projector_frames/lcd/{folder_name}"
+    else:
+        out_dir = f"{out_dir}/{folder_name}"
 
     if use_complementary:
-        folder_name += " comp"
+        out_dir += " comp"
 
     kwargs = locals().copy()
 
@@ -152,7 +164,8 @@ def long_run_gray_code_to_projector_frames(
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
-    folder_name: str = "",
+    out_dir: str = "",
+    include_all_white: bool = False,
 ):
     """
     Long Run Gray codes to projector frames
@@ -164,17 +177,21 @@ def long_run_gray_code_to_projector_frames(
 
     :param show: Plot in pyplot
     :param save: Save as png
-    :param folder_name: Folder name to save to
+    :param out_dir: Folder name to save to
+    :param include_all_white: Include an all-white frame
     """
     # Find bits required to represent columns
     width, height = projector_resolution
     num_bits = ceil(log2(width))
 
-    if not folder_name:
-        folder_name = f"Long Run Gray Code [{num_bits} bits]"
+    folder_name = f"Long Run Gray Code [{num_bits} bits]"
+    if not out_dir:
+        out_dir = f"outputs/projector_frames/lcd/{folder_name}"
+    else:
+        out_dir = f"{out_dir}/{folder_name}"
 
     if use_complementary:
-        folder_name += " comp"
+        out_dir += " comp"
 
     kwargs = locals().copy()
 
@@ -192,7 +209,8 @@ def bch_to_projector_frames(
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
-    folder_name: str = "",
+    out_dir: str = "",
+    include_all_white: bool = False,
 ):
     """
     Convert BCH codes to projector frames.
@@ -206,13 +224,18 @@ def bch_to_projector_frames(
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
-    :param folder_name: Folder name to save to
+    :param out_dir: Folder name to save to
+    :param include_all_white: Include an all-white frame
     """
-    if not folder_name:
-        folder_name = f"{bch_tuple} [{message_mapping.__name__}]"
+
+    folder_name = f"{bch_tuple} [{message_mapping.__name__}]"
+    if not out_dir:
+        out_dir = f"outputs/projector_frames/lcd/{folder_name}"
+    else:
+        out_dir = f"{out_dir}/{folder_name}"
 
     if use_complementary:
-        folder_name += " comp"
+        out_dir += " comp"
 
     kwargs = locals().copy()
 
@@ -223,11 +246,11 @@ def bch_to_projector_frames(
     code_LUT = bch_code_LUT(bch_tuple, message_bits, message_mapping)
 
     if save:
-        path = Path("outputs/code_images/bch")
+        path = Path(f"outputs/code_images/{projector_resolution}/bch")
         plot_code_LUT(
             code_LUT,
             show,
-            fname=path / f"{folder_name}.png",
+            fname=path / f"{out_dir}.png",
         )
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
@@ -241,7 +264,8 @@ def repetition_to_projector_frames(
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
-    folder_name: str = "",
+    out_dir: str = "",
+    include_all_white: bool = False,
 ):
     """
     Convert Repetition codes to projector frames.
@@ -255,13 +279,17 @@ def repetition_to_projector_frames(
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
-    :param folder_name: Folder name to save to
+    :param out_dir: Folder name to save to
+    :param include_all_white: Include an all-white frame
     """
-    if not folder_name:
-        folder_name = f"{repetition_tuple} [{message_mapping.__name__}]"
+    folder_name = f"{repetition_tuple} [{message_mapping.__name__}]"
+    if not out_dir:
+        out_dir = f"outputs/projector_frames/lcd/{folder_name}"
+    else:
+        out_dir = f"{out_dir}/{folder_name}"
 
     if use_complementary:
-        folder_name += " comp"
+        out_dir += " comp"
 
     kwargs = locals().copy()
 
@@ -272,11 +300,11 @@ def repetition_to_projector_frames(
     code_LUT = repetition_code_LUT(repetition_tuple, message_bits, message_mapping)
 
     if save:
-        path = Path("outputs/code_images/repetition")
+        path = Path(f"outputs/code_images/{projector_resolution}/repetition")
         plot_code_LUT(
             code_LUT,
             show,
-            fname=path / f"{folder_name}.png",
+            fname=path / f"{out_dir}.png",
         )
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
@@ -292,7 +320,8 @@ def hybrid_to_projector_frames(
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
-    folder_name: str = "",
+    out_dir: str = "",
+    include_all_white: bool = False,
 ):
     """
     Generate projector frames for "Hybrid" (BCH + stripe scan) strategy
@@ -309,13 +338,18 @@ def hybrid_to_projector_frames(
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
-    :param folder_name: Folder name to save to
+    :param out_dir: Folder name to save to
+    :param include_all_white: Include an all-white frame
     """
-    if not folder_name:
-        folder_name = f"Hybrid {bch_tuple} [{message_mapping.__name__}]"
+
+    folder_name = f"Hybrid {bch_tuple} [{message_mapping.__name__}]"
+    if not out_dir:
+        out_dir = f"outputs/projector_frames/lcd/{folder_name}"
+    else:
+        out_dir = f"{out_dir}/{folder_name}"
 
     if use_complementary:
-        folder_name += " comp"
+        out_dir += " comp"
 
     kwargs = locals().copy()
 
@@ -331,12 +365,13 @@ def hybrid_to_projector_frames(
         message_mapping=message_mapping,
     )
 
+
     if save:
-        path = Path("outputs/code_images/hybrid")
+        path = Path(f"outputs/code_images/{projector_resolution}/hybrid")
         plot_code_LUT(
             code_LUT,
             show,
-            fname=path / f"{folder_name}.png",
+            fname=path / f"{out_dir}.png",
         )
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
@@ -351,7 +386,8 @@ def gray_stripe_to_projector_frames(
     use_complementary: bool = False,
     show: bool = False,
     save: bool = False,
-    folder_name: str = "",
+    out_dir: str = "",
+    include_all_white: bool = False,
 ):
     """
     Generate projector frames for (Gray + stripe scan) strategy
@@ -367,17 +403,18 @@ def gray_stripe_to_projector_frames(
     :param use_complementary: whether to save / show complementary (1-frame_i)
     :param show: Plot in pyplot
     :param save: Save as png
-    :param folder_name: Folder name to save to
+    :param out_dir: Folder name to save to
+    :param include_all_white: Include an all-white frame
     """
     # Find bits required to represent columns
     width, height = projector_resolution
     num_bits = ceil(log2(width))
 
-    if not folder_name:
-        folder_name = f"GrayStripe [{num_bits} bits] [{message_mapping.__name__}]"
-
-    if use_complementary:
-        folder_name += " comp"
+    folder_name = f"GrayStripe [{num_bits} bits] [{message_mapping.__name__}]"
+    if not out_dir:
+        out_dir = f"outputs/projector_frames/lcd/{folder_name}"
+    else:
+        out_dir = f"{out_dir}/{folder_name}"
 
     kwargs = locals().copy()
 
@@ -389,18 +426,17 @@ def gray_stripe_to_projector_frames(
     )
 
     if save:
-        path = Path("outputs/code_images/graystripe")
+        path = Path(f"outputs/code_images/{projector_resolution}/graystripe")
         plot_code_LUT(
             code_LUT,
             show,
-            fname=path / f"{folder_name}.png",
+            fname=path / f"{out_dir}.png",
         )
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
 
 
-if __name__ == "__main__":
-    num_bits = 11
+def lcd_patterns():
     projector_resolution = (1920, 1080)
 
     kwargs = {
@@ -408,6 +444,7 @@ if __name__ == "__main__":
         "show": False,
         "save": True,
         "use_complementary": True,
+        "out_dir": "outputs/projector_frames/lcd",
     }
 
     # Gray stripe (for calibration)
@@ -476,3 +513,52 @@ if __name__ == "__main__":
             message_mapping=long_run_gray_message,
             **kwargs,
         )
+
+
+def dlp_patterns():
+    projector_resolution = (1024, 768)
+
+    kwargs = {
+        "projector_resolution": projector_resolution,
+        "show": False,
+        "save": True,
+        "use_complementary": True,
+        "include_all_white": True,
+        "out_dir": "outputs/projector_frames/dlp",
+    }
+
+    # Gray stripe (for calibration)
+    gray_stripe_to_projector_frames(8, **kwargs)
+    gray_stripe_to_projector_frames(8, encoded_dim="rows", **kwargs)
+
+    # Hybrid
+    hybrid_bch_tuple_ll = [
+        metaclass.BCH(63, 7, 15),
+        metaclass.BCH(127, 8, 31),
+        metaclass.BCH(255, 9, 63),
+        metaclass.BCH(511, 10, 127),
+    ]
+    bch_message_bits = 7
+
+    # BCH, Hybrid, Repetition for various redundancies
+    for hybrid_bch_tuple in hybrid_bch_tuple_ll:
+        # Hybrid with gray
+        hybrid_to_projector_frames(
+            hybrid_bch_tuple,
+            bch_message_bits=bch_message_bits,
+            message_mapping=gray_message,
+            **kwargs,
+        )
+
+        # Hybrid with long run
+        hybrid_to_projector_frames(
+            hybrid_bch_tuple,
+            bch_message_bits=bch_message_bits,
+            message_mapping=long_run_gray_message,
+            **kwargs,
+        )
+
+
+if __name__ == "__main__":
+    dlp_patterns()
+    lcd_patterns()

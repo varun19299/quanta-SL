@@ -1,13 +1,11 @@
-hybrid_255:
-  name: Hybrid BCH [255, 9] [${methods.hybrid_255.message_mapping}] comp
-  folder: ${outfolder}/${methods.hybrid_255.name}/
+bch_255:
+  name: BCH [255, 13] [gray_message] comp
+  folder: ${outfolder}/${methods.bch_255.name}/
   message_bits: 11
-  overlap_bits: 1
   bch_tuple:
     n: 255
-    k: 9
-    t: 63
-  bch_message_bits: 8
+    k: 13
+    t: 59
   message_mapping: gray_message
   rotate_180: True
   visualize_frame: False

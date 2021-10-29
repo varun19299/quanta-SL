@@ -13,7 +13,12 @@ from roipoly import RoiPoly
 from scipy.signal import medfilt2d
 from sklearn.metrics import median_absolute_error, mean_squared_error
 
-from quanta_SL.decode.methods import hybrid_decoding, repetition_decoding
+from quanta_SL.decode.methods import (
+    hybrid_decoding,
+    repetition_decoding,
+    read_off_decoding,
+    minimum_distance_decoding,
+)
 from quanta_SL.decode.minimum_distance.factory import (
     faiss_flat_index,
     faiss_minimum_distance,
@@ -25,6 +30,7 @@ from quanta_SL.encode.message import (
     message_to_inverse_permuation,
 )
 from quanta_SL.io import load_swiss_spad_sequence, load_swiss_spad_bin
+
 # Disable inner logging
 from quanta_SL.lcd.decode_helper import decode_2d_code
 from quanta_SL.ops.binary import packbits_strided
@@ -60,9 +66,9 @@ def setup_args(cfg):
         method_cfg = cfg.methods[method_key]
 
         # Evaluate tuples
-        if "hybrid" in method_key:
+        if ("hybrid" in method_key) or ("bch" in method_key):
             method_cfg.bch_tuple = metaclass.BCH(*method_cfg.bch_tuple.values())
-        elif "repetition" in method_key:
+        elif ("repetition" in method_key) or ("gray" in method_key):
             method_cfg.repetition_tuple = metaclass.Repetition(
                 *method_cfg.repetition_tuple.values()
             )
@@ -115,6 +121,35 @@ def get_code_LUT_decoding_func(method_cfg, method: str = "hybrid"):
             repetition_code_LUT,
             repetition_decoding_func,
         )
+
+    elif method == "bch":
+        bch_code_LUT = strategies.bch_code_LUT(**method_cfg)
+        index = faiss_flat_index(packbits_strided(bch_code_LUT))
+        bch_decoding_func = partial(
+            minimum_distance_decoding,
+            func=faiss_minimum_distance,
+            index=index,
+            pack=True,
+        )
+        return (
+            bch_code_LUT,
+            bch_decoding_func,
+        )
+
+    elif method == "no_coding":
+        code_LUT = method_cfg.message_mapping(method_cfg.message_bits)
+
+        decoding_func = partial(
+            read_off_decoding,
+            inverse_permuation=message_to_inverse_permuation(code_LUT),
+        )
+        return (
+            code_LUT,
+            decoding_func,
+        )
+
+    else:
+        raise NotImplementedError
 
 
 @MemoizeNumpy
@@ -236,16 +271,27 @@ def get_binary_gt_sequence(method_cfg, cfg, code_LUT):
 
         if method_cfg.visualize_frame:
             plt.imshow(gt_frame, cmap="gray")
+            method_folder = Path(
+                f"{cfg.outfolder}/decoded_correspondences/{method_cfg.name}"
+            )
             save_plot(
                 savefig=cfg.savefig,
                 show=cfg.show,
-                fname=f"{cfg.outfolder}/decoded_correspondences/{method_cfg.name}/gt_frame{pattern_index:02d}.pdf",
+                fname=method_folder / f"gt_frame{pattern_index:02d}.pdf",
             )
+            cv2.imwrite(
+                str(method_folder / f"gt_frame{pattern_index:02d}.png"), gt_frame * 255
+            )
+
             plt.imshow(binary_frame, cmap="gray")
             save_plot(
                 savefig=cfg.savefig,
                 show=cfg.show,
-                fname=f"{cfg.outfolder}/decoded_correspondences/{method_cfg.name}/binary_frame{pattern_index:02d}.pdf",
+                fname=method_folder / f"binary_frame{pattern_index:02d}.pdf",
+            )
+            cv2.imwrite(
+                str(method_folder / f"binary_frame{pattern_index:02d}.png"),
+                binary_frame * 255,
             )
 
     # Stack
@@ -340,6 +386,13 @@ def main(cfg):
                 method_cfg, "repetition"
             )
 
+        elif "bch" in method_key:
+            code_LUT, decoding_func = get_code_LUT_decoding_func(method_cfg, "bch")
+        else:
+            code_LUT, decoding_func = get_code_LUT_decoding_func(
+                method_cfg, "no_coding"
+            )
+
         img, gt_sequence, binary_sequence = get_binary_gt_sequence(
             method_cfg, cfg, code_LUT
         )
@@ -368,6 +421,7 @@ def main(cfg):
         [method_key for method_key in methods_dict],
         key=lambda s: int(s.split("_")[-1] if "hybrid" in s else 0),
     )
+    breakpoint()
 
     gt_decoded = methods_dict[hybrid_key]["gt_decoded"]
     hybrid_binary_decoded = methods_dict[hybrid_key]["binary_decoded"]
@@ -396,8 +450,12 @@ def main(cfg):
 
         np.save(mask_path, mask)
 
-    # mask *= ~high_error_hybrid
-    # np.save(mask_path.parent/f"{mask_path.stem}_hybrid_filtered.npy", mask)
+    mask *= ~high_error_hybrid
+    np.save(mask_path.parent / f"{mask_path.stem}_hybrid_filtered.npy", mask)
+    cv2.imwrite(
+        str(mask_path.parent / f"{mask_path.stem}_hybrid_filtered.png"),
+        (mask * 255.0).astype(int),
+    )
 
     logger.info("Evaluating Accuracy")
 

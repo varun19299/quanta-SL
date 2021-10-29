@@ -1,11 +1,16 @@
 defaults:
   - methods:
+    - conv_gray
+    - long_gray
     - repetition_conv_77
     - repetition_conv_143
     - repetition_conv_275
     - repetition_long_77
     - repetition_long_143
     - repetition_long_275
+    - bch_63
+    - bch_127
+    - bch_255
     - hybrid_63
     - hybrid_127
     - hybrid_255
@@ -44,4 +49,7 @@ calibration:
 groundtruth:
   img: ${outfolder}/results/img.png
   correspondences: ${outfolder}/results/gt_correspondences.npy
-  mask_path: ${outfolder}/roi_mask_hybrid_filtered.npy
+  roi_mask: ${outfolder}/roi_mask.npy
+  hybrid_filtered_mask: ${outfolder}/roi_mask_hybrid_filtered.npy
+  # Choose a more aggressive metrics mask
+  metrics_mask: ${outfolder}/metrics_mask.npy

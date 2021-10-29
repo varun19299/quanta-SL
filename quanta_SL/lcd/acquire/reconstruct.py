@@ -95,7 +95,10 @@ def reconstruct_3d(
     gray_colors = gray_colors[point_mask]
 
     # Range filtering
-    point_mask = (points_3d[:, 2] > 20) & (points_3d[:, 2] < 60)
+    distance_range = cfg.scene.get("distance_range", (20, 60))
+    point_mask = (points_3d[:, 2] > distance_range[0]) & (
+        points_3d[:, 2] < distance_range[1]
+    )
     points_3d = points_3d[point_mask]
     gray_colors = gray_colors[point_mask]
 
@@ -131,7 +134,7 @@ def main(cfg):
     img = inpaint_func(img, inpaint_mask)
 
     gt_decoded = inpaint_func(gt_decoded, inpaint_mask)
-    mask = np.load(cfg.groundtruth.mask_path)
+    mask = np.load(cfg.groundtruth.roi_mask)
 
     # Obtain stereo calibration params
     logger.info("Loading stereo params")
