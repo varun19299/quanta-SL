@@ -1,5 +1,5 @@
 import numpy as np
-from quanta_SL.dlp.ALP4 import ALP4
+from ALP4 import ALP4
 import time
 
 # Load the Vialux .dll
