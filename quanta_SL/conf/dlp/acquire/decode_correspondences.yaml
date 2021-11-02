@@ -29,8 +29,3 @@ groundtruth:
   img: ${outfolder}/results/img.png
   correspondences: ${outfolder}/results/gt_correspondences.npy
   mask_path: ${outfolder}/roi_mask.npy
-
-projector:
-  width: 1920
-  height: 1080
-  crop_mode: center

@@ -289,6 +289,7 @@ def hybrid_decoding(
 
     # Merge BCH and stripe
     code_bits = code_LUT.shape[1]
+
     indices = merge_bch_stripe_indices(
         bch_indices, stripe_indices, code_bits, bch_code_bits, overlap_bits
     )

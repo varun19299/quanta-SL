@@ -9,11 +9,11 @@ import cv2
 
 logger.disable("quanta_SL")
 
-bin_range = range(0, 3)
+bin_range = range(3, 15)
 bin_offset = 0
 capture_date = "29th_October"
-folder_name = "gray_stripe_2pm"
-
+# folder_name = "gray_stripe_3pm"
+folder_name = "hand_gest_kriti/Hybrid BCH [63, 7] [gray_message]"
 
 folder = Path(f"outputs/real_captures/DLP_projector/{capture_date}/{folder_name}/")
 out_folder = folder / "binary_frames"

@@ -35,7 +35,7 @@ from quanta_SL.io import load_swiss_spad_sequence, load_swiss_spad_bin
 from quanta_SL.lcd.decode_helper import decode_2d_code
 from quanta_SL.ops.binary import packbits_strided
 from quanta_SL.utils.memoize import MemoizeNumpy
-from quanta_SL.utils.plotting import save_plot, plot_image_and_colorbar
+from quanta_SL.utils.plotting import save_plot
 
 logger.disable("quanta_SL")
 logger.add(f"logs/lcd_scenes_{Path(__file__).stem}.log", rotation="daily", retention=3)
@@ -314,6 +314,59 @@ def get_binary_gt_sequence(method_cfg, cfg, code_LUT):
     return img, gt_sequence, binary_sequence
 
 
+def plot_image_and_colorbar(
+    img, fname, cfg, title: str = None, cbar_title: str = None, **imshow_kwargs
+):
+    """
+    Plot an image, with and without colorbar.
+    Export colorbar too.
+
+    :param img: H W C array
+    :param fname: file name
+    :param cfg: config
+    :param title: optional plot title
+    :param cbar_title: optional colorbar title
+    :param imshow_kwargs:
+    :return:
+    """
+    image = plt.imshow(img, **imshow_kwargs)
+    plt.axis("off")
+
+    save_plot(
+        cfg.savefig,
+        show=False,
+        close=False,
+        fname=f"{cfg.outfolder}/results/{fname}.pdf",
+    )
+
+    # Colorbar
+    def img_colorbar(**kwargs):
+        cbar = plt.colorbar(**kwargs)
+        if cbar_title:
+            cbar.ax.set_title(cbar_title)
+        cbar.ax.locator_params(nbins=5)
+        cbar.update_ticks()
+
+    img_colorbar()
+    if title:
+        plt.title(title, y=1.12)
+    save_plot(
+        cfg.savefig,
+        cfg.show,
+        fname=f"{cfg.outfolder}/results/{fname}_with_colorbar.pdf",
+    )
+
+    # draw a new figure and replot the colorbar there
+    fig, ax = plt.subplots()
+    img_colorbar(mappable=image, ax=ax)
+    ax.remove()
+    save_plot(
+        cfg.savefig,
+        show=False,
+        fname=f"{cfg.outfolder}/results/{fname}_only_colorbar.pdf",
+    )
+
+
 @hydra.main(config_path="../../conf/lcd/acquire", config_name=Path(__file__).stem)
 def main(cfg):
     print(OmegaConf.to_yaml(cfg))
@@ -349,10 +402,6 @@ def main(cfg):
 
         logger.info(f"Decoding {method_key} binary")
         binary_decoded = decode_2d_code(binary_sequence, code_LUT, decoding_func)
-
-        if cfg.projector.crop_mode == "center":
-            gt_decoded -= (code_LUT.shape[0] - cfg.projector.width) // 2
-            binary_decoded -= (code_LUT.shape[0] - cfg.projector.width) // 2
 
         # Median filter binary decoded
         binary_decoded = medfilt2d(binary_decoded)
@@ -411,19 +460,8 @@ def main(cfg):
     logger.info("Evaluating Accuracy")
 
     # Save mask, GT
-    plot_image_and_colorbar(
-        gt_decoded,
-        f"{cfg.outfolder}/results/groundtruth",
-        savefig=cfg.savefig,
-        show=cfg.show,
-    )
-    plot_image_and_colorbar(
-        mask,
-        f"{cfg.outfolder}/results/mask",
-        savefig=cfg.savefig,
-        show=cfg.show,
-        cmap="jet",
-    )
+    plot_image_and_colorbar(gt_decoded, "groundtruth", cfg)
+    plot_image_and_colorbar(mask, "mask", cfg, cmap="jet")
 
     cv2.imwrite(cfg.groundtruth.img, (img * 255).astype(int))
     np.save(cfg.groundtruth.correspondences, gt_decoded)
@@ -443,9 +481,8 @@ def main(cfg):
         # Correspondences
         plot_image_and_colorbar(
             binary_decoded * mask,
-            f"{cfg.outfolder}/results/{method_key}/correspondences",
-            savefig=cfg.savefig,
-            show=cfg.show,
+            f"{method_key}/correspondences",
+            cfg,
             title=f"Correspondences",
         )
 
@@ -455,9 +492,8 @@ def main(cfg):
 
         plot_image_and_colorbar(
             abs_error_map,
-            f"{cfg.outfolder}/results/{method_key}/error_map",
-            savefig=cfg.savefig,
-            show=cfg.show,
+            f"{method_key}/error_map",
+            cfg,
             title=f"MAE {mae:.2f} | RMSE {rmse:.2f}",
         )
 

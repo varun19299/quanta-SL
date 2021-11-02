@@ -1,0 +1,15 @@
+# Hydra configs
+hydra:
+  output_subdir: null # disable shifting output directories
+  run:
+    dir: ./outputs/lcd/${exp_name}/${scene.name}
+  sweep:
+    dir: ./outputs/lcd/${exp_name}/${scene.name}
+  job:
+    config:
+      override_dirname:
+        exclude_keys:
+          - exp_name
+  job_logging:
+      file:
+        mode: w # comment if you dont want to overwrite

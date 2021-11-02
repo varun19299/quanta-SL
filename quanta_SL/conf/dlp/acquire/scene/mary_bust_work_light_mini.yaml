@@ -1,0 +1,11 @@
+name: mary_bust_work_light_mini
+calibration:
+  folder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/22nd_September/
+  file_name: stereo_model
+  mat_file: ${scene.calibration.folder}/${scene.calibration.file_name}.mat
+  npz_file: ${scene.calibration.folder}/${scene.calibration.file_name}.npz
+view_kwargs:
+  front: [ -0.21681966296822297, 0.23559004740074338, -0.94735767443772889 ]
+  lookat: [ 2.789017772088187, -0.5426921390898114, 50.179521953417336 ]
+  up: [ -0.012287196594434221, -0.97102461036040821, -0.23866342592501927 ]
+  zoom: 0.69999999999999996

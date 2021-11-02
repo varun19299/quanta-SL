@@ -1,0 +1,12 @@
+# Hydra configs
+hydra:
+  output_subdir: null # disable shifting output directories
+  run:
+    dir: ./outputs/dlp/calibrate/${exp_name}
+  sweep:
+    dir: ./outputs/dlp/calibrate/${exp_name}
+  job:
+    config:
+      override_dirname:
+        exclude_keys:
+          - exp_name

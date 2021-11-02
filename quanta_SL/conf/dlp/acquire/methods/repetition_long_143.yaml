@@ -1,0 +1,21 @@
+repetition_long_143:
+  name: Long Run Gray Code [${methods.repetition_long_143.repetition_tuple.k} bits] comp
+  folder: ${outfolder}/${methods.repetition_long_143.name}/
+  message_bits: 11
+  repetition_tuple:
+    n: 143
+    k: 11
+    t: 6
+  multi_sample: True
+  message_mapping: long_run_gray_message
+  rotate_180: True
+  use_complementary: True
+  visualize_frame: False
+  binary_frame:
+    # Each burst has 512 frames
+    # For GT
+    bursts_per_pattern: 10
+    bin_suffix_range: range(6, 10)
+    # For single binary frame
+    index: 10
+    bin_suffix: 8

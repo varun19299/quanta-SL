@@ -2,7 +2,6 @@ from pathlib import Path
 
 import cv2
 import hydra
-import matplotlib
 import numpy as np
 from einops import repeat
 from loguru import logger
@@ -13,17 +12,13 @@ from sklearn.metrics import mean_squared_error
 
 from quanta_SL.lcd.calibrate import get_intrinsic_extrinsic
 from quanta_SL.reconstruct.project3d import CameraMatrix, triangulate_ray_plane
-from quanta_SL.utils.plotting import (
-    visualize_point_cloud,
-    save_plot,
-    plot_image_and_colorbar,
-)
+from quanta_SL.utils.plotting import visualize_point_cloud
 
 # Disable inner logging
 logger.disable("quanta_SL")
 logger.add(f"logs/lcd_acquire_{Path(__file__).stem}.log", rotation="daily", retention=3)
 
-# plt.style.use(["science"])
+plt.style.use(["science", "grid"])
 params = {
     "legend.fontsize": "x-large",
     "figure.titlesize": "xx-large",
@@ -69,8 +64,6 @@ def reconstruct_3d(
     projector_matrix,
     img,
     fname: str,
-    depth_map_vmin: float = None,
-    depth_map_vmax: float = None,
 ):
     valid_indices = np.where(mask)
     camera_pixels = np.stack(
@@ -96,30 +89,6 @@ def reconstruct_3d(
 
     points_3d_to_return = points_3d.copy()
 
-    # Depth map
-    depth_map = np.zeros((cfg.spad.height, cfg.spad.width))
-    depth_map[:] = np.nan
-    depth_map[valid_indices] = points_3d_to_return[:, 2]
-
-    # Save depth map
-    if not depth_map_vmin:
-        depth_map_vmin = points_3d_to_return[:, 2].min()
-    if not depth_map_vmax:
-        depth_map_vmax = points_3d_to_return[:, 2].max()
-
-    cmap = matplotlib.cm.get_cmap("jet").copy()
-    cmap.set_bad("black", alpha=1.0)
-    plot_image_and_colorbar(
-        depth_map,
-        savefig=cfg.savefig,
-        show=False,
-        fname=Path(fname).parent / "depth_map.pdf",
-        cmap=cmap,
-        vmin=depth_map_vmin,
-        vmax=depth_map_vmax,
-        cbar_title="Depth (in cm)",
-    )
-
     # NaN removal
     point_mask = ~np.isnan(points_3d).any(axis=1)
     points_3d = points_3d[point_mask]
@@ -144,7 +113,7 @@ def reconstruct_3d(
         fname=fname,
     )
 
-    return points_3d_to_return, depth_map, depth_map_vmin, depth_map_vmax
+    return points_3d_to_return
 
 
 @hydra.main(
@@ -165,14 +134,14 @@ def main(cfg):
     img = inpaint_func(img, inpaint_mask)
 
     gt_decoded = inpaint_func(gt_decoded, inpaint_mask)
-    mask = np.load(cfg.groundtruth.hybrid_filtered_mask)
+    mask = np.load(cfg.groundtruth.roi_mask)
 
     # Obtain stereo calibration params
     logger.info("Loading stereo params")
     camera_matrix, projector_matrix, camera_pixels = stereo_setup(cfg)
 
     # 3d reconstruction
-    gt_points_3d, gt_depth_map, gt_depth_vmin, gt_depth_vmax = reconstruct_3d(
+    gt_points_3d = reconstruct_3d(
         cfg,
         gt_decoded,
         camera_pixels,
@@ -194,7 +163,7 @@ def main(cfg):
         methods_dict[method_cfg] = {"binary_decoded": binary_decoded}
 
         # 3d reconstruction
-        method_points_3d, method_depth_map, _, _ = reconstruct_3d(
+        method_points_3d = reconstruct_3d(
             cfg,
             binary_decoded,
             camera_pixels,
@@ -202,8 +171,6 @@ def main(cfg):
             camera_matrix,
             projector_matrix,
             img,
-            depth_map_vmin=gt_depth_vmin,
-            depth_map_vmax=gt_depth_vmax,
             fname=f"{cfg.outfolder}/results/{method_key}/reconstruction",
         )
 
@@ -215,23 +182,7 @@ def main(cfg):
             method_points_3d[valid_points, 2],
             squared=False,
         )
-
-        # Inliers, inlier rmse
-        abs_errors = np.abs(
-            gt_points_3d[valid_points, 2] - method_points_3d[valid_points, 2]
-        )
-        inliers = abs_errors < 0.5
-        percentage_inliers = inliers.mean() * 100
-
-        inliers_rmse = mean_squared_error(
-            gt_points_3d[valid_points, 2][inliers],
-            method_points_3d[valid_points, 2][inliers],
-            squared=False,
-        )
-
-        logger.info(
-            f"{method_key} total rmse (in cm) {depth_rmse:.4g} | % inliers {percentage_inliers:.2f} | inliers rmse (in cm) {inliers_rmse:.4g} "
-        )
+        logger.info(f"{method_key} rmse {depth_rmse}")
 
 
 if __name__ == "__main__":

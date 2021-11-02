@@ -1,0 +1,35 @@
+defaults:
+  - hydra
+  - override hydra/job_logging: none
+
+exp_name: reconstruct
+show: True
+savefig: True
+capture_date: 29th_October
+
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/DLP_projector/${capture_date}/calibration
+
+# Numbered 1,...,30
+pose:
+  index: 20
+
+projector:
+  height: 768
+  width: 1024
+
+spad:
+  width: 512
+  height: 256
+  mask:
+    file: ${outfolder}/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major # or row-major
+    rotate_180: True
+
+correspondence:
+  mat_file: ${outfolder}/correspondence_data.mat
+
+calibration:
+  file_name: stereo_model
+  mat_file: ${outfolder}/${calibration.file_name}.mat
+  npz_file: ${outfolder}/${calibration.file_name}.npz

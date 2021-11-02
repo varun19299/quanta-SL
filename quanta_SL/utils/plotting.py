@@ -275,3 +275,65 @@ def visualize_point_cloud(
 
     if savefig:
         open3d.io.write_triangle_mesh(kwargs.get("fname") + "_mesh.ply", p_mesh_crop)
+
+
+def plot_image_and_colorbar(
+    img,
+    fname,
+    savefig: bool = False,
+    show: bool = True,
+    title: str = None,
+    cbar_title: str = None,
+    **imshow_kwargs,
+):
+    """
+    Plot an image, with and without colorbar.
+    Export colorbar too.
+
+    :param img: H W C array
+    :param fname: file name
+    :param savefig: Whether to save the figure
+    :param show: Display in graphical window or just close the plot
+    :param title: optional plot title
+    :param cbar_title: optional colorbar title
+    :param imshow_kwargs:
+    :return:
+    """
+    image = plt.imshow(img, **imshow_kwargs)
+    plt.axis("off")
+
+    outfolder = Path(fname).parent
+    fname = Path(fname).stem
+    save_plot(
+        savefig,
+        show=show,
+        close=False,
+        fname=f"{outfolder}/{fname}.pdf",
+    )
+
+    # Colorbar
+    def img_colorbar(**kwargs):
+        cbar = plt.colorbar(**kwargs)
+        if cbar_title:
+            cbar.ax.set_title(cbar_title)
+        cbar.ax.locator_params(nbins=5)
+        cbar.update_ticks()
+
+    img_colorbar()
+    if title:
+        plt.title(title, y=1.12)
+    save_plot(
+        savefig,
+        show,
+        fname=f"{outfolder}/{fname}_with_colorbar.pdf",
+    )
+
+    # draw a new figure and replot the colorbar there
+    fig, ax = plt.subplots()
+    img_colorbar(mappable=image, ax=ax)
+    ax.remove()
+    save_plot(
+        savefig,
+        show=False,
+        fname=f"{outfolder}/{fname}_only_colorbar.pdf",
+    )
