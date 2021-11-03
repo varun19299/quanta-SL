@@ -120,11 +120,6 @@ def get_sequence(cfg, code_LUT, pose_index: int):
         comp_bin_suffix_range = bin_suffix_range + bin_suffix_offset
         bin_suffix_offset += bursts_per_pattern
 
-        col_frame = get_frame(
-            pose_folder, frame_bin_suffix_range, comp_bin_suffix_range
-        )
-        col_sequence.append(col_frame)
-
         row_frame = get_frame(
             pose_folder, frame_bin_suffix_range, comp_bin_suffix_range
         )
@@ -172,6 +167,7 @@ def main(cfg):
 
     for pose_index in pose_list:
         logger.info(f"Pose{pose_index:02d}")
+
         img, col_sequence, row_sequence = get_sequence(cfg, code_LUT, pose_index)
 
         # Images
@@ -188,7 +184,7 @@ def main(cfg):
             col_correspondence -= (code_LUT.shape[0] - cfg.projector.width) // 2
             row_correspondence -= (code_LUT.shape[0] - cfg.projector.height) // 2
 
-        col_correspondence = 1024 - col_correspondence
+        col_correspondence = 1023 - col_correspondence
         col_correspondence_ll.append(col_correspondence)
         row_correspondence_ll.append(row_correspondence)
 
