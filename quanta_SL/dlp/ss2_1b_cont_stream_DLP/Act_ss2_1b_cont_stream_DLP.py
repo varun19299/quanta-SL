@@ -168,7 +168,9 @@ def start_acq(obj):
     if len(img_file_list) == 0:
         print("Finished.")
         return
-    img_seq = [cv2.imread(fpath, -1)[:, ::-1, :] for fpath in img_file_list]
+
+    # Flip width to be consistent with .ravel()
+    img_seq = [cv2.imread(fpath, -1)[:, ::-1] for fpath in img_file_list]
 
     # Repeat first frame
     num_buffer = 2
