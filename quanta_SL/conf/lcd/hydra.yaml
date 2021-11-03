@@ -5,6 +5,7 @@ hydra:
     dir: ./outputs/lcd/${exp_name}/${scene.name}
   sweep:
     dir: ./outputs/lcd/${exp_name}/${scene.name}
+    subdir: ${hydra.job.override_dirname}
   job:
     config:
       override_dirname:

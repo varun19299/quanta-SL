@@ -5,7 +5,7 @@ import cv2
 import hydra
 import numpy as np
 from dotmap import DotMap
-from einops import repeat
+from einops import repeat, reduce
 from loguru import logger
 from matplotlib import pyplot as plt
 from omegaconf import OmegaConf
@@ -179,10 +179,18 @@ def get_gt_frame(
     return pos_frame
 
 
-def get_binary_frame(folder: Path, bin_suffix: int, samples: int = 1, **kwargs):
+def get_binary_frame(
+    folder: Path, bin_suffix: int, frames_to_add: int = 1, samples: int = 1, **kwargs
+):
     kwargs = {**dict(num_rows=256, num_cols=512), **kwargs}
     binary_burst = load_swiss_spad_bin(folder, bin_suffix=bin_suffix, **kwargs)
 
+    # Simulate a brighter source (& ambient consequently)
+    clipped_length = (len(binary_burst) // frames_to_add) * frames_to_add
+    binary_burst = binary_burst[:clipped_length]
+    binary_burst = (
+        reduce(binary_burst, "(n add) h w -> n h w", "sum", add=frames_to_add) > 0
+    )
     indices = np.random.choice(len(binary_burst), size=samples)
 
     return binary_burst[indices]
@@ -233,6 +241,7 @@ def get_binary_gt_sequence(method_cfg, cfg, code_LUT):
         binary_burst = get_binary_frame(
             folder,
             bin_suffix=method_cfg.binary_frame.bin_suffix + bin_suffix_offset,
+            frames_to_add=cfg.scene.get("frames_to_add", 1),
             samples=samples,
         )
 
@@ -242,6 +251,7 @@ def get_binary_gt_sequence(method_cfg, cfg, code_LUT):
                 bin_suffix=method_cfg.binary_frame.bin_suffix
                 + bin_suffix_offset
                 + method_cfg.binary_frame.bursts_per_pattern,
+                frames_to_add=cfg.scene.get("frames_to_add", 1),
                 samples=samples,
             )
 
@@ -372,7 +382,6 @@ def main(cfg):
         [method_key for method_key in methods_dict],
         key=lambda s: int(s.split("_")[-1] if "hybrid" in s else 0),
     )
-    breakpoint()
 
     gt_decoded = methods_dict[hybrid_key]["gt_decoded"]
     hybrid_binary_decoded = methods_dict[hybrid_key]["binary_decoded"]

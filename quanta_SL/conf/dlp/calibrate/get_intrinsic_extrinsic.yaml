@@ -13,7 +13,8 @@ outfolder: ${hydra:runtime.cwd}/outputs/real_captures/DLP_projector/${capture_da
 
 correspondence:
   mat_file: ${outfolder}/correspondence_data.mat
-  exclude_poses: [2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  exclude_poses: [2, 3, 5, 6, 7, 8, 9, 10, 13, 14, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 29, 30, 36, 38, 39, 40, 41]
+#  exclude_poses: []
   method: local_homography # or rounding, homography
   method_kwargs:
     window_size: 10

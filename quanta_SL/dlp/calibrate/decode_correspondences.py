@@ -188,6 +188,7 @@ def main(cfg):
             col_correspondence -= (code_LUT.shape[0] - cfg.projector.width) // 2
             row_correspondence -= (code_LUT.shape[0] - cfg.projector.height) // 2
 
+        col_correspondence = 1024 - col_correspondence
         col_correspondence_ll.append(col_correspondence)
         row_correspondence_ll.append(row_correspondence)
 

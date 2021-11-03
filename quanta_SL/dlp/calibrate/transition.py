@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 logger.disable("quanta_SL")
 
-pose_index_range = range(1, 31)
+pose_index_range = range(41, 46)
 
 bin_suffix_range = range(0, 30)
 capture_date = "29th_October"

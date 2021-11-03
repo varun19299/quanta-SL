@@ -107,7 +107,9 @@ def main(cfg):
         savefig=cfg.savefig,
         show=cfg.show,
         fname=f"{cfg.outfolder}/point_cloud/pose{cfg.pose.index:02d}",
+        create_mesh=True,
     )
+
 
 if __name__ == "__main__":
     main()

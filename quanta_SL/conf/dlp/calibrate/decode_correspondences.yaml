@@ -24,7 +24,7 @@ gray_stripe:
 
 poses:
   # Each burst has 512 frames
-  bin_suffix_range: range(0,3)
+  bin_suffix_range: range(0,2)
   bursts_per_pattern: 3
   pose01:
     bin_suffix_offset: 5
@@ -86,3 +86,33 @@ poses:
     bin_suffix_offset: 7
   pose30:
     bin_suffix_offset: 7
+  pose31:
+    bin_suffix_offset: 6
+  pose32:
+    bin_suffix_offset: 6
+  pose33:
+    bin_suffix_offset: 6
+  pose34:
+    bin_suffix_offset: 6
+  pose35:
+    bin_suffix_offset: 6
+  pose36:
+    bin_suffix_offset: 6
+  pose37:
+    bin_suffix_offset: 6
+  pose38:
+    bin_suffix_offset: 6
+  pose39:
+    bin_suffix_offset: 6
+  pose40:
+    bin_suffix_offset: 6
+  pose41:
+    bin_suffix_offset: 6
+  pose42:
+    bin_suffix_offset: 6
+  pose43:
+    bin_suffix_offset: 6
+  pose44:
+    bin_suffix_offset: 6
+  pose45:
+    bin_suffix_offset: 6

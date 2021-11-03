@@ -1,22 +1,19 @@
+from collections import namedtuple
 from pathlib import Path
 
+import cv2
 import hydra
-from dotmap import DotMap
+import numpy as np
 from loguru import logger
 from matplotlib import pyplot as plt
 from omegaconf import OmegaConf, DictConfig
-from nptyping import NDArray
 from scipy.io import loadmat, savemat
-import numpy as np
-import cv2
-from einops import rearrange
-from copy import copy
 
-from quanta_SL.lcd.calibrate.get_intrinsic_extrinsic import get_mask, _plot_inpainted, find_projector_corners
-
-from collections import namedtuple
-
-from quanta_SL.utils.plotting import ax_imshow_with_colorbar, save_plot
+from quanta_SL.lcd.calibrate.get_intrinsic_extrinsic import (
+    get_mask,
+    _plot_inpainted,
+    find_projector_corners,
+)
 
 # Disable inner logging
 logger.disable("quanta_SL")
@@ -80,6 +77,7 @@ stereo_flags = (
     + cv2.CALIB_FIX_K6
 )
 
+
 @hydra.main(
     config_path="../../conf/dlp/calibrate",
     config_name=Path(__file__).stem,
@@ -92,6 +90,10 @@ def main(cfg: DictConfig):
     # Open mat file
     f = loadmat(cfg.correspondence.mat_file)
     img_ll = f["all-white"]
+
+    # create a CLAHE object (Arguments are optional).
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+
     row_correspondences_ll = f["row-correspondences"]
     col_correspondences_ll = f["col-correspondences"]
 
@@ -139,6 +141,10 @@ def main(cfg: DictConfig):
 
         # Find the chess board corners
         inpainted_img_8bit = (inpainted_img * 255).astype(np.uint8)
+
+        # Perform contrast improvement
+        inpainted_img_8bit = cv2.equalizeHist(inpainted_img_8bit)
+
         ret, corners = cv2.findChessboardCorners(
             inpainted_img_8bit,
             (cfg.chessboard.height, cfg.chessboard.width),
@@ -160,7 +166,7 @@ def main(cfg: DictConfig):
             img_points.append(corners_subpixel)
 
             # Draw and display the corners
-            marked_inpainted_img = np.stack([inpainted_img] * 3, axis=-1)
+            marked_inpainted_img = np.stack([inpainted_img_8bit] * 3, axis=-1)
             marked_inpainted_img = cv2.drawChessboardCorners(
                 marked_inpainted_img, (7, 6), corners_subpixel, ret
             )
