@@ -1,6 +1,7 @@
 import numpy as np
 from ALP4 import ALP4
 import time
+import cv2
 
 # Load the Vialux .dll
 DMD = ALP4(version="4.2")
@@ -11,10 +12,16 @@ DMD.Initialize()
 bitDepth = 1
 imgBlack = np.zeros([DMD.nSizeY, DMD.nSizeX])
 imgWhite = np.ones([DMD.nSizeY, DMD.nSizeX]) * (2 ** 8 - 1)
-imgSeq = np.concatenate([imgBlack.ravel(), imgWhite.ravel()])
+
+imgArrow = cv2.imread("data/arrow.jpg", -1) / 255
+imgArrow[imgArrow < 0.5] = 0
+imgArrow[imgArrow > 0.5] = 255
+
+# imgFirst = cv2.imread("data/frame-1.png", -1)
+imgSeq = np.concatenate([imgArrow.ravel()])
 
 # Allocate the onboard memory for the image sequence
-DMD.SeqAlloc(nbImg=2, bitDepth=bitDepth)
+DMD.SeqAlloc(nbImg=1, bitDepth=bitDepth)
 # Send the image sequence as a 1D list/array/numpy array
 DMD.SeqPut(imgData=imgSeq)
 # Set image rate to 5 Hz
