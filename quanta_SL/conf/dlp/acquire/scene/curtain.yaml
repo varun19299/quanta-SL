@@ -1,6 +1,6 @@
-name: black_plane
+name: curtain
 calibration:
-  folder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/30th_September/
+  folder: ${hydra:runtime.cwd}/outputs/real_captures/DLP_projector/29th_October/calibration
   file_name: stereo_model
   mat_file: ${scene.calibration.folder}/${scene.calibration.file_name}.mat
   npz_file: ${scene.calibration.folder}/${scene.calibration.file_name}.npz

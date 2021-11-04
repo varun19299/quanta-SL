@@ -1,7 +1,7 @@
 """
 Maximum Likelihood Decoding
 
-(Minimum Distance Decoding methods).
+(Minimum Distance Decoding method).
 """
 
 import faiss

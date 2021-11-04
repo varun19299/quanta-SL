@@ -250,7 +250,7 @@ def bch_to_projector_frames(
         plot_code_LUT(
             code_LUT,
             show,
-            fname=path / f"{out_dir}.png",
+            fname=path / f"{folder_name}.png",
         )
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
@@ -304,7 +304,7 @@ def repetition_to_projector_frames(
         plot_code_LUT(
             code_LUT,
             show,
-            fname=path / f"{out_dir}.png",
+            fname=path / f"{folder_name}.png",
         )
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
@@ -370,7 +370,7 @@ def hybrid_to_projector_frames(
         plot_code_LUT(
             code_LUT,
             show,
-            fname=path / f"{out_dir}.png",
+            fname=path / f"{folder_name}.png",
         )
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
@@ -432,7 +432,7 @@ def gray_stripe_to_projector_frames(
         plot_code_LUT(
             code_LUT,
             show,
-            fname=path / f"{out_dir}.png",
+            fname=path / f"{folder_name}.png",
         )
 
     code_LUT_to_projector_frames(code_LUT=code_LUT, **kwargs)
@@ -534,6 +534,9 @@ def dlp_patterns():
     gray_stripe_to_projector_frames(7, encoded_dim="rows", **kwargs)
 
     kwargs["use_complementary"] = False
+
+    # Gray code
+    gray_code_to_projector_frames(**kwargs)
 
     # Hybrid
     hybrid_bch_tuple_ll = [

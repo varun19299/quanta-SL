@@ -1,6 +1,6 @@
 conv_gray:
-  name: Gray Code [${methods.conv_gray.repetition_tuple.k} bits] comp
-  folder: ${outfolder}/${methods.conv_gray.name}/
+  name: Gray Code [${method.conv_gray.repetition_tuple.k} bits] comp
+  folder: ${outfolder}/${method.conv_gray.name}/
   message_bits: 11
   repetition_tuple:
     n: 11

@@ -1,41 +1,33 @@
-from functools import partial
 from pathlib import Path
 
 import cv2
 import hydra
 import numpy as np
 from dotmap import DotMap
-from einops import repeat
 from loguru import logger
 from matplotlib import pyplot as plt
 from omegaconf import OmegaConf
 from roipoly import RoiPoly
 from scipy.signal import medfilt2d
-from sklearn.metrics import median_absolute_error, mean_squared_error
+from tqdm import tqdm
+from math import floor
 
-from quanta_SL.decode.methods import (
-    hybrid_decoding,
-    repetition_decoding,
-    read_off_decoding,
-    minimum_distance_decoding,
-)
-from quanta_SL.decode.minimum_distance.factory import (
-    faiss_flat_index,
-    faiss_minimum_distance,
-)
 from quanta_SL.encode import metaclass
-from quanta_SL.encode import strategies
 from quanta_SL.encode.message import (
     registry as message_registry,
-    message_to_inverse_permuation,
 )
-from quanta_SL.io import load_swiss_spad_sequence, load_swiss_spad_bin
+from quanta_SL.io import load_swiss_spad_bin
+from quanta_SL.lcd.acquire.decode_correspondences import get_code_LUT_decoding_func
 
 # Disable inner logging
 from quanta_SL.lcd.decode_helper import decode_2d_code
-from quanta_SL.ops.binary import packbits_strided
-from quanta_SL.utils.memoize import MemoizeNumpy
-from quanta_SL.utils.plotting import save_plot
+from quanta_SL.lcd.acquire.reconstruct import (
+    get_intrinsic_extrinsic,
+    inpaint_func,
+    reconstruct_3d,
+    stereo_setup,
+)
+from quanta_SL.utils.plotting import save_plot, plot_image_and_colorbar
 
 logger.disable("quanta_SL")
 logger.add(f"logs/lcd_scenes_{Path(__file__).stem}.log", rotation="daily", retention=3)
@@ -61,122 +53,19 @@ def setup_args(cfg):
 
     cfg = DotMap(OmegaConf.to_object(cfg))
 
-    # Setup args
-    for method_key in cfg.methods.keys():
-        method_cfg = cfg.methods[method_key]
-
-        # Evaluate tuples
-        if ("hybrid" in method_key) or ("bch" in method_key):
-            method_cfg.bch_tuple = metaclass.BCH(*method_cfg.bch_tuple.values())
-        elif ("repetition" in method_key) or ("gray" in method_key):
-            method_cfg.repetition_tuple = metaclass.Repetition(
-                *method_cfg.repetition_tuple.values()
-            )
-
-        # Convert range string to python range
-        method_cfg.binary_frame.bin_suffix_range = eval(
-            method_cfg.binary_frame.bin_suffix_range
+    if "Hybrid" in cfg.method.name:
+        cfg.method.bch_tuple = metaclass.BCH(*cfg.method.bch_tuple.values())
+    elif "Gray Code" in cfg.method.name:
+        cfg.method.repetition_tuple = metaclass.Repetition(
+            *cfg.method.repetition_tuple.values()
         )
 
-        # Obtain message vector from registry
-        method_cfg.message_mapping = message_registry[method_cfg.message_mapping]
+    cfg.method.message_mapping = message_registry[cfg.method.message_mapping]
+
+    # Convert range string to python range
+    cfg.frame_range = eval(cfg.frame_range)
 
     return cfg
-
-
-def get_code_LUT_decoding_func(method_cfg, method: str = "hybrid"):
-    # Generate code LUT, decoding func
-
-    if method == "hybrid":
-        hybrid_code_LUT = strategies.hybrid_code_LUT(**method_cfg)
-        bch_subset = strategies.bch_code_LUT(
-            **{**method_cfg, "message_bits": method_cfg.bch_message_bits}
-        )
-        index = faiss_flat_index(packbits_strided(bch_subset))
-        hybrid_decoding_func = partial(
-            hybrid_decoding,
-            func=faiss_minimum_distance,
-            bch_tuple=method_cfg.bch_tuple,
-            bch_message_bits=method_cfg.bch_message_bits,
-            overlap_bits=method_cfg.overlap_bits,
-            index=index,
-            pack=True,
-        )
-        return (
-            hybrid_code_LUT,
-            hybrid_decoding_func,
-        )
-
-    elif method == "repetition":
-
-        repetition_code_LUT = strategies.repetition_code_LUT(**method_cfg)
-        message_ll = method_cfg.message_mapping(method_cfg.message_bits)
-
-        repetition_decoding_func = partial(
-            repetition_decoding,
-            num_repeat=method_cfg.repetition_tuple.repeat,
-            inverse_permuation=message_to_inverse_permuation(message_ll),
-        )
-        return (
-            repetition_code_LUT,
-            repetition_decoding_func,
-        )
-
-    elif method == "bch":
-        bch_code_LUT = strategies.bch_code_LUT(**method_cfg)
-        index = faiss_flat_index(packbits_strided(bch_code_LUT))
-        bch_decoding_func = partial(
-            minimum_distance_decoding,
-            func=faiss_minimum_distance,
-            index=index,
-            pack=True,
-        )
-        return (
-            bch_code_LUT,
-            bch_decoding_func,
-        )
-
-    elif method == "no_coding":
-        code_LUT = method_cfg.message_mapping(method_cfg.message_bits)
-
-        decoding_func = partial(
-            read_off_decoding,
-            inverse_permuation=message_to_inverse_permuation(code_LUT),
-        )
-        return (
-            code_LUT,
-            decoding_func,
-        )
-
-    else:
-        raise NotImplementedError
-
-
-@MemoizeNumpy
-def get_gt_frame(
-    pattern_folder,
-    bin_suffix_range: range = range(0, 10),
-    comp_bin_suffix_range: range = [],
-    **kwargs,
-):
-    # Groundtruth
-    pos_frame = load_swiss_spad_sequence(
-        pattern_folder,
-        bin_suffix_range=bin_suffix_range,
-        **kwargs,
-    )
-
-    if len(comp_bin_suffix_range):
-        # Complementary
-        neg_frame = load_swiss_spad_sequence(
-            pattern_folder,
-            bin_suffix_range=comp_bin_suffix_range,
-            **kwargs,
-        )
-
-        return pos_frame > neg_frame
-
-    return pos_frame
 
 
 def get_binary_frame(folder: Path, bin_suffix: int, samples: int = 1, **kwargs):
@@ -188,252 +77,119 @@ def get_binary_frame(folder: Path, bin_suffix: int, samples: int = 1, **kwargs):
     return binary_burst[indices]
 
 
-def get_binary_gt_sequence(method_cfg, cfg, code_LUT):
+def get_binary_sequence(cfg, code_LUT):
     """
-    Get Groundtruth (averaged and thresholded via complementary)
-    and
-    Binary frames for a strategy
+    Get Binary frames for a strategy
 
-    :param method_cfg: method conf
     :param cfg: Overall conf
     :param code_LUT: Look Up Table for code
     :return:
     """
-    gt_sequence = []
-    binary_sequence = []
 
-    bin_suffix_offset = 0
-    pattern_range = range(1, code_LUT.shape[1] + 1)
+    frame_start = cfg.frame_start
+    bin_suffix_start = frame_start // cfg.bursts_per_bin
+    bin_start_modulous = frame_start % cfg.bursts_per_bin
 
-    # For repetition, just sample frames multiple times
-    if method_cfg.multi_sample:
-        pattern_range = range(1, method_cfg.message_bits + 1)
+    # Include all-white
+    num_patterns = code_LUT.shape[1] + 1
+    frame_end = frame_start + num_patterns * cfg.bursts_per_pattern - 1
+    bin_suffix_end = frame_end // cfg.bursts_per_bin
+    bin_end_modulous = frame_end % cfg.bursts_per_bin + 1
 
-    # First frame is all white
-    logger.info(f"All White")
+    bin_suffix_range = range(bin_suffix_start, bin_suffix_end + 1)
+    pbar = tqdm(bin_suffix_range)
 
-    folder = method_cfg.folder
-    img = get_gt_frame(
-        folder, bin_suffix_range=method_cfg.binary_frame.bin_suffix_range
-    )
-    bin_suffix_offset += method_cfg.binary_frame.bursts_per_pattern
+    frame_sequence = []
 
-    for pattern_index in pattern_range:
-        logger.info(f"Sequence #{pattern_index}/{len(pattern_range)}")
+    for bin_suffix in pbar:
+        pbar.set_description(f"Bin Suffix {bin_suffix}")
+        binary_burst = load_swiss_spad_bin(cfg.method.folder, bin_suffix=bin_suffix)
 
-        # Single binary sample
-        if not method_cfg.multi_sample:
-            samples = 1
-        else:
-            if method_cfg.use_complementary:
-                samples = method_cfg.repetition_tuple.repeat // 2
+        if bin_suffix == bin_suffix_start:
+            if bin_suffix == bin_suffix_end:
+                frame_sequence.append(binary_burst[bin_start_modulous:bin_end_modulous])
             else:
-                samples = method_cfg.repetition_tuple.repeat
+                frame_sequence.append(binary_burst[bin_start_modulous:])
+        elif bin_suffix == bin_suffix_end:
+            frame_sequence.append(binary_burst[:bin_end_modulous])
+        else:
+            frame_sequence.append(binary_burst)
 
-        binary_burst = get_binary_frame(
-            folder,
-            bin_suffix=method_cfg.binary_frame.bin_suffix + bin_suffix_offset,
-            samples=samples,
+    # Range adding
+    frame_sequence = np.concatenate(frame_sequence, axis=0)
+    post_adding_frame_sequence = np.zeros_like(frame_sequence)[:num_patterns]
+    for j in cfg.frame_range:
+        post_adding_frame_sequence += frame_sequence[j :: cfg.bursts_per_pattern]
+
+    # Num photons > 0
+    post_adding_frame_sequence = post_adding_frame_sequence > 0
+
+    # First is all-white
+    logger.info(f"All White")
+    img = post_adding_frame_sequence[0]
+
+    logger.info("Binary frames")
+    binary_sequence = post_adding_frame_sequence[1:]
+
+    if cfg.method.visualize_frame:
+        logger.info("Saving frames")
+        plt.imshow(img, cmap="gray")
+        save_plot(
+            savefig=cfg.savefig,
+            show=cfg.show,
+            fname=f"frame_wise/all_white.pdf",
+        )
+        cv2.imwrite(
+            f"frame_wise/all_white.png",
+            img * 255,
         )
 
-        if method_cfg.use_complementary:
-            comp_burst = get_binary_frame(
-                folder,
-                bin_suffix=method_cfg.binary_frame.bin_suffix
-                + bin_suffix_offset
-                + method_cfg.binary_frame.bursts_per_pattern,
-                samples=samples,
-            )
-
-            binary_burst = binary_burst.mean(axis=0) > comp_burst.mean(axis=0)
-            binary_burst = repeat(
-                binary_burst, "h w -> n h w", n=method_cfg.repetition_tuple.repeat
-            )
-
-        # Pick multiple samples
-        binary_frame = binary_burst.mean(axis=0)
-        binary_sequence += [frame for frame in binary_burst]
-
-        # Filename with leading zeros
-        bin_suffix_range = (
-            np.array(method_cfg.binary_frame.bin_suffix_range) + bin_suffix_offset
-        )
-        bin_suffix_offset += method_cfg.binary_frame.bursts_per_pattern
-
-        comp_bin_suffix_range = (
-            np.array(method_cfg.binary_frame.bin_suffix_range) + bin_suffix_offset
-        )
-        bin_suffix_offset += method_cfg.binary_frame.bursts_per_pattern
-
-        # Groundtruth Frame
-        gt_frame = get_gt_frame(folder, bin_suffix_range, comp_bin_suffix_range)
-        gt_sequence.append(gt_frame)
-
-        if method_cfg.visualize_frame:
-            plt.imshow(gt_frame, cmap="gray")
-            method_folder = Path(
-                f"{cfg.outfolder}/decoded_correspondences/{method_cfg.name}"
-            )
-            save_plot(
-                savefig=cfg.savefig,
-                show=cfg.show,
-                fname=method_folder / f"gt_frame{pattern_index:02d}.pdf",
-            )
-            cv2.imwrite(
-                str(method_folder / f"gt_frame{pattern_index:02d}.png"), gt_frame * 255
-            )
-
+        pbar = tqdm(total=len(binary_sequence))
+        for e, binary_frame in enumerate(binary_sequence):
+            pbar.set_description(f"Saving binary frame {e}")
             plt.imshow(binary_frame, cmap="gray")
             save_plot(
                 savefig=cfg.savefig,
                 show=cfg.show,
-                fname=method_folder / f"binary_frame{pattern_index:02d}.pdf",
+                fname=f"frame_wise/binary_frame{e}.pdf",
             )
             cv2.imwrite(
-                str(method_folder / f"binary_frame{pattern_index:02d}.png"),
+                f"frame_wise/binary_frame{e}.png",
                 binary_frame * 255,
             )
+            pbar.update(1)
 
-    # Stack
-    gt_sequence = np.stack(gt_sequence, axis=0)
-    binary_sequence = np.stack(binary_sequence, axis=0)
-
-    # Repeat GT
-    if method_cfg.multi_sample:
-        gt_sequence = repeat(
-            gt_sequence,
-            "n r c -> (n repeat) r c",
-            repeat=method_cfg.repetition_tuple.repeat,
-        )
-
-    if method_cfg.rotate_180:
+    if cfg.method.rotate_180:
         img = img[::-1, ::-1]
-        gt_sequence = gt_sequence[:, ::-1, ::-1]
         binary_sequence = binary_sequence[:, ::-1, ::-1]
 
-    return img, gt_sequence, binary_sequence
+    return img, binary_sequence
 
 
-def plot_image_and_colorbar(
-    img, fname, cfg, title: str = None, cbar_title: str = None, **imshow_kwargs
-):
-    """
-    Plot an image, with and without colorbar.
-    Export colorbar too.
-
-    :param img: H W C array
-    :param fname: file name
-    :param cfg: config
-    :param title: optional plot title
-    :param cbar_title: optional colorbar title
-    :param imshow_kwargs:
-    :return:
-    """
-    image = plt.imshow(img, **imshow_kwargs)
-    plt.axis("off")
-
-    save_plot(
-        cfg.savefig,
-        show=False,
-        close=False,
-        fname=f"{cfg.outfolder}/results/{fname}.pdf",
-    )
-
-    # Colorbar
-    def img_colorbar(**kwargs):
-        cbar = plt.colorbar(**kwargs)
-        if cbar_title:
-            cbar.ax.set_title(cbar_title)
-        cbar.ax.locator_params(nbins=5)
-        cbar.update_ticks()
-
-    img_colorbar()
-    if title:
-        plt.title(title, y=1.12)
-    save_plot(
-        cfg.savefig,
-        cfg.show,
-        fname=f"{cfg.outfolder}/results/{fname}_with_colorbar.pdf",
-    )
-
-    # draw a new figure and replot the colorbar there
-    fig, ax = plt.subplots()
-    img_colorbar(mappable=image, ax=ax)
-    ax.remove()
-    save_plot(
-        cfg.savefig,
-        show=False,
-        fname=f"{cfg.outfolder}/results/{fname}_only_colorbar.pdf",
-    )
-
-
-@hydra.main(config_path="../../conf/lcd/acquire", config_name=Path(__file__).stem)
+@hydra.main(config_path="../../conf/dlp/acquire", config_name=Path(__file__).stem)
 def main(cfg):
     print(OmegaConf.to_yaml(cfg))
 
     cfg = setup_args(cfg)
 
-    methods_dict = {}
+    if "Hybrid" in cfg.method.name:
+        code_LUT, decoding_func = get_code_LUT_decoding_func(cfg.method, "hybrid")
 
-    for method_key in cfg.methods.keys():
-        method_cfg = cfg.methods[method_key]
-        logger.info(f"Generating {method_key} code LUT, decoding func")
-        if "hybrid" in method_key:
-            code_LUT, decoding_func = get_code_LUT_decoding_func(method_cfg, "hybrid")
+    elif "Conv Gray" in cfg.method.name:
+        code_LUT, decoding_func = get_code_LUT_decoding_func(cfg.method, "repetition")
 
-        elif "repetition" in method_key:
-            code_LUT, decoding_func = get_code_LUT_decoding_func(
-                method_cfg, "repetition"
-            )
+    img, binary_sequence = get_binary_sequence(cfg, code_LUT)
 
-        elif "bch" in method_key:
-            code_LUT, decoding_func = get_code_LUT_decoding_func(method_cfg, "bch")
-        else:
-            code_LUT, decoding_func = get_code_LUT_decoding_func(
-                method_cfg, "no_coding"
-            )
+    binary_decoded = decode_2d_code(binary_sequence, code_LUT, decoding_func)
 
-        img, gt_sequence, binary_sequence = get_binary_gt_sequence(
-            method_cfg, cfg, code_LUT
-        )
-
-        logger.info(f"Decoding {method_key} GT")
-        gt_decoded = decode_2d_code(gt_sequence, code_LUT, decoding_func)
-
-        logger.info(f"Decoding {method_key} binary")
-        binary_decoded = decode_2d_code(binary_sequence, code_LUT, decoding_func)
-
-        # Median filter binary decoded
-        binary_decoded = medfilt2d(binary_decoded)
-
-        methods_dict[method_key] = {
-            "code_LUT": code_LUT,
-            "decoding_func": decoding_func,
-            "img": img,
-            "gt_sequence": gt_sequence,
-            "binary_sequence": binary_sequence,
-            "gt_decoded": gt_decoded,
-            "binary_decoded": binary_decoded,
-        }
-
-    # Find hybrid method with greatest redundancy for GT
-    hybrid_key = max(
-        [method_key for method_key in methods_dict],
-        key=lambda s: int(s.split("_")[-1] if "hybrid" in s else 0),
-    )
-    breakpoint()
-
-    gt_decoded = methods_dict[hybrid_key]["gt_decoded"]
-    hybrid_binary_decoded = methods_dict[hybrid_key]["binary_decoded"]
-    img = methods_dict[hybrid_key]["img"]
-
-    # Ignore high error regions of hybrid_key
-    high_error_hybrid = np.abs(gt_decoded - hybrid_binary_decoded) > 100
+    # Median filter binary decoded
+    binary_decoded = medfilt2d(binary_decoded)
 
     # Regions to ignore
     # Custom RoI
-    mask_path = Path(cfg.groundtruth.mask_path)
+    mask_path = Path(cfg.mask_path)
     if mask_path.exists():
+        logger.info(f"RoI Mask found at {mask_path}")
         mask = np.load(mask_path)
 
     else:
@@ -450,58 +206,50 @@ def main(cfg):
 
         np.save(mask_path, mask)
 
-    mask *= ~high_error_hybrid
-    np.save(mask_path.parent / f"{mask_path.stem}_hybrid_filtered.npy", mask)
-    cv2.imwrite(
-        str(mask_path.parent / f"{mask_path.stem}_hybrid_filtered.png"),
-        (mask * 255.0).astype(int),
+    # Save img
+    # cv2.imwrite(cfg.img, (img * 255).astype(int))
+
+    # Save mask
+    plot_image_and_colorbar(
+        mask,
+        f"mask",
+        show=cfg.show,
+        savefig=cfg.savefig,
+        cmap="jet",
     )
 
-    logger.info("Evaluating Accuracy")
+    # Save correspondences
+    plot_image_and_colorbar(
+        binary_decoded * mask,
+        f"correspondences",
+        show=cfg.show,
+        savefig=cfg.savefig,
+        title=f"Correspondences",
+    )
 
-    # Save mask, GT
-    plot_image_and_colorbar(gt_decoded, "groundtruth", cfg)
-    plot_image_and_colorbar(mask, "mask", cfg, cmap="jet")
+    # Save binary and gt correspondences
+    np.savez(f"correspondences.npz", binary_decoded=binary_decoded)
 
-    cv2.imwrite(cfg.groundtruth.img, (img * 255).astype(int))
-    np.save(cfg.groundtruth.correspondences, gt_decoded)
+    # Reconstruction
+    inpaint_mask = get_intrinsic_extrinsic.get_mask(cfg)
+    img = inpaint_func(img, inpaint_mask)
 
-    for method_key in methods_dict:
-        binary_decoded = methods_dict[method_key]["binary_decoded"]
+    # Obtain stereo calibration params
+    logger.info("Loading stereo params")
+    camera_matrix, projector_matrix, camera_pixels = stereo_setup(cfg)
 
-        # Correspondence error
-        rmse = mean_squared_error(gt_decoded[mask], binary_decoded[mask], squared=False)
-        logger.info(f"RMSE {method_key} {rmse}")
-
-        mae = median_absolute_error(gt_decoded[mask], binary_decoded[mask])
-        logger.info(f"MAE {method_key} {mae}")
-
-        logger.info("Plotting...")
-
-        # Correspondences
-        plot_image_and_colorbar(
-            binary_decoded * mask,
-            f"{method_key}/correspondences",
-            cfg,
-            title=f"Correspondences",
-        )
-
-        # Errors
-        abs_error_map = np.abs(gt_decoded - binary_decoded)
-        abs_error_map[~mask] = 0
-
-        plot_image_and_colorbar(
-            abs_error_map,
-            f"{method_key}/error_map",
-            cfg,
-            title=f"MAE {mae:.2f} | RMSE {rmse:.2f}",
-        )
-
-        # Save binary and gt correspondences
-        np.savez(
-            f"{cfg.outfolder}/results/{method_key}/correspondences.npz",
-            binary_decoded=binary_decoded,
-        )
+    # 3d reconstruction
+    cfg.show = True
+    method_points_3d = reconstruct_3d(
+        cfg,
+        binary_decoded,
+        camera_pixels,
+        mask,
+        camera_matrix,
+        projector_matrix,
+        img,
+        fname=f"reconstruction",
+    )
 
 
 if __name__ == "__main__":

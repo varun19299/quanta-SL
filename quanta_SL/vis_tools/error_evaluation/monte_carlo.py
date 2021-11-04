@@ -1,6 +1,6 @@
 """
 Strategies whose expected error is obtained
-via Monte Carlo methods
+via Monte Carlo method
 """
 from functools import partial
 from typing import Union, Callable

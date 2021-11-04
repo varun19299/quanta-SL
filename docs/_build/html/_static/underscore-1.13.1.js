@@ -331,7 +331,7 @@
     return this._wrapped;
   };
 
-  // Provide unwrapping proxies for some methods used in engine operations
+  // Provide unwrapping proxies for some method used in engine operations
   // such as arithmetic and JSON stringification.
   _$1.prototype.valueOf = _$1.prototype.toJSON = _$1.prototype.value;
 
@@ -489,7 +489,7 @@
 
   // Since the regular `Object.prototype.toString` type tests don't work for
   // some types in IE 11, we use a fingerprinting heuristic instead, based
-  // on the methods. It's not great, but it's the best we got.
+  // on the method. It's not great, but it's the best we got.
   // The fingerprint method lists are defined below.
   function ie11fingerprint(methods) {
     var length = getLength(methods);
@@ -1020,7 +1020,7 @@
     return bound;
   });
 
-  // Internal helper for collection methods to determine whether a collection
+  // Internal helper for collection method to determine whether a collection
   // should be iterated as an array or as an object.
   // Related: https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength
   // Avoids a very nasty iOS 8 JIT bug on ARM-64. #2094
@@ -1053,7 +1053,7 @@
     return output;
   }
 
-  // Bind a number of an object's methods to that object. Remaining arguments
+  // Bind a number of an object's method to that object. Remaining arguments
   // are the method names to be bound. Useful for ensuring that all callbacks
   // defined on an object belong to it.
   var bindAll = restArguments(function(obj, keys) {

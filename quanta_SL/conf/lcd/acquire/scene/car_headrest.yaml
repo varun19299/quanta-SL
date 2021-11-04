@@ -1,7 +1,8 @@
-name: black_cylinder
+name: car_headrest
 calibration:
   folder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/30th_September/
   file_name: stereo_model
   mat_file: ${scene.calibration.folder}/${scene.calibration.file_name}.mat
   npz_file: ${scene.calibration.folder}/${scene.calibration.file_name}.npz
 view_kwargs: {}
+frames_to_add: 7

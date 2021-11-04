@@ -1,10 +1,9 @@
 # Hydra configs
 hydra:
-  output_subdir: null # disable shifting output directories
   run:
-    dir: ./outputs/lcd/acquire/${exp_name}/${scene.name}/${hydra.job.override_dirname}
+    dir: ${outfolder}/results/${method.name}/${hydra.job.override_dirname}
   sweep:
-    dir: ./outputs/lcd/acquire/${exp_name}/${scene.name}/
+    dir: ${outfolder}/results/${method.name}/
     subdir: ${hydra.job.override_dirname}
   job:
     config:
@@ -13,3 +12,5 @@ hydra:
           - exp_name
           - scene
           - scene.name
+          - method
+          - method.name

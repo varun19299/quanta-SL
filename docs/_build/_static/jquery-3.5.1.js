@@ -566,7 +566,7 @@ var i,
 		return 0;
 	},
 
-	// Instance methods
+	// Instance method
 	hasOwn = ( {} ).hasOwnProperty,
 	arr = [],
 	pop = arr.pop,
@@ -776,7 +776,7 @@ function Sizzle( selector, context, results, seed ) {
 		if ( documentIsHTML ) {
 
 			// If the selector is sufficiently simple, try using a "get*By*" DOM method
-			// (excepting DocumentFragment context, where the methods don't exist)
+			// (excepting DocumentFragment context, where the method don't exist)
 			if ( nodeType !== 11 && ( match = rquickExpr.exec( selector ) ) ) {
 
 				// ID selector
@@ -1195,7 +1195,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 	// Support: IE<10
 	// Check if getElementById returns elements by name
-	// The broken getElementById methods don't pick up programmatically-set names,
+	// The broken getElementById method don't pick up programmatically-set names,
 	// so use a roundabout getElementsByName test
 	support.getById = assert( function( el ) {
 		docElem.appendChild( el ).id = expando;
@@ -3174,7 +3174,7 @@ var rootjQuery,
 					if ( rsingleTag.test( match[ 1 ] ) && jQuery.isPlainObject( context ) ) {
 						for ( match in context ) {
 
-							// Properties of context are called as methods if possible
+							// Properties of context are called as method if possible
 							if ( isFunction( this[ match ] ) ) {
 								this[ match ]( context[ match ] );
 
@@ -3916,7 +3916,7 @@ jQuery.extend( {
 			},
 			deferred = {};
 
-		// Add list-specific methods
+		// Add list-specific method
 		jQuery.each( tuples, function( i, tuple ) {
 			var list = tuple[ 2 ],
 				stateString = tuple[ 5 ];
@@ -4460,7 +4460,7 @@ jQuery.extend( {
 	},
 
 	// TODO: Now that all calls to _data and _removeData have been replaced
-	// with direct calls to dataPriv methods, these can be deprecated.
+	// with direct calls to dataPriv method, these can be deprecated.
 	_data: function( elem, name, data ) {
 		return dataPriv.access( elem, name, data );
 	},
@@ -10584,7 +10584,7 @@ jQuery.fn.extend( {
 	}
 } );
 
-// Create scrollLeft and scrollTop methods
+// Create scrollLeft and scrollTop method
 jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( method, prop ) {
 	var top = "pageYOffset" === prop;
 
@@ -10638,7 +10638,7 @@ jQuery.each( [ "top", "left" ], function( _i, prop ) {
 } );
 
 
-// Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
+// Create innerHeight, innerWidth, height, width, outerHeight and outerWidth method
 jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 	jQuery.each( { padding: "inner" + name, content: type, "": "outer" + name },
 		function( defaultExtra, funcName ) {

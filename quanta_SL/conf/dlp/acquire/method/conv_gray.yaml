@@ -1,0 +1,10 @@
+name: Gray Code [${method.repetition_tuple.k} bits]
+folder: ${outfolder}/${method.name}/
+message_bits: 10
+repetition_tuple:
+  n: 10
+  k: 10
+  t: 0
+message_mapping: gray_message
+rotate_180: True
+visualize_frame: True

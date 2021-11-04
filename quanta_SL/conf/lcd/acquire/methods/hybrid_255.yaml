@@ -1,6 +1,6 @@
 hybrid_255:
-  name: Hybrid BCH [255, 9] [${methods.hybrid_255.message_mapping}] comp
-  folder: ${outfolder}/${methods.hybrid_255.name}/
+  name: Hybrid BCH [255, 9] [${method.hybrid_255.message_mapping}] comp
+  folder: ${outfolder}/${method.hybrid_255.name}/
   message_bits: 11
   overlap_bits: 1
   bch_tuple:

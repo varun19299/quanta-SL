@@ -1,6 +1,6 @@
 bch_127:
   name: BCH [127, 15] [gray_message] comp
-  folder: ${outfolder}/${methods.bch_127.name}/
+  folder: ${outfolder}/${method.bch_127.name}/
   message_bits: 11
   bch_tuple:
     n: 127

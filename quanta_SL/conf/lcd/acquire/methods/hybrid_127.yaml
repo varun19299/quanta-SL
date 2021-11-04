@@ -1,6 +1,6 @@
 hybrid_127:
-  name: Hybrid BCH [127, 8] [${methods.hybrid_127.message_mapping}] comp
-  folder: ${outfolder}/${methods.hybrid_127.name}/
+  name: Hybrid BCH [127, 8] [${method.hybrid_127.message_mapping}] comp
+  folder: ${outfolder}/${method.hybrid_127.name}/
   message_bits: 11
   overlap_bits: 1
   bch_tuple:

@@ -1,0 +1,12 @@
+name: Hybrid BCH [31, 11] [${method.message_mapping}]
+folder: ${outfolder}/${method.name}/
+message_bits: 10
+overlap_bits: 1
+bch_tuple:
+  n: 31
+  k: 11
+  t: 5
+bch_message_bits: 7
+message_mapping: gray_message
+rotate_180: True
+visualize_frame: True

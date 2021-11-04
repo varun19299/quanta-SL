@@ -1,5 +1,5 @@
 """
-Plotting minimum distance methods from their output CSV
+Plotting minimum distance method from their output CSV
 """
 from pathlib import Path
 

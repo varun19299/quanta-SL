@@ -9,25 +9,20 @@ import cv2
 
 logger.disable("quanta_SL")
 
-bin_range = range(3, 15)
+bin_range = range(50, 60)
 bin_offset = 0
 capture_date = "29th_October"
-# folder_name = "gray_stripe_3pm"
-folder_name = "hand_gest_kriti/Hybrid BCH [63, 7] [gray_message]"
+folder_name = "curtain/Hybrid BCH [255, 9] [gray_message]"
 
 folder = Path(f"outputs/real_captures/DLP_projector/{capture_date}/{folder_name}/")
-out_folder = folder / "binary_frames"
+out_folder = folder / f"binary_frames{bin_range}"
 out_folder.mkdir(exist_ok=True, parents=True)
 
-cumulative_frame = 0
+cumulative_frame = bin_range.start * 512
 for bin_suffix in tqdm(bin_range):
     burst = load_swiss_spad_bin(folder, bin_suffix=bin_suffix)
 
     for img in burst:
-        # plt.imshow(img, cmap="gray")
-        # plt.title(f"Frame {cumulative_frame}")
-        # plt.show()
-
         cv2.imwrite(str(out_folder / f"frame_{cumulative_frame}.jpg"), img * 255)
 
         cumulative_frame += 1

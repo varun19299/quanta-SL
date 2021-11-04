@@ -14,7 +14,7 @@ from quanta_SL.encode import strategies
 from quanta_SL.encode.message import (
     registry as message_registry,
 )
-from quanta_SL.lcd.calibrate.decode_correspondences import get_frame
+from quanta_SL.lcd.calibrate.decode_correspondences import get_frame, get_code_LUT_decoding_func
 from quanta_SL.lcd.decode_helper import decode_2d_code
 from quanta_SL.utils.plotting import save_plot, ax_imshow_with_colorbar
 
@@ -46,25 +46,6 @@ def setup_args(cfg):
     cfg.gray_stripe.message_mapping = message_registry[cfg.gray_stripe.message_mapping]
 
     return cfg
-
-
-def get_code_LUT_decoding_func(cfg):
-    """
-    Generate GrayStripe coding LUT, decoding func
-    :param cfg:
-    :return:
-    """
-    logger.info(f"Generating Code LUT")
-
-    code_LUT = strategies.gray_stripe_code_LUT(**cfg.gray_stripe)
-
-    gray_message_bits = cfg.gray_stripe.gray_message_bits
-
-    decoding_func = partial(
-        gray_stripe_decoding,
-        gray_message_bits=gray_message_bits,
-    )
-    return code_LUT, decoding_func
 
 
 def get_sequence(cfg, code_LUT, pose_index: int):

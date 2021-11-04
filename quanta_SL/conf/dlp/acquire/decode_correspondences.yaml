@@ -1,31 +1,39 @@
 defaults:
-  - methods:
-    - conv_gray
-    - long_gray
-    - repetition_conv_77
-    - repetition_conv_143
-    - repetition_conv_275
-    - repetition_long_77
-    - repetition_long_143
-    - repetition_long_275
-    - bch_63
-    - bch_127
-    - bch_255
-    - hybrid_63
-    - hybrid_127
-    - hybrid_255
+  - method: hybrid_255
   - hydra
-  - scene: mary_bust
+  - scene: hand_gest_arun
   - override hydra/job_logging: none
 
 
 exp_name: decode_correspondences
 show: False
 savefig: True
-capture_date: 30th_September
-outfolder: ${hydra:runtime.cwd}/outputs/real_captures/LCD_projector/${capture_date}/${scene.name}
+capture_date: 29th_October
+outfolder: ${hydra:runtime.cwd}/outputs/real_captures/DLP_projector/${capture_date}/${scene.name}
 
-groundtruth:
-  img: ${outfolder}/results/img.png
-  correspondences: ${outfolder}/results/gt_correspondences.npy
-  mask_path: ${outfolder}/roi_mask.npy
+mask_path: roi_mask.npy
+
+# Numbering from 0...
+frame_start: 1703 # 1610
+frame_range: range(0,2)
+bursts_per_pattern: 3
+bursts_per_bin: 512
+
+projector:
+  width: 1024
+  height: 768
+  crop_mode: center
+
+spad:
+  width: 512
+  height: 256
+  mask:
+    file: ${scene.calibration.folder}/bpIndex_3000_0.7_8.mat
+    key: bpIndices
+    order: col-major # or row-major
+    rotate_180: True
+
+calibration:
+  file_name: stereo_model
+  mat_file: ${outfolder}/${calibration.file_name}.mat
+  npz_file: ${outfolder}/${calibration.file_name}.npz

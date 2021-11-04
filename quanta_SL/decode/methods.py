@@ -1,5 +1,5 @@
 """
-Exposes API for decoding based methods
+Exposes API for decoding based method
 """
 from typing import Callable
 
