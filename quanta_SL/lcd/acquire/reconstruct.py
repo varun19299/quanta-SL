@@ -44,6 +44,20 @@ def inpaint_func(img, mask):
     )
 
 
+def reject_outliers(data, m=2.0):
+    """
+    Reject outliers based on robust median
+
+    :param data:
+    :param m: Std dev ratio
+    :return:
+    """
+    d = np.abs(data - np.median(data))
+    mdev = np.median(d)
+    s = d / mdev if mdev else 0.0
+    return data[s < m]
+
+
 def stereo_setup(cfg):
     f = np.load(cfg.scene.calibration.npz_file)
     camera_matrix = CameraMatrix(K=f["camera_matrix"])
@@ -102,10 +116,25 @@ def reconstruct_3d(
     depth_map[valid_indices] = points_3d_to_return[:, 2]
 
     # Save depth map
+    if not depth_map_vmin or not depth_map_vmax:
+        inlier_m = 2
+        num_attempt = 1
+        while True:
+            depth_inliers = reject_outliers(points_3d_to_return[:, 2], inlier_m)
+            if len(depth_inliers):
+                break
+            inlier_m *= 2
+            num_attempt += 1
+
+            # Too noisy, don't filter. Do it manually
+            if num_attempt > 5:
+                depth_inliers = points_3d_to_return[:, 2]
+                break
+
     if not depth_map_vmin:
-        depth_map_vmin = points_3d_to_return[:, 2].min()
+        depth_map_vmin = depth_inliers.min()
     if not depth_map_vmax:
-        depth_map_vmax = points_3d_to_return[:, 2].max()
+        depth_map_vmax = depth_inliers.max()
 
     cmap = matplotlib.cm.get_cmap("jet").copy()
     cmap.set_bad("black", alpha=1.0)

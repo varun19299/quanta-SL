@@ -126,7 +126,7 @@ def get_binary_sequence(cfg, code_LUT):
 
     # First is all-white
     logger.info(f"All White")
-    img = post_adding_frame_sequence[0]
+    img = post_adding_frame_sequence.mean(axis=0)
 
     logger.info("Binary frames")
     binary_sequence = post_adding_frame_sequence[1:]
@@ -137,10 +137,10 @@ def get_binary_sequence(cfg, code_LUT):
         save_plot(
             savefig=cfg.savefig,
             show=cfg.show,
-            fname=f"frame_wise/all_white.pdf",
+            fname=f"frame_wise/mean_image.pdf",
         )
         cv2.imwrite(
-            f"frame_wise/all_white.png",
+            f"frame_wise/mean_image.png",
             img * 255,
         )
 

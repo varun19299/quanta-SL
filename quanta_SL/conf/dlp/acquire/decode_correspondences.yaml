@@ -15,7 +15,7 @@ mask_path: roi_mask.npy
 
 # Numbering from 0...
 frame_start: 1703 # 1610
-frame_range: range(0,2)
+frame_range: range(0,3)
 bursts_per_pattern: 3
 bursts_per_bin: 512
 

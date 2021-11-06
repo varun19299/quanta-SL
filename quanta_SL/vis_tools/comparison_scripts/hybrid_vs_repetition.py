@@ -134,8 +134,8 @@ def _compare_repetition_bch(
     ]
     repetition_tuple_ll = [
         Repetition(11, 11, 0),
-        Repetition(33, 11, 1),
-        Repetition(66, 11, 2),
+        Repetition(44, 11, 1),
+        Repetition(77, 11, 3),
         Repetition(143, 11, 6),
         Repetition(275, 11, 12),
     ]

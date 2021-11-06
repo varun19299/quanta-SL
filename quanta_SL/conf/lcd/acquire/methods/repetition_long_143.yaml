@@ -1,6 +1,6 @@
 repetition_long_143:
-  name: Long Run Gray Code [${method.repetition_long_143.repetition_tuple.k} bits] comp
-  folder: ${outfolder}/${method.repetition_long_143.name}/
+  name: Long Run Gray Code [${methods.repetition_long_143.repetition_tuple.k} bits] comp
+  folder: ${outfolder}/${methods.repetition_long_143.name}/
   message_bits: 11
   repetition_tuple:
     n: 143

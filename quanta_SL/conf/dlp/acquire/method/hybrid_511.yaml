@@ -9,4 +9,4 @@ bch_tuple:
 bch_message_bits: 7
 message_mapping: gray_message
 rotate_180: True
-visualize_frame: True
+visualize_frame: False
