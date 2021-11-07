@@ -220,6 +220,8 @@ def main(cfg):
             f"{cfg.outfolder}/results/{method_key}/correspondences.npz"
         )["binary_decoded"]
 
+        binary_decoded = inpaint_func(binary_decoded, inpaint_mask)
+
         methods_dict[method_cfg] = {"binary_decoded": binary_decoded}
 
         # 3d reconstruction

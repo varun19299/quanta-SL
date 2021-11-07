@@ -185,6 +185,9 @@ def main(cfg):
     # Median filter binary decoded
     binary_decoded = medfilt2d(binary_decoded)
 
+    inpaint_mask = get_intrinsic_extrinsic.get_mask(cfg)
+    img = inpaint_func(img, inpaint_mask)
+
     # Regions to ignore
     # Custom RoI
     mask_path = Path(cfg.mask_path)
@@ -231,8 +234,8 @@ def main(cfg):
     np.savez(f"correspondences.npz", binary_decoded=binary_decoded)
 
     # Reconstruction
-    inpaint_mask = get_intrinsic_extrinsic.get_mask(cfg)
-    img = inpaint_func(img, inpaint_mask)
+
+    binary_decoded = inpaint_func(binary_decoded, inpaint_mask)
 
     # Obtain stereo calibration params
     logger.info("Loading stereo params")
@@ -248,6 +251,8 @@ def main(cfg):
         camera_matrix,
         projector_matrix,
         img,
+        depth_map_vmin=cfg.scene.get("depth_map_vmin"),
+        depth_map_vmax=cfg.scene.get("depth_map_vmax"),
         fname=f"reconstruction",
     )
 
