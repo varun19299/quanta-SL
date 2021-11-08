@@ -396,16 +396,32 @@ def multiple_surface_plotly_3d(
 
         fig.add_trace(
             go.Surface(
-                x=phi_P_mesh,
+                x=phi_proj_mesh,
                 y=phi_A_mesh,
                 z=np.round(eval_error, decimals=3),
                 name=strategy.name,
                 colorscale=COLORS_discrete[e],
+                showlegend=True,
+                showscale=False,
             )
         )
 
+        line_marker = dict(color="black", width=2)
+        for i, j, k in zip(phi_proj_mesh[::4], phi_A_mesh[::4], eval_error[::4]):
+            fig.add_trace(
+                go.Scatter3d(
+                    x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
+                )
+            )
+
+        for i, j, k in zip(phi_proj_mesh.T[::4], phi_A_mesh.T[::4], eval_error.T[::4]):
+            fig.add_trace(
+                go.Scatter3d(
+                    x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
+                )
+            )
+
     fig.update_layout(
-        showlegend=True,
         title=dict(text=title, x=0.5, y=0.9, xanchor="center", yanchor="top"),
         scene=dict(
             xaxis=dict(
@@ -432,8 +448,6 @@ def multiple_surface_plotly_3d(
 
     fig.update_xaxes(automargin=True)
     fig.update_yaxes(automargin=True)
-
-    fig.update_traces(showlegend=True, showscale=False)
 
     if show:
         fig.show(renderer="browser")

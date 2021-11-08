@@ -208,30 +208,30 @@ def gpu_minimum_distance(
     data_query_kwargs = dict(x=x, y=y, gt_indices=gt_indices)
     benchmark_dict = {}
 
-    if CUPY_GPUs:
-        benchmark_func(
-            "CuPy byte-packed",
-            cupy_minimum_distance,
-            **data_query_kwargs.copy(),
-            pack=True,
-            benchmark_dict=benchmark_dict,
-            hamming_dist_LUT=hamming_distance_8bit(),
-            Timer=CuPyTimer,
-            num_repeat=1,
-        )
-
-        mempool = xp.get_default_memory_pool()
-        pinned_mempool = xp.get_default_pinned_memory_pool()
-        mempool.free_all_blocks()
-        pinned_mempool.free_all_blocks()
-
-    if KEOPS_GPUs:
-        benchmark_func(
-            "KeOps",
-            keops_minimum_distance,
-            **data_query_kwargs,
-            benchmark_dict=benchmark_dict,
-        )
+    # if CUPY_GPUs:
+    #     benchmark_func(
+    #         "CuPy byte-packed",
+    #         cupy_minimum_distance,
+    #         **data_query_kwargs.copy(),
+    #         pack=True,
+    #         benchmark_dict=benchmark_dict,
+    #         hamming_dist_LUT=hamming_distance_8bit(),
+    #         Timer=CuPyTimer,
+    #         num_repeat=1,
+    #     )
+    #
+    #     mempool = xp.get_default_memory_pool()
+    #     pinned_mempool = xp.get_default_pinned_memory_pool()
+    #     mempool.free_all_blocks()
+    #     pinned_mempool.free_all_blocks()
+    #
+    # if KEOPS_GPUs:
+    #     benchmark_func(
+    #         "KeOps",
+    #         keops_minimum_distance,
+    #         **data_query_kwargs,
+    #         benchmark_dict=benchmark_dict,
+    #     )
 
     if FAISS_GPUs:
         benchmark_func(
@@ -323,7 +323,7 @@ def run_benchmark(
 
 
 if __name__ == "__main__":
-    run_benchmark("cpu", query_repeat=100)
+    # run_benchmark("cpu", query_repeat=100)
 
     if GPU_AVAILABLE:
-        run_benchmark("gpu", query_repeat=100, show=False)
+        run_benchmark("gpu", query_repeat=2000, show=False)

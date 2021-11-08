@@ -31,6 +31,8 @@ def surface_plot(
 
     color_discrete = [(0, color), (1, color)]
 
+    eval_error = error_func(phi_A_mesh, phi_P_mesh, **eval_func_kwargs)
+
     fig = go.Figure(
         layout=go.Layout(
             paper_bgcolor="rgba(0,0,0,0)",
@@ -38,24 +40,39 @@ def surface_plot(
             autosize=False,
             width=900,
             height=900,
-        )
+        ),
     )
 
-    eval_error = error_func(phi_A_mesh, phi_P_mesh, **eval_func_kwargs)
+    line_marker = dict(color="black", width=2)
+    for i, j, k in zip(phi_proj_mesh[::4], phi_A_mesh[::4], eval_error[::4]):
+        fig.add_trace(
+            go.Scatter3d(
+                x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
+            )
+        )
+
+    for i, j, k in zip(phi_proj_mesh.T[::4], phi_A_mesh.T[::4], eval_error.T[::4]):
+        fig.add_trace(
+            go.Scatter3d(
+                x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
+            )
+        )
 
     fig.add_trace(
         go.Surface(
-            x=phi_P_mesh,
+            x=phi_proj_mesh,
             y=phi_A_mesh,
             z=np.round(eval_error, decimals=3),
             name=error_func.name,
-            opacity=0.85,
+            opacity=1,
             colorscale=color_discrete,
+            showlegend=True,
+            showscale=False,
         )
     )
 
     fig.update_layout(
-        showlegend=True,
+        # showlegend=True,
         title=dict(text=title, x=0.5, y=0.9, xanchor="center", yanchor="top"),
         scene=dict(
             xaxis=dict(
@@ -87,7 +104,7 @@ def surface_plot(
     fig.update_xaxes(automargin=True)
     fig.update_yaxes(automargin=True)
 
-    fig.update_traces(showlegend=True, showscale=False)
+    # fig.update_traces(showlegend=True)
 
     if show:
         fig.show(renderer="browser")
@@ -104,7 +121,7 @@ def surface_plot(
 if __name__ == "__main__":
     COLORS_ll = ["red", "orange", "green", "blue", "purple", "brown", "grey"]
 
-    num = 64
+    num = 128
     phi_proj = np.logspace(1, 5, num=num)
     phi_A = np.logspace(1, 5, num=num)
 

@@ -8,9 +8,9 @@ defaults:
     - repetition_long_77
     - repetition_long_143
     - repetition_long_275
-#    - bch_63
-#    - bch_127
-#    - bch_255
+    - bch_63
+    - bch_127
+    - bch_255
     - hybrid_63
     - hybrid_127
     - hybrid_255
