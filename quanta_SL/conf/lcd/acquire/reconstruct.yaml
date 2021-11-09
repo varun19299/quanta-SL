@@ -1,18 +1,18 @@
 defaults:
   - methods:
-    - conv_gray
-    - long_gray
-    - repetition_conv_77
-    - repetition_conv_143
-    - repetition_conv_275
-    - repetition_long_77
-    - repetition_long_143
-    - repetition_long_275
-    - bch_63
-    - bch_127
-    - bch_255
-    - hybrid_63
-    - hybrid_127
+#    - conv_gray
+#    - long_gray
+#    - repetition_conv_77
+#    - repetition_conv_143
+#    - repetition_conv_275
+#    - repetition_long_77
+#    - repetition_long_143
+#    - repetition_long_275
+#    - bch_63
+#    - bch_127
+#    - bch_255
+#    - hybrid_63
+#    - hybrid_127
     - hybrid_255
   - hydra
   - scene: mary_bust

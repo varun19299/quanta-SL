@@ -410,12 +410,12 @@ def main(cfg):
 
         np.save(mask_path, mask)
 
-    mask *= ~high_error_hybrid
-    np.save(mask_path.parent / f"{mask_path.stem}_hybrid_filtered.npy", mask)
-    cv2.imwrite(
-        str(mask_path.parent / f"{mask_path.stem}_hybrid_filtered.png"),
-        (mask * 255.0).astype(int),
-    )
+    # mask *= ~high_error_hybrid
+    # np.save(mask_path.parent / f"{mask_path.stem}_hybrid_filtered.npy", mask)
+    # cv2.imwrite(
+    #     str(mask_path.parent / f"{mask_path.stem}_hybrid_filtered.png"),
+    #     (mask * 255.0).astype(int),
+    # )
 
     logger.info("Evaluating Accuracy")
 
