@@ -1,0 +1,1342 @@
+2021-11-11 17:57:18.756 | INFO     | __main__:main:176 - Generating code LUT
+2021-11-11 17:57:18.828 | INFO     | __main__:main:187 - Loading stereo params
+2021-11-11 17:57:18.845 | INFO     | __main__:main:194 - Frame 0 | Reading binary sequence
+2021-11-11 17:57:19.947 | INFO     | __main__:get_binary_sequence:129 - All White
+2021-11-11 17:57:19.990 | INFO     | __main__:get_binary_sequence:132 - Binary frames
+2021-11-11 17:57:20.004 | INFO     | __main__:main:197 - Frame 0 |Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 17:57:21.111 | INFO     | __main__:main:201 - Frame 0 |Median filter
+2021-11-11 17:57:57.751 | INFO     | __main__:main:177 - Generating code LUT
+2021-11-11 17:57:57.803 | INFO     | __main__:main:188 - Loading stereo params
+2021-11-11 17:57:57.825 | INFO     | __main__:main:195 - Frame 0 | Reading binary sequence
+2021-11-11 17:57:58.742 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 17:57:58.783 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 17:57:58.794 | INFO     | __main__:main:198 - Frame 0 |Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 17:57:59.086 | INFO     | __main__:main:202 - Frame 0 |Median filter
+2021-11-11 17:58:01.624 | INFO     | __main__:main:195 - Frame 1 | Reading binary sequence
+2021-11-11 17:58:03.718 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 17:58:03.765 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 17:58:03.780 | INFO     | __main__:main:198 - Frame 1 |Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 17:58:04.722 | INFO     | __main__:main:202 - Frame 1 |Median filter
+2021-11-11 18:00:10.778 | INFO     | __main__:main:177 - Generating code LUT
+2021-11-11 18:00:10.829 | INFO     | __main__:main:188 - Loading stereo params
+2021-11-11 18:00:10.843 | INFO     | __main__:main:195 - Frame 0 | Reading binary sequence
+2021-11-11 18:00:11.765 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:00:11.805 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:00:11.815 | INFO     | __main__:main:198 - Frame 0 |Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:00:12.311 | INFO     | __main__:main:202 - Frame 0 |Median filter
+2021-11-11 18:00:50.492 | INFO     | __main__:main:177 - Generating code LUT
+2021-11-11 18:00:50.525 | INFO     | __main__:main:188 - Loading stereo params
+2021-11-11 18:00:50.535 | INFO     | __main__:main:195 - Frame 0 | Reading binary sequence
+2021-11-11 18:00:51.396 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:00:51.449 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:00:51.461 | INFO     | __main__:main:198 - Frame 0 |Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:00:52.149 | INFO     | __main__:main:202 - Frame 0 |Median filter
+2021-11-11 18:00:55.603 | INFO     | __main__:main:195 - Frame 1 | Reading binary sequence
+2021-11-11 18:00:57.245 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:00:57.287 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:03:21.476 | INFO     | __main__:main:177 - Generating code LUT
+2021-11-11 18:03:21.503 | INFO     | __main__:main:188 - Loading stereo params
+2021-11-11 18:03:21.515 | INFO     | __main__:main:195 - Frame 0 | Reading binary sequence
+2021-11-11 18:03:22.325 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:03:22.371 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:03:22.382 | INFO     | __main__:main:198 - Frame 0 |Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:03:23.160 | INFO     | __main__:main:202 - Frame 0 |Median filter
+2021-11-11 18:03:25.926 | INFO     | __main__:main:195 - Frame 1 | Reading binary sequence
+2021-11-11 18:03:27.285 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:03:27.326 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:03:27.338 | INFO     | __main__:main:198 - Frame 1 |Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:03:27.720 | INFO     | __main__:main:202 - Frame 1 |Median filter
+2021-11-11 18:07:12.246 | INFO     | __main__:main:177 - Generating code LUT
+2021-11-11 18:07:12.278 | INFO     | __main__:main:188 - Loading stereo params
+2021-11-11 18:07:12.287 | INFO     | __main__:main:195 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:07:13.042 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:07:13.081 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:07:13.092 | INFO     | __main__:main:200 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:07:13.395 | INFO     | __main__:main:206 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:07:16.103 | INFO     | __main__:main:195 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:07:17.503 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:07:17.541 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:07:17.555 | INFO     | __main__:main:200 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:07:17.867 | INFO     | __main__:main:206 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:07:44.683 | INFO     | __main__:main:177 - Generating code LUT
+2021-11-11 18:07:44.735 | INFO     | __main__:main:188 - Loading stereo params
+2021-11-11 18:07:44.751 | INFO     | __main__:main:195 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:07:45.657 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:07:45.699 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:07:45.709 | INFO     | __main__:main:200 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:07:46.123 | INFO     | __main__:main:206 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:08:01.759 | INFO     | __main__:main:215 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:08:03.174 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:08:03.215 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:08:03.225 | INFO     | __main__:main:215 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:08:03.524 | INFO     | __main__:main:215 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:09:50.453 | INFO     | __main__:main:177 - Generating code LUT
+2021-11-11 18:09:50.493 | INFO     | __main__:main:188 - Loading stereo params
+2021-11-11 18:09:50.515 | INFO     | __main__:main:200 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:09:51.659 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:09:51.698 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:09:51.710 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:09:52.076 | INFO     | __main__:main:211 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:10:21.471 | INFO     | __main__:main:177 - Generating code LUT
+2021-11-11 18:10:21.526 | INFO     | __main__:main:188 - Loading stereo params
+2021-11-11 18:10:21.539 | INFO     | __main__:main:200 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:10:22.268 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:10:22.308 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:10:22.321 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:10:22.601 | INFO     | __main__:main:211 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:10:25.326 | INFO     | __main__:main:200 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:10:26.734 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:10:26.777 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:10:26.789 | INFO     | __main__:main:205 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:10:28.033 | INFO     | __main__:main:211 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:10:28.839 | INFO     | __main__:main:200 - Video frame 2 | Frame-start 2606| Reading binary sequence
+2021-11-11 18:10:29.772 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:10:29.827 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:10:29.842 | INFO     | __main__:main:205 - Video frame 2 | Frame-start 2606|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:10:30.627 | INFO     | __main__:main:211 - Video frame 2 | Frame-start 2606| Median filter
+2021-11-11 18:10:31.418 | INFO     | __main__:main:200 - Video frame 3 | Frame-start 2849| Reading binary sequence
+2021-11-11 18:10:33.345 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:10:33.390 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:10:33.402 | INFO     | __main__:main:205 - Video frame 3 | Frame-start 2849|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:10:33.958 | INFO     | __main__:main:211 - Video frame 3 | Frame-start 2849| Median filter
+2021-11-11 18:10:34.802 | INFO     | __main__:main:200 - Video frame 4 | Frame-start 3092| Reading binary sequence
+2021-11-11 18:11:07.434 | INFO     | __main__:main:177 - Generating code LUT
+2021-11-11 18:11:07.482 | INFO     | __main__:main:188 - Loading stereo params
+2021-11-11 18:11:07.497 | INFO     | __main__:main:200 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:11:08.313 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:11:08.354 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:11:08.367 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:11:08.904 | INFO     | __main__:main:211 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:11:12.457 | INFO     | __main__:main:200 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:11:14.054 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:11:14.096 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:11:14.107 | INFO     | __main__:main:205 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:11:14.450 | INFO     | __main__:main:211 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:11:15.253 | INFO     | __main__:main:200 - Video frame 2 | Frame-start 2606| Reading binary sequence
+2021-11-11 18:11:15.985 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:11:16.026 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:11:16.039 | INFO     | __main__:main:205 - Video frame 2 | Frame-start 2606|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:11:16.304 | INFO     | __main__:main:211 - Video frame 2 | Frame-start 2606| Median filter
+2021-11-11 18:11:17.020 | INFO     | __main__:main:200 - Video frame 3 | Frame-start 2849| Reading binary sequence
+2021-11-11 18:11:18.683 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:11:18.734 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:11:18.748 | INFO     | __main__:main:205 - Video frame 3 | Frame-start 2849|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:11:19.625 | INFO     | __main__:main:211 - Video frame 3 | Frame-start 2849| Median filter
+2021-11-11 18:11:20.426 | INFO     | __main__:main:200 - Video frame 4 | Frame-start 3092| Reading binary sequence
+2021-11-11 18:11:21.130 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:11:21.175 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:11:21.188 | INFO     | __main__:main:205 - Video frame 4 | Frame-start 3092|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:11:22.110 | INFO     | __main__:main:211 - Video frame 4 | Frame-start 3092| Median filter
+2021-11-11 18:11:23.030 | INFO     | __main__:main:200 - Video frame 5 | Frame-start 3335| Reading binary sequence
+2021-11-11 18:11:23.786 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:11:23.833 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:11:23.846 | INFO     | __main__:main:205 - Video frame 5 | Frame-start 3335|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:11:24.352 | INFO     | __main__:main:211 - Video frame 5 | Frame-start 3335| Median filter
+2021-11-11 18:11:25.149 | INFO     | __main__:main:200 - Video frame 6 | Frame-start 3578| Reading binary sequence
+2021-11-11 18:11:27.345 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:11:27.388 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:11:27.401 | INFO     | __main__:main:205 - Video frame 6 | Frame-start 3578|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:11:28.249 | INFO     | __main__:main:211 - Video frame 6 | Frame-start 3578| Median filter
+2021-11-11 18:11:28.950 | INFO     | __main__:main:200 - Video frame 7 | Frame-start 3821| Reading binary sequence
+2021-11-11 18:11:29.722 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:11:29.769 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:11:29.788 | INFO     | __main__:main:205 - Video frame 7 | Frame-start 3821|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:11:30.433 | INFO     | __main__:main:211 - Video frame 7 | Frame-start 3821| Median filter
+2021-11-11 18:11:31.339 | INFO     | __main__:main:200 - Video frame 8 | Frame-start 4064| Reading binary sequence
+2021-11-11 18:11:33.360 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:11:33.408 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:11:33.425 | INFO     | __main__:main:205 - Video frame 8 | Frame-start 4064|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:11:34.023 | INFO     | __main__:main:211 - Video frame 8 | Frame-start 4064| Median filter
+2021-11-11 18:11:34.794 | INFO     | __main__:main:200 - Video frame 9 | Frame-start 4307| Reading binary sequence
+2021-11-11 18:11:35.563 | INFO     | __main__:get_binary_sequence:130 - All White
+2021-11-11 18:11:35.605 | INFO     | __main__:get_binary_sequence:133 - Binary frames
+2021-11-11 18:11:35.623 | INFO     | __main__:main:205 - Video frame 9 | Frame-start 4307|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:12:35.305 | INFO     | __main__:main:171 - Generating code LUT
+2021-11-11 18:12:35.337 | INFO     | __main__:main:182 - Loading stereo params
+2021-11-11 18:12:35.350 | INFO     | __main__:main:194 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:12:36.075 | INFO     | __main__:main:199 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:12:36.665 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:12:38.732 | INFO     | __main__:main:194 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:12:40.157 | INFO     | __main__:main:199 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:12:40.459 | INFO     | __main__:main:205 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:12:41.161 | INFO     | __main__:main:194 - Video frame 2 | Frame-start 2606| Reading binary sequence
+2021-11-11 18:12:41.899 | INFO     | __main__:main:199 - Video frame 2 | Frame-start 2606|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:12:42.593 | INFO     | __main__:main:205 - Video frame 2 | Frame-start 2606| Median filter
+2021-11-11 18:12:43.362 | INFO     | __main__:main:194 - Video frame 3 | Frame-start 2849| Reading binary sequence
+2021-11-11 18:12:44.863 | INFO     | __main__:main:199 - Video frame 3 | Frame-start 2849|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:12:45.128 | INFO     | __main__:main:205 - Video frame 3 | Frame-start 2849| Median filter
+2021-11-11 18:12:45.880 | INFO     | __main__:main:194 - Video frame 4 | Frame-start 3092| Reading binary sequence
+2021-11-11 18:12:46.647 | INFO     | __main__:main:199 - Video frame 4 | Frame-start 3092|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:12:47.031 | INFO     | __main__:main:205 - Video frame 4 | Frame-start 3092| Median filter
+2021-11-11 18:12:47.892 | INFO     | __main__:main:194 - Video frame 5 | Frame-start 3335| Reading binary sequence
+2021-11-11 18:12:48.645 | INFO     | __main__:main:199 - Video frame 5 | Frame-start 3335|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:12:48.930 | INFO     | __main__:main:205 - Video frame 5 | Frame-start 3335| Median filter
+2021-11-11 18:12:49.688 | INFO     | __main__:main:194 - Video frame 6 | Frame-start 3578| Reading binary sequence
+2021-11-11 18:12:51.160 | INFO     | __main__:main:199 - Video frame 6 | Frame-start 3578|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:12:51.414 | INFO     | __main__:main:205 - Video frame 6 | Frame-start 3578| Median filter
+2021-11-11 18:12:52.245 | INFO     | __main__:main:194 - Video frame 7 | Frame-start 3821| Reading binary sequence
+2021-11-11 18:12:52.961 | INFO     | __main__:main:199 - Video frame 7 | Frame-start 3821|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:12:53.472 | INFO     | __main__:main:205 - Video frame 7 | Frame-start 3821| Median filter
+2021-11-11 18:12:54.350 | INFO     | __main__:main:194 - Video frame 8 | Frame-start 4064| Reading binary sequence
+2021-11-11 18:12:55.736 | INFO     | __main__:main:199 - Video frame 8 | Frame-start 4064|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:12:56.042 | INFO     | __main__:main:205 - Video frame 8 | Frame-start 4064| Median filter
+2021-11-11 18:12:56.890 | INFO     | __main__:main:194 - Video frame 9 | Frame-start 4307| Reading binary sequence
+2021-11-11 18:12:57.595 | INFO     | __main__:main:199 - Video frame 9 | Frame-start 4307|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:12:57.965 | INFO     | __main__:main:205 - Video frame 9 | Frame-start 4307| Median filter
+2021-11-11 18:12:58.845 | INFO     | __main__:main:194 - Video frame 10 | Frame-start 4550| Reading binary sequence
+2021-11-11 18:13:00.866 | INFO     | __main__:main:199 - Video frame 10 | Frame-start 4550|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:13:01.114 | INFO     | __main__:main:205 - Video frame 10 | Frame-start 4550| Median filter
+2021-11-11 18:13:01.859 | INFO     | __main__:main:194 - Video frame 11 | Frame-start 4793| Reading binary sequence
+2021-11-11 18:13:02.628 | INFO     | __main__:main:199 - Video frame 11 | Frame-start 4793|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:13:02.920 | INFO     | __main__:main:205 - Video frame 11 | Frame-start 4793| Median filter
+2021-11-11 18:13:03.975 | INFO     | __main__:main:194 - Video frame 12 | Frame-start 5036| Reading binary sequence
+2021-11-11 18:13:06.171 | INFO     | __main__:main:199 - Video frame 12 | Frame-start 5036|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:13:07.710 | INFO     | __main__:main:205 - Video frame 12 | Frame-start 5036| Median filter
+2021-11-11 18:13:09.249 | INFO     | __main__:main:194 - Video frame 13 | Frame-start 5279| Reading binary sequence
+2021-11-11 18:13:10.095 | INFO     | __main__:main:199 - Video frame 13 | Frame-start 5279|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:13:10.507 | INFO     | __main__:main:205 - Video frame 13 | Frame-start 5279| Median filter
+2021-11-11 18:13:11.554 | INFO     | __main__:main:194 - Video frame 14 | Frame-start 5522| Reading binary sequence
+2021-11-11 18:13:13.147 | INFO     | __main__:main:199 - Video frame 14 | Frame-start 5522|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:13:13.542 | INFO     | __main__:main:205 - Video frame 14 | Frame-start 5522| Median filter
+2021-11-11 18:13:14.468 | INFO     | __main__:main:194 - Video frame 15 | Frame-start 5765| Reading binary sequence
+2021-11-11 18:13:15.360 | INFO     | __main__:main:199 - Video frame 15 | Frame-start 5765|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:13:16.152 | INFO     | __main__:main:205 - Video frame 15 | Frame-start 5765| Median filter
+2021-11-11 18:13:17.172 | INFO     | __main__:main:194 - Video frame 16 | Frame-start 6008| Reading binary sequence
+2021-11-11 18:13:18.870 | INFO     | __main__:main:199 - Video frame 16 | Frame-start 6008|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:13:19.456 | INFO     | __main__:main:205 - Video frame 16 | Frame-start 6008| Median filter
+2021-11-11 18:13:20.658 | INFO     | __main__:main:194 - Video frame 17 | Frame-start 6251| Reading binary sequence
+2021-11-11 18:13:21.545 | INFO     | __main__:main:199 - Video frame 17 | Frame-start 6251|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:13:21.814 | INFO     | __main__:main:205 - Video frame 17 | Frame-start 6251| Median filter
+2021-11-11 18:13:22.597 | INFO     | __main__:main:194 - Video frame 18 | Frame-start 6494| Reading binary sequence
+2021-11-11 18:13:24.218 | INFO     | __main__:main:199 - Video frame 18 | Frame-start 6494|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:13:25.328 | INFO     | __main__:main:205 - Video frame 18 | Frame-start 6494| Median filter
+2021-11-11 18:13:26.722 | INFO     | __main__:main:194 - Video frame 19 | Frame-start 6737| Reading binary sequence
+2021-11-11 18:13:27.910 | INFO     | __main__:main:199 - Video frame 19 | Frame-start 6737|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:13:28.360 | INFO     | __main__:main:205 - Video frame 19 | Frame-start 6737| Median filter
+2021-11-11 18:18:00.423 | INFO     | __main__:main:171 - Generating code LUT
+2021-11-11 18:18:00.465 | INFO     | __main__:main:182 - Loading stereo params
+2021-11-11 18:18:00.487 | INFO     | __main__:main:194 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:18:01.459 | INFO     | __main__:main:199 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:01.716 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:18:04.057 | INFO     | __main__:main:194 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:18:05.546 | INFO     | __main__:main:199 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:05.797 | INFO     | __main__:main:205 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:18:06.792 | INFO     | __main__:main:194 - Video frame 2 | Frame-start 2606| Reading binary sequence
+2021-11-11 18:18:07.559 | INFO     | __main__:main:199 - Video frame 2 | Frame-start 2606|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:07.800 | INFO     | __main__:main:205 - Video frame 2 | Frame-start 2606| Median filter
+2021-11-11 18:18:08.753 | INFO     | __main__:main:194 - Video frame 3 | Frame-start 2849| Reading binary sequence
+2021-11-11 18:18:10.193 | INFO     | __main__:main:199 - Video frame 3 | Frame-start 2849|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:10.577 | INFO     | __main__:main:205 - Video frame 3 | Frame-start 2849| Median filter
+2021-11-11 18:18:11.478 | INFO     | __main__:main:194 - Video frame 4 | Frame-start 3092| Reading binary sequence
+2021-11-11 18:18:12.314 | INFO     | __main__:main:199 - Video frame 4 | Frame-start 3092|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:13.173 | INFO     | __main__:main:205 - Video frame 4 | Frame-start 3092| Median filter
+2021-11-11 18:18:14.394 | INFO     | __main__:main:194 - Video frame 5 | Frame-start 3335| Reading binary sequence
+2021-11-11 18:18:15.160 | INFO     | __main__:main:199 - Video frame 5 | Frame-start 3335|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:15.765 | INFO     | __main__:main:205 - Video frame 5 | Frame-start 3335| Median filter
+2021-11-11 18:18:16.640 | INFO     | __main__:main:194 - Video frame 6 | Frame-start 3578| Reading binary sequence
+2021-11-11 18:18:18.255 | INFO     | __main__:main:199 - Video frame 6 | Frame-start 3578|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:19.123 | INFO     | __main__:main:205 - Video frame 6 | Frame-start 3578| Median filter
+2021-11-11 18:18:19.952 | INFO     | __main__:main:194 - Video frame 7 | Frame-start 3821| Reading binary sequence
+2021-11-11 18:18:20.783 | INFO     | __main__:main:199 - Video frame 7 | Frame-start 3821|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:21.264 | INFO     | __main__:main:205 - Video frame 7 | Frame-start 3821| Median filter
+2021-11-11 18:18:22.098 | INFO     | __main__:main:194 - Video frame 8 | Frame-start 4064| Reading binary sequence
+2021-11-11 18:18:23.572 | INFO     | __main__:main:199 - Video frame 8 | Frame-start 4064|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:23.894 | INFO     | __main__:main:205 - Video frame 8 | Frame-start 4064| Median filter
+2021-11-11 18:18:24.944 | INFO     | __main__:main:194 - Video frame 9 | Frame-start 4307| Reading binary sequence
+2021-11-11 18:18:25.956 | INFO     | __main__:main:199 - Video frame 9 | Frame-start 4307|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:27.172 | INFO     | __main__:main:205 - Video frame 9 | Frame-start 4307| Median filter
+2021-11-11 18:18:28.337 | INFO     | __main__:main:194 - Video frame 10 | Frame-start 4550| Reading binary sequence
+2021-11-11 18:18:29.907 | INFO     | __main__:main:199 - Video frame 10 | Frame-start 4550|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:30.637 | INFO     | __main__:main:205 - Video frame 10 | Frame-start 4550| Median filter
+2021-11-11 18:18:31.528 | INFO     | __main__:main:194 - Video frame 11 | Frame-start 4793| Reading binary sequence
+2021-11-11 18:18:32.340 | INFO     | __main__:main:199 - Video frame 11 | Frame-start 4793|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:32.753 | INFO     | __main__:main:205 - Video frame 11 | Frame-start 4793| Median filter
+2021-11-11 18:18:33.632 | INFO     | __main__:main:194 - Video frame 12 | Frame-start 5036| Reading binary sequence
+2021-11-11 18:18:35.077 | INFO     | __main__:main:199 - Video frame 12 | Frame-start 5036|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:35.324 | INFO     | __main__:main:205 - Video frame 12 | Frame-start 5036| Median filter
+2021-11-11 18:18:36.023 | INFO     | __main__:main:194 - Video frame 13 | Frame-start 5279| Reading binary sequence
+2021-11-11 18:18:36.816 | INFO     | __main__:main:199 - Video frame 13 | Frame-start 5279|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:37.071 | INFO     | __main__:main:205 - Video frame 13 | Frame-start 5279| Median filter
+2021-11-11 18:18:37.827 | INFO     | __main__:main:194 - Video frame 14 | Frame-start 5522| Reading binary sequence
+2021-11-11 18:18:39.335 | INFO     | __main__:main:199 - Video frame 14 | Frame-start 5522|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:39.599 | INFO     | __main__:main:205 - Video frame 14 | Frame-start 5522| Median filter
+2021-11-11 18:18:40.313 | INFO     | __main__:main:194 - Video frame 15 | Frame-start 5765| Reading binary sequence
+2021-11-11 18:18:41.068 | INFO     | __main__:main:199 - Video frame 15 | Frame-start 5765|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:41.321 | INFO     | __main__:main:205 - Video frame 15 | Frame-start 5765| Median filter
+2021-11-11 18:18:42.183 | INFO     | __main__:main:194 - Video frame 16 | Frame-start 6008| Reading binary sequence
+2021-11-11 18:18:43.672 | INFO     | __main__:main:199 - Video frame 16 | Frame-start 6008|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:43.907 | INFO     | __main__:main:205 - Video frame 16 | Frame-start 6008| Median filter
+2021-11-11 18:18:44.885 | INFO     | __main__:main:194 - Video frame 17 | Frame-start 6251| Reading binary sequence
+2021-11-11 18:18:45.623 | INFO     | __main__:main:199 - Video frame 17 | Frame-start 6251|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:45.873 | INFO     | __main__:main:205 - Video frame 17 | Frame-start 6251| Median filter
+2021-11-11 18:18:46.710 | INFO     | __main__:main:194 - Video frame 18 | Frame-start 6494| Reading binary sequence
+2021-11-11 18:18:48.107 | INFO     | __main__:main:199 - Video frame 18 | Frame-start 6494|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:48.485 | INFO     | __main__:main:205 - Video frame 18 | Frame-start 6494| Median filter
+2021-11-11 18:18:49.194 | INFO     | __main__:main:194 - Video frame 19 | Frame-start 6737| Reading binary sequence
+2021-11-11 18:18:49.914 | INFO     | __main__:main:199 - Video frame 19 | Frame-start 6737|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:50.459 | INFO     | __main__:main:205 - Video frame 19 | Frame-start 6737| Median filter
+2021-11-11 18:18:51.202 | INFO     | __main__:main:194 - Video frame 20 | Frame-start 6980| Reading binary sequence
+2021-11-11 18:18:52.673 | INFO     | __main__:main:199 - Video frame 20 | Frame-start 6980|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:53.116 | INFO     | __main__:main:205 - Video frame 20 | Frame-start 6980| Median filter
+2021-11-11 18:18:53.829 | INFO     | __main__:main:194 - Video frame 21 | Frame-start 7223| Reading binary sequence
+2021-11-11 18:18:54.600 | INFO     | __main__:main:199 - Video frame 21 | Frame-start 7223|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:54.962 | INFO     | __main__:main:205 - Video frame 21 | Frame-start 7223| Median filter
+2021-11-11 18:18:55.709 | INFO     | __main__:main:194 - Video frame 22 | Frame-start 7466| Reading binary sequence
+2021-11-11 18:18:57.780 | INFO     | __main__:main:199 - Video frame 22 | Frame-start 7466|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:18:58.561 | INFO     | __main__:main:205 - Video frame 22 | Frame-start 7466| Median filter
+2021-11-11 18:18:59.330 | INFO     | __main__:main:194 - Video frame 23 | Frame-start 7709| Reading binary sequence
+2021-11-11 18:19:00.062 | INFO     | __main__:main:199 - Video frame 23 | Frame-start 7709|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:00.623 | INFO     | __main__:main:205 - Video frame 23 | Frame-start 7709| Median filter
+2021-11-11 18:19:01.342 | INFO     | __main__:main:194 - Video frame 24 | Frame-start 7952| Reading binary sequence
+2021-11-11 18:19:02.072 | INFO     | __main__:main:199 - Video frame 24 | Frame-start 7952|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:02.864 | INFO     | __main__:main:205 - Video frame 24 | Frame-start 7952| Median filter
+2021-11-11 18:19:03.631 | INFO     | __main__:main:194 - Video frame 25 | Frame-start 8195| Reading binary sequence
+2021-11-11 18:19:05.151 | INFO     | __main__:main:199 - Video frame 25 | Frame-start 8195|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:05.489 | INFO     | __main__:main:205 - Video frame 25 | Frame-start 8195| Median filter
+2021-11-11 18:19:06.597 | INFO     | __main__:main:194 - Video frame 26 | Frame-start 8438| Reading binary sequence
+2021-11-11 18:19:07.507 | INFO     | __main__:main:199 - Video frame 26 | Frame-start 8438|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:07.839 | INFO     | __main__:main:205 - Video frame 26 | Frame-start 8438| Median filter
+2021-11-11 18:19:09.032 | INFO     | __main__:main:194 - Video frame 27 | Frame-start 8681| Reading binary sequence
+2021-11-11 18:19:11.375 | INFO     | __main__:main:199 - Video frame 27 | Frame-start 8681|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:11.619 | INFO     | __main__:main:205 - Video frame 27 | Frame-start 8681| Median filter
+2021-11-11 18:19:12.359 | INFO     | __main__:main:194 - Video frame 28 | Frame-start 8924| Reading binary sequence
+2021-11-11 18:19:13.141 | INFO     | __main__:main:199 - Video frame 28 | Frame-start 8924|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:13.633 | INFO     | __main__:main:205 - Video frame 28 | Frame-start 8924| Median filter
+2021-11-11 18:19:14.388 | INFO     | __main__:main:194 - Video frame 29 | Frame-start 9167| Reading binary sequence
+2021-11-11 18:19:16.374 | INFO     | __main__:main:199 - Video frame 29 | Frame-start 9167|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:17.183 | INFO     | __main__:main:205 - Video frame 29 | Frame-start 9167| Median filter
+2021-11-11 18:19:17.945 | INFO     | __main__:main:194 - Video frame 30 | Frame-start 9410| Reading binary sequence
+2021-11-11 18:19:18.709 | INFO     | __main__:main:199 - Video frame 30 | Frame-start 9410|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:19.191 | INFO     | __main__:main:205 - Video frame 30 | Frame-start 9410| Median filter
+2021-11-11 18:19:19.897 | INFO     | __main__:main:194 - Video frame 31 | Frame-start 9653| Reading binary sequence
+2021-11-11 18:19:22.309 | INFO     | __main__:main:199 - Video frame 31 | Frame-start 9653|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:22.921 | INFO     | __main__:main:205 - Video frame 31 | Frame-start 9653| Median filter
+2021-11-11 18:19:23.750 | INFO     | __main__:main:194 - Video frame 32 | Frame-start 9896| Reading binary sequence
+2021-11-11 18:19:24.527 | INFO     | __main__:main:199 - Video frame 32 | Frame-start 9896|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:24.937 | INFO     | __main__:main:205 - Video frame 32 | Frame-start 9896| Median filter
+2021-11-11 18:19:25.637 | INFO     | __main__:main:194 - Video frame 33 | Frame-start 10139| Reading binary sequence
+2021-11-11 18:19:27.542 | INFO     | __main__:main:199 - Video frame 33 | Frame-start 10139|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:27.784 | INFO     | __main__:main:205 - Video frame 33 | Frame-start 10139| Median filter
+2021-11-11 18:19:28.625 | INFO     | __main__:main:194 - Video frame 34 | Frame-start 10382| Reading binary sequence
+2021-11-11 18:19:29.346 | INFO     | __main__:main:199 - Video frame 34 | Frame-start 10382|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:29.592 | INFO     | __main__:main:205 - Video frame 34 | Frame-start 10382| Median filter
+2021-11-11 18:19:30.388 | INFO     | __main__:main:194 - Video frame 35 | Frame-start 10625| Reading binary sequence
+2021-11-11 18:19:32.395 | INFO     | __main__:main:199 - Video frame 35 | Frame-start 10625|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:32.905 | INFO     | __main__:main:205 - Video frame 35 | Frame-start 10625| Median filter
+2021-11-11 18:19:34.018 | INFO     | __main__:main:194 - Video frame 36 | Frame-start 10868| Reading binary sequence
+2021-11-11 18:19:34.797 | INFO     | __main__:main:199 - Video frame 36 | Frame-start 10868|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:35.201 | INFO     | __main__:main:205 - Video frame 36 | Frame-start 10868| Median filter
+2021-11-11 18:19:35.903 | INFO     | __main__:main:194 - Video frame 37 | Frame-start 11111| Reading binary sequence
+2021-11-11 18:19:37.379 | INFO     | __main__:main:199 - Video frame 37 | Frame-start 11111|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:38.078 | INFO     | __main__:main:205 - Video frame 37 | Frame-start 11111| Median filter
+2021-11-11 18:19:38.888 | INFO     | __main__:main:194 - Video frame 38 | Frame-start 11354| Reading binary sequence
+2021-11-11 18:19:39.610 | INFO     | __main__:main:199 - Video frame 38 | Frame-start 11354|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:39.840 | INFO     | __main__:main:205 - Video frame 38 | Frame-start 11354| Median filter
+2021-11-11 18:19:40.634 | INFO     | __main__:main:194 - Video frame 39 | Frame-start 11597| Reading binary sequence
+2021-11-11 18:19:42.025 | INFO     | __main__:main:199 - Video frame 39 | Frame-start 11597|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:42.245 | INFO     | __main__:main:205 - Video frame 39 | Frame-start 11597| Median filter
+2021-11-11 18:19:43.020 | INFO     | __main__:main:194 - Video frame 40 | Frame-start 11840| Reading binary sequence
+2021-11-11 18:19:43.827 | INFO     | __main__:main:199 - Video frame 40 | Frame-start 11840|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:44.964 | INFO     | __main__:main:205 - Video frame 40 | Frame-start 11840| Median filter
+2021-11-11 18:19:45.976 | INFO     | __main__:main:194 - Video frame 41 | Frame-start 12083| Reading binary sequence
+2021-11-11 18:19:49.680 | INFO     | __main__:main:199 - Video frame 41 | Frame-start 12083|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:50.239 | INFO     | __main__:main:205 - Video frame 41 | Frame-start 12083| Median filter
+2021-11-11 18:19:51.386 | INFO     | __main__:main:194 - Video frame 42 | Frame-start 12326| Reading binary sequence
+2021-11-11 18:19:52.198 | INFO     | __main__:main:199 - Video frame 42 | Frame-start 12326|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:53.076 | INFO     | __main__:main:205 - Video frame 42 | Frame-start 12326| Median filter
+2021-11-11 18:19:53.873 | INFO     | __main__:main:194 - Video frame 43 | Frame-start 12569| Reading binary sequence
+2021-11-11 18:19:55.953 | INFO     | __main__:main:199 - Video frame 43 | Frame-start 12569|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:56.301 | INFO     | __main__:main:205 - Video frame 43 | Frame-start 12569| Median filter
+2021-11-11 18:19:57.206 | INFO     | __main__:main:194 - Video frame 44 | Frame-start 12812| Reading binary sequence
+2021-11-11 18:19:57.927 | INFO     | __main__:main:199 - Video frame 44 | Frame-start 12812|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:58.165 | INFO     | __main__:main:205 - Video frame 44 | Frame-start 12812| Median filter
+2021-11-11 18:19:58.964 | INFO     | __main__:main:194 - Video frame 45 | Frame-start 13055| Reading binary sequence
+2021-11-11 18:19:59.741 | INFO     | __main__:main:199 - Video frame 45 | Frame-start 13055|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:19:59.993 | INFO     | __main__:main:205 - Video frame 45 | Frame-start 13055| Median filter
+2021-11-11 18:20:01.011 | INFO     | __main__:main:194 - Video frame 46 | Frame-start 13298| Reading binary sequence
+2021-11-11 18:20:02.974 | INFO     | __main__:main:199 - Video frame 46 | Frame-start 13298|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:03.220 | INFO     | __main__:main:205 - Video frame 46 | Frame-start 13298| Median filter
+2021-11-11 18:20:03.927 | INFO     | __main__:main:194 - Video frame 47 | Frame-start 13541| Reading binary sequence
+2021-11-11 18:20:04.731 | INFO     | __main__:main:199 - Video frame 47 | Frame-start 13541|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:05.245 | INFO     | __main__:main:205 - Video frame 47 | Frame-start 13541| Median filter
+2021-11-11 18:20:06.014 | INFO     | __main__:main:194 - Video frame 48 | Frame-start 13784| Reading binary sequence
+2021-11-11 18:20:08.025 | INFO     | __main__:main:199 - Video frame 48 | Frame-start 13784|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:08.519 | INFO     | __main__:main:205 - Video frame 48 | Frame-start 13784| Median filter
+2021-11-11 18:20:09.640 | INFO     | __main__:main:194 - Video frame 49 | Frame-start 14027| Reading binary sequence
+2021-11-11 18:20:10.423 | INFO     | __main__:main:199 - Video frame 49 | Frame-start 14027|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:11.518 | INFO     | __main__:main:205 - Video frame 49 | Frame-start 14027| Median filter
+2021-11-11 18:20:12.378 | INFO     | __main__:main:194 - Video frame 50 | Frame-start 14270| Reading binary sequence
+2021-11-11 18:20:15.889 | INFO     | __main__:main:199 - Video frame 50 | Frame-start 14270|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:17.032 | INFO     | __main__:main:205 - Video frame 50 | Frame-start 14270| Median filter
+2021-11-11 18:20:17.909 | INFO     | __main__:main:194 - Video frame 51 | Frame-start 14513| Reading binary sequence
+2021-11-11 18:20:18.724 | INFO     | __main__:main:199 - Video frame 51 | Frame-start 14513|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:19.050 | INFO     | __main__:main:205 - Video frame 51 | Frame-start 14513| Median filter
+2021-11-11 18:20:19.784 | INFO     | __main__:main:194 - Video frame 52 | Frame-start 14756| Reading binary sequence
+2021-11-11 18:20:21.994 | INFO     | __main__:main:199 - Video frame 52 | Frame-start 14756|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:22.581 | INFO     | __main__:main:205 - Video frame 52 | Frame-start 14756| Median filter
+2021-11-11 18:20:23.309 | INFO     | __main__:main:194 - Video frame 53 | Frame-start 14999| Reading binary sequence
+2021-11-11 18:20:24.036 | INFO     | __main__:main:199 - Video frame 53 | Frame-start 14999|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:24.686 | INFO     | __main__:main:205 - Video frame 53 | Frame-start 14999| Median filter
+2021-11-11 18:20:25.469 | INFO     | __main__:main:194 - Video frame 54 | Frame-start 15242| Reading binary sequence
+2021-11-11 18:20:27.418 | INFO     | __main__:main:199 - Video frame 54 | Frame-start 15242|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:27.707 | INFO     | __main__:main:205 - Video frame 54 | Frame-start 15242| Median filter
+2021-11-11 18:20:28.522 | INFO     | __main__:main:194 - Video frame 55 | Frame-start 15485| Reading binary sequence
+2021-11-11 18:20:29.268 | INFO     | __main__:main:199 - Video frame 55 | Frame-start 15485|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:29.511 | INFO     | __main__:main:205 - Video frame 55 | Frame-start 15485| Median filter
+2021-11-11 18:20:30.325 | INFO     | __main__:main:194 - Video frame 56 | Frame-start 15728| Reading binary sequence
+2021-11-11 18:20:32.552 | INFO     | __main__:main:199 - Video frame 56 | Frame-start 15728|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:33.309 | INFO     | __main__:main:205 - Video frame 56 | Frame-start 15728| Median filter
+2021-11-11 18:20:34.101 | INFO     | __main__:main:194 - Video frame 57 | Frame-start 15971| Reading binary sequence
+2021-11-11 18:20:34.931 | INFO     | __main__:main:199 - Video frame 57 | Frame-start 15971|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:35.950 | INFO     | __main__:main:205 - Video frame 57 | Frame-start 15971| Median filter
+2021-11-11 18:20:37.022 | INFO     | __main__:main:194 - Video frame 58 | Frame-start 16214| Reading binary sequence
+2021-11-11 18:20:39.227 | INFO     | __main__:main:199 - Video frame 58 | Frame-start 16214|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:40.080 | INFO     | __main__:main:205 - Video frame 58 | Frame-start 16214| Median filter
+2021-11-11 18:20:41.437 | INFO     | __main__:main:194 - Video frame 59 | Frame-start 16457| Reading binary sequence
+2021-11-11 18:20:42.248 | INFO     | __main__:main:199 - Video frame 59 | Frame-start 16457|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:43.090 | INFO     | __main__:main:205 - Video frame 59 | Frame-start 16457| Median filter
+2021-11-11 18:20:44.059 | INFO     | __main__:main:194 - Video frame 60 | Frame-start 16700| Reading binary sequence
+2021-11-11 18:20:46.233 | INFO     | __main__:main:199 - Video frame 60 | Frame-start 16700|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:47.222 | INFO     | __main__:main:205 - Video frame 60 | Frame-start 16700| Median filter
+2021-11-11 18:20:48.397 | INFO     | __main__:main:194 - Video frame 61 | Frame-start 16943| Reading binary sequence
+2021-11-11 18:20:49.231 | INFO     | __main__:main:199 - Video frame 61 | Frame-start 16943|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:49.975 | INFO     | __main__:main:205 - Video frame 61 | Frame-start 16943| Median filter
+2021-11-11 18:20:51.160 | INFO     | __main__:main:194 - Video frame 62 | Frame-start 17186| Reading binary sequence
+2021-11-11 18:20:53.165 | INFO     | __main__:main:199 - Video frame 62 | Frame-start 17186|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:53.452 | INFO     | __main__:main:205 - Video frame 62 | Frame-start 17186| Median filter
+2021-11-11 18:20:54.283 | INFO     | __main__:main:194 - Video frame 63 | Frame-start 17429| Reading binary sequence
+2021-11-11 18:20:55.091 | INFO     | __main__:main:199 - Video frame 63 | Frame-start 17429|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:55.904 | INFO     | __main__:main:205 - Video frame 63 | Frame-start 17429| Median filter
+2021-11-11 18:20:57.389 | INFO     | __main__:main:194 - Video frame 64 | Frame-start 17672| Reading binary sequence
+2021-11-11 18:20:58.178 | INFO     | __main__:main:199 - Video frame 64 | Frame-start 17672|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:20:59.038 | INFO     | __main__:main:205 - Video frame 64 | Frame-start 17672| Median filter
+2021-11-11 18:20:59.869 | INFO     | __main__:main:194 - Video frame 65 | Frame-start 17915| Reading binary sequence
+2021-11-11 18:21:01.764 | INFO     | __main__:main:199 - Video frame 65 | Frame-start 17915|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:02.014 | INFO     | __main__:main:205 - Video frame 65 | Frame-start 17915| Median filter
+2021-11-11 18:21:02.838 | INFO     | __main__:main:194 - Video frame 66 | Frame-start 18158| Reading binary sequence
+2021-11-11 18:21:03.613 | INFO     | __main__:main:199 - Video frame 66 | Frame-start 18158|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:03.996 | INFO     | __main__:main:205 - Video frame 66 | Frame-start 18158| Median filter
+2021-11-11 18:21:04.845 | INFO     | __main__:main:194 - Video frame 67 | Frame-start 18401| Reading binary sequence
+2021-11-11 18:21:06.903 | INFO     | __main__:main:199 - Video frame 67 | Frame-start 18401|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:07.333 | INFO     | __main__:main:205 - Video frame 67 | Frame-start 18401| Median filter
+2021-11-11 18:21:08.133 | INFO     | __main__:main:194 - Video frame 68 | Frame-start 18644| Reading binary sequence
+2021-11-11 18:21:08.909 | INFO     | __main__:main:199 - Video frame 68 | Frame-start 18644|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:09.537 | INFO     | __main__:main:205 - Video frame 68 | Frame-start 18644| Median filter
+2021-11-11 18:21:10.359 | INFO     | __main__:main:194 - Video frame 69 | Frame-start 18887| Reading binary sequence
+2021-11-11 18:21:12.370 | INFO     | __main__:main:199 - Video frame 69 | Frame-start 18887|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:13.146 | INFO     | __main__:main:205 - Video frame 69 | Frame-start 18887| Median filter
+2021-11-11 18:21:14.117 | INFO     | __main__:main:194 - Video frame 70 | Frame-start 19130| Reading binary sequence
+2021-11-11 18:21:15.044 | INFO     | __main__:main:199 - Video frame 70 | Frame-start 19130|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:15.411 | INFO     | __main__:main:205 - Video frame 70 | Frame-start 19130| Median filter
+2021-11-11 18:21:16.215 | INFO     | __main__:main:194 - Video frame 71 | Frame-start 19373| Reading binary sequence
+2021-11-11 18:21:18.238 | INFO     | __main__:main:199 - Video frame 71 | Frame-start 19373|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:18.537 | INFO     | __main__:main:205 - Video frame 71 | Frame-start 19373| Median filter
+2021-11-11 18:21:19.496 | INFO     | __main__:main:194 - Video frame 72 | Frame-start 19616| Reading binary sequence
+2021-11-11 18:21:20.338 | INFO     | __main__:main:199 - Video frame 72 | Frame-start 19616|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:21.039 | INFO     | __main__:main:205 - Video frame 72 | Frame-start 19616| Median filter
+2021-11-11 18:21:21.775 | INFO     | __main__:main:194 - Video frame 73 | Frame-start 19859| Reading binary sequence
+2021-11-11 18:21:23.967 | INFO     | __main__:main:199 - Video frame 73 | Frame-start 19859|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:24.529 | INFO     | __main__:main:205 - Video frame 73 | Frame-start 19859| Median filter
+2021-11-11 18:21:25.614 | INFO     | __main__:main:194 - Video frame 74 | Frame-start 20102| Reading binary sequence
+2021-11-11 18:21:26.393 | INFO     | __main__:main:199 - Video frame 74 | Frame-start 20102|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:27.862 | INFO     | __main__:main:205 - Video frame 74 | Frame-start 20102| Median filter
+2021-11-11 18:21:29.117 | INFO     | __main__:main:194 - Video frame 75 | Frame-start 20345| Reading binary sequence
+2021-11-11 18:21:31.000 | INFO     | __main__:main:199 - Video frame 75 | Frame-start 20345|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:31.238 | INFO     | __main__:main:205 - Video frame 75 | Frame-start 20345| Median filter
+2021-11-11 18:21:32.174 | INFO     | __main__:main:194 - Video frame 76 | Frame-start 20588| Reading binary sequence
+2021-11-11 18:21:33.069 | INFO     | __main__:main:199 - Video frame 76 | Frame-start 20588|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:33.340 | INFO     | __main__:main:205 - Video frame 76 | Frame-start 20588| Median filter
+2021-11-11 18:21:34.112 | INFO     | __main__:main:194 - Video frame 77 | Frame-start 20831| Reading binary sequence
+2021-11-11 18:21:36.229 | INFO     | __main__:main:199 - Video frame 77 | Frame-start 20831|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:37.553 | INFO     | __main__:main:205 - Video frame 77 | Frame-start 20831| Median filter
+2021-11-11 18:21:38.611 | INFO     | __main__:main:194 - Video frame 78 | Frame-start 21074| Reading binary sequence
+2021-11-11 18:21:39.427 | INFO     | __main__:main:199 - Video frame 78 | Frame-start 21074|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:39.957 | INFO     | __main__:main:205 - Video frame 78 | Frame-start 21074| Median filter
+2021-11-11 18:21:40.857 | INFO     | __main__:main:194 - Video frame 79 | Frame-start 21317| Reading binary sequence
+2021-11-11 18:21:43.001 | INFO     | __main__:main:199 - Video frame 79 | Frame-start 21317|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:43.399 | INFO     | __main__:main:205 - Video frame 79 | Frame-start 21317| Median filter
+2021-11-11 18:21:44.319 | INFO     | __main__:main:194 - Video frame 80 | Frame-start 21560| Reading binary sequence
+2021-11-11 18:21:45.130 | INFO     | __main__:main:199 - Video frame 80 | Frame-start 21560|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:45.334 | INFO     | __main__:main:205 - Video frame 80 | Frame-start 21560| Median filter
+2021-11-11 18:21:46.094 | INFO     | __main__:main:194 - Video frame 81 | Frame-start 21803| Reading binary sequence
+2021-11-11 18:21:48.084 | INFO     | __main__:main:199 - Video frame 81 | Frame-start 21803|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:48.801 | INFO     | __main__:main:205 - Video frame 81 | Frame-start 21803| Median filter
+2021-11-11 18:21:49.757 | INFO     | __main__:main:194 - Video frame 82 | Frame-start 22046| Reading binary sequence
+2021-11-11 18:21:50.520 | INFO     | __main__:main:199 - Video frame 82 | Frame-start 22046|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:50.996 | INFO     | __main__:main:205 - Video frame 82 | Frame-start 22046| Median filter
+2021-11-11 18:21:52.467 | INFO     | __main__:main:194 - Video frame 83 | Frame-start 22289| Reading binary sequence
+2021-11-11 18:21:54.836 | INFO     | __main__:main:199 - Video frame 83 | Frame-start 22289|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:55.063 | INFO     | __main__:main:205 - Video frame 83 | Frame-start 22289| Median filter
+2021-11-11 18:21:55.843 | INFO     | __main__:main:194 - Video frame 84 | Frame-start 22532| Reading binary sequence
+2021-11-11 18:21:56.625 | INFO     | __main__:main:199 - Video frame 84 | Frame-start 22532|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:57.017 | INFO     | __main__:main:205 - Video frame 84 | Frame-start 22532| Median filter
+2021-11-11 18:21:57.785 | INFO     | __main__:main:194 - Video frame 85 | Frame-start 22775| Reading binary sequence
+2021-11-11 18:21:58.558 | INFO     | __main__:main:199 - Video frame 85 | Frame-start 22775|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:21:59.527 | INFO     | __main__:main:205 - Video frame 85 | Frame-start 22775| Median filter
+2021-11-11 18:22:00.314 | INFO     | __main__:main:194 - Video frame 86 | Frame-start 23018| Reading binary sequence
+2021-11-11 18:22:02.262 | INFO     | __main__:main:199 - Video frame 86 | Frame-start 23018|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:02.480 | INFO     | __main__:main:205 - Video frame 86 | Frame-start 23018| Median filter
+2021-11-11 18:22:03.294 | INFO     | __main__:main:194 - Video frame 87 | Frame-start 23261| Reading binary sequence
+2021-11-11 18:22:04.010 | INFO     | __main__:main:199 - Video frame 87 | Frame-start 23261|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:04.250 | INFO     | __main__:main:205 - Video frame 87 | Frame-start 23261| Median filter
+2021-11-11 18:22:05.085 | INFO     | __main__:main:194 - Video frame 88 | Frame-start 23504| Reading binary sequence
+2021-11-11 18:22:07.098 | INFO     | __main__:main:199 - Video frame 88 | Frame-start 23504|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:07.307 | INFO     | __main__:main:205 - Video frame 88 | Frame-start 23504| Median filter
+2021-11-11 18:22:08.061 | INFO     | __main__:main:194 - Video frame 89 | Frame-start 23747| Reading binary sequence
+2021-11-11 18:22:09.107 | INFO     | __main__:main:199 - Video frame 89 | Frame-start 23747|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:10.436 | INFO     | __main__:main:205 - Video frame 89 | Frame-start 23747| Median filter
+2021-11-11 18:22:11.496 | INFO     | __main__:main:194 - Video frame 90 | Frame-start 23990| Reading binary sequence
+2021-11-11 18:22:16.782 | INFO     | __main__:main:199 - Video frame 90 | Frame-start 23990|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:17.581 | INFO     | __main__:main:205 - Video frame 90 | Frame-start 23990| Median filter
+2021-11-11 18:22:18.422 | INFO     | __main__:main:194 - Video frame 91 | Frame-start 24233| Reading binary sequence
+2021-11-11 18:22:19.236 | INFO     | __main__:main:199 - Video frame 91 | Frame-start 24233|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:20.638 | INFO     | __main__:main:205 - Video frame 91 | Frame-start 24233| Median filter
+2021-11-11 18:22:21.518 | INFO     | __main__:main:194 - Video frame 92 | Frame-start 24476| Reading binary sequence
+2021-11-11 18:22:23.681 | INFO     | __main__:main:199 - Video frame 92 | Frame-start 24476|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:24.176 | INFO     | __main__:main:205 - Video frame 92 | Frame-start 24476| Median filter
+2021-11-11 18:22:25.177 | INFO     | __main__:main:194 - Video frame 93 | Frame-start 24719| Reading binary sequence
+2021-11-11 18:22:26.005 | INFO     | __main__:main:199 - Video frame 93 | Frame-start 24719|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:26.337 | INFO     | __main__:main:205 - Video frame 93 | Frame-start 24719| Median filter
+2021-11-11 18:22:27.458 | INFO     | __main__:main:194 - Video frame 94 | Frame-start 24962| Reading binary sequence
+2021-11-11 18:22:29.926 | INFO     | __main__:main:199 - Video frame 94 | Frame-start 24962|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:31.840 | INFO     | __main__:main:205 - Video frame 94 | Frame-start 24962| Median filter
+2021-11-11 18:22:33.051 | INFO     | __main__:main:194 - Video frame 95 | Frame-start 25205| Reading binary sequence
+2021-11-11 18:22:34.017 | INFO     | __main__:main:199 - Video frame 95 | Frame-start 25205|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:35.132 | INFO     | __main__:main:205 - Video frame 95 | Frame-start 25205| Median filter
+2021-11-11 18:22:36.153 | INFO     | __main__:main:194 - Video frame 96 | Frame-start 25448| Reading binary sequence
+2021-11-11 18:22:38.248 | INFO     | __main__:main:199 - Video frame 96 | Frame-start 25448|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:38.536 | INFO     | __main__:main:205 - Video frame 96 | Frame-start 25448| Median filter
+2021-11-11 18:22:39.410 | INFO     | __main__:main:194 - Video frame 97 | Frame-start 25691| Reading binary sequence
+2021-11-11 18:22:40.136 | INFO     | __main__:main:199 - Video frame 97 | Frame-start 25691|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:41.423 | INFO     | __main__:main:205 - Video frame 97 | Frame-start 25691| Median filter
+2021-11-11 18:22:42.538 | INFO     | __main__:main:194 - Video frame 98 | Frame-start 25934| Reading binary sequence
+2021-11-11 18:22:44.521 | INFO     | __main__:main:199 - Video frame 98 | Frame-start 25934|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:45.440 | INFO     | __main__:main:205 - Video frame 98 | Frame-start 25934| Median filter
+2021-11-11 18:22:46.363 | INFO     | __main__:main:194 - Video frame 99 | Frame-start 26177| Reading binary sequence
+2021-11-11 18:22:47.138 | INFO     | __main__:main:199 - Video frame 99 | Frame-start 26177|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:22:47.770 | INFO     | __main__:main:205 - Video frame 99 | Frame-start 26177| Median filter
+2021-11-11 18:24:46.649 | INFO     | __main__:main:171 - Generating code LUT
+2021-11-11 18:24:46.694 | INFO     | __main__:main:182 - Loading stereo params
+2021-11-11 18:24:46.722 | INFO     | __main__:main:194 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:24:48.200 | INFO     | __main__:main:199 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:24:50.368 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:24:53.219 | INFO     | __main__:main:194 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:24:55.051 | INFO     | __main__:main:199 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:24:56.094 | INFO     | __main__:main:205 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:24:57.079 | INFO     | __main__:main:194 - Video frame 2 | Frame-start 2606| Reading binary sequence
+2021-11-11 18:24:57.870 | INFO     | __main__:main:199 - Video frame 2 | Frame-start 2606|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:24:59.574 | INFO     | __main__:main:205 - Video frame 2 | Frame-start 2606| Median filter
+2021-11-11 18:25:00.490 | INFO     | __main__:main:194 - Video frame 3 | Frame-start 2849| Reading binary sequence
+2021-11-11 18:25:02.003 | INFO     | __main__:main:199 - Video frame 3 | Frame-start 2849|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:25:03.283 | INFO     | __main__:main:205 - Video frame 3 | Frame-start 2849| Median filter
+2021-11-11 18:25:04.215 | INFO     | __main__:main:194 - Video frame 4 | Frame-start 3092| Reading binary sequence
+2021-11-11 18:25:05.040 | INFO     | __main__:main:199 - Video frame 4 | Frame-start 3092|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:25:06.318 | INFO     | __main__:main:205 - Video frame 4 | Frame-start 3092| Median filter
+2021-11-11 18:25:07.372 | INFO     | __main__:main:194 - Video frame 5 | Frame-start 3335| Reading binary sequence
+2021-11-11 18:25:08.188 | INFO     | __main__:main:199 - Video frame 5 | Frame-start 3335|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:25:09.094 | INFO     | __main__:main:205 - Video frame 5 | Frame-start 3335| Median filter
+2021-11-11 18:25:09.926 | INFO     | __main__:main:194 - Video frame 6 | Frame-start 3578| Reading binary sequence
+2021-11-11 18:25:11.398 | INFO     | __main__:main:199 - Video frame 6 | Frame-start 3578|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:25:12.238 | INFO     | __main__:main:205 - Video frame 6 | Frame-start 3578| Median filter
+2021-11-11 18:25:13.072 | INFO     | __main__:main:194 - Video frame 7 | Frame-start 3821| Reading binary sequence
+2021-11-11 18:25:13.808 | INFO     | __main__:main:199 - Video frame 7 | Frame-start 3821|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:25:14.251 | INFO     | __main__:main:205 - Video frame 7 | Frame-start 3821| Median filter
+2021-11-11 18:25:15.044 | INFO     | __main__:main:194 - Video frame 8 | Frame-start 4064| Reading binary sequence
+2021-11-11 18:25:16.624 | INFO     | __main__:main:199 - Video frame 8 | Frame-start 4064|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:25:16.936 | INFO     | __main__:main:205 - Video frame 8 | Frame-start 4064| Median filter
+2021-11-11 18:25:17.965 | INFO     | __main__:main:194 - Video frame 9 | Frame-start 4307| Reading binary sequence
+2021-11-11 18:25:18.721 | INFO     | __main__:main:199 - Video frame 9 | Frame-start 4307|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:25:18.980 | INFO     | __main__:main:205 - Video frame 9 | Frame-start 4307| Median filter
+2021-11-11 18:25:19.986 | INFO     | __main__:main:194 - Video frame 10 | Frame-start 4550| Reading binary sequence
+2021-11-11 18:25:21.620 | INFO     | __main__:main:199 - Video frame 10 | Frame-start 4550|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:25:22.644 | INFO     | __main__:main:205 - Video frame 10 | Frame-start 4550| Median filter
+2021-11-11 18:25:23.730 | INFO     | __main__:main:194 - Video frame 11 | Frame-start 4793| Reading binary sequence
+2021-11-11 18:25:24.536 | INFO     | __main__:main:199 - Video frame 11 | Frame-start 4793|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:27:07.769 | INFO     | __main__:main:171 - Generating code LUT
+2021-11-11 18:27:07.845 | INFO     | __main__:main:182 - Loading stereo params
+2021-11-11 18:27:07.871 | INFO     | __main__:main:194 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:27:08.834 | INFO     | __main__:main:199 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:27:09.091 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:27:11.564 | INFO     | __main__:main:194 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:27:13.134 | INFO     | __main__:main:199 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:27:13.518 | INFO     | __main__:main:205 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:27:14.418 | INFO     | __main__:main:194 - Video frame 2 | Frame-start 2606| Reading binary sequence
+2021-11-11 18:27:15.110 | INFO     | __main__:main:199 - Video frame 2 | Frame-start 2606|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:27:15.477 | INFO     | __main__:main:205 - Video frame 2 | Frame-start 2606| Median filter
+2021-11-11 18:27:16.385 | INFO     | __main__:main:194 - Video frame 3 | Frame-start 2849| Reading binary sequence
+2021-11-11 18:27:17.842 | INFO     | __main__:main:199 - Video frame 3 | Frame-start 2849|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:27:18.323 | INFO     | __main__:main:205 - Video frame 3 | Frame-start 2849| Median filter
+2021-11-11 18:27:19.045 | INFO     | __main__:main:194 - Video frame 4 | Frame-start 3092| Reading binary sequence
+2021-11-11 18:27:19.756 | INFO     | __main__:main:199 - Video frame 4 | Frame-start 3092|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:27:20.780 | INFO     | __main__:main:205 - Video frame 4 | Frame-start 3092| Median filter
+2021-11-11 18:29:20.551 | INFO     | __main__:main:171 - Generating code LUT
+2021-11-11 18:29:20.590 | INFO     | __main__:main:182 - Loading stereo params
+2021-11-11 18:29:20.606 | INFO     | __main__:main:194 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:29:21.613 | INFO     | __main__:main:199 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:29:22.676 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:29:26.711 | INFO     | __main__:main:194 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:29:28.131 | INFO     | __main__:main:199 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:29:28.354 | INFO     | __main__:main:205 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:29:29.152 | INFO     | __main__:main:194 - Video frame 2 | Frame-start 2606| Reading binary sequence
+2021-11-11 18:29:29.879 | INFO     | __main__:main:199 - Video frame 2 | Frame-start 2606|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:29:30.093 | INFO     | __main__:main:205 - Video frame 2 | Frame-start 2606| Median filter
+2021-11-11 18:29:30.900 | INFO     | __main__:main:194 - Video frame 3 | Frame-start 2849| Reading binary sequence
+2021-11-11 18:29:32.260 | INFO     | __main__:main:199 - Video frame 3 | Frame-start 2849|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:29:33.056 | INFO     | __main__:main:205 - Video frame 3 | Frame-start 2849| Median filter
+2021-11-11 18:29:33.805 | INFO     | __main__:main:194 - Video frame 4 | Frame-start 3092| Reading binary sequence
+2021-11-11 18:29:34.519 | INFO     | __main__:main:199 - Video frame 4 | Frame-start 3092|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:29:34.870 | INFO     | __main__:main:205 - Video frame 4 | Frame-start 3092| Median filter
+2021-11-11 18:31:06.672 | INFO     | __main__:main:171 - Generating code LUT
+2021-11-11 18:31:06.709 | INFO     | __main__:main:182 - Loading stereo params
+2021-11-11 18:31:06.724 | INFO     | __main__:main:194 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:31:07.646 | INFO     | __main__:main:199 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:07.918 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:31:09.998 | INFO     | __main__:main:194 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:31:11.458 | INFO     | __main__:main:199 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:11.697 | INFO     | __main__:main:205 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:31:12.447 | INFO     | __main__:main:194 - Video frame 2 | Frame-start 2606| Reading binary sequence
+2021-11-11 18:31:13.168 | INFO     | __main__:main:199 - Video frame 2 | Frame-start 2606|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:13.513 | INFO     | __main__:main:205 - Video frame 2 | Frame-start 2606| Median filter
+2021-11-11 18:31:14.238 | INFO     | __main__:main:194 - Video frame 3 | Frame-start 2849| Reading binary sequence
+2021-11-11 18:31:15.675 | INFO     | __main__:main:199 - Video frame 3 | Frame-start 2849|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:15.888 | INFO     | __main__:main:205 - Video frame 3 | Frame-start 2849| Median filter
+2021-11-11 18:31:16.632 | INFO     | __main__:main:194 - Video frame 4 | Frame-start 3092| Reading binary sequence
+2021-11-11 18:31:17.341 | INFO     | __main__:main:199 - Video frame 4 | Frame-start 3092|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:17.553 | INFO     | __main__:main:205 - Video frame 4 | Frame-start 3092| Median filter
+2021-11-11 18:31:18.344 | INFO     | __main__:main:194 - Video frame 5 | Frame-start 3335| Reading binary sequence
+2021-11-11 18:31:19.103 | INFO     | __main__:main:199 - Video frame 5 | Frame-start 3335|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:19.320 | INFO     | __main__:main:205 - Video frame 5 | Frame-start 3335| Median filter
+2021-11-11 18:31:20.006 | INFO     | __main__:main:194 - Video frame 6 | Frame-start 3578| Reading binary sequence
+2021-11-11 18:31:21.422 | INFO     | __main__:main:199 - Video frame 6 | Frame-start 3578|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:21.644 | INFO     | __main__:main:205 - Video frame 6 | Frame-start 3578| Median filter
+2021-11-11 18:31:22.334 | INFO     | __main__:main:194 - Video frame 7 | Frame-start 3821| Reading binary sequence
+2021-11-11 18:31:23.066 | INFO     | __main__:main:199 - Video frame 7 | Frame-start 3821|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:23.395 | INFO     | __main__:main:205 - Video frame 7 | Frame-start 3821| Median filter
+2021-11-11 18:31:24.122 | INFO     | __main__:main:194 - Video frame 8 | Frame-start 4064| Reading binary sequence
+2021-11-11 18:31:26.016 | INFO     | __main__:main:199 - Video frame 8 | Frame-start 4064|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:27.852 | INFO     | __main__:main:205 - Video frame 8 | Frame-start 4064| Median filter
+2021-11-11 18:31:29.031 | INFO     | __main__:main:194 - Video frame 9 | Frame-start 4307| Reading binary sequence
+2021-11-11 18:31:29.811 | INFO     | __main__:main:199 - Video frame 9 | Frame-start 4307|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:30.122 | INFO     | __main__:main:205 - Video frame 9 | Frame-start 4307| Median filter
+2021-11-11 18:31:31.102 | INFO     | __main__:main:194 - Video frame 10 | Frame-start 4550| Reading binary sequence
+2021-11-11 18:31:32.460 | INFO     | __main__:main:199 - Video frame 10 | Frame-start 4550|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:32.855 | INFO     | __main__:main:205 - Video frame 10 | Frame-start 4550| Median filter
+2021-11-11 18:31:33.564 | INFO     | __main__:main:194 - Video frame 11 | Frame-start 4793| Reading binary sequence
+2021-11-11 18:31:34.275 | INFO     | __main__:main:199 - Video frame 11 | Frame-start 4793|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:34.819 | INFO     | __main__:main:205 - Video frame 11 | Frame-start 4793| Median filter
+2021-11-11 18:31:35.613 | INFO     | __main__:main:194 - Video frame 12 | Frame-start 5036| Reading binary sequence
+2021-11-11 18:31:37.008 | INFO     | __main__:main:199 - Video frame 12 | Frame-start 5036|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:37.250 | INFO     | __main__:main:205 - Video frame 12 | Frame-start 5036| Median filter
+2021-11-11 18:31:37.982 | INFO     | __main__:main:194 - Video frame 13 | Frame-start 5279| Reading binary sequence
+2021-11-11 18:31:38.720 | INFO     | __main__:main:199 - Video frame 13 | Frame-start 5279|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:39.071 | INFO     | __main__:main:205 - Video frame 13 | Frame-start 5279| Median filter
+2021-11-11 18:31:39.799 | INFO     | __main__:main:194 - Video frame 14 | Frame-start 5522| Reading binary sequence
+2021-11-11 18:31:41.274 | INFO     | __main__:main:199 - Video frame 14 | Frame-start 5522|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:41.512 | INFO     | __main__:main:205 - Video frame 14 | Frame-start 5522| Median filter
+2021-11-11 18:31:42.228 | INFO     | __main__:main:194 - Video frame 15 | Frame-start 5765| Reading binary sequence
+2021-11-11 18:31:43.005 | INFO     | __main__:main:199 - Video frame 15 | Frame-start 5765|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:43.272 | INFO     | __main__:main:205 - Video frame 15 | Frame-start 5765| Median filter
+2021-11-11 18:31:43.949 | INFO     | __main__:main:194 - Video frame 16 | Frame-start 6008| Reading binary sequence
+2021-11-11 18:31:45.408 | INFO     | __main__:main:199 - Video frame 16 | Frame-start 6008|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:45.878 | INFO     | __main__:main:205 - Video frame 16 | Frame-start 6008| Median filter
+2021-11-11 18:31:46.832 | INFO     | __main__:main:194 - Video frame 17 | Frame-start 6251| Reading binary sequence
+2021-11-11 18:31:47.590 | INFO     | __main__:main:199 - Video frame 17 | Frame-start 6251|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:47.849 | INFO     | __main__:main:205 - Video frame 17 | Frame-start 6251| Median filter
+2021-11-11 18:31:48.748 | INFO     | __main__:main:194 - Video frame 18 | Frame-start 6494| Reading binary sequence
+2021-11-11 18:31:50.336 | INFO     | __main__:main:199 - Video frame 18 | Frame-start 6494|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:51.226 | INFO     | __main__:main:205 - Video frame 18 | Frame-start 6494| Median filter
+2021-11-11 18:31:52.008 | INFO     | __main__:main:194 - Video frame 19 | Frame-start 6737| Reading binary sequence
+2021-11-11 18:31:52.751 | INFO     | __main__:main:199 - Video frame 19 | Frame-start 6737|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:53.363 | INFO     | __main__:main:205 - Video frame 19 | Frame-start 6737| Median filter
+2021-11-11 18:31:54.106 | INFO     | __main__:main:194 - Video frame 20 | Frame-start 6980| Reading binary sequence
+2021-11-11 18:31:55.668 | INFO     | __main__:main:199 - Video frame 20 | Frame-start 6980|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:56.518 | INFO     | __main__:main:205 - Video frame 20 | Frame-start 6980| Median filter
+2021-11-11 18:31:57.412 | INFO     | __main__:main:194 - Video frame 21 | Frame-start 7223| Reading binary sequence
+2021-11-11 18:31:58.158 | INFO     | __main__:main:199 - Video frame 21 | Frame-start 7223|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:31:58.900 | INFO     | __main__:main:205 - Video frame 21 | Frame-start 7223| Median filter
+2021-11-11 18:31:59.903 | INFO     | __main__:main:194 - Video frame 22 | Frame-start 7466| Reading binary sequence
+2021-11-11 18:32:01.566 | INFO     | __main__:main:199 - Video frame 22 | Frame-start 7466|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:02.193 | INFO     | __main__:main:205 - Video frame 22 | Frame-start 7466| Median filter
+2021-11-11 18:32:03.253 | INFO     | __main__:main:194 - Video frame 23 | Frame-start 7709| Reading binary sequence
+2021-11-11 18:32:03.960 | INFO     | __main__:main:199 - Video frame 23 | Frame-start 7709|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:04.187 | INFO     | __main__:main:205 - Video frame 23 | Frame-start 7709| Median filter
+2021-11-11 18:32:05.029 | INFO     | __main__:main:194 - Video frame 24 | Frame-start 7952| Reading binary sequence
+2021-11-11 18:32:05.801 | INFO     | __main__:main:199 - Video frame 24 | Frame-start 7952|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:06.917 | INFO     | __main__:main:205 - Video frame 24 | Frame-start 7952| Median filter
+2021-11-11 18:32:07.910 | INFO     | __main__:main:194 - Video frame 25 | Frame-start 8195| Reading binary sequence
+2021-11-11 18:32:08.864 | INFO     | __main__:main:199 - Video frame 25 | Frame-start 8195|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:09.122 | INFO     | __main__:main:205 - Video frame 25 | Frame-start 8195| Median filter
+2021-11-11 18:32:10.225 | INFO     | __main__:main:194 - Video frame 26 | Frame-start 8438| Reading binary sequence
+2021-11-11 18:32:11.151 | INFO     | __main__:main:199 - Video frame 26 | Frame-start 8438|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:11.454 | INFO     | __main__:main:205 - Video frame 26 | Frame-start 8438| Median filter
+2021-11-11 18:32:12.347 | INFO     | __main__:main:194 - Video frame 27 | Frame-start 8681| Reading binary sequence
+2021-11-11 18:32:13.876 | INFO     | __main__:main:199 - Video frame 27 | Frame-start 8681|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:14.934 | INFO     | __main__:main:205 - Video frame 27 | Frame-start 8681| Median filter
+2021-11-11 18:32:15.970 | INFO     | __main__:main:194 - Video frame 28 | Frame-start 8924| Reading binary sequence
+2021-11-11 18:32:16.717 | INFO     | __main__:main:199 - Video frame 28 | Frame-start 8924|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:17.133 | INFO     | __main__:main:205 - Video frame 28 | Frame-start 8924| Median filter
+2021-11-11 18:32:17.831 | INFO     | __main__:main:194 - Video frame 29 | Frame-start 9167| Reading binary sequence
+2021-11-11 18:32:19.311 | INFO     | __main__:main:199 - Video frame 29 | Frame-start 9167|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:19.570 | INFO     | __main__:main:205 - Video frame 29 | Frame-start 9167| Median filter
+2021-11-11 18:32:20.245 | INFO     | __main__:main:194 - Video frame 30 | Frame-start 9410| Reading binary sequence
+2021-11-11 18:32:20.980 | INFO     | __main__:main:199 - Video frame 30 | Frame-start 9410|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:21.221 | INFO     | __main__:main:205 - Video frame 30 | Frame-start 9410| Median filter
+2021-11-11 18:32:21.917 | INFO     | __main__:main:194 - Video frame 31 | Frame-start 9653| Reading binary sequence
+2021-11-11 18:32:23.744 | INFO     | __main__:main:199 - Video frame 31 | Frame-start 9653|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:24.503 | INFO     | __main__:main:205 - Video frame 31 | Frame-start 9653| Median filter
+2021-11-11 18:32:26.502 | INFO     | __main__:main:194 - Video frame 32 | Frame-start 9896| Reading binary sequence
+2021-11-11 18:32:27.720 | INFO     | __main__:main:199 - Video frame 32 | Frame-start 9896|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:38.655 | INFO     | __main__:main:205 - Video frame 32 | Frame-start 9896| Median filter
+2021-11-11 18:32:40.701 | INFO     | __main__:main:194 - Video frame 33 | Frame-start 10139| Reading binary sequence
+2021-11-11 18:32:43.662 | INFO     | __main__:main:199 - Video frame 33 | Frame-start 10139|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:45.829 | INFO     | __main__:main:205 - Video frame 33 | Frame-start 10139| Median filter
+2021-11-11 18:32:46.957 | INFO     | __main__:main:194 - Video frame 34 | Frame-start 10382| Reading binary sequence
+2021-11-11 18:32:47.905 | INFO     | __main__:main:199 - Video frame 34 | Frame-start 10382|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:49.879 | INFO     | __main__:main:205 - Video frame 34 | Frame-start 10382| Median filter
+2021-11-11 18:32:50.761 | INFO     | __main__:main:194 - Video frame 35 | Frame-start 10625| Reading binary sequence
+2021-11-11 18:32:52.243 | INFO     | __main__:main:199 - Video frame 35 | Frame-start 10625|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:52.840 | INFO     | __main__:main:205 - Video frame 35 | Frame-start 10625| Median filter
+2021-11-11 18:32:54.183 | INFO     | __main__:main:194 - Video frame 36 | Frame-start 10868| Reading binary sequence
+2021-11-11 18:32:55.056 | INFO     | __main__:main:199 - Video frame 36 | Frame-start 10868|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:55.738 | INFO     | __main__:main:205 - Video frame 36 | Frame-start 10868| Median filter
+2021-11-11 18:32:56.644 | INFO     | __main__:main:194 - Video frame 37 | Frame-start 11111| Reading binary sequence
+2021-11-11 18:32:58.183 | INFO     | __main__:main:199 - Video frame 37 | Frame-start 11111|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:32:59.140 | INFO     | __main__:main:205 - Video frame 37 | Frame-start 11111| Median filter
+2021-11-11 18:33:00.009 | INFO     | __main__:main:194 - Video frame 38 | Frame-start 11354| Reading binary sequence
+2021-11-11 18:33:00.795 | INFO     | __main__:main:199 - Video frame 38 | Frame-start 11354|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:01.183 | INFO     | __main__:main:205 - Video frame 38 | Frame-start 11354| Median filter
+2021-11-11 18:33:01.908 | INFO     | __main__:main:194 - Video frame 39 | Frame-start 11597| Reading binary sequence
+2021-11-11 18:33:03.516 | INFO     | __main__:main:199 - Video frame 39 | Frame-start 11597|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:03.732 | INFO     | __main__:main:205 - Video frame 39 | Frame-start 11597| Median filter
+2021-11-11 18:33:04.540 | INFO     | __main__:main:194 - Video frame 40 | Frame-start 11840| Reading binary sequence
+2021-11-11 18:33:05.302 | INFO     | __main__:main:199 - Video frame 40 | Frame-start 11840|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:05.535 | INFO     | __main__:main:205 - Video frame 40 | Frame-start 11840| Median filter
+2021-11-11 18:33:06.268 | INFO     | __main__:main:194 - Video frame 41 | Frame-start 12083| Reading binary sequence
+2021-11-11 18:33:07.918 | INFO     | __main__:main:199 - Video frame 41 | Frame-start 12083|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:08.518 | INFO     | __main__:main:205 - Video frame 41 | Frame-start 12083| Median filter
+2021-11-11 18:33:09.402 | INFO     | __main__:main:194 - Video frame 42 | Frame-start 12326| Reading binary sequence
+2021-11-11 18:33:10.165 | INFO     | __main__:main:199 - Video frame 42 | Frame-start 12326|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:10.380 | INFO     | __main__:main:205 - Video frame 42 | Frame-start 12326| Median filter
+2021-11-11 18:33:11.299 | INFO     | __main__:main:194 - Video frame 43 | Frame-start 12569| Reading binary sequence
+2021-11-11 18:33:12.765 | INFO     | __main__:main:199 - Video frame 43 | Frame-start 12569|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:13.132 | INFO     | __main__:main:205 - Video frame 43 | Frame-start 12569| Median filter
+2021-11-11 18:33:13.857 | INFO     | __main__:main:194 - Video frame 44 | Frame-start 12812| Reading binary sequence
+2021-11-11 18:33:14.668 | INFO     | __main__:main:199 - Video frame 44 | Frame-start 12812|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:15.500 | INFO     | __main__:main:205 - Video frame 44 | Frame-start 12812| Median filter
+2021-11-11 18:33:16.419 | INFO     | __main__:main:194 - Video frame 45 | Frame-start 13055| Reading binary sequence
+2021-11-11 18:33:17.254 | INFO     | __main__:main:199 - Video frame 45 | Frame-start 13055|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:18.417 | INFO     | __main__:main:205 - Video frame 45 | Frame-start 13055| Median filter
+2021-11-11 18:33:19.542 | INFO     | __main__:main:194 - Video frame 46 | Frame-start 13298| Reading binary sequence
+2021-11-11 18:33:21.087 | INFO     | __main__:main:199 - Video frame 46 | Frame-start 13298|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:22.443 | INFO     | __main__:main:205 - Video frame 46 | Frame-start 13298| Median filter
+2021-11-11 18:33:23.472 | INFO     | __main__:main:194 - Video frame 47 | Frame-start 13541| Reading binary sequence
+2021-11-11 18:33:24.296 | INFO     | __main__:main:199 - Video frame 47 | Frame-start 13541|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:24.629 | INFO     | __main__:main:205 - Video frame 47 | Frame-start 13541| Median filter
+2021-11-11 18:33:25.973 | INFO     | __main__:main:194 - Video frame 48 | Frame-start 13784| Reading binary sequence
+2021-11-11 18:33:27.744 | INFO     | __main__:main:199 - Video frame 48 | Frame-start 13784|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:28.317 | INFO     | __main__:main:205 - Video frame 48 | Frame-start 13784| Median filter
+2021-11-11 18:33:29.995 | INFO     | __main__:main:194 - Video frame 49 | Frame-start 14027| Reading binary sequence
+2021-11-11 18:33:30.890 | INFO     | __main__:main:199 - Video frame 49 | Frame-start 14027|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:32.752 | INFO     | __main__:main:205 - Video frame 49 | Frame-start 14027| Median filter
+2021-11-11 18:33:33.813 | INFO     | __main__:main:194 - Video frame 50 | Frame-start 14270| Reading binary sequence
+2021-11-11 18:33:35.742 | INFO     | __main__:main:199 - Video frame 50 | Frame-start 14270|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:36.569 | INFO     | __main__:main:205 - Video frame 50 | Frame-start 14270| Median filter
+2021-11-11 18:33:37.653 | INFO     | __main__:main:194 - Video frame 51 | Frame-start 14513| Reading binary sequence
+2021-11-11 18:33:38.520 | INFO     | __main__:main:199 - Video frame 51 | Frame-start 14513|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:38.944 | INFO     | __main__:main:205 - Video frame 51 | Frame-start 14513| Median filter
+2021-11-11 18:33:40.040 | INFO     | __main__:main:194 - Video frame 52 | Frame-start 14756| Reading binary sequence
+2021-11-11 18:33:41.925 | INFO     | __main__:main:199 - Video frame 52 | Frame-start 14756|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:43.810 | INFO     | __main__:main:205 - Video frame 52 | Frame-start 14756| Median filter
+2021-11-11 18:33:45.052 | INFO     | __main__:main:194 - Video frame 53 | Frame-start 14999| Reading binary sequence
+2021-11-11 18:33:45.888 | INFO     | __main__:main:199 - Video frame 53 | Frame-start 14999|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:47.059 | INFO     | __main__:main:205 - Video frame 53 | Frame-start 14999| Median filter
+2021-11-11 18:33:48.331 | INFO     | __main__:main:194 - Video frame 54 | Frame-start 15242| Reading binary sequence
+2021-11-11 18:33:49.987 | INFO     | __main__:main:199 - Video frame 54 | Frame-start 15242|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:50.606 | INFO     | __main__:main:205 - Video frame 54 | Frame-start 15242| Median filter
+2021-11-11 18:33:51.534 | INFO     | __main__:main:194 - Video frame 55 | Frame-start 15485| Reading binary sequence
+2021-11-11 18:33:52.298 | INFO     | __main__:main:199 - Video frame 55 | Frame-start 15485|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:53.082 | INFO     | __main__:main:205 - Video frame 55 | Frame-start 15485| Median filter
+2021-11-11 18:33:53.988 | INFO     | __main__:main:194 - Video frame 56 | Frame-start 15728| Reading binary sequence
+2021-11-11 18:33:55.456 | INFO     | __main__:main:199 - Video frame 56 | Frame-start 15728|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:56.209 | INFO     | __main__:main:205 - Video frame 56 | Frame-start 15728| Median filter
+2021-11-11 18:33:57.140 | INFO     | __main__:main:194 - Video frame 57 | Frame-start 15971| Reading binary sequence
+2021-11-11 18:33:57.917 | INFO     | __main__:main:199 - Video frame 57 | Frame-start 15971|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:33:58.214 | INFO     | __main__:main:205 - Video frame 57 | Frame-start 15971| Median filter
+2021-11-11 18:33:58.969 | INFO     | __main__:main:194 - Video frame 58 | Frame-start 16214| Reading binary sequence
+2021-11-11 18:34:00.481 | INFO     | __main__:main:199 - Video frame 58 | Frame-start 16214|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:00.904 | INFO     | __main__:main:205 - Video frame 58 | Frame-start 16214| Median filter
+2021-11-11 18:34:01.795 | INFO     | __main__:main:194 - Video frame 59 | Frame-start 16457| Reading binary sequence
+2021-11-11 18:34:02.544 | INFO     | __main__:main:199 - Video frame 59 | Frame-start 16457|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:02.747 | INFO     | __main__:main:205 - Video frame 59 | Frame-start 16457| Median filter
+2021-11-11 18:34:03.619 | INFO     | __main__:main:194 - Video frame 60 | Frame-start 16700| Reading binary sequence
+2021-11-11 18:34:05.048 | INFO     | __main__:main:199 - Video frame 60 | Frame-start 16700|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:05.623 | INFO     | __main__:main:205 - Video frame 60 | Frame-start 16700| Median filter
+2021-11-11 18:34:06.324 | INFO     | __main__:main:194 - Video frame 61 | Frame-start 16943| Reading binary sequence
+2021-11-11 18:34:07.062 | INFO     | __main__:main:199 - Video frame 61 | Frame-start 16943|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:07.653 | INFO     | __main__:main:205 - Video frame 61 | Frame-start 16943| Median filter
+2021-11-11 18:34:08.470 | INFO     | __main__:main:194 - Video frame 62 | Frame-start 17186| Reading binary sequence
+2021-11-11 18:34:10.029 | INFO     | __main__:main:199 - Video frame 62 | Frame-start 17186|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:10.253 | INFO     | __main__:main:205 - Video frame 62 | Frame-start 17186| Median filter
+2021-11-11 18:34:11.034 | INFO     | __main__:main:194 - Video frame 63 | Frame-start 17429| Reading binary sequence
+2021-11-11 18:34:11.809 | INFO     | __main__:main:199 - Video frame 63 | Frame-start 17429|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:12.007 | INFO     | __main__:main:205 - Video frame 63 | Frame-start 17429| Median filter
+2021-11-11 18:34:13.231 | INFO     | __main__:main:194 - Video frame 64 | Frame-start 17672| Reading binary sequence
+2021-11-11 18:34:14.004 | INFO     | __main__:main:199 - Video frame 64 | Frame-start 17672|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:14.216 | INFO     | __main__:main:205 - Video frame 64 | Frame-start 17672| Median filter
+2021-11-11 18:34:14.935 | INFO     | __main__:main:194 - Video frame 65 | Frame-start 17915| Reading binary sequence
+2021-11-11 18:34:16.466 | INFO     | __main__:main:199 - Video frame 65 | Frame-start 17915|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:16.661 | INFO     | __main__:main:205 - Video frame 65 | Frame-start 17915| Median filter
+2021-11-11 18:34:17.373 | INFO     | __main__:main:194 - Video frame 66 | Frame-start 18158| Reading binary sequence
+2021-11-11 18:34:18.155 | INFO     | __main__:main:199 - Video frame 66 | Frame-start 18158|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:18.505 | INFO     | __main__:main:205 - Video frame 66 | Frame-start 18158| Median filter
+2021-11-11 18:34:19.274 | INFO     | __main__:main:194 - Video frame 67 | Frame-start 18401| Reading binary sequence
+2021-11-11 18:34:20.809 | INFO     | __main__:main:199 - Video frame 67 | Frame-start 18401|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:21.344 | INFO     | __main__:main:205 - Video frame 67 | Frame-start 18401| Median filter
+2021-11-11 18:34:22.226 | INFO     | __main__:main:194 - Video frame 68 | Frame-start 18644| Reading binary sequence
+2021-11-11 18:34:22.978 | INFO     | __main__:main:199 - Video frame 68 | Frame-start 18644|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:23.527 | INFO     | __main__:main:205 - Video frame 68 | Frame-start 18644| Median filter
+2021-11-11 18:34:24.383 | INFO     | __main__:main:194 - Video frame 69 | Frame-start 18887| Reading binary sequence
+2021-11-11 18:34:25.932 | INFO     | __main__:main:199 - Video frame 69 | Frame-start 18887|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:26.224 | INFO     | __main__:main:205 - Video frame 69 | Frame-start 18887| Median filter
+2021-11-11 18:34:26.948 | INFO     | __main__:main:194 - Video frame 70 | Frame-start 19130| Reading binary sequence
+2021-11-11 18:34:27.748 | INFO     | __main__:main:199 - Video frame 70 | Frame-start 19130|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:27.994 | INFO     | __main__:main:205 - Video frame 70 | Frame-start 19130| Median filter
+2021-11-11 18:34:28.805 | INFO     | __main__:main:194 - Video frame 71 | Frame-start 19373| Reading binary sequence
+2021-11-11 18:34:30.399 | INFO     | __main__:main:199 - Video frame 71 | Frame-start 19373|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:30.699 | INFO     | __main__:main:205 - Video frame 71 | Frame-start 19373| Median filter
+2021-11-11 18:34:31.846 | INFO     | __main__:main:194 - Video frame 72 | Frame-start 19616| Reading binary sequence
+2021-11-11 18:34:32.990 | INFO     | __main__:main:199 - Video frame 72 | Frame-start 19616|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:35.299 | INFO     | __main__:main:205 - Video frame 72 | Frame-start 19616| Median filter
+2021-11-11 18:34:36.107 | INFO     | __main__:main:194 - Video frame 73 | Frame-start 19859| Reading binary sequence
+2021-11-11 18:34:37.686 | INFO     | __main__:main:199 - Video frame 73 | Frame-start 19859|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:37.962 | INFO     | __main__:main:205 - Video frame 73 | Frame-start 19859| Median filter
+2021-11-11 18:34:39.010 | INFO     | __main__:main:194 - Video frame 74 | Frame-start 20102| Reading binary sequence
+2021-11-11 18:34:39.855 | INFO     | __main__:main:199 - Video frame 74 | Frame-start 20102|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:41.141 | INFO     | __main__:main:205 - Video frame 74 | Frame-start 20102| Median filter
+2021-11-11 18:34:42.020 | INFO     | __main__:main:194 - Video frame 75 | Frame-start 20345| Reading binary sequence
+2021-11-11 18:34:43.887 | INFO     | __main__:main:199 - Video frame 75 | Frame-start 20345|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:44.408 | INFO     | __main__:main:205 - Video frame 75 | Frame-start 20345| Median filter
+2021-11-11 18:34:45.407 | INFO     | __main__:main:194 - Video frame 76 | Frame-start 20588| Reading binary sequence
+2021-11-11 18:34:46.246 | INFO     | __main__:main:199 - Video frame 76 | Frame-start 20588|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:47.040 | INFO     | __main__:main:205 - Video frame 76 | Frame-start 20588| Median filter
+2021-11-11 18:34:47.881 | INFO     | __main__:main:194 - Video frame 77 | Frame-start 20831| Reading binary sequence
+2021-11-11 18:34:49.677 | INFO     | __main__:main:199 - Video frame 77 | Frame-start 20831|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:50.935 | INFO     | __main__:main:205 - Video frame 77 | Frame-start 20831| Median filter
+2021-11-11 18:34:51.963 | INFO     | __main__:main:194 - Video frame 78 | Frame-start 21074| Reading binary sequence
+2021-11-11 18:34:52.824 | INFO     | __main__:main:199 - Video frame 78 | Frame-start 21074|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:53.349 | INFO     | __main__:main:205 - Video frame 78 | Frame-start 21074| Median filter
+2021-11-11 18:34:54.317 | INFO     | __main__:main:194 - Video frame 79 | Frame-start 21317| Reading binary sequence
+2021-11-11 18:34:56.025 | INFO     | __main__:main:199 - Video frame 79 | Frame-start 21317|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:57.366 | INFO     | __main__:main:205 - Video frame 79 | Frame-start 21317| Median filter
+2021-11-11 18:34:58.289 | INFO     | __main__:main:194 - Video frame 80 | Frame-start 21560| Reading binary sequence
+2021-11-11 18:34:59.125 | INFO     | __main__:main:199 - Video frame 80 | Frame-start 21560|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:34:59.694 | INFO     | __main__:main:205 - Video frame 80 | Frame-start 21560| Median filter
+2021-11-11 18:35:00.866 | INFO     | __main__:main:194 - Video frame 81 | Frame-start 21803| Reading binary sequence
+2021-11-11 18:35:02.465 | INFO     | __main__:main:199 - Video frame 81 | Frame-start 21803|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:03.432 | INFO     | __main__:main:205 - Video frame 81 | Frame-start 21803| Median filter
+2021-11-11 18:35:04.682 | INFO     | __main__:main:194 - Video frame 82 | Frame-start 22046| Reading binary sequence
+2021-11-11 18:35:05.564 | INFO     | __main__:main:199 - Video frame 82 | Frame-start 22046|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:06.609 | INFO     | __main__:main:205 - Video frame 82 | Frame-start 22046| Median filter
+2021-11-11 18:35:08.356 | INFO     | __main__:main:194 - Video frame 83 | Frame-start 22289| Reading binary sequence
+2021-11-11 18:35:09.858 | INFO     | __main__:main:199 - Video frame 83 | Frame-start 22289|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:10.522 | INFO     | __main__:main:205 - Video frame 83 | Frame-start 22289| Median filter
+2021-11-11 18:35:11.493 | INFO     | __main__:main:194 - Video frame 84 | Frame-start 22532| Reading binary sequence
+2021-11-11 18:35:12.330 | INFO     | __main__:main:199 - Video frame 84 | Frame-start 22532|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:13.726 | INFO     | __main__:main:205 - Video frame 84 | Frame-start 22532| Median filter
+2021-11-11 18:35:14.766 | INFO     | __main__:main:194 - Video frame 85 | Frame-start 22775| Reading binary sequence
+2021-11-11 18:35:15.721 | INFO     | __main__:main:199 - Video frame 85 | Frame-start 22775|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:16.515 | INFO     | __main__:main:205 - Video frame 85 | Frame-start 22775| Median filter
+2021-11-11 18:35:17.526 | INFO     | __main__:main:194 - Video frame 86 | Frame-start 23018| Reading binary sequence
+2021-11-11 18:35:19.131 | INFO     | __main__:main:199 - Video frame 86 | Frame-start 23018|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:19.813 | INFO     | __main__:main:205 - Video frame 86 | Frame-start 23018| Median filter
+2021-11-11 18:35:20.977 | INFO     | __main__:main:194 - Video frame 87 | Frame-start 23261| Reading binary sequence
+2021-11-11 18:35:21.777 | INFO     | __main__:main:199 - Video frame 87 | Frame-start 23261|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:22.781 | INFO     | __main__:main:205 - Video frame 87 | Frame-start 23261| Median filter
+2021-11-11 18:35:23.787 | INFO     | __main__:main:194 - Video frame 88 | Frame-start 23504| Reading binary sequence
+2021-11-11 18:35:25.467 | INFO     | __main__:main:199 - Video frame 88 | Frame-start 23504|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:26.510 | INFO     | __main__:main:205 - Video frame 88 | Frame-start 23504| Median filter
+2021-11-11 18:35:27.478 | INFO     | __main__:main:194 - Video frame 89 | Frame-start 23747| Reading binary sequence
+2021-11-11 18:35:28.267 | INFO     | __main__:main:199 - Video frame 89 | Frame-start 23747|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:28.954 | INFO     | __main__:main:205 - Video frame 89 | Frame-start 23747| Median filter
+2021-11-11 18:35:29.795 | INFO     | __main__:main:194 - Video frame 90 | Frame-start 23990| Reading binary sequence
+2021-11-11 18:35:31.364 | INFO     | __main__:main:199 - Video frame 90 | Frame-start 23990|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:31.576 | INFO     | __main__:main:205 - Video frame 90 | Frame-start 23990| Median filter
+2021-11-11 18:35:32.522 | INFO     | __main__:main:194 - Video frame 91 | Frame-start 24233| Reading binary sequence
+2021-11-11 18:35:33.276 | INFO     | __main__:main:199 - Video frame 91 | Frame-start 24233|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:33.535 | INFO     | __main__:main:205 - Video frame 91 | Frame-start 24233| Median filter
+2021-11-11 18:35:34.529 | INFO     | __main__:main:194 - Video frame 92 | Frame-start 24476| Reading binary sequence
+2021-11-11 18:35:36.228 | INFO     | __main__:main:199 - Video frame 92 | Frame-start 24476|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:37.519 | INFO     | __main__:main:205 - Video frame 92 | Frame-start 24476| Median filter
+2021-11-11 18:35:38.769 | INFO     | __main__:main:194 - Video frame 93 | Frame-start 24719| Reading binary sequence
+2021-11-11 18:35:39.622 | INFO     | __main__:main:199 - Video frame 93 | Frame-start 24719|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:40.320 | INFO     | __main__:main:205 - Video frame 93 | Frame-start 24719| Median filter
+2021-11-11 18:35:41.082 | INFO     | __main__:main:194 - Video frame 94 | Frame-start 24962| Reading binary sequence
+2021-11-11 18:35:42.564 | INFO     | __main__:main:199 - Video frame 94 | Frame-start 24962|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:42.839 | INFO     | __main__:main:205 - Video frame 94 | Frame-start 24962| Median filter
+2021-11-11 18:35:43.827 | INFO     | __main__:main:194 - Video frame 95 | Frame-start 25205| Reading binary sequence
+2021-11-11 18:35:44.665 | INFO     | __main__:main:199 - Video frame 95 | Frame-start 25205|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:45.812 | INFO     | __main__:main:205 - Video frame 95 | Frame-start 25205| Median filter
+2021-11-11 18:35:46.813 | INFO     | __main__:main:194 - Video frame 96 | Frame-start 25448| Reading binary sequence
+2021-11-11 18:35:48.606 | INFO     | __main__:main:199 - Video frame 96 | Frame-start 25448|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:49.410 | INFO     | __main__:main:205 - Video frame 96 | Frame-start 25448| Median filter
+2021-11-11 18:35:50.352 | INFO     | __main__:main:194 - Video frame 97 | Frame-start 25691| Reading binary sequence
+2021-11-11 18:35:51.145 | INFO     | __main__:main:199 - Video frame 97 | Frame-start 25691|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:51.786 | INFO     | __main__:main:205 - Video frame 97 | Frame-start 25691| Median filter
+2021-11-11 18:35:52.997 | INFO     | __main__:main:194 - Video frame 98 | Frame-start 25934| Reading binary sequence
+2021-11-11 18:35:54.615 | INFO     | __main__:main:199 - Video frame 98 | Frame-start 25934|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:55.781 | INFO     | __main__:main:205 - Video frame 98 | Frame-start 25934| Median filter
+2021-11-11 18:35:57.255 | INFO     | __main__:main:194 - Video frame 99 | Frame-start 26177| Reading binary sequence
+2021-11-11 18:35:58.079 | INFO     | __main__:main:199 - Video frame 99 | Frame-start 26177|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:35:59.232 | INFO     | __main__:main:205 - Video frame 99 | Frame-start 26177| Median filter
+2021-11-11 18:36:25.129 | INFO     | __main__:main:171 - Generating code LUT
+2021-11-11 18:36:25.168 | INFO     | __main__:main:182 - Loading stereo params
+2021-11-11 18:36:25.190 | INFO     | __main__:main:194 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:36:26.116 | INFO     | __main__:main:199 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:36:26.693 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:36:29.333 | INFO     | __main__:main:194 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:36:30.878 | INFO     | __main__:main:199 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:36:31.459 | INFO     | __main__:main:205 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:36:32.221 | INFO     | __main__:main:194 - Video frame 2 | Frame-start 2606| Reading binary sequence
+2021-11-11 18:36:33.047 | INFO     | __main__:main:199 - Video frame 2 | Frame-start 2606|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:36:34.150 | INFO     | __main__:main:205 - Video frame 2 | Frame-start 2606| Median filter
+2021-11-11 18:36:35.086 | INFO     | __main__:main:194 - Video frame 3 | Frame-start 2849| Reading binary sequence
+2021-11-11 18:36:36.709 | INFO     | __main__:main:199 - Video frame 3 | Frame-start 2849|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:36:37.410 | INFO     | __main__:main:205 - Video frame 3 | Frame-start 2849| Median filter
+2021-11-11 18:36:38.244 | INFO     | __main__:main:194 - Video frame 4 | Frame-start 3092| Reading binary sequence
+2021-11-11 18:36:39.011 | INFO     | __main__:main:199 - Video frame 4 | Frame-start 3092|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:36:39.290 | INFO     | __main__:main:205 - Video frame 4 | Frame-start 3092| Median filter
+2021-11-11 18:36:40.309 | INFO     | __main__:main:194 - Video frame 5 | Frame-start 3335| Reading binary sequence
+2021-11-11 18:36:41.105 | INFO     | __main__:main:199 - Video frame 5 | Frame-start 3335|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:36:41.588 | INFO     | __main__:main:205 - Video frame 5 | Frame-start 3335| Median filter
+2021-11-11 18:36:42.363 | INFO     | __main__:main:194 - Video frame 6 | Frame-start 3578| Reading binary sequence
+2021-11-11 18:36:44.010 | INFO     | __main__:main:199 - Video frame 6 | Frame-start 3578|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:37:50.140 | INFO     | __main__:main:171 - Generating code LUT
+2021-11-11 18:37:50.173 | INFO     | __main__:main:182 - Loading stereo params
+2021-11-11 18:37:50.189 | INFO     | __main__:main:194 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:37:50.931 | INFO     | __main__:main:199 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:37:51.123 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:37:53.278 | INFO     | __main__:main:194 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:37:54.804 | INFO     | __main__:main:199 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:37:55.047 | INFO     | __main__:main:205 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:37:55.752 | INFO     | __main__:main:194 - Video frame 2 | Frame-start 2606| Reading binary sequence
+2021-11-11 18:37:56.511 | INFO     | __main__:main:199 - Video frame 2 | Frame-start 2606|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:37:56.706 | INFO     | __main__:main:205 - Video frame 2 | Frame-start 2606| Median filter
+2021-11-11 18:37:57.375 | INFO     | __main__:main:194 - Video frame 3 | Frame-start 2849| Reading binary sequence
+2021-11-11 18:37:58.842 | INFO     | __main__:main:199 - Video frame 3 | Frame-start 2849|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:37:59.291 | INFO     | __main__:main:205 - Video frame 3 | Frame-start 2849| Median filter
+2021-11-11 18:38:00.100 | INFO     | __main__:main:194 - Video frame 4 | Frame-start 3092| Reading binary sequence
+2021-11-11 18:38:00.822 | INFO     | __main__:main:199 - Video frame 4 | Frame-start 3092|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:01.005 | INFO     | __main__:main:205 - Video frame 4 | Frame-start 3092| Median filter
+2021-11-11 18:38:01.814 | INFO     | __main__:main:194 - Video frame 5 | Frame-start 3335| Reading binary sequence
+2021-11-11 18:38:02.577 | INFO     | __main__:main:199 - Video frame 5 | Frame-start 3335|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:02.794 | INFO     | __main__:main:205 - Video frame 5 | Frame-start 3335| Median filter
+2021-11-11 18:38:03.491 | INFO     | __main__:main:194 - Video frame 6 | Frame-start 3578| Reading binary sequence
+2021-11-11 18:38:05.017 | INFO     | __main__:main:199 - Video frame 6 | Frame-start 3578|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:05.218 | INFO     | __main__:main:205 - Video frame 6 | Frame-start 3578| Median filter
+2021-11-11 18:38:06.065 | INFO     | __main__:main:194 - Video frame 7 | Frame-start 3821| Reading binary sequence
+2021-11-11 18:38:06.841 | INFO     | __main__:main:199 - Video frame 7 | Frame-start 3821|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:07.196 | INFO     | __main__:main:205 - Video frame 7 | Frame-start 3821| Median filter
+2021-11-11 18:38:08.056 | INFO     | __main__:main:194 - Video frame 8 | Frame-start 4064| Reading binary sequence
+2021-11-11 18:38:09.598 | INFO     | __main__:main:199 - Video frame 8 | Frame-start 4064|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:10.059 | INFO     | __main__:main:205 - Video frame 8 | Frame-start 4064| Median filter
+2021-11-11 18:38:11.004 | INFO     | __main__:main:194 - Video frame 9 | Frame-start 4307| Reading binary sequence
+2021-11-11 18:38:11.701 | INFO     | __main__:main:199 - Video frame 9 | Frame-start 4307|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:11.938 | INFO     | __main__:main:205 - Video frame 9 | Frame-start 4307| Median filter
+2021-11-11 18:38:12.927 | INFO     | __main__:main:194 - Video frame 10 | Frame-start 4550| Reading binary sequence
+2021-11-11 18:38:14.284 | INFO     | __main__:main:199 - Video frame 10 | Frame-start 4550|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:14.898 | INFO     | __main__:main:205 - Video frame 10 | Frame-start 4550| Median filter
+2021-11-11 18:38:15.629 | INFO     | __main__:main:194 - Video frame 11 | Frame-start 4793| Reading binary sequence
+2021-11-11 18:38:16.375 | INFO     | __main__:main:199 - Video frame 11 | Frame-start 4793|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:16.731 | INFO     | __main__:main:205 - Video frame 11 | Frame-start 4793| Median filter
+2021-11-11 18:38:17.413 | INFO     | __main__:main:194 - Video frame 12 | Frame-start 5036| Reading binary sequence
+2021-11-11 18:38:19.007 | INFO     | __main__:main:199 - Video frame 12 | Frame-start 5036|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:19.350 | INFO     | __main__:main:205 - Video frame 12 | Frame-start 5036| Median filter
+2021-11-11 18:38:20.389 | INFO     | __main__:main:194 - Video frame 13 | Frame-start 5279| Reading binary sequence
+2021-11-11 18:38:21.152 | INFO     | __main__:main:199 - Video frame 13 | Frame-start 5279|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:21.347 | INFO     | __main__:main:205 - Video frame 13 | Frame-start 5279| Median filter
+2021-11-11 18:38:22.189 | INFO     | __main__:main:194 - Video frame 14 | Frame-start 5522| Reading binary sequence
+2021-11-11 18:38:23.622 | INFO     | __main__:main:199 - Video frame 14 | Frame-start 5522|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:23.915 | INFO     | __main__:main:205 - Video frame 14 | Frame-start 5522| Median filter
+2021-11-11 18:38:24.790 | INFO     | __main__:main:194 - Video frame 15 | Frame-start 5765| Reading binary sequence
+2021-11-11 18:38:25.512 | INFO     | __main__:main:199 - Video frame 15 | Frame-start 5765|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:25.699 | INFO     | __main__:main:205 - Video frame 15 | Frame-start 5765| Median filter
+2021-11-11 18:38:26.466 | INFO     | __main__:main:194 - Video frame 16 | Frame-start 6008| Reading binary sequence
+2021-11-11 18:38:27.899 | INFO     | __main__:main:199 - Video frame 16 | Frame-start 6008|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:28.341 | INFO     | __main__:main:205 - Video frame 16 | Frame-start 6008| Median filter
+2021-11-11 18:38:29.203 | INFO     | __main__:main:194 - Video frame 17 | Frame-start 6251| Reading binary sequence
+2021-11-11 18:38:29.941 | INFO     | __main__:main:199 - Video frame 17 | Frame-start 6251|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:30.669 | INFO     | __main__:main:205 - Video frame 17 | Frame-start 6251| Median filter
+2021-11-11 18:38:31.373 | INFO     | __main__:main:194 - Video frame 18 | Frame-start 6494| Reading binary sequence
+2021-11-11 18:38:32.790 | INFO     | __main__:main:199 - Video frame 18 | Frame-start 6494|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:32.998 | INFO     | __main__:main:205 - Video frame 18 | Frame-start 6494| Median filter
+2021-11-11 18:38:33.710 | INFO     | __main__:main:194 - Video frame 19 | Frame-start 6737| Reading binary sequence
+2021-11-11 18:38:34.481 | INFO     | __main__:main:199 - Video frame 19 | Frame-start 6737|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:34.714 | INFO     | __main__:main:205 - Video frame 19 | Frame-start 6737| Median filter
+2021-11-11 18:38:35.404 | INFO     | __main__:main:194 - Video frame 20 | Frame-start 6980| Reading binary sequence
+2021-11-11 18:38:36.950 | INFO     | __main__:main:199 - Video frame 20 | Frame-start 6980|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:37.145 | INFO     | __main__:main:205 - Video frame 20 | Frame-start 6980| Median filter
+2021-11-11 18:38:37.877 | INFO     | __main__:main:194 - Video frame 21 | Frame-start 7223| Reading binary sequence
+2021-11-11 18:38:38.754 | INFO     | __main__:main:199 - Video frame 21 | Frame-start 7223|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:39.138 | INFO     | __main__:main:205 - Video frame 21 | Frame-start 7223| Median filter
+2021-11-11 18:38:39.948 | INFO     | __main__:main:194 - Video frame 22 | Frame-start 7466| Reading binary sequence
+2021-11-11 18:38:41.956 | INFO     | __main__:main:199 - Video frame 22 | Frame-start 7466|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:42.855 | INFO     | __main__:main:205 - Video frame 22 | Frame-start 7466| Median filter
+2021-11-11 18:38:43.950 | INFO     | __main__:main:194 - Video frame 23 | Frame-start 7709| Reading binary sequence
+2021-11-11 18:38:44.812 | INFO     | __main__:main:199 - Video frame 23 | Frame-start 7709|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:45.008 | INFO     | __main__:main:205 - Video frame 23 | Frame-start 7709| Median filter
+2021-11-11 18:38:45.758 | INFO     | __main__:main:194 - Video frame 24 | Frame-start 7952| Reading binary sequence
+2021-11-11 18:38:46.620 | INFO     | __main__:main:199 - Video frame 24 | Frame-start 7952|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:46.855 | INFO     | __main__:main:205 - Video frame 24 | Frame-start 7952| Median filter
+2021-11-11 18:38:47.646 | INFO     | __main__:main:194 - Video frame 25 | Frame-start 8195| Reading binary sequence
+2021-11-11 18:38:48.524 | INFO     | __main__:main:199 - Video frame 25 | Frame-start 8195|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:48.734 | INFO     | __main__:main:205 - Video frame 25 | Frame-start 8195| Median filter
+2021-11-11 18:38:49.690 | INFO     | __main__:main:194 - Video frame 26 | Frame-start 8438| Reading binary sequence
+2021-11-11 18:38:50.476 | INFO     | __main__:main:199 - Video frame 26 | Frame-start 8438|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:50.901 | INFO     | __main__:main:205 - Video frame 26 | Frame-start 8438| Median filter
+2021-11-11 18:38:51.723 | INFO     | __main__:main:194 - Video frame 27 | Frame-start 8681| Reading binary sequence
+2021-11-11 18:38:53.285 | INFO     | __main__:main:199 - Video frame 27 | Frame-start 8681|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:53.485 | INFO     | __main__:main:205 - Video frame 27 | Frame-start 8681| Median filter
+2021-11-11 18:38:54.321 | INFO     | __main__:main:194 - Video frame 28 | Frame-start 8924| Reading binary sequence
+2021-11-11 18:38:55.037 | INFO     | __main__:main:199 - Video frame 28 | Frame-start 8924|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:55.228 | INFO     | __main__:main:205 - Video frame 28 | Frame-start 8924| Median filter
+2021-11-11 18:38:55.981 | INFO     | __main__:main:194 - Video frame 29 | Frame-start 9167| Reading binary sequence
+2021-11-11 18:38:57.521 | INFO     | __main__:main:199 - Video frame 29 | Frame-start 9167|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:57.735 | INFO     | __main__:main:205 - Video frame 29 | Frame-start 9167| Median filter
+2021-11-11 18:38:58.563 | INFO     | __main__:main:194 - Video frame 30 | Frame-start 9410| Reading binary sequence
+2021-11-11 18:38:59.283 | INFO     | __main__:main:199 - Video frame 30 | Frame-start 9410|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:38:59.470 | INFO     | __main__:main:205 - Video frame 30 | Frame-start 9410| Median filter
+2021-11-11 18:39:00.243 | INFO     | __main__:main:194 - Video frame 31 | Frame-start 9653| Reading binary sequence
+2021-11-11 18:39:01.744 | INFO     | __main__:main:199 - Video frame 31 | Frame-start 9653|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:02.177 | INFO     | __main__:main:205 - Video frame 31 | Frame-start 9653| Median filter
+2021-11-11 18:39:03.056 | INFO     | __main__:main:194 - Video frame 32 | Frame-start 9896| Reading binary sequence
+2021-11-11 18:39:03.815 | INFO     | __main__:main:199 - Video frame 32 | Frame-start 9896|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:04.180 | INFO     | __main__:main:205 - Video frame 32 | Frame-start 9896| Median filter
+2021-11-11 18:39:04.927 | INFO     | __main__:main:194 - Video frame 33 | Frame-start 10139| Reading binary sequence
+2021-11-11 18:39:06.485 | INFO     | __main__:main:199 - Video frame 33 | Frame-start 10139|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:06.858 | INFO     | __main__:main:205 - Video frame 33 | Frame-start 10139| Median filter
+2021-11-11 18:39:07.652 | INFO     | __main__:main:194 - Video frame 34 | Frame-start 10382| Reading binary sequence
+2021-11-11 18:39:08.487 | INFO     | __main__:main:199 - Video frame 34 | Frame-start 10382|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:08.688 | INFO     | __main__:main:205 - Video frame 34 | Frame-start 10382| Median filter
+2021-11-11 18:39:09.558 | INFO     | __main__:main:194 - Video frame 35 | Frame-start 10625| Reading binary sequence
+2021-11-11 18:39:11.097 | INFO     | __main__:main:199 - Video frame 35 | Frame-start 10625|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:11.294 | INFO     | __main__:main:205 - Video frame 35 | Frame-start 10625| Median filter
+2021-11-11 18:39:12.433 | INFO     | __main__:main:194 - Video frame 36 | Frame-start 10868| Reading binary sequence
+2021-11-11 18:39:13.227 | INFO     | __main__:main:199 - Video frame 36 | Frame-start 10868|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:13.425 | INFO     | __main__:main:205 - Video frame 36 | Frame-start 10868| Median filter
+2021-11-11 18:39:14.567 | INFO     | __main__:main:194 - Video frame 37 | Frame-start 11111| Reading binary sequence
+2021-11-11 18:39:16.247 | INFO     | __main__:main:199 - Video frame 37 | Frame-start 11111|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:17.215 | INFO     | __main__:main:205 - Video frame 37 | Frame-start 11111| Median filter
+2021-11-11 18:39:18.085 | INFO     | __main__:main:194 - Video frame 38 | Frame-start 11354| Reading binary sequence
+2021-11-11 18:39:18.932 | INFO     | __main__:main:199 - Video frame 38 | Frame-start 11354|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:19.303 | INFO     | __main__:main:205 - Video frame 38 | Frame-start 11354| Median filter
+2021-11-11 18:39:20.121 | INFO     | __main__:main:194 - Video frame 39 | Frame-start 11597| Reading binary sequence
+2021-11-11 18:39:21.571 | INFO     | __main__:main:199 - Video frame 39 | Frame-start 11597|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:22.079 | INFO     | __main__:main:205 - Video frame 39 | Frame-start 11597| Median filter
+2021-11-11 18:39:22.946 | INFO     | __main__:main:194 - Video frame 40 | Frame-start 11840| Reading binary sequence
+2021-11-11 18:39:23.653 | INFO     | __main__:main:199 - Video frame 40 | Frame-start 11840|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:24.001 | INFO     | __main__:main:205 - Video frame 40 | Frame-start 11840| Median filter
+2021-11-11 18:39:24.759 | INFO     | __main__:main:194 - Video frame 41 | Frame-start 12083| Reading binary sequence
+2021-11-11 18:39:26.201 | INFO     | __main__:main:199 - Video frame 41 | Frame-start 12083|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:26.559 | INFO     | __main__:main:205 - Video frame 41 | Frame-start 12083| Median filter
+2021-11-11 18:39:27.262 | INFO     | __main__:main:194 - Video frame 42 | Frame-start 12326| Reading binary sequence
+2021-11-11 18:39:27.980 | INFO     | __main__:main:199 - Video frame 42 | Frame-start 12326|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:28.173 | INFO     | __main__:main:205 - Video frame 42 | Frame-start 12326| Median filter
+2021-11-11 18:39:28.999 | INFO     | __main__:main:194 - Video frame 43 | Frame-start 12569| Reading binary sequence
+2021-11-11 18:39:30.569 | INFO     | __main__:main:199 - Video frame 43 | Frame-start 12569|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:30.762 | INFO     | __main__:main:205 - Video frame 43 | Frame-start 12569| Median filter
+2021-11-11 18:39:31.460 | INFO     | __main__:main:194 - Video frame 44 | Frame-start 12812| Reading binary sequence
+2021-11-11 18:39:32.199 | INFO     | __main__:main:199 - Video frame 44 | Frame-start 12812|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:33.192 | INFO     | __main__:main:205 - Video frame 44 | Frame-start 12812| Median filter
+2021-11-11 18:39:33.888 | INFO     | __main__:main:194 - Video frame 45 | Frame-start 13055| Reading binary sequence
+2021-11-11 18:39:34.651 | INFO     | __main__:main:199 - Video frame 45 | Frame-start 13055|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:34.994 | INFO     | __main__:main:205 - Video frame 45 | Frame-start 13055| Median filter
+2021-11-11 18:39:35.684 | INFO     | __main__:main:194 - Video frame 46 | Frame-start 13298| Reading binary sequence
+2021-11-11 18:39:37.275 | INFO     | __main__:main:199 - Video frame 46 | Frame-start 13298|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:37.469 | INFO     | __main__:main:205 - Video frame 46 | Frame-start 13298| Median filter
+2021-11-11 18:39:38.414 | INFO     | __main__:main:194 - Video frame 47 | Frame-start 13541| Reading binary sequence
+2021-11-11 18:39:39.181 | INFO     | __main__:main:199 - Video frame 47 | Frame-start 13541|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:39.426 | INFO     | __main__:main:205 - Video frame 47 | Frame-start 13541| Median filter
+2021-11-11 18:39:40.290 | INFO     | __main__:main:194 - Video frame 48 | Frame-start 13784| Reading binary sequence
+2021-11-11 18:39:42.311 | INFO     | __main__:main:199 - Video frame 48 | Frame-start 13784|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:43.699 | INFO     | __main__:main:205 - Video frame 48 | Frame-start 13784| Median filter
+2021-11-11 18:39:44.990 | INFO     | __main__:main:194 - Video frame 49 | Frame-start 14027| Reading binary sequence
+2021-11-11 18:39:45.724 | INFO     | __main__:main:199 - Video frame 49 | Frame-start 14027|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:46.548 | INFO     | __main__:main:205 - Video frame 49 | Frame-start 14027| Median filter
+2021-11-11 18:39:47.259 | INFO     | __main__:main:194 - Video frame 50 | Frame-start 14270| Reading binary sequence
+2021-11-11 18:39:48.857 | INFO     | __main__:main:199 - Video frame 50 | Frame-start 14270|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:49.082 | INFO     | __main__:main:205 - Video frame 50 | Frame-start 14270| Median filter
+2021-11-11 18:39:49.794 | INFO     | __main__:main:194 - Video frame 51 | Frame-start 14513| Reading binary sequence
+2021-11-11 18:39:50.586 | INFO     | __main__:main:199 - Video frame 51 | Frame-start 14513|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:50.781 | INFO     | __main__:main:205 - Video frame 51 | Frame-start 14513| Median filter
+2021-11-11 18:39:51.518 | INFO     | __main__:main:194 - Video frame 52 | Frame-start 14756| Reading binary sequence
+2021-11-11 18:39:53.150 | INFO     | __main__:main:199 - Video frame 52 | Frame-start 14756|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:53.484 | INFO     | __main__:main:205 - Video frame 52 | Frame-start 14756| Median filter
+2021-11-11 18:39:54.304 | INFO     | __main__:main:194 - Video frame 53 | Frame-start 14999| Reading binary sequence
+2021-11-11 18:39:55.062 | INFO     | __main__:main:199 - Video frame 53 | Frame-start 14999|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:55.253 | INFO     | __main__:main:205 - Video frame 53 | Frame-start 14999| Median filter
+2021-11-11 18:39:56.006 | INFO     | __main__:main:194 - Video frame 54 | Frame-start 15242| Reading binary sequence
+2021-11-11 18:39:57.496 | INFO     | __main__:main:199 - Video frame 54 | Frame-start 15242|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:57.798 | INFO     | __main__:main:205 - Video frame 54 | Frame-start 15242| Median filter
+2021-11-11 18:39:58.681 | INFO     | __main__:main:194 - Video frame 55 | Frame-start 15485| Reading binary sequence
+2021-11-11 18:39:59.445 | INFO     | __main__:main:199 - Video frame 55 | Frame-start 15485|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:39:59.655 | INFO     | __main__:main:205 - Video frame 55 | Frame-start 15485| Median filter
+2021-11-11 18:40:00.511 | INFO     | __main__:main:194 - Video frame 56 | Frame-start 15728| Reading binary sequence
+2021-11-11 18:40:01.933 | INFO     | __main__:main:199 - Video frame 56 | Frame-start 15728|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:02.414 | INFO     | __main__:main:205 - Video frame 56 | Frame-start 15728| Median filter
+2021-11-11 18:40:03.179 | INFO     | __main__:main:194 - Video frame 57 | Frame-start 15971| Reading binary sequence
+2021-11-11 18:40:03.981 | INFO     | __main__:main:199 - Video frame 57 | Frame-start 15971|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:04.544 | INFO     | __main__:main:205 - Video frame 57 | Frame-start 15971| Median filter
+2021-11-11 18:40:05.418 | INFO     | __main__:main:194 - Video frame 58 | Frame-start 16214| Reading binary sequence
+2021-11-11 18:40:06.966 | INFO     | __main__:main:199 - Video frame 58 | Frame-start 16214|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:07.200 | INFO     | __main__:main:205 - Video frame 58 | Frame-start 16214| Median filter
+2021-11-11 18:40:08.038 | INFO     | __main__:main:194 - Video frame 59 | Frame-start 16457| Reading binary sequence
+2021-11-11 18:40:08.847 | INFO     | __main__:main:199 - Video frame 59 | Frame-start 16457|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:09.079 | INFO     | __main__:main:205 - Video frame 59 | Frame-start 16457| Median filter
+2021-11-11 18:40:09.811 | INFO     | __main__:main:194 - Video frame 60 | Frame-start 16700| Reading binary sequence
+2021-11-11 18:40:11.512 | INFO     | __main__:main:199 - Video frame 60 | Frame-start 16700|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:11.705 | INFO     | __main__:main:205 - Video frame 60 | Frame-start 16700| Median filter
+2021-11-11 18:40:12.525 | INFO     | __main__:main:194 - Video frame 61 | Frame-start 16943| Reading binary sequence
+2021-11-11 18:40:13.278 | INFO     | __main__:main:199 - Video frame 61 | Frame-start 16943|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:13.825 | INFO     | __main__:main:205 - Video frame 61 | Frame-start 16943| Median filter
+2021-11-11 18:40:14.720 | INFO     | __main__:main:194 - Video frame 62 | Frame-start 17186| Reading binary sequence
+2021-11-11 18:40:16.110 | INFO     | __main__:main:199 - Video frame 62 | Frame-start 17186|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:16.594 | INFO     | __main__:main:205 - Video frame 62 | Frame-start 17186| Median filter
+2021-11-11 18:40:17.303 | INFO     | __main__:main:194 - Video frame 63 | Frame-start 17429| Reading binary sequence
+2021-11-11 18:40:18.012 | INFO     | __main__:main:199 - Video frame 63 | Frame-start 17429|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:18.686 | INFO     | __main__:main:205 - Video frame 63 | Frame-start 17429| Median filter
+2021-11-11 18:40:19.901 | INFO     | __main__:main:194 - Video frame 64 | Frame-start 17672| Reading binary sequence
+2021-11-11 18:40:20.690 | INFO     | __main__:main:199 - Video frame 64 | Frame-start 17672|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:20.884 | INFO     | __main__:main:205 - Video frame 64 | Frame-start 17672| Median filter
+2021-11-11 18:40:21.574 | INFO     | __main__:main:194 - Video frame 65 | Frame-start 17915| Reading binary sequence
+2021-11-11 18:40:23.089 | INFO     | __main__:main:199 - Video frame 65 | Frame-start 17915|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:23.294 | INFO     | __main__:main:205 - Video frame 65 | Frame-start 17915| Median filter
+2021-11-11 18:40:24.013 | INFO     | __main__:main:194 - Video frame 66 | Frame-start 18158| Reading binary sequence
+2021-11-11 18:40:24.770 | INFO     | __main__:main:199 - Video frame 66 | Frame-start 18158|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:24.982 | INFO     | __main__:main:205 - Video frame 66 | Frame-start 18158| Median filter
+2021-11-11 18:40:25.701 | INFO     | __main__:main:194 - Video frame 67 | Frame-start 18401| Reading binary sequence
+2021-11-11 18:40:27.261 | INFO     | __main__:main:199 - Video frame 67 | Frame-start 18401|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:27.599 | INFO     | __main__:main:205 - Video frame 67 | Frame-start 18401| Median filter
+2021-11-11 18:40:28.481 | INFO     | __main__:main:194 - Video frame 68 | Frame-start 18644| Reading binary sequence
+2021-11-11 18:40:29.277 | INFO     | __main__:main:199 - Video frame 68 | Frame-start 18644|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:29.779 | INFO     | __main__:main:205 - Video frame 68 | Frame-start 18644| Median filter
+2021-11-11 18:40:30.929 | INFO     | __main__:main:194 - Video frame 69 | Frame-start 18887| Reading binary sequence
+2021-11-11 18:40:32.564 | INFO     | __main__:main:199 - Video frame 69 | Frame-start 18887|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:33.341 | INFO     | __main__:main:205 - Video frame 69 | Frame-start 18887| Median filter
+2021-11-11 18:40:34.252 | INFO     | __main__:main:194 - Video frame 70 | Frame-start 19130| Reading binary sequence
+2021-11-11 18:40:35.059 | INFO     | __main__:main:199 - Video frame 70 | Frame-start 19130|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:35.292 | INFO     | __main__:main:205 - Video frame 70 | Frame-start 19130| Median filter
+2021-11-11 18:40:36.029 | INFO     | __main__:main:194 - Video frame 71 | Frame-start 19373| Reading binary sequence
+2021-11-11 18:40:37.702 | INFO     | __main__:main:199 - Video frame 71 | Frame-start 19373|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:37.911 | INFO     | __main__:main:205 - Video frame 71 | Frame-start 19373| Median filter
+2021-11-11 18:40:38.833 | INFO     | __main__:main:194 - Video frame 72 | Frame-start 19616| Reading binary sequence
+2021-11-11 18:40:39.583 | INFO     | __main__:main:199 - Video frame 72 | Frame-start 19616|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:39.784 | INFO     | __main__:main:205 - Video frame 72 | Frame-start 19616| Median filter
+2021-11-11 18:40:40.613 | INFO     | __main__:main:194 - Video frame 73 | Frame-start 19859| Reading binary sequence
+2021-11-11 18:40:42.075 | INFO     | __main__:main:199 - Video frame 73 | Frame-start 19859|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:42.572 | INFO     | __main__:main:205 - Video frame 73 | Frame-start 19859| Median filter
+2021-11-11 18:40:43.301 | INFO     | __main__:main:194 - Video frame 74 | Frame-start 20102| Reading binary sequence
+2021-11-11 18:40:44.056 | INFO     | __main__:main:199 - Video frame 74 | Frame-start 20102|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:44.688 | INFO     | __main__:main:205 - Video frame 74 | Frame-start 20102| Median filter
+2021-11-11 18:40:45.531 | INFO     | __main__:main:194 - Video frame 75 | Frame-start 20345| Reading binary sequence
+2021-11-11 18:40:47.064 | INFO     | __main__:main:199 - Video frame 75 | Frame-start 20345|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:47.264 | INFO     | __main__:main:205 - Video frame 75 | Frame-start 20345| Median filter
+2021-11-11 18:40:48.029 | INFO     | __main__:main:194 - Video frame 76 | Frame-start 20588| Reading binary sequence
+2021-11-11 18:40:48.834 | INFO     | __main__:main:199 - Video frame 76 | Frame-start 20588|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:49.049 | INFO     | __main__:main:205 - Video frame 76 | Frame-start 20588| Median filter
+2021-11-11 18:40:49.770 | INFO     | __main__:main:194 - Video frame 77 | Frame-start 20831| Reading binary sequence
+2021-11-11 18:40:51.302 | INFO     | __main__:main:199 - Video frame 77 | Frame-start 20831|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:51.528 | INFO     | __main__:main:205 - Video frame 77 | Frame-start 20831| Median filter
+2021-11-11 18:40:52.258 | INFO     | __main__:main:194 - Video frame 78 | Frame-start 21074| Reading binary sequence
+2021-11-11 18:40:53.044 | INFO     | __main__:main:199 - Video frame 78 | Frame-start 21074|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:53.273 | INFO     | __main__:main:205 - Video frame 78 | Frame-start 21074| Median filter
+2021-11-11 18:40:54.021 | INFO     | __main__:main:194 - Video frame 79 | Frame-start 21317| Reading binary sequence
+2021-11-11 18:40:55.604 | INFO     | __main__:main:199 - Video frame 79 | Frame-start 21317|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:40:55.866 | INFO     | __main__:main:205 - Video frame 79 | Frame-start 21317| Median filter
+2021-11-11 18:43:45.487 | INFO     | __main__:main:171 - Generating code LUT
+2021-11-11 18:43:45.514 | INFO     | __main__:main:182 - Loading stereo params
+2021-11-11 18:43:45.529 | INFO     | __main__:main:194 - Video frame 0 | Frame-start 2120| Reading binary sequence
+2021-11-11 18:43:46.511 | INFO     | __main__:main:199 - Video frame 0 | Frame-start 2120|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:43:46.738 | INFO     | __main__:main:205 - Video frame 0 | Frame-start 2120| Median filter
+2021-11-11 18:43:48.898 | INFO     | __main__:main:194 - Video frame 1 | Frame-start 2363| Reading binary sequence
+2021-11-11 18:43:50.289 | INFO     | __main__:main:199 - Video frame 1 | Frame-start 2363|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:43:50.483 | INFO     | __main__:main:205 - Video frame 1 | Frame-start 2363| Median filter
+2021-11-11 18:43:51.286 | INFO     | __main__:main:194 - Video frame 2 | Frame-start 2606| Reading binary sequence
+2021-11-11 18:43:51.995 | INFO     | __main__:main:199 - Video frame 2 | Frame-start 2606|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:43:52.209 | INFO     | __main__:main:205 - Video frame 2 | Frame-start 2606| Median filter
+2021-11-11 18:43:53.136 | INFO     | __main__:main:194 - Video frame 3 | Frame-start 2849| Reading binary sequence
+2021-11-11 18:43:54.533 | INFO     | __main__:main:199 - Video frame 3 | Frame-start 2849|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:43:55.022 | INFO     | __main__:main:205 - Video frame 3 | Frame-start 2849| Median filter
+2021-11-11 18:43:55.737 | INFO     | __main__:main:194 - Video frame 4 | Frame-start 3092| Reading binary sequence
+2021-11-11 18:43:56.459 | INFO     | __main__:main:199 - Video frame 4 | Frame-start 3092|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:43:56.674 | INFO     | __main__:main:205 - Video frame 4 | Frame-start 3092| Median filter
+2021-11-11 18:43:57.535 | INFO     | __main__:main:194 - Video frame 5 | Frame-start 3335| Reading binary sequence
+2021-11-11 18:43:58.271 | INFO     | __main__:main:199 - Video frame 5 | Frame-start 3335|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:43:58.667 | INFO     | __main__:main:205 - Video frame 5 | Frame-start 3335| Median filter
+2021-11-11 18:43:59.462 | INFO     | __main__:main:194 - Video frame 6 | Frame-start 3578| Reading binary sequence
+2021-11-11 18:44:00.846 | INFO     | __main__:main:199 - Video frame 6 | Frame-start 3578|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:01.327 | INFO     | __main__:main:205 - Video frame 6 | Frame-start 3578| Median filter
+2021-11-11 18:44:02.035 | INFO     | __main__:main:194 - Video frame 7 | Frame-start 3821| Reading binary sequence
+2021-11-11 18:44:02.767 | INFO     | __main__:main:199 - Video frame 7 | Frame-start 3821|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:03.200 | INFO     | __main__:main:205 - Video frame 7 | Frame-start 3821| Median filter
+2021-11-11 18:44:03.965 | INFO     | __main__:main:194 - Video frame 8 | Frame-start 4064| Reading binary sequence
+2021-11-11 18:44:05.348 | INFO     | __main__:main:199 - Video frame 8 | Frame-start 4064|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:05.613 | INFO     | __main__:main:205 - Video frame 8 | Frame-start 4064| Median filter
+2021-11-11 18:44:06.316 | INFO     | __main__:main:194 - Video frame 9 | Frame-start 4307| Reading binary sequence
+2021-11-11 18:44:07.051 | INFO     | __main__:main:199 - Video frame 9 | Frame-start 4307|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:07.456 | INFO     | __main__:main:205 - Video frame 9 | Frame-start 4307| Median filter
+2021-11-11 18:44:08.348 | INFO     | __main__:main:194 - Video frame 10 | Frame-start 4550| Reading binary sequence
+2021-11-11 18:44:09.801 | INFO     | __main__:main:199 - Video frame 10 | Frame-start 4550|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:10.002 | INFO     | __main__:main:205 - Video frame 10 | Frame-start 4550| Median filter
+2021-11-11 18:44:10.686 | INFO     | __main__:main:194 - Video frame 11 | Frame-start 4793| Reading binary sequence
+2021-11-11 18:44:11.458 | INFO     | __main__:main:199 - Video frame 11 | Frame-start 4793|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:11.649 | INFO     | __main__:main:205 - Video frame 11 | Frame-start 4793| Median filter
+2021-11-11 18:44:12.337 | INFO     | __main__:main:194 - Video frame 12 | Frame-start 5036| Reading binary sequence
+2021-11-11 18:44:13.770 | INFO     | __main__:main:199 - Video frame 12 | Frame-start 5036|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:13.962 | INFO     | __main__:main:205 - Video frame 12 | Frame-start 5036| Median filter
+2021-11-11 18:44:14.660 | INFO     | __main__:main:194 - Video frame 13 | Frame-start 5279| Reading binary sequence
+2021-11-11 18:44:15.441 | INFO     | __main__:main:199 - Video frame 13 | Frame-start 5279|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:15.648 | INFO     | __main__:main:205 - Video frame 13 | Frame-start 5279| Median filter
+2021-11-11 18:44:16.324 | INFO     | __main__:main:194 - Video frame 14 | Frame-start 5522| Reading binary sequence
+2021-11-11 18:44:17.750 | INFO     | __main__:main:199 - Video frame 14 | Frame-start 5522|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:18.215 | INFO     | __main__:main:205 - Video frame 14 | Frame-start 5522| Median filter
+2021-11-11 18:44:18.993 | INFO     | __main__:main:194 - Video frame 15 | Frame-start 5765| Reading binary sequence
+2021-11-11 18:44:19.769 | INFO     | __main__:main:199 - Video frame 15 | Frame-start 5765|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:19.952 | INFO     | __main__:main:205 - Video frame 15 | Frame-start 5765| Median filter
+2021-11-11 18:44:20.639 | INFO     | __main__:main:194 - Video frame 16 | Frame-start 6008| Reading binary sequence
+2021-11-11 18:44:22.075 | INFO     | __main__:main:199 - Video frame 16 | Frame-start 6008|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:22.280 | INFO     | __main__:main:205 - Video frame 16 | Frame-start 6008| Median filter
+2021-11-11 18:44:23.243 | INFO     | __main__:main:194 - Video frame 17 | Frame-start 6251| Reading binary sequence
+2021-11-11 18:44:23.978 | INFO     | __main__:main:199 - Video frame 17 | Frame-start 6251|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:24.168 | INFO     | __main__:main:205 - Video frame 17 | Frame-start 6251| Median filter
+2021-11-11 18:44:24.854 | INFO     | __main__:main:194 - Video frame 18 | Frame-start 6494| Reading binary sequence
+2021-11-11 18:44:26.299 | INFO     | __main__:main:199 - Video frame 18 | Frame-start 6494|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:26.491 | INFO     | __main__:main:205 - Video frame 18 | Frame-start 6494| Median filter
+2021-11-11 18:44:27.269 | INFO     | __main__:main:194 - Video frame 19 | Frame-start 6737| Reading binary sequence
+2021-11-11 18:44:27.965 | INFO     | __main__:main:199 - Video frame 19 | Frame-start 6737|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:28.436 | INFO     | __main__:main:205 - Video frame 19 | Frame-start 6737| Median filter
+2021-11-11 18:44:29.326 | INFO     | __main__:main:194 - Video frame 20 | Frame-start 6980| Reading binary sequence
+2021-11-11 18:44:30.695 | INFO     | __main__:main:199 - Video frame 20 | Frame-start 6980|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:31.083 | INFO     | __main__:main:205 - Video frame 20 | Frame-start 6980| Median filter
+2021-11-11 18:44:31.792 | INFO     | __main__:main:194 - Video frame 21 | Frame-start 7223| Reading binary sequence
+2021-11-11 18:44:32.510 | INFO     | __main__:main:199 - Video frame 21 | Frame-start 7223|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:32.712 | INFO     | __main__:main:205 - Video frame 21 | Frame-start 7223| Median filter
+2021-11-11 18:44:33.471 | INFO     | __main__:main:194 - Video frame 22 | Frame-start 7466| Reading binary sequence
+2021-11-11 18:44:34.842 | INFO     | __main__:main:199 - Video frame 22 | Frame-start 7466|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:35.147 | INFO     | __main__:main:205 - Video frame 22 | Frame-start 7466| Median filter
+2021-11-11 18:44:35.848 | INFO     | __main__:main:194 - Video frame 23 | Frame-start 7709| Reading binary sequence
+2021-11-11 18:44:36.574 | INFO     | __main__:main:199 - Video frame 23 | Frame-start 7709|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:36.759 | INFO     | __main__:main:205 - Video frame 23 | Frame-start 7709| Median filter
+2021-11-11 18:44:37.600 | INFO     | __main__:main:194 - Video frame 24 | Frame-start 7952| Reading binary sequence
+2021-11-11 18:44:38.328 | INFO     | __main__:main:199 - Video frame 24 | Frame-start 7952|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:38.766 | INFO     | __main__:main:205 - Video frame 24 | Frame-start 7952| Median filter
+2021-11-11 18:44:39.683 | INFO     | __main__:main:194 - Video frame 25 | Frame-start 8195| Reading binary sequence
+2021-11-11 18:44:40.446 | INFO     | __main__:main:199 - Video frame 25 | Frame-start 8195|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:40.680 | INFO     | __main__:main:205 - Video frame 25 | Frame-start 8195| Median filter
+2021-11-11 18:44:41.659 | INFO     | __main__:main:194 - Video frame 26 | Frame-start 8438| Reading binary sequence
+2021-11-11 18:44:42.370 | INFO     | __main__:main:199 - Video frame 26 | Frame-start 8438|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:42.563 | INFO     | __main__:main:205 - Video frame 26 | Frame-start 8438| Median filter
+2021-11-11 18:44:43.347 | INFO     | __main__:main:194 - Video frame 27 | Frame-start 8681| Reading binary sequence
+2021-11-11 18:44:44.704 | INFO     | __main__:main:199 - Video frame 27 | Frame-start 8681|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:45.159 | INFO     | __main__:main:205 - Video frame 27 | Frame-start 8681| Median filter
+2021-11-11 18:44:45.834 | INFO     | __main__:main:194 - Video frame 28 | Frame-start 8924| Reading binary sequence
+2021-11-11 18:44:46.551 | INFO     | __main__:main:199 - Video frame 28 | Frame-start 8924|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:46.944 | INFO     | __main__:main:205 - Video frame 28 | Frame-start 8924| Median filter
+2021-11-11 18:44:47.636 | INFO     | __main__:main:194 - Video frame 29 | Frame-start 9167| Reading binary sequence
+2021-11-11 18:44:49.004 | INFO     | __main__:main:199 - Video frame 29 | Frame-start 9167|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:49.408 | INFO     | __main__:main:205 - Video frame 29 | Frame-start 9167| Median filter
+2021-11-11 18:44:50.131 | INFO     | __main__:main:194 - Video frame 30 | Frame-start 9410| Reading binary sequence
+2021-11-11 18:44:50.849 | INFO     | __main__:main:199 - Video frame 30 | Frame-start 9410|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:51.053 | INFO     | __main__:main:205 - Video frame 30 | Frame-start 9410| Median filter
+2021-11-11 18:44:51.855 | INFO     | __main__:main:194 - Video frame 31 | Frame-start 9653| Reading binary sequence
+2021-11-11 18:44:53.271 | INFO     | __main__:main:199 - Video frame 31 | Frame-start 9653|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:53.462 | INFO     | __main__:main:205 - Video frame 31 | Frame-start 9653| Median filter
+2021-11-11 18:44:54.176 | INFO     | __main__:main:194 - Video frame 32 | Frame-start 9896| Reading binary sequence
+2021-11-11 18:44:54.889 | INFO     | __main__:main:199 - Video frame 32 | Frame-start 9896|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:55.109 | INFO     | __main__:main:205 - Video frame 32 | Frame-start 9896| Median filter
+2021-11-11 18:44:55.907 | INFO     | __main__:main:194 - Video frame 33 | Frame-start 10139| Reading binary sequence
+2021-11-11 18:44:57.450 | INFO     | __main__:main:199 - Video frame 33 | Frame-start 10139|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:44:57.870 | INFO     | __main__:main:205 - Video frame 33 | Frame-start 10139| Median filter
+2021-11-11 18:44:59.008 | INFO     | __main__:main:194 - Video frame 34 | Frame-start 10382| Reading binary sequence
+2021-11-11 18:45:00.039 | INFO     | __main__:main:199 - Video frame 34 | Frame-start 10382|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:01.762 | INFO     | __main__:main:205 - Video frame 34 | Frame-start 10382| Median filter
+2021-11-11 18:45:02.710 | INFO     | __main__:main:194 - Video frame 35 | Frame-start 10625| Reading binary sequence
+2021-11-11 18:45:04.261 | INFO     | __main__:main:199 - Video frame 35 | Frame-start 10625|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:04.481 | INFO     | __main__:main:205 - Video frame 35 | Frame-start 10625| Median filter
+2021-11-11 18:45:05.725 | INFO     | __main__:main:194 - Video frame 36 | Frame-start 10868| Reading binary sequence
+2021-11-11 18:45:06.460 | INFO     | __main__:main:199 - Video frame 36 | Frame-start 10868|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:06.674 | INFO     | __main__:main:205 - Video frame 36 | Frame-start 10868| Median filter
+2021-11-11 18:45:07.561 | INFO     | __main__:main:194 - Video frame 37 | Frame-start 11111| Reading binary sequence
+2021-11-11 18:45:09.032 | INFO     | __main__:main:199 - Video frame 37 | Frame-start 11111|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:10.021 | INFO     | __main__:main:205 - Video frame 37 | Frame-start 11111| Median filter
+2021-11-11 18:45:10.977 | INFO     | __main__:main:194 - Video frame 38 | Frame-start 11354| Reading binary sequence
+2021-11-11 18:45:11.728 | INFO     | __main__:main:199 - Video frame 38 | Frame-start 11354|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:11.938 | INFO     | __main__:main:205 - Video frame 38 | Frame-start 11354| Median filter
+2021-11-11 18:45:12.719 | INFO     | __main__:main:194 - Video frame 39 | Frame-start 11597| Reading binary sequence
+2021-11-11 18:45:14.199 | INFO     | __main__:main:199 - Video frame 39 | Frame-start 11597|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:14.401 | INFO     | __main__:main:205 - Video frame 39 | Frame-start 11597| Median filter
+2021-11-11 18:45:15.318 | INFO     | __main__:main:194 - Video frame 40 | Frame-start 11840| Reading binary sequence
+2021-11-11 18:45:16.083 | INFO     | __main__:main:199 - Video frame 40 | Frame-start 11840|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:16.285 | INFO     | __main__:main:205 - Video frame 40 | Frame-start 11840| Median filter
+2021-11-11 18:45:17.070 | INFO     | __main__:main:194 - Video frame 41 | Frame-start 12083| Reading binary sequence
+2021-11-11 18:45:18.559 | INFO     | __main__:main:199 - Video frame 41 | Frame-start 12083|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:19.025 | INFO     | __main__:main:205 - Video frame 41 | Frame-start 12083| Median filter
+2021-11-11 18:45:19.786 | INFO     | __main__:main:194 - Video frame 42 | Frame-start 12326| Reading binary sequence
+2021-11-11 18:45:20.544 | INFO     | __main__:main:199 - Video frame 42 | Frame-start 12326|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:21.126 | INFO     | __main__:main:205 - Video frame 42 | Frame-start 12326| Median filter
+2021-11-11 18:45:21.924 | INFO     | __main__:main:194 - Video frame 43 | Frame-start 12569| Reading binary sequence
+2021-11-11 18:45:23.418 | INFO     | __main__:main:199 - Video frame 43 | Frame-start 12569|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:23.617 | INFO     | __main__:main:205 - Video frame 43 | Frame-start 12569| Median filter
+2021-11-11 18:45:24.354 | INFO     | __main__:main:194 - Video frame 44 | Frame-start 12812| Reading binary sequence
+2021-11-11 18:45:25.144 | INFO     | __main__:main:199 - Video frame 44 | Frame-start 12812|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:25.597 | INFO     | __main__:main:205 - Video frame 44 | Frame-start 12812| Median filter
+2021-11-11 18:45:26.327 | INFO     | __main__:main:194 - Video frame 45 | Frame-start 13055| Reading binary sequence
+2021-11-11 18:45:27.080 | INFO     | __main__:main:199 - Video frame 45 | Frame-start 13055|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:27.638 | INFO     | __main__:main:205 - Video frame 45 | Frame-start 13055| Median filter
+2021-11-11 18:45:28.380 | INFO     | __main__:main:194 - Video frame 46 | Frame-start 13298| Reading binary sequence
+2021-11-11 18:45:29.882 | INFO     | __main__:main:199 - Video frame 46 | Frame-start 13298|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:30.262 | INFO     | __main__:main:205 - Video frame 46 | Frame-start 13298| Median filter
+2021-11-11 18:45:31.034 | INFO     | __main__:main:194 - Video frame 47 | Frame-start 13541| Reading binary sequence
+2021-11-11 18:45:31.833 | INFO     | __main__:main:199 - Video frame 47 | Frame-start 13541|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:32.070 | INFO     | __main__:main:205 - Video frame 47 | Frame-start 13541| Median filter
+2021-11-11 18:45:32.803 | INFO     | __main__:main:194 - Video frame 48 | Frame-start 13784| Reading binary sequence
+2021-11-11 18:45:34.263 | INFO     | __main__:main:199 - Video frame 48 | Frame-start 13784|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:34.450 | INFO     | __main__:main:205 - Video frame 48 | Frame-start 13784| Median filter
+2021-11-11 18:45:35.692 | INFO     | __main__:main:194 - Video frame 49 | Frame-start 14027| Reading binary sequence
+2021-11-11 18:45:36.426 | INFO     | __main__:main:199 - Video frame 49 | Frame-start 14027|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:36.657 | INFO     | __main__:main:205 - Video frame 49 | Frame-start 14027| Median filter
+2021-11-11 18:45:37.494 | INFO     | __main__:main:194 - Video frame 50 | Frame-start 14270| Reading binary sequence
+2021-11-11 18:45:38.933 | INFO     | __main__:main:199 - Video frame 50 | Frame-start 14270|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:39.363 | INFO     | __main__:main:205 - Video frame 50 | Frame-start 14270| Median filter
+2021-11-11 18:45:40.128 | INFO     | __main__:main:194 - Video frame 51 | Frame-start 14513| Reading binary sequence
+2021-11-11 18:45:40.910 | INFO     | __main__:main:199 - Video frame 51 | Frame-start 14513|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:41.690 | INFO     | __main__:main:205 - Video frame 51 | Frame-start 14513| Median filter
+2021-11-11 18:45:42.480 | INFO     | __main__:main:194 - Video frame 52 | Frame-start 14756| Reading binary sequence
+2021-11-11 18:45:44.016 | INFO     | __main__:main:199 - Video frame 52 | Frame-start 14756|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:44.213 | INFO     | __main__:main:205 - Video frame 52 | Frame-start 14756| Median filter
+2021-11-11 18:45:44.969 | INFO     | __main__:main:194 - Video frame 53 | Frame-start 14999| Reading binary sequence
+2021-11-11 18:45:45.779 | INFO     | __main__:main:199 - Video frame 53 | Frame-start 14999|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:45.975 | INFO     | __main__:main:205 - Video frame 53 | Frame-start 14999| Median filter
+2021-11-11 18:45:46.699 | INFO     | __main__:main:194 - Video frame 54 | Frame-start 15242| Reading binary sequence
+2021-11-11 18:45:48.172 | INFO     | __main__:main:199 - Video frame 54 | Frame-start 15242|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:48.376 | INFO     | __main__:main:205 - Video frame 54 | Frame-start 15242| Median filter
+2021-11-11 18:45:49.278 | INFO     | __main__:main:194 - Video frame 55 | Frame-start 15485| Reading binary sequence
+2021-11-11 18:45:50.064 | INFO     | __main__:main:199 - Video frame 55 | Frame-start 15485|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:50.837 | INFO     | __main__:main:205 - Video frame 55 | Frame-start 15485| Median filter
+2021-11-11 18:45:51.939 | INFO     | __main__:main:194 - Video frame 56 | Frame-start 15728| Reading binary sequence
+2021-11-11 18:45:53.461 | INFO     | __main__:main:199 - Video frame 56 | Frame-start 15728|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:53.667 | INFO     | __main__:main:205 - Video frame 56 | Frame-start 15728| Median filter
+2021-11-11 18:45:54.543 | INFO     | __main__:main:194 - Video frame 57 | Frame-start 15971| Reading binary sequence
+2021-11-11 18:45:55.341 | INFO     | __main__:main:199 - Video frame 57 | Frame-start 15971|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:55.605 | INFO     | __main__:main:205 - Video frame 57 | Frame-start 15971| Median filter
+2021-11-11 18:45:56.307 | INFO     | __main__:main:194 - Video frame 58 | Frame-start 16214| Reading binary sequence
+2021-11-11 18:45:57.892 | INFO     | __main__:main:199 - Video frame 58 | Frame-start 16214|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:45:58.152 | INFO     | __main__:main:205 - Video frame 58 | Frame-start 16214| Median filter
+2021-11-11 18:45:58.976 | INFO     | __main__:main:194 - Video frame 59 | Frame-start 16457| Reading binary sequence
+2021-11-11 18:45:59.790 | INFO     | __main__:main:199 - Video frame 59 | Frame-start 16457|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:46:00.056 | INFO     | __main__:main:205 - Video frame 59 | Frame-start 16457| Median filter
+2021-11-11 18:46:00.909 | INFO     | __main__:main:194 - Video frame 60 | Frame-start 16700| Reading binary sequence
+2021-11-11 18:46:02.446 | INFO     | __main__:main:199 - Video frame 60 | Frame-start 16700|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:46:02.677 | INFO     | __main__:main:205 - Video frame 60 | Frame-start 16700| Median filter
+2021-11-11 18:46:03.683 | INFO     | __main__:main:194 - Video frame 61 | Frame-start 16943| Reading binary sequence
+2021-11-11 18:46:04.466 | INFO     | __main__:main:199 - Video frame 61 | Frame-start 16943|Decoding Hybrid BCH [63, 7] [gray_message]
+2021-11-11 18:46:04.683 | INFO     | __main__:main:205 - Video frame 61 | Frame-start 16943| Median filter

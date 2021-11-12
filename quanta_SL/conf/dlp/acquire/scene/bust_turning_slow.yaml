@@ -1,0 +1,9 @@
+name: bust_turning/slow
+calibration:
+  folder: ${hydra:runtime.cwd}/outputs/real_captures/DLP_projector/29th_October/calibration
+  file_name: stereo_model
+  mat_file: ${scene.calibration.folder}/${scene.calibration.file_name}.mat
+  npz_file: ${scene.calibration.folder}/${scene.calibration.file_name}.npz
+view_kwargs: {}
+depth_map_vmin: 52.745076326612086
+depth_map_vmax: 54.97825131643278

@@ -1,0 +1,13 @@
+name: hand_gest_varun
+calibration:
+  folder: ${hydra:runtime.cwd}/outputs/real_captures/DLP_projector/29th_October/calibration
+  file_name: stereo_model
+  mat_file: ${scene.calibration.folder}/${scene.calibration.file_name}.mat
+  npz_file: ${scene.calibration.folder}/${scene.calibration.file_name}.npz
+view_kwargs: {}
+#depth_map_vmin: 49.5
+#depth_map_vmax: 50.5
+depth_map_vmin: 49
+depth_map_vmax: 52
+#depth_map_vmin: 0
+#depth_map_vmax: 100

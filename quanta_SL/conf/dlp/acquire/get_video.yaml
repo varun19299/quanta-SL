@@ -11,8 +11,6 @@ savefig: True
 capture_date: 29th_October
 outfolder: ${hydra:runtime.cwd}/outputs/real_captures/DLP_projector/${capture_date}/${scene.name}
 
-mask_path: roi_mask.npy
-
 # Numbering from 0...
 frame_start: 1878 #2629 for 511 # 1610
 frame_range: range(0,3)

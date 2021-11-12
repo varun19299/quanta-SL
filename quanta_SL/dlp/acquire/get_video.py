@@ -7,27 +7,30 @@ from dotmap import DotMap
 from loguru import logger
 from matplotlib import pyplot as plt
 from omegaconf import OmegaConf
-from roipoly import RoiPoly
 from scipy.signal import medfilt2d
 from tqdm import tqdm
-from math import floor
+from scipy.signal import medfilt
 
 from quanta_SL.encode import metaclass
 from quanta_SL.encode.message import (
     registry as message_registry,
 )
+from quanta_SL.reconstruct.project3d import triangulate_ray_plane
+from einops import repeat
 from quanta_SL.io import load_swiss_spad_bin
 from quanta_SL.lcd.acquire.decode_correspondences import get_code_LUT_decoding_func
-
-# Disable inner logging
-from quanta_SL.lcd.decode_helper import decode_2d_code
 from quanta_SL.lcd.acquire.reconstruct import (
     get_intrinsic_extrinsic,
     inpaint_func,
-    reconstruct_3d,
     stereo_setup,
 )
+
+# Disable inner logging
+from quanta_SL.lcd.decode_helper import decode_2d_code
 from quanta_SL.utils.plotting import save_plot, plot_image_and_colorbar
+
+import imageio
+import matplotlib
 
 logger.disable("quanta_SL")
 logger.add(f"logs/lcd_scenes_{Path(__file__).stem}.log", rotation="daily", retention=3)
@@ -77,7 +80,7 @@ def get_binary_frame(folder: Path, bin_suffix: int, samples: int = 1, **kwargs):
     return binary_burst[indices]
 
 
-def get_binary_sequence(cfg, code_LUT):
+def get_binary_sequence(frame_start: int, cfg, code_LUT):
     """
     Get Binary frames for a strategy
 
@@ -86,7 +89,6 @@ def get_binary_sequence(cfg, code_LUT):
     :return:
     """
 
-    frame_start = cfg.frame_start
     bin_suffix_start = frame_start // cfg.bursts_per_bin
     bin_start_modulous = frame_start % cfg.bursts_per_bin
 
@@ -97,12 +99,9 @@ def get_binary_sequence(cfg, code_LUT):
     bin_end_modulous = frame_end % cfg.bursts_per_bin + 1
 
     bin_suffix_range = range(bin_suffix_start, bin_suffix_end + 1)
-    pbar = tqdm(bin_suffix_range)
-
     frame_sequence = []
 
-    for bin_suffix in pbar:
-        pbar.set_description(f"Bin Suffix {bin_suffix}")
+    for bin_suffix in bin_suffix_range:
         binary_burst = load_swiss_spad_bin(cfg.method.folder, bin_suffix=bin_suffix)
 
         if bin_suffix == bin_suffix_start:
@@ -125,10 +124,7 @@ def get_binary_sequence(cfg, code_LUT):
     post_adding_frame_sequence = post_adding_frame_sequence > 0
 
     # First is all-white
-    logger.info(f"All White")
     img = post_adding_frame_sequence.mean(axis=0)
-
-    logger.info("Binary frames")
     binary_sequence = post_adding_frame_sequence[1:]
 
     if cfg.method.visualize_frame:
@@ -179,86 +175,93 @@ def main(cfg):
     elif "Conv Gray" in cfg.method.name:
         code_LUT, decoding_func = get_code_LUT_decoding_func(cfg.method, "repetition")
 
-    logger.info("Reading binary sequence")
-    img, binary_sequence = get_binary_sequence(cfg, code_LUT)
-
-    logger.info(f"Decoding {cfg.method.name}")
-    binary_decoded = decode_2d_code(binary_sequence, code_LUT, decoding_func)
-
-    # Median filter binary decoded
-    logger.info(f"Median filter")
-    binary_decoded = medfilt2d(binary_decoded)
-
-    inpaint_mask = get_intrinsic_extrinsic.get_mask(cfg)
-    img = inpaint_func(img, inpaint_mask)
-
-    # Regions to ignore
-    # Custom RoI
-    mask_path = Path(cfg.mask_path)
-    if mask_path.exists():
-        logger.info(f"RoI Mask found at {mask_path}")
-        mask = np.load(mask_path)
-
-    else:
-        plt.imshow(img)
-        my_roi = RoiPoly(color="r")
-        my_roi.display_roi()
-
-        mask = my_roi.get_mask(img)
-
-        # Ignore shadows and black areas, white pixels
-        # Valid regions are 1
-        mask_shadows = (img > 0.2) | (img < 0.90)
-        mask = mask & mask_shadows
-
-        np.save(mask_path, mask)
-
-    # Save img
-    # cv2.imwrite(cfg.img, (img * 255).astype(int))
-
-    # Save mask
-    plot_image_and_colorbar(
-        mask,
-        f"mask",
-        show=cfg.show,
-        savefig=cfg.savefig,
-        cmap="jet",
-    )
-
-    # Save correspondences
-    plot_image_and_colorbar(
-        binary_decoded * mask,
-        f"correspondences",
-        show=cfg.show,
-        savefig=cfg.savefig,
-        title=f"Correspondences",
-    )
-
-    # Save binary and gt correspondences
-    np.savez(f"correspondences.npz", binary_decoded=binary_decoded)
-
-    # Reconstruction
-
-    binary_decoded = inpaint_func(binary_decoded, inpaint_mask)
+    num_video_frames = 62
+    frame_gap = (code_LUT.shape[1] + 2) * cfg.bursts_per_pattern
 
     # Obtain stereo calibration params
     logger.info("Loading stereo params")
     camera_matrix, projector_matrix, camera_pixels = stereo_setup(cfg)
 
-    # 3d reconstruction
-    cfg.show = True
-    method_points_3d = reconstruct_3d(
-        cfg,
-        binary_decoded,
-        camera_pixels,
-        mask,
-        camera_matrix,
-        projector_matrix,
-        img,
-        depth_map_vmin=cfg.scene.get("depth_map_vmin"),
-        depth_map_vmax=cfg.scene.get("depth_map_vmax"),
-        fname=f"reconstruction",
+    valid_indices = np.where(np.ones((cfg.spad.height, cfg.spad.width)))
+    camera_pixels = np.stack(
+        [camera_pixels[0][valid_indices], camera_pixels[1][valid_indices]], axis=1
     )
+
+    depth_map_ll = []
+
+    for i in range(num_video_frames):
+        frame_start = cfg.frame_start + i * frame_gap
+        logger.info(
+            f"Video frame {i} | Frame-start {frame_start}| Reading binary sequence"
+        )
+        img, binary_sequence = get_binary_sequence(frame_start, cfg, code_LUT)
+
+        logger.info(
+            f"Video frame {i} | Frame-start {frame_start}|Decoding {cfg.method.name}"
+        )
+        binary_decoded = decode_2d_code(binary_sequence, code_LUT, decoding_func)
+
+        # Median filter binary decoded
+        logger.info(f"Video frame {i} | Frame-start {frame_start}| Median filter")
+        binary_decoded = medfilt2d(binary_decoded)
+
+        inpaint_mask = get_intrinsic_extrinsic.get_mask(cfg)
+
+        binary_decoded = inpaint_func(binary_decoded, inpaint_mask)
+
+        # Save correspondences
+        plt.imshow(binary_decoded)
+        plt.colorbar()
+        save_plot(
+            cfg.savefig,
+            show=cfg.show,
+            fname=f"depth_maps/correspondence_{frame_start}.pdf",
+        )
+
+        # 3d reconstruction
+        projector_pixels = binary_decoded[valid_indices]
+        projector_pixels = np.stack(
+            [projector_pixels, np.zeros_like(projector_pixels)], axis=1
+        )
+
+        # Triangulate, remove invalid intersections
+        points_3d = triangulate_ray_plane(
+            camera_matrix, projector_matrix, camera_pixels, projector_pixels, axis=0
+        )
+
+        # Median filtering
+        points_3d[:, 2] = medfilt(points_3d[:, 2], kernel_size=5)
+
+        # Depth map
+        depth_map = np.zeros((cfg.spad.height, cfg.spad.width))
+        depth_map[valid_indices] = points_3d[:, 2]
+        mask = (depth_map >= cfg.scene.get("depth_map_vmin")) & (
+            depth_map <= cfg.scene.get("depth_map_vmax")
+        )
+        depth_map[~mask] = np.nan
+
+        cmap = matplotlib.cm.get_cmap("jet").copy()
+        cmap.set_bad("black", alpha=1.0)
+        plt.imshow(
+            depth_map,
+            vmin=cfg.scene.get("depth_map_vmin"),
+            vmax=cfg.scene.get("depth_map_vmax"),
+            cmap=cmap,
+        )
+        plt.colorbar()
+        save_plot(
+            cfg.savefig,
+            show=cfg.show,
+            fname=f"depth_maps/depth_map_{frame_start}.png",
+        )
+
+        depth_map_ll.append(depth_map)
+
+    with imageio.get_writer("mygif.gif", mode="I") as writer:
+        for i in range(num_video_frames):
+            frame_start = cfg.frame_start + i * frame_gap
+            image = imageio.imread(f"depth_maps/depth_map_{frame_start}.png")
+            writer.append_data(image)
 
 
 if __name__ == "__main__":

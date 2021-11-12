@@ -8,10 +8,10 @@ from quanta_SL.io import load_swiss_spad_bin
 
 logger.disable("quanta_SL")
 
-bin_range = range(60, 70)
+bin_range = range(10, 15)
 bin_offset = 0
 capture_date = "29th_October"
-folder_name = "curtain/Hybrid BCH [31, 11] [gray_message]"
+folder_name = "hand_gest_varun/Hybrid BCH [63, 7] [gray_message]"
 
 folder = Path(f"outputs/real_captures/DLP_projector/{capture_date}/{folder_name}/")
 out_folder = folder / f"binary_frames{bin_range}"

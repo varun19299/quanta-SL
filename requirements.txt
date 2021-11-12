@@ -12,6 +12,7 @@ hydra-core>=1.1
 hydra-joblib-launcher
 hydra-optuna-sweeper
 
+imageio
 ipdb
 line_profiler
 loguru
