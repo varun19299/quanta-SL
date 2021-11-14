@@ -1,36 +1,26 @@
 from pathlib import Path
 
-import cv2
 import hydra
+import imageio
+import matplotlib
 import numpy as np
-from dotmap import DotMap
 from loguru import logger
 from matplotlib import pyplot as plt
 from omegaconf import OmegaConf
-from scipy.signal import medfilt2d
-from tqdm import tqdm
 from scipy.signal import medfilt
+from scipy.signal import medfilt2d
 
-from quanta_SL.encode import metaclass
-from quanta_SL.encode.message import (
-    registry as message_registry,
-)
-from quanta_SL.reconstruct.project3d import triangulate_ray_plane
-from einops import repeat
-from quanta_SL.io import load_swiss_spad_bin
+from quanta_SL.dlp.acquire.decode_correspondences import setup_args, get_binary_sequence
 from quanta_SL.lcd.acquire.decode_correspondences import get_code_LUT_decoding_func
 from quanta_SL.lcd.acquire.reconstruct import (
     get_intrinsic_extrinsic,
     inpaint_func,
     stereo_setup,
 )
-
 # Disable inner logging
 from quanta_SL.lcd.decode_helper import decode_2d_code
-from quanta_SL.utils.plotting import save_plot, plot_image_and_colorbar
-
-import imageio
-import matplotlib
+from quanta_SL.reconstruct.project3d import triangulate_ray_plane
+from quanta_SL.utils.plotting import save_plot
 
 logger.disable("quanta_SL")
 logger.add(f"logs/lcd_scenes_{Path(__file__).stem}.log", rotation="daily", retention=3)
@@ -45,121 +35,6 @@ params = {
     "ytick.labelsize": "large",
 }
 plt.rcParams.update(params)
-
-
-def setup_args(cfg):
-    """
-    Performs config interpolation and str to python objects
-    :param cfg:
-    :return:
-    """
-
-    cfg = DotMap(OmegaConf.to_object(cfg))
-
-    if "Hybrid" in cfg.method.name:
-        cfg.method.bch_tuple = metaclass.BCH(*cfg.method.bch_tuple.values())
-    elif "Gray Code" in cfg.method.name:
-        cfg.method.repetition_tuple = metaclass.Repetition(
-            *cfg.method.repetition_tuple.values()
-        )
-
-    cfg.method.message_mapping = message_registry[cfg.method.message_mapping]
-
-    # Convert range string to python range
-    cfg.frame_range = eval(cfg.frame_range)
-
-    return cfg
-
-
-def get_binary_frame(folder: Path, bin_suffix: int, samples: int = 1, **kwargs):
-    kwargs = {**dict(num_rows=256, num_cols=512), **kwargs}
-    binary_burst = load_swiss_spad_bin(folder, bin_suffix=bin_suffix, **kwargs)
-
-    indices = np.random.choice(len(binary_burst), size=samples)
-
-    return binary_burst[indices]
-
-
-def get_binary_sequence(frame_start: int, cfg, code_LUT):
-    """
-    Get Binary frames for a strategy
-
-    :param cfg: Overall conf
-    :param code_LUT: Look Up Table for code
-    :return:
-    """
-
-    bin_suffix_start = frame_start // cfg.bursts_per_bin
-    bin_start_modulous = frame_start % cfg.bursts_per_bin
-
-    # Include all-white
-    num_patterns = code_LUT.shape[1] + 1
-    frame_end = frame_start + num_patterns * cfg.bursts_per_pattern - 1
-    bin_suffix_end = frame_end // cfg.bursts_per_bin
-    bin_end_modulous = frame_end % cfg.bursts_per_bin + 1
-
-    bin_suffix_range = range(bin_suffix_start, bin_suffix_end + 1)
-    frame_sequence = []
-
-    for bin_suffix in bin_suffix_range:
-        binary_burst = load_swiss_spad_bin(cfg.method.folder, bin_suffix=bin_suffix)
-
-        if bin_suffix == bin_suffix_start:
-            if bin_suffix == bin_suffix_end:
-                frame_sequence.append(binary_burst[bin_start_modulous:bin_end_modulous])
-            else:
-                frame_sequence.append(binary_burst[bin_start_modulous:])
-        elif bin_suffix == bin_suffix_end:
-            frame_sequence.append(binary_burst[:bin_end_modulous])
-        else:
-            frame_sequence.append(binary_burst)
-
-    # Range adding
-    frame_sequence = np.concatenate(frame_sequence, axis=0)
-    post_adding_frame_sequence = np.zeros_like(frame_sequence)[:num_patterns]
-    for j in cfg.frame_range:
-        post_adding_frame_sequence += frame_sequence[j :: cfg.bursts_per_pattern]
-
-    # Num photons > 0
-    post_adding_frame_sequence = post_adding_frame_sequence > 0
-
-    # First is all-white
-    img = post_adding_frame_sequence.mean(axis=0)
-    binary_sequence = post_adding_frame_sequence[1:]
-
-    if cfg.method.visualize_frame:
-        logger.info("Saving frames")
-        plt.imshow(img, cmap="gray")
-        save_plot(
-            savefig=cfg.savefig,
-            show=cfg.show,
-            fname=f"frame_wise/mean_image.pdf",
-        )
-        cv2.imwrite(
-            f"frame_wise/mean_image.png",
-            img * 255,
-        )
-
-        pbar = tqdm(total=len(binary_sequence))
-        for e, binary_frame in enumerate(binary_sequence):
-            pbar.set_description(f"Saving binary frame {e}")
-            plt.imshow(binary_frame, cmap="gray")
-            save_plot(
-                savefig=cfg.savefig,
-                show=cfg.show,
-                fname=f"frame_wise/binary_frame{e}.pdf",
-            )
-            cv2.imwrite(
-                f"frame_wise/binary_frame{e}.png",
-                binary_frame * 255,
-            )
-            pbar.update(1)
-
-    if cfg.method.rotate_180:
-        img = img[::-1, ::-1]
-        binary_sequence = binary_sequence[:, ::-1, ::-1]
-
-    return img, binary_sequence
 
 
 @hydra.main(config_path="../../conf/dlp/acquire", config_name=Path(__file__).stem)

@@ -8,16 +8,16 @@ from matplotlib import pyplot as plt
 
 from quanta_SL.utils.plotting import save_plot
 
-plt.style.use(["ieee", "grid", "std-colors"])
+plt.style.use(["grid"])
 
 params = {
-    "legend.fontsize": "x-large",
+    "legend.fontsize": 14,
     "figure.figsize": (7, 4),
-    "axes.labelsize": "xx-large",
-    "axes.titlesize": "xx-large",
-    "xtick.labelsize": "xx-large",
-    "ytick.labelsize": "xx-large",
-    "font.family": "Calibri"
+    "axes.labelsize": 14,
+    "axes.titlesize": 14,
+    "xtick.labelsize": 14,
+    "ytick.labelsize": 14,
+    "font.family": "Times New Roman",
 }
 plt.rcParams.update(params)
 
@@ -28,7 +28,8 @@ df = df.drop(columns=["BCH [31, 11]"])
 df["Method"] = df["Method"].str.replace("-", "\n")
 df = df.set_index("Method")
 df = df.iloc[::-1]
-df.plot.barh(grid=True)
+
+df.plot.barh(grid=True) #, color=["#36454F", "#808080", "#A9A9A9"][::-1])
 
 plt.xlim(1e-3, 3e2)
 plt.legend()

@@ -375,6 +375,7 @@ def multiple_surface_plotly_3d(
             autosize=False,
             width=900,
             height=900,
+            font_family="Times New Roman",
         )
     )
 
@@ -406,44 +407,30 @@ def multiple_surface_plotly_3d(
             )
         )
 
-        line_marker = dict(color="black", width=2)
-        for i, j, k in zip(phi_proj_mesh[::4], phi_A_mesh[::4], eval_error[::4]):
-            fig.add_trace(
-                go.Scatter3d(
-                    x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
-                )
-            )
-
-        for i, j, k in zip(phi_proj_mesh.T[::4], phi_A_mesh.T[::4], eval_error.T[::4]):
-            fig.add_trace(
-                go.Scatter3d(
-                    x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
-                )
-            )
-
+    tickfont_dict = dict(tickfont_size=12, tickfont_color="black")
     fig.update_layout(
         title=dict(text=title, x=0.5, y=0.9, xanchor="center", yanchor="top"),
         scene=dict(
             xaxis=dict(
                 title=r"Projector Flux",
-                tickfont_size=12,
                 dtick="D2",
                 type="log",
                 exponentformat="power",
+                **tickfont_dict,
             ),
             yaxis=dict(
                 title=r"Ambient Flux",
-                tickfont_size=12,
                 dtick="D2",
                 type="log",
                 exponentformat="power",
+                **tickfont_dict,
             ),
-            zaxis=dict(title=error_metric.long_name, tickfont_size=12),
+            zaxis=dict(title=error_metric.long_name, **tickfont_dict),
         ),
         scene_aspectmode="cube",
         scene_camera_eye=dict(x=1.61, y=1.61, z=0.25),
-        legend=dict(yanchor="top", y=0.9, xanchor="right", x=0.87),
-        font=dict(size=18),
+        legend=dict(yanchor="top", y=0.9, xanchor="right", x=0.87, font_size=20),
+        font=dict(size=32, color="black"),
     )
 
     fig.update_xaxes(automargin=True)

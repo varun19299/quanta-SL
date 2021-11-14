@@ -157,7 +157,7 @@ if __name__ == "__main__":
     if FAISS_GPUs:
         num = 128
     else:
-        num = 16
+        num = 4
 
     phi_proj = np.logspace(4, 5, num=num)
     phi_A = np.logspace(2.75, 3.75, num=num)
@@ -170,7 +170,7 @@ if __name__ == "__main__":
         show=False,
         plot_3d=True,
         savefig=True,
-        plot_dir=Path("outputs/strategy_comparison/bch_vs_repetition_paper_plotly/"),
+        plot_dir=Path("outputs/strategy_comparison/bch_vs_repetition_paper/"),
     )
     coding_kwargs = dict(monte_carlo_iter=1)
 
@@ -178,8 +178,9 @@ if __name__ == "__main__":
         coding_kwargs["monte_carlo_iter"] = 10
 
     # Repetition vs BCH
-    redundancy_ll = [3, 6, 13, 26]
-    oversampling_ll = [1, 5]
+    # redundancy_ll = [3, 6, 13, 26]
+    redundancy_ll = [6, 26]
+    oversampling_ll = [1]
 
     for redundancy_factor in redundancy_ll:
         for oversampling_factor in oversampling_ll:
@@ -189,9 +190,9 @@ if __name__ == "__main__":
                 coding_kwargs=coding_kwargs,
                 plot_kwargs=plot_kwargs,
             )
-            _compare_repetition_bch(
-                redundancy_factor,
-                oversampling_factor,
-                coding_kwargs=coding_kwargs,
-                plot_kwargs={**plot_kwargs, "error_metric": root_mean_squared_error},
-            )
+            # _compare_repetition_bch(
+            #     redundancy_factor,
+            #     oversampling_factor,
+            #     coding_kwargs=coding_kwargs,
+            #     plot_kwargs={**plot_kwargs, "error_metric": root_mean_squared_error},
+            # )

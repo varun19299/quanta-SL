@@ -68,15 +68,6 @@ def setup_args(cfg):
     return cfg
 
 
-def get_binary_frame(folder: Path, bin_suffix: int, samples: int = 1, **kwargs):
-    kwargs = {**dict(num_rows=256, num_cols=512), **kwargs}
-    binary_burst = load_swiss_spad_bin(folder, bin_suffix=bin_suffix, **kwargs)
-
-    indices = np.random.choice(len(binary_burst), size=samples)
-
-    return binary_burst[indices]
-
-
 def get_binary_sequence(cfg, code_LUT):
     """
     Get Binary frames for a strategy
@@ -191,6 +182,17 @@ def main(cfg):
 
     inpaint_mask = get_intrinsic_extrinsic.get_mask(cfg)
     img = inpaint_func(img, inpaint_mask)
+
+    plt.imshow(img, cmap="gray")
+    save_plot(
+        savefig=cfg.savefig,
+        show=cfg.show,
+        fname=f"mean_image.pdf",
+    )
+    cv2.imwrite(
+        f"mean_image.png",
+        img * 255,
+    )
 
     # Regions to ignore
     # Custom RoI

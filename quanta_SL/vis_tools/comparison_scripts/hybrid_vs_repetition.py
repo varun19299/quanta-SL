@@ -177,7 +177,7 @@ if __name__ == "__main__":
     if FAISS_GPUs:
         num = 128
     else:
-        num = 16
+        num = 4
 
     phi_proj = np.logspace(4, 5, num=num)
     phi_A = np.logspace(2.75, 3.75, num=num)
@@ -191,7 +191,7 @@ if __name__ == "__main__":
         plot_3d=True,
         savefig=True,
         error_metric=root_mean_squared_error,
-        plot_dir=Path("outputs/strategy_comparison/hybrid_vs_repeated_longrun_paper_plotly/"),
+        plot_dir=Path("outputs/strategy_comparison/hybrid_vs_repeated_longrun_paper/"),
     )
     coding_kwargs = dict(monte_carlo_iter=1)
 
@@ -199,7 +199,8 @@ if __name__ == "__main__":
         coding_kwargs["monte_carlo_iter"] = 10
 
     # Repetition vs BCH
-    redundancy_ll = [3, 6, 13, 25]
+    # redundancy_ll = [3, 6, 13, 25]
+    redundancy_ll = [6, 25]
     oversampling_ll = [1]
 
     # Only RMSE makes sense here

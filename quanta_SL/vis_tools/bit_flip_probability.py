@@ -24,7 +24,7 @@ def surface_plot(
     savefig: bool = True,
     **eval_func_kwargs,
 ):
-    print(1)
+    print(error_func.name)
     # Meshgrid
     phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
     phi_proj_mesh, phi_A_mesh = np.meshgrid(phi_proj, phi_A, indexing="ij")
@@ -40,6 +40,7 @@ def surface_plot(
             autosize=False,
             width=900,
             height=900,
+            font_family="Times New Roman",
         ),
     )
 
@@ -71,40 +72,39 @@ def surface_plot(
         )
     )
 
+    tickfont_dict = dict(tickfont_size=12, tickfont_color="black")
+
     fig.update_layout(
         # showlegend=True,
         title=dict(text=title, x=0.5, y=0.9, xanchor="center", yanchor="top"),
         scene=dict(
             xaxis=dict(
                 title=r"Projector Flux",
-                tickfont_size=12,
                 dtick="D10",
                 type="log",
                 exponentformat="power",
+                **tickfont_dict,
             ),
             yaxis=dict(
                 title=r"Ambient Flux",
-                tickfont_size=12,
                 dtick="D10",
                 type="log",
                 exponentformat="power",
+                **tickfont_dict,
             ),
             zaxis=dict(
                 title=error_func.long_name,
-                tickfont_size=12,
-                # type="log",
+                **tickfont_dict,
             ),
         ),
         scene_aspectmode="cube",
         scene_camera_eye=dict(x=1.61, y=1.61, z=0.25),
-        legend=dict(yanchor="top", y=0.9, xanchor="right", x=0.87),
-        font=dict(size=18),
+        legend=dict(yanchor="top", y=0.9, xanchor="right", x=0.87, font_size=20),
+        font=dict(size=32, color="black"),
     )
 
     fig.update_xaxes(automargin=True)
     fig.update_yaxes(automargin=True)
-
-    # fig.update_traces(showlegend=True)
 
     if show:
         fig.show(renderer="browser")
