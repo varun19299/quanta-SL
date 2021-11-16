@@ -14,7 +14,7 @@ def exact_error(decoded_index: NDArray[int], gt_index: NDArray[int]):
     return decoded_index != gt_index
 
 
-@named_func("RMSE", "Root Mean Squared Error", lambda x: x ** 0.5)
+@named_func("RMSE", "Root Mean Square Error", lambda x: x ** 0.5)
 def root_mean_squared_error(decoded_index: NDArray[int], gt_index: NDArray[int]):
     return (decoded_index - gt_index) ** 2
 

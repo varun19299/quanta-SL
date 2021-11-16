@@ -5,5 +5,5 @@ calibration:
   mat_file: ${scene.calibration.folder}/${scene.calibration.file_name}.mat
   npz_file: ${scene.calibration.folder}/${scene.calibration.file_name}.npz
 view_kwargs: {}
-#depth_map_vmin: 52.745076326612086
-#depth_map_vmax: 54.97825131643278
+depth_map_vmin: 44
+depth_map_vmax: 48
