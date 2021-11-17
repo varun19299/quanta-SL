@@ -28,7 +28,7 @@ from quanta_SL.utils.plotting import save_plot
 logger.disable("quanta_SL")
 logger.add(f"logs/lcd_scenes_{Path(__file__).stem}.log", rotation="daily", retention=3)
 
-plt.style.use(["science", "grid"])
+# plt.style.use(["science", "grid"])
 params = {
     "legend.fontsize": "x-large",
     "figure.titlesize": "xx-large",
@@ -205,6 +205,7 @@ def main(cfg):
             vmax=cfg.scene.get("depth_map_vmax"),
             cmap=cmap,
         )
+        plt.grid(False)
         plt.colorbar()
         save_plot(
             cfg.savefig,

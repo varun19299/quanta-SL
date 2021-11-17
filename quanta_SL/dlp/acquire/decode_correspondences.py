@@ -32,7 +32,7 @@ from quanta_SL.utils.plotting import save_plot, plot_image_and_colorbar
 logger.disable("quanta_SL")
 logger.add(f"logs/lcd_scenes_{Path(__file__).stem}.log", rotation="daily", retention=3)
 
-plt.style.use(["science", "grid"])
+# plt.style.use(["science", "grid"])
 params = {
     "legend.fontsize": "x-large",
     "figure.titlesize": "xx-large",
@@ -178,7 +178,7 @@ def main(cfg):
 
     # Median filter binary decoded
     logger.info(f"Median filter")
-    binary_decoded = medfilt2d(binary_decoded)
+    binary_decoded = medfilt2d(binary_decoded, kernel_size=5)
 
     inpaint_mask = get_intrinsic_extrinsic.get_mask(cfg)
     img = inpaint_func(img, inpaint_mask)

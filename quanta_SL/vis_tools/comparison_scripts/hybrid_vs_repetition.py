@@ -175,9 +175,9 @@ if __name__ == "__main__":
     from quanta_SL.utils.gpu_status import FAISS_GPUs
 
     if FAISS_GPUs:
-        num = 128
+        num = 256
     else:
-        num = 4
+        num = 64
 
     phi_proj = np.logspace(4, 5, num=num)
     phi_A = np.logspace(2.75, 3.75, num=num)
@@ -191,12 +191,12 @@ if __name__ == "__main__":
         plot_3d=True,
         savefig=True,
         error_metric=root_mean_squared_error,
-        plot_dir=Path("outputs/strategy_comparison/hybrid_vs_repeated_longrun_paper/"),
+        plot_dir=Path("outputs/strategy_comparison/hybrid_vs_repeated_longrun_paper_grid/"),
     )
     coding_kwargs = dict(monte_carlo_iter=1)
 
     if FAISS_GPUs:
-        coding_kwargs["monte_carlo_iter"] = 10
+        coding_kwargs["monte_carlo_iter"] = 20
 
     # Repetition vs BCH
     # redundancy_ll = [3, 6, 13, 25]

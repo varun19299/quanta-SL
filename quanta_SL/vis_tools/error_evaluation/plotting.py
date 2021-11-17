@@ -400,12 +400,28 @@ def multiple_surface_plotly_3d(
                 x=phi_proj_mesh,
                 y=phi_A_mesh,
                 z=np.round(eval_error, decimals=3),
+                opacity=1,
                 name=strategy.name,
                 colorscale=COLORS_discrete[e],
                 showlegend=True,
                 showscale=False,
             )
         )
+
+        line_marker = dict(color="black", width=2)
+        for i, j, k in zip(phi_proj_mesh, phi_A_mesh, eval_error):
+            fig.add_trace(
+                go.Scatter3d(
+                    x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
+                )
+            )
+
+        for i, j, k in zip(phi_proj_mesh.T, phi_A_mesh.T, eval_error.T):
+            fig.add_trace(
+                go.Scatter3d(
+                    x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
+                )
+            )
 
     tickfont_dict = dict(tickfont_size=12, tickfont_color="black")
     fig.update_layout(
