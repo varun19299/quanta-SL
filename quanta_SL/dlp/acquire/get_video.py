@@ -20,6 +20,7 @@ from quanta_SL.lcd.acquire.reconstruct import (
     inpaint_func,
     stereo_setup,
 )
+
 # Disable inner logging
 from quanta_SL.lcd.decode_helper import decode_2d_code
 from quanta_SL.reconstruct.project3d import triangulate_ray_plane
@@ -39,7 +40,10 @@ params = {
 }
 plt.rcParams.update(params)
 
-def get_binary_sequence(frame_start: int, cfg, code_LUT):
+
+def get_binary_sequence(
+    frame_start: int, cfg, code_LUT, reference_frame_start: int = None
+):
     """
     Get Binary frames for a strategy
     :param cfg: Overall conf
@@ -51,7 +55,7 @@ def get_binary_sequence(frame_start: int, cfg, code_LUT):
     bin_start_modulous = frame_start % cfg.bursts_per_bin
 
     # Include all-white
-    num_patterns = code_LUT.shape[1] + 1
+    num_patterns = code_LUT.shape[1] + 2
     frame_end = frame_start + num_patterns * cfg.bursts_per_pattern - 1
     bin_suffix_end = frame_end // cfg.bursts_per_bin
     bin_end_modulous = frame_end % cfg.bursts_per_bin + 1
@@ -74,6 +78,18 @@ def get_binary_sequence(frame_start: int, cfg, code_LUT):
 
     # Range adding
     frame_sequence = np.concatenate(frame_sequence, axis=0)
+
+    # If pipelining, perform circular shift
+    if cfg.pipeline.use:
+        if reference_frame_start:
+            roll = (frame_start - reference_frame_start) % (
+                num_patterns * cfg.bursts_per_pattern
+            )
+        else:
+            roll = 0
+        logger.info(f"Roll by {roll}")
+        frame_sequence = np.roll(frame_sequence, roll, axis=0)
+
     post_adding_frame_sequence = np.zeros_like(frame_sequence)[:num_patterns]
     for j in cfg.frame_range:
         post_adding_frame_sequence += frame_sequence[j :: cfg.bursts_per_pattern]
@@ -83,7 +99,7 @@ def get_binary_sequence(frame_start: int, cfg, code_LUT):
 
     # First is all-white
     img = post_adding_frame_sequence.mean(axis=0)
-    binary_sequence = post_adding_frame_sequence[1:]
+    binary_sequence = post_adding_frame_sequence[1:-1]
 
     if cfg.method.visualize_frame:
         logger.info("Saving frames")
@@ -119,6 +135,7 @@ def get_binary_sequence(frame_start: int, cfg, code_LUT):
 
     return img, binary_sequence
 
+
 @hydra.main(config_path="../../conf/dlp/acquire", config_name=Path(__file__).stem)
 def main(cfg):
     print(OmegaConf.to_yaml(cfg))
@@ -132,26 +149,51 @@ def main(cfg):
     elif "Conv Gray" in cfg.method.name:
         code_LUT, decoding_func = get_code_LUT_decoding_func(cfg.method, "repetition")
 
-    num_video_frames = 280
     frame_gap = (code_LUT.shape[1] + 2) * cfg.bursts_per_pattern
+    num_video_frames = cfg.video.num_disjoint_frames
+
+    if cfg.pipeline.use:
+        frame_gap = cfg.pipeline.stride * cfg.bursts_per_pattern
+
+        num_video_frames = (
+            cfg.video.num_disjoint_frames
+            * (code_LUT.shape[1] + 2)
+            // cfg.pipeline.stride
+        )
+
+    logger.info(f"Frame gap {frame_gap} | Num video frames {num_video_frames}")
 
     # Obtain stereo calibration params
     logger.info("Loading stereo params")
     camera_matrix, projector_matrix, camera_pixels = stereo_setup(cfg)
 
-    valid_indices = np.where(np.ones((cfg.spad.height, cfg.spad.width)))
+    if Path(cfg.mask_path).exists():
+        logger.info(f"Loading RoI mask from {cfg.mask_path}")
+        roi_mask = np.load(cfg.mask_path)
+    else:
+        logger.info(f"No RoI mask found at {cfg.mask_path}")
+        roi_mask = np.ones((cfg.spad.height, cfg.spad.width))
+
+    valid_indices = np.where(roi_mask)
     camera_pixels = np.stack(
         [camera_pixels[0][valid_indices], camera_pixels[1][valid_indices]], axis=1
     )
 
     depth_map_ll = []
 
+    # Video writer
+    writer = imageio.get_writer("out_video.mp4", fps=cfg.video.fps)
+
     for i in range(num_video_frames):
         frame_start = cfg.frame_start + i * frame_gap
         logger.info(
             f"Video frame {i} | Frame-start {frame_start}| Reading binary sequence"
         )
-        img, binary_sequence = get_binary_sequence(frame_start, cfg, code_LUT)
+
+        reference_frame_start = cfg.frame_start if cfg.pipeline.use else 0
+        img, binary_sequence = get_binary_sequence(
+            frame_start, cfg, code_LUT, reference_frame_start=reference_frame_start
+        )
 
         logger.info(
             f"Video frame {i} | Frame-start {frame_start}|Decoding {cfg.method.name}"
@@ -160,7 +202,7 @@ def main(cfg):
 
         # Median filter binary decoded
         logger.info(f"Video frame {i} | Frame-start {frame_start}| Median filter")
-        binary_decoded = medfilt2d(binary_decoded)
+        binary_decoded = medfilt2d(binary_decoded, kernel_size=7)
 
         inpaint_mask = get_intrinsic_extrinsic.get_mask(cfg)
 
@@ -169,6 +211,8 @@ def main(cfg):
         # Save correspondences
         plt.imshow(binary_decoded)
         plt.colorbar()
+        plt.axis("off")
+        plt.grid(False)
         save_plot(
             cfg.savefig,
             show=cfg.show,
@@ -206,6 +250,7 @@ def main(cfg):
             cmap=cmap,
         )
         plt.grid(False)
+        plt.axis("off")
         plt.colorbar()
         save_plot(
             cfg.savefig,
@@ -215,11 +260,17 @@ def main(cfg):
 
         depth_map_ll.append(depth_map)
 
-    with imageio.get_writer("mygif.gif", mode="I") as writer:
-        for i in range(num_video_frames):
-            frame_start = cfg.frame_start + i * frame_gap
-            image = imageio.imread(f"depth_maps/depth_map_{frame_start}.png")
-            writer.append_data(image)
+        # Add to video
+        image = imageio.imread(f"depth_maps/depth_map_{frame_start}.png")
+        writer.append_data(image)
+
+    writer.close()
+
+    # with imageio.get_writer("mygif.gif", mode="I") as writer:
+    #     for i in range(num_video_frames):
+    #         frame_start = cfg.frame_start + i * frame_gap
+    #         image = imageio.imread(f"depth_maps/depth_map_{frame_start}.png")
+    #         writer.append_data(image)
 
 
 if __name__ == "__main__":

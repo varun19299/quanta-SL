@@ -79,14 +79,6 @@ stereo_flags = (
 )
 
 
-# def setup_args(cfg):
-#     # Setup args
-#     cfg.outfolder = Path(cfg.outfolder)
-#     cfg.correspondence.mat_file = f"{cfg.outfolder}/{cfg.correspondence.mat_file}"
-#     cfg.correspondence.exclude_poses = eval(cfg_copy.correspondence.exclude_poses)
-#
-#     return cfg
-
 
 def get_mask(cfg: DotMap) -> NDArray[int]:
     mat_file = loadmat(cfg.spad.mask.file)

@@ -343,6 +343,72 @@ def multiple_surface_pyplot_3d(
     )
 
 
+def multiple_line_pyplot(
+    phi_proj,
+    phi_A,
+    t_exp: float,
+    strategy_ll: List[Eval],
+    eval_error_ll: List = [],
+    error_metric: Callable = exact_error,
+    savefig: bool = False,
+    show: bool = True,
+    outname: str = "",
+    title: str = "",
+    plot_dir: Path = Path("outputs/strategy_comparison/oversampling_benefit"),
+    use_legend: bool=True,
+    **unused_kwargs,
+):
+    names = [strategy.name for strategy in strategy_ll]
+    logger.info(f"Comparative plotting: {', '.join(names)}")
+
+    # Meshgrid
+    phi_P_mesh, phi_A_mesh = np.meshgrid(phi_proj + phi_A, phi_A, indexing="ij")
+    phi_proj_mesh, phi_A_mesh = np.meshgrid(phi_proj, phi_A, indexing="ij")
+
+    if eval_error_ll:
+        assert len(eval_error_ll) == len(
+            strategy_ll
+        ), "Supplied eval errors must match # strategies"
+
+    for e, strategy in enumerate(strategy_ll):
+        assert isinstance(strategy, Eval)
+
+        # If not supplied, call
+        if not eval_error_ll:
+            # Call the strategy and plot
+            assert isinstance(strategy, Eval)
+            eval_error = strategy(phi_P_mesh, phi_A_mesh, t_exp)
+        else:
+            eval_error = eval_error_ll[e]
+
+        plt.plot(
+            np.log10(phi_proj), np.round(eval_error, decimals=4), label=strategy.name, linewidth=3
+        )
+
+    # X, Y axis
+    plt.xlabel("\n$\Phi_p$ Projector Flux")
+    indices = np.round(np.linspace(0, len(phi_proj) - 1, 4)).astype(int)
+    xticks = np.log10(phi_proj)[indices]
+    xticklabels = [f"{label:.1e}" for label in phi_proj[indices]]
+    plt.xticks(xticks, xticklabels)
+
+    plt.ylabel(error_metric.long_name)
+    plt.ylim(0, 1)
+
+    if use_legend:
+        plt.legend()
+    plt.grid(True)
+
+    if title:
+        plt.title(title)
+
+    save_plot(
+        savefig,
+        show,
+        fname=plot_dir / f"{outname}/comparison_of_{'_'.join(names)}_phi_A_{phi_A}.pdf",
+    )
+
+
 def multiple_surface_plotly_3d(
     phi_proj,
     phi_A,

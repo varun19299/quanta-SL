@@ -13,6 +13,7 @@ hydra-joblib-launcher
 hydra-optuna-sweeper
 
 imageio
+imageio-ffmpeg
 ipdb
 line_profiler
 loguru

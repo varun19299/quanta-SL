@@ -1,15 +1,12 @@
 from pathlib import Path
-from scipy.io import loadmat
-from einops import rearrange
-from matplotlib import pyplot as plt
-import numpy as np
-from roipoly import RoiPoly
-from loguru import logger
-from quanta_SL.utils.plotting import plot_image_and_colorbar
-import matplotlib
-import cv2
 
+import matplotlib
+import numpy as np
+from einops import rearrange
+from scipy.io import loadmat
 from tqdm import tqdm
+
+from quanta_SL.utils.plotting import plot_image_and_colorbar
 
 kinect_path = Path("outputs/real_captures/kinect")
 mat_file = kinect_path / "kinect_results_1.mat"

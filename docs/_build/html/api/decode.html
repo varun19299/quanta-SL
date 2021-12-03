@@ -15,6 +15,7 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Supported Ops" href="ops.html" />
     <link rel="prev" title="Encoding" href="encode.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -36,7 +37,28 @@
 <h1>Decoding<a class="headerlink" href="#decoding" title="Permalink to this headline">¶</a></h1>
 <section id="module-quanta_SL.decode.methods">
 <span id="decoding-methods"></span><h2>Decoding Methods<a class="headerlink" href="#module-quanta_SL.decode.methods" title="Permalink to this headline">¶</a></h2>
-<p>Exposes API for decoding based methods</p>
+<p>Exposes API for decoding based method</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.decode.methods.gray_stripe_decoding">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.decode.methods.</span></span><span class="sig-name descname"><span class="pre">gray_stripe_decoding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_LUT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gray_message_bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap_bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pack</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unpack</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.decode.methods.gray_stripe_decoding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decoding (Gray + Stripe) patterns</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>queries</strong> – (N, n) sized binary matrix</p></li>
+<li><p><strong>code_LUT</strong> – Not used, kept for consistency across funcs.</p></li>
+<li><p><strong>gray_message_bits</strong> – Gray message dims</p></li>
+<li><p><strong>overlap_bits</strong> – Bits that BCH and Stripe encode</p></li>
+<li><p><strong>pack</strong> – Pack bits into bytes for memory efficiency</p></li>
+<li><p><strong>unpack</strong> – Unpack bytes into bits if a certain algorithm needs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Decoded indices.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="quanta_SL.decode.methods.hybrid_decoding">
 <span class="sig-prename descclassname"><span class="pre">quanta_SL.decode.methods.</span></span><span class="sig-name descname"><span class="pre">hybrid_decoding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_LUT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bch_tuple</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">quanta_SL.encode.metaclass.BCH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bch_message_bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap_bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pack</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unpack</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">func_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.decode.methods.hybrid_decoding" title="Permalink to this definition">¶</a></dt>
@@ -169,7 +191,7 @@ Useful when evaluating strategies with MSE / MAE (where locality matters).</p></
 <section id="module-quanta_SL.decode.minimum_distance.factory">
 <span id="minimum-distance-decoding"></span><h2>Minimum Distance Decoding<a class="headerlink" href="#module-quanta_SL.decode.minimum_distance.factory" title="Permalink to this headline">¶</a></h2>
 <p>Maximum Likelihood Decoding</p>
-<p>(Minimum Distance Decoding methods).</p>
+<p>(Minimum Distance Decoding method).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="quanta_SL.decode.minimum_distance.factory.brute_minimum_distance">
 <span class="sig-prename descclassname"><span class="pre">quanta_SL.decode.minimum_distance.factory.</span></span><span class="sig-name descname"><span class="pre">brute_minimum_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x</span></em>, <em class="sig-param"><span class="pre">y</span></em>, <em class="sig-param"><span class="pre">hamming_dist_LUT:</span> <span class="pre">Optional[nptyping.types._ndarray.NDArray[None</span></em>, <em class="sig-param"><span class="pre">nptyping.types._number.Int]]</span> <span class="pre">=</span> <span class="pre">None</span></em>, <em class="sig-param"><span class="pre">xp:</span> <span class="pre">module</span> <span class="pre">=</span> <span class="pre">&lt;module</span> <span class="pre">'numpy'</span> <span class="pre">from</span> <span class="pre">'/Users/varun/miniconda3/envs/torch39/lib/python3.9/site-packages/numpy/__init__.py'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.decode.minimum_distance.factory.brute_minimum_distance" title="Permalink to this definition">¶</a></dt>
@@ -220,6 +242,27 @@ See <a class="reference external" href="https://pynndescent.readthedocs.io">http
 <li><p><strong>x</strong> – Shape N_x, n</p></li>
 <li><p><strong>y</strong> – Shape N_y, n</p></li>
 <li><p><strong>index</strong> – Search index object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Minimum distance indices of size N_x (with values in 0,…,N_y - 1)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quanta_SL.decode.minimum_distance.factory.galois_berlekamp_massey">
+<span class="sig-prename descclassname"><span class="pre">quanta_SL.decode.minimum_distance.factory.</span></span><span class="sig-name descname"><span class="pre">galois_berlekamp_massey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bch_tuple</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">quanta_SL.encode.metaclass.BCH</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quanta_SL.decode.minimum_distance.factory.galois_berlekamp_massey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classical (upto Hamming bound) error correction.
+For BCH codes.</p>
+<p>Note: ensure this is used with a binary message mapping.
+Else inverse permutation is required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Shape N_x, n</p></li>
+<li><p><strong>y</strong> – Shape N_y, n</p></li>
+<li><p><strong>bch_tuple</strong> – BCH tuple</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -337,6 +380,8 @@ See <a class="reference external" href="https://scikit-learn.org/stable/modules/
 <li class="toctree-l2"><a class="reference internal" href="#module-quanta_SL.decode.minimum_distance.factory">Minimum Distance Decoding</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="ops.html">Supported Ops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vis.html">Visualisation Tools</a></li>
 </ul>
 
 <div class="relations">
@@ -344,6 +389,7 @@ See <a class="reference external" href="https://scikit-learn.org/stable/modules/
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="encode.html" title="previous chapter">Encoding</a></li>
+      <li>Next: <a href="ops.html" title="next chapter">Supported Ops</a></li>
   </ul></li>
 </ul>
 </div>

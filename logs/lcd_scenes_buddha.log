@@ -1,0 +1,31 @@
+2021-11-23 13:18:01.605 | INFO     | __main__:main:151 - Generating code LUT
+2021-11-23 13:18:01.670 | INFO     | __main__:main:158 - Reading binary sequence
+2021-11-23 13:56:49.199 | INFO     | __main__:main:151 - Generating code LUT
+2021-11-23 13:56:49.252 | INFO     | __main__:main:158 - Reading binary sequence
+2021-11-23 14:12:08.455 | INFO     | __main__:get_binary_sequence:104 - All White
+2021-11-23 14:12:08.708 | INFO     | __main__:get_binary_sequence:107 - Binary frames
+2021-11-23 15:31:45.807 | INFO     | __main__:main:152 - Generating code LUT
+2021-11-23 15:31:45.856 | INFO     | __main__:main:159 - Reading binary sequence
+2021-11-23 15:47:32.752 | INFO     | __main__:main:151 - Generating code LUT
+2021-11-23 15:47:32.785 | INFO     | __main__:main:158 - Reading binary sequence
+2021-11-23 15:55:05.801 | INFO     | __main__:get_binary_sequence:104 - All White
+2021-11-23 15:55:06.727 | INFO     | __main__:get_binary_sequence:107 - Binary frames
+2021-11-23 15:55:06.755 | INFO     | __main__:main:161 - Decoding Hybrid BCH [511, 10] [gray_message]
+2021-11-23 15:55:13.015 | INFO     | __main__:main:165 - Median filter
+2021-11-23 16:11:27.034 | INFO     | __main__:main:232 - Loading stereo params
+2021-11-23 16:12:24.545 | INFO     | __main__:main:151 - Generating code LUT
+2021-11-23 16:12:24.580 | INFO     | __main__:main:158 - Reading binary sequence
+2021-11-23 16:18:01.826 | INFO     | __main__:get_binary_sequence:104 - All White
+2021-11-23 16:18:02.097 | INFO     | __main__:get_binary_sequence:107 - Binary frames
+2021-11-23 16:18:02.107 | INFO     | __main__:main:161 - Decoding Hybrid BCH [511, 10] [gray_message]
+2021-11-23 16:18:04.501 | INFO     | __main__:main:165 - Median filter
+2021-11-23 16:18:06.859 | INFO     | __main__:main:186 - RoI Mask found at roi_mask.npy
+2021-11-23 16:18:09.138 | INFO     | __main__:main:232 - Loading stereo params
+2021-11-23 16:18:49.673 | INFO     | __main__:main:151 - Generating code LUT
+2021-11-23 16:18:49.703 | INFO     | __main__:main:158 - Reading binary sequence
+2021-11-23 16:24:37.214 | INFO     | __main__:get_binary_sequence:104 - All White
+2021-11-23 16:24:37.446 | INFO     | __main__:get_binary_sequence:107 - Binary frames
+2021-11-23 16:24:37.454 | INFO     | __main__:main:161 - Decoding Hybrid BCH [511, 10] [gray_message]
+2021-11-23 16:24:38.278 | INFO     | __main__:main:165 - Median filter
+2021-11-23 16:24:40.104 | INFO     | __main__:main:186 - RoI Mask found at roi_mask.npy
+2021-11-23 16:24:42.166 | INFO     | __main__:main:232 - Loading stereo params

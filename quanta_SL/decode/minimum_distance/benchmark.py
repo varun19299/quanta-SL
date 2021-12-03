@@ -146,49 +146,49 @@ def cpu_minimum_distance(
     data_query_kwargs = dict(x=x, y=y, gt_indices=gt_indices)
     benchmark_dict = {}
 
-    benchmark_func(
-        "Berlekamp Massey",
-        galois_berlekamp_massey,
-        **data_query_kwargs,
-        benchmark_dict=benchmark_dict,
-        bch_tuple=kwargs["bch_tuple"],
-    )
+    # benchmark_func(
+    #     "Berlekamp Massey",
+    #     galois_berlekamp_massey,
+    #     **data_query_kwargs,
+    #     benchmark_dict=benchmark_dict,
+    #     bch_tuple=kwargs["bch_tuple"],
+    # )
     # benchmark_func(
     #     "Numpy",
     #     brute_minimum_distance,
     #     **data_query_kwargs,
     #     benchmark_dict=benchmark_dict,
     # )
-    benchmark_func(
-        "Numpy byte-packed",
-        brute_minimum_distance,
-        **data_query_kwargs,
-        pack=True,
-        benchmark_dict=benchmark_dict,
-        hamming_dist_LUT=hamming_distance_8bit(),
-    )
-    benchmark_func(
-        "Numba byte-packed",
-        numba_minimum_distance,
-        **data_query_kwargs,
-        pack=True,
-        benchmark_dict=benchmark_dict,
-        hamming_dist_LUT=hamming_distance_8bit(),
-    )
-    benchmark_func(
-        "Sklearn BallTree",
-        sklearn_minimum_distance,
-        **data_query_kwargs,
-        index_func=balltree_index,
-        benchmark_dict=benchmark_dict,
-    )
-    benchmark_func(
-        "NNDescent",
-        pyNNdescent_minimum_distance,
-        **data_query_kwargs,
-        index_func=nndescent_index,
-        benchmark_dict=benchmark_dict,
-    )
+    # benchmark_func(
+    #     "Numpy byte-packed",
+    #     brute_minimum_distance,
+    #     **data_query_kwargs,
+    #     pack=True,
+    #     benchmark_dict=benchmark_dict,
+    #     hamming_dist_LUT=hamming_distance_8bit(),
+    # )
+    # benchmark_func(
+    #     "Numba byte-packed",
+    #     numba_minimum_distance,
+    #     **data_query_kwargs,
+    #     pack=True,
+    #     benchmark_dict=benchmark_dict,
+    #     hamming_dist_LUT=hamming_distance_8bit(),
+    # )
+    # benchmark_func(
+    #     "Sklearn BallTree",
+    #     sklearn_minimum_distance,
+    #     **data_query_kwargs,
+    #     index_func=balltree_index,
+    #     benchmark_dict=benchmark_dict,
+    # )
+    # benchmark_func(
+    #     "NNDescent",
+    #     pyNNdescent_minimum_distance,
+    #     **data_query_kwargs,
+    #     index_func=nndescent_index,
+    #     benchmark_dict=benchmark_dict,
+    # )
     benchmark_func(
         "FAISS Flat",
         faiss_minimum_distance,
@@ -323,7 +323,7 @@ def run_benchmark(
 
 
 if __name__ == "__main__":
-    # run_benchmark("cpu", query_repeat=100)
+    run_benchmark("cpu", query_repeat=1024*16)
 
-    if GPU_AVAILABLE:
-        run_benchmark("gpu", query_repeat=2000, show=False)
+    # if GPU_AVAILABLE:
+    #     run_benchmark("gpu", query_repeat=2000 * 16, show=False)
