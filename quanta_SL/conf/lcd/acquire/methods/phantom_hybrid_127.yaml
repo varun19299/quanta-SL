@@ -1,0 +1,29 @@
+phantom_hybrid_127:
+  subfolder: Hybrid BCH [127, 8] [${methods.phantom_hybrid_127.message_mapping}] comp
+  name: Phantom ${methods.phantom_hybrid_127.subfolder}
+  folder: ${outfolder}/${methods.phantom_hybrid_127.subfolder}/
+  message_bits: 11
+  overlap_bits: 1
+  bch_tuple:
+    n: 127
+    k: 8
+    t: 31
+  bch_message_bits: 8
+  message_mapping: gray_message
+  rotate_180: True
+  visualize_frame: True
+  use_complementary: True
+  simulate_high_speed:
+    read_noise: 18.8
+    spad_eta: 0.3
+    high_speed_eta: 0.6
+    dynamic_range: 56.7
+    bit_depth: 12
+  binary_frame:
+    # Each burst has 512 frames
+    # For GT
+    bursts_per_pattern: 10
+    bin_suffix_range: range(6, 10)
+    # For single binary frame
+    index: 10
+    bin_suffix: 6

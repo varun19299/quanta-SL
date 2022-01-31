@@ -14,6 +14,7 @@ defaults:
 #    - hybrid_63
 #    - hybrid_127
     - hybrid_255
+    - phantom_hybrid_127
   - hydra
   - scene: mary_bust
   - override hydra/job_logging: none

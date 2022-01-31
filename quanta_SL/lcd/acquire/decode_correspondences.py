@@ -5,7 +5,7 @@ import cv2
 import hydra
 import numpy as np
 from dotmap import DotMap
-from einops import repeat, reduce
+from einops import repeat, reduce, rearrange
 from loguru import logger
 from matplotlib import pyplot as plt
 from omegaconf import OmegaConf
@@ -179,6 +179,84 @@ def get_gt_frame(
     return pos_frame
 
 
+def simulate_high_speed_frame(
+    frame,
+    read_noise: int = 0,
+    spad_eta: float = 0.05,
+    high_speed_eta: float = 0.6,
+    bit_depth: int = 12,
+    dynamic_range: float = 55,
+):
+    """
+    Assume frame between 0...1
+
+    :param frame:
+    :param read_noise: Read noise of high speed camera
+    :param spad_eta: Final quantum_efficiency x fill factor
+    :param high_speed_eta: QExFF of high speed camera
+    :param bit_depth: of image (8, 12, 16 etc)
+    :param dynamic_range: in decibels
+
+    `dynamic_range = 20 log_10 (full_well_capacity / read_noise)`
+
+    :return: Simulated high speed frame
+    """
+    # Rounding floor
+    epsilon = 1e-16
+    frame = np.clip(frame, epsilon, 1 - epsilon)
+
+    # 1 - exp(-photon_count) = intensity
+    photon_count = np.log(1 / (1 - frame)) / spad_eta * high_speed_eta
+    sigma_noise = np.sqrt(photon_count + read_noise ** 2)
+
+    # dyn range in dB
+    full_well_capacity = np.power(10, dynamic_range / 20) * read_noise
+
+    high_speed_frame = np.random.normal(photon_count, scale=sigma_noise)
+    high_speed_frame = high_speed_frame.round()
+    high_speed_frame /= full_well_capacity
+    high_speed_frame = np.clip(high_speed_frame, 0, 1)
+    high_speed_frame *= pow(2, bit_depth)
+
+    return high_speed_frame.round()
+
+
+@MemoizeNumpy
+def get_high_speed_frame(
+    pattern_folder,
+    bin_suffix_range: range = range(0, 10),
+    comp_bin_suffix_range: range = [],
+    simulate_high_speed_kwargs={},
+    **kwargs,
+):
+    # Groundtruth
+    pos_frame = load_swiss_spad_sequence(
+        pattern_folder,
+        bin_suffix_range=bin_suffix_range,
+        **kwargs,
+    )
+
+    pos_high_speed_frame = simulate_high_speed_frame(
+        pos_frame, **simulate_high_speed_kwargs
+    )
+
+    if len(comp_bin_suffix_range):
+        # Complementary
+        neg_frame = load_swiss_spad_sequence(
+            pattern_folder,
+            bin_suffix_range=comp_bin_suffix_range,
+            **kwargs,
+        )
+
+        neg_high_speed_frame = simulate_high_speed_frame(
+            neg_frame, **simulate_high_speed_kwargs
+        )
+
+        return pos_high_speed_frame > neg_high_speed_frame
+
+    return pos_high_speed_frame
+
+
 def get_binary_frame(
     folder: Path, bin_suffix: int, frames_to_add: int = 1, samples: int = 1, **kwargs
 ):
@@ -229,6 +307,27 @@ def get_binary_gt_sequence(method_cfg, cfg, code_LUT):
     for pattern_index in pattern_range:
         logger.info(f"Sequence #{pattern_index}/{len(pattern_range)}")
 
+        # Filename with leading zeros
+        bin_suffix_range = (
+            np.array(method_cfg.binary_frame.bin_suffix_range) + bin_suffix_offset
+        )
+        bin_suffix = method_cfg.binary_frame.bin_suffix + bin_suffix_offset
+
+        comp_bin_suffix_range = (
+            np.array(method_cfg.binary_frame.bin_suffix_range)
+            + bin_suffix_offset
+            + method_cfg.binary_frame.bursts_per_pattern
+        )
+        comp_bin_suffix = (
+            method_cfg.binary_frame.bin_suffix
+            + bin_suffix_offset
+            + method_cfg.binary_frame.bursts_per_pattern,
+        )
+
+        # Groundtruth Frame
+        gt_frame = get_gt_frame(folder, bin_suffix_range, comp_bin_suffix_range)
+        gt_sequence.append(gt_frame)
+
         # Single binary sample
         if not method_cfg.multi_sample:
             samples = 1
@@ -238,46 +337,44 @@ def get_binary_gt_sequence(method_cfg, cfg, code_LUT):
             else:
                 samples = method_cfg.repetition_tuple.repeat
 
-        binary_burst = get_binary_frame(
-            folder,
-            bin_suffix=method_cfg.binary_frame.bin_suffix + bin_suffix_offset,
-            frames_to_add=cfg.scene.get("frames_to_add", 1),
-            samples=samples,
-        )
-
-        if method_cfg.use_complementary:
-            comp_burst = get_binary_frame(
+        if method_cfg.simulate_high_speed:
+            binary_burst = get_high_speed_frame(
                 folder,
-                bin_suffix=method_cfg.binary_frame.bin_suffix
-                + bin_suffix_offset
-                + method_cfg.binary_frame.bursts_per_pattern,
+                bin_suffix_range=bin_suffix_range,
+                comp_bin_suffix_range=comp_bin_suffix_range,
+                simulate_high_speed_kwargs=method_cfg.simulate_high_speed,
+            )
+            binary_burst = rearrange(
+                binary_burst,
+                "h w -> 1 h w",
+            )
+        else:
+            binary_burst = get_binary_frame(
+                folder,
+                bin_suffix=bin_suffix,
                 frames_to_add=cfg.scene.get("frames_to_add", 1),
                 samples=samples,
             )
 
-            binary_burst = binary_burst.mean(axis=0) > comp_burst.mean(axis=0)
-            binary_burst = repeat(
-                binary_burst, "h w -> n h w", n=method_cfg.repetition_tuple.repeat
-            )
+            if method_cfg.use_complementary:
+                comp_burst = get_binary_frame(
+                    folder,
+                    bin_suffix=comp_bin_suffix,
+                    frames_to_add=cfg.scene.get("frames_to_add", 1),
+                    samples=samples,
+                )
+
+                binary_burst = binary_burst.mean(axis=0) > comp_burst.mean(axis=0)
+                binary_burst = repeat(
+                    binary_burst, "h w -> n h w", n=method_cfg.repetition_tuple.repeat
+                )
 
         # Pick multiple samples
         binary_frame = binary_burst.mean(axis=0)
         binary_sequence += [frame for frame in binary_burst]
 
-        # Filename with leading zeros
-        bin_suffix_range = (
-            np.array(method_cfg.binary_frame.bin_suffix_range) + bin_suffix_offset
-        )
-        bin_suffix_offset += method_cfg.binary_frame.bursts_per_pattern
-
-        comp_bin_suffix_range = (
-            np.array(method_cfg.binary_frame.bin_suffix_range) + bin_suffix_offset
-        )
-        bin_suffix_offset += method_cfg.binary_frame.bursts_per_pattern
-
-        # Groundtruth Frame
-        gt_frame = get_gt_frame(folder, bin_suffix_range, comp_bin_suffix_range)
-        gt_sequence.append(gt_frame)
+        # Update bin suffix offset
+        bin_suffix_offset += 2 * method_cfg.binary_frame.bursts_per_pattern
 
         if method_cfg.visualize_frame:
             plt.imshow(gt_frame, cmap="gray")
