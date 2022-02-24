@@ -1,6 +1,6 @@
 defaults:
   - methods:
-#    - conv_gray
+    - conv_gray
 #    - long_gray
 #    - repetition_conv_77
 #    - repetition_conv_143
@@ -13,8 +13,8 @@ defaults:
 #    - bch_255
 #    - hybrid_63
 #    - hybrid_127
-    - hybrid_255
-    - phantom_hybrid_127
+#    - hybrid_255
+#    - phantom_hybrid_127
   - hydra
   - scene: mary_bust
   - override hydra/job_logging: none

@@ -40,7 +40,8 @@ def surface_plot(
             autosize=False,
             width=900,
             height=900,
-            font_family="Times New Roman",
+            # font_family="Times New Roman",
+            font_family="CMU Serif",
         ),
     )
 
@@ -72,28 +73,31 @@ def surface_plot(
         )
     )
 
-    tickfont_dict = dict(tickfont_size=12, tickfont_color="black")
+    tickfont_dict = dict(tickfont_size=16, tickfont_color="black")
 
     fig.update_layout(
         # showlegend=True,
         title=dict(text=title, x=0.5, y=0.9, xanchor="center", yanchor="top"),
         scene=dict(
             xaxis=dict(
-                title=r"Projector Flux",
+                title="",
+                # title=r"Projector Flux",
                 dtick="D10",
                 type="log",
                 exponentformat="power",
                 **tickfont_dict,
             ),
             yaxis=dict(
-                title=r"Ambient Flux",
+                title="",
+                # title=r"Ambient Flux",
                 dtick="D10",
                 type="log",
                 exponentformat="power",
                 **tickfont_dict,
             ),
             zaxis=dict(
-                title=error_func.long_name,
+                title="",
+                # title=error_func.long_name,
                 **tickfont_dict,
             ),
         ),

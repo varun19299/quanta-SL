@@ -1,5 +1,6 @@
 """
 code LUT for various strategies
+    columns x time
 """
 
 from typing import Callable
@@ -29,6 +30,7 @@ def repetition_code_LUT(
         m: [2^message_bits] -> F_2^message_bits
 
     :return Code Look-Up Table
+        columns x time
     """
     if not message_bits:
         message_bits = repetition_tuple.k
@@ -60,6 +62,7 @@ def bch_code_LUT(
         m: [2^message_bits] -> F_2^message_bits
 
     :return Code Look-Up Table
+        columns x time
     """
     assert (
         message_bits <= bch_tuple.k
@@ -94,6 +97,7 @@ def hybrid_code_LUT(
         m: [2^message_bits] -> F_2^message_bits
 
     :return Code Look-Up Table
+        columns x time
     """
     assert (
         bch_message_bits < message_bits
@@ -138,6 +142,7 @@ def gray_stripe_code_LUT(
         m: [2^message_bits] -> F_2^message_bits
 
     :return Code Look-Up Table
+        columns x time
     """
     assert (
         gray_message_bits < message_bits

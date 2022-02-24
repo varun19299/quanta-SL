@@ -538,6 +538,10 @@ def dlp_patterns():
     # Gray code
     gray_code_to_projector_frames(**kwargs)
 
+    bch_tuple_ll = [
+        metaclass.BCH(31, 11, 5),
+    ]
+
     # Hybrid
     hybrid_bch_tuple_ll = [
         metaclass.BCH(31, 11, 5),
@@ -547,6 +551,16 @@ def dlp_patterns():
         metaclass.BCH(511, 10, 127),
     ]
     bch_message_bits = 7
+
+    # BCH w/long-run for various redundancies
+    for bch_tuple in bch_tuple_ll:
+        # BCH with long-run
+        bch_to_projector_frames(
+            bch_tuple,
+            message_mapping=long_run_gray_message,
+            **kwargs,
+        )
+    breakpoint()
 
     # BCH, Hybrid, Repetition for various redundancies
     for hybrid_bch_tuple in hybrid_bch_tuple_ll:

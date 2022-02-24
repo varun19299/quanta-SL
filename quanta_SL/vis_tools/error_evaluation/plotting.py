@@ -355,7 +355,7 @@ def multiple_line_pyplot(
     outname: str = "",
     title: str = "",
     plot_dir: Path = Path("outputs/strategy_comparison/oversampling_benefit"),
-    use_legend: bool=True,
+    use_legend: bool = True,
     **unused_kwargs,
 ):
     names = [strategy.name for strategy in strategy_ll]
@@ -382,7 +382,10 @@ def multiple_line_pyplot(
             eval_error = eval_error_ll[e]
 
         plt.plot(
-            np.log10(phi_proj), np.round(eval_error, decimals=4), label=strategy.name, linewidth=3
+            np.log10(phi_proj),
+            np.round(eval_error, decimals=4),
+            label=strategy.name,
+            linewidth=3,
         )
 
     # X, Y axis
@@ -441,7 +444,8 @@ def multiple_surface_plotly_3d(
             autosize=False,
             width=900,
             height=900,
-            font_family="Times New Roman",
+            font_family="CMU Serif",
+            # font_family="Times New Roman",
         )
     )
 
@@ -474,40 +478,47 @@ def multiple_surface_plotly_3d(
             )
         )
 
-        line_marker = dict(color="black", width=2)
-        for i, j, k in zip(phi_proj_mesh, phi_A_mesh, eval_error):
-            fig.add_trace(
-                go.Scatter3d(
-                    x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
-                )
-            )
+        # Uncomment for grid lines
+        # line_marker = dict(color="black", width=2)
+        # for i, j, k in zip(phi_proj_mesh, phi_A_mesh, eval_error):
+        #     fig.add_trace(
+        #         go.Scatter3d(
+        #             x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
+        #         )
+        #     )
 
-        for i, j, k in zip(phi_proj_mesh.T, phi_A_mesh.T, eval_error.T):
-            fig.add_trace(
-                go.Scatter3d(
-                    x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
-                )
-            )
+        # for i, j, k in zip(phi_proj_mesh.T, phi_A_mesh.T, eval_error.T):
+        #     fig.add_trace(
+        #         go.Scatter3d(
+        #             x=i, y=j, z=k, mode="lines", line=line_marker, showlegend=False
+        #         )
+        #     )
 
-    tickfont_dict = dict(tickfont_size=12, tickfont_color="black")
+    tickfont_dict = dict(tickfont_size=16, tickfont_color="black")
     fig.update_layout(
         title=dict(text=title, x=0.5, y=0.9, xanchor="center", yanchor="top"),
         scene=dict(
             xaxis=dict(
-                title=r"Projector Flux",
+                title="",
+                # title=r"Projector Flux",
                 dtick="D2",
                 type="log",
                 exponentformat="power",
                 **tickfont_dict,
             ),
             yaxis=dict(
-                title=r"Ambient Flux",
+                title="",
+                # title=r"Ambient Flux",
                 dtick="D2",
                 type="log",
                 exponentformat="power",
                 **tickfont_dict,
             ),
-            zaxis=dict(title=error_metric.long_name, **tickfont_dict),
+            zaxis=dict(
+                title="",
+                # title=error_metric.long_name,
+                **tickfont_dict,
+            ),
         ),
         scene_aspectmode="cube",
         scene_camera_eye=dict(x=1.61, y=1.61, z=0.25),

@@ -221,7 +221,7 @@ def simulate_high_speed_frame(
     return high_speed_frame.round()
 
 
-@MemoizeNumpy
+# @MemoizeNumpy
 def get_high_speed_frame(
     pattern_folder,
     bin_suffix_range: range = range(0, 10),

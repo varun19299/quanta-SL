@@ -177,7 +177,7 @@ if __name__ == "__main__":
     if FAISS_GPUs:
         num = 256
     else:
-        num = 64
+        num = 256
 
     phi_proj = np.logspace(4, 5, num=num)
     phi_A = np.logspace(2.75, 3.75, num=num)
@@ -193,10 +193,10 @@ if __name__ == "__main__":
         error_metric=root_mean_squared_error,
         plot_dir=Path("outputs/strategy_comparison/hybrid_vs_repeated_longrun_paper_grid/"),
     )
-    coding_kwargs = dict(monte_carlo_iter=1)
+    coding_kwargs = dict(monte_carlo_iter=10)
 
     if FAISS_GPUs:
-        coding_kwargs["monte_carlo_iter"] = 20
+        coding_kwargs["monte_carlo_iter"] = 100
 
     # Repetition vs BCH
     # redundancy_ll = [3, 6, 13, 25]
