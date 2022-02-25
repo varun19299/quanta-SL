@@ -54,7 +54,7 @@ def unpackbits(x: NDArray[int], num_bits: int = 0, mode: str = "left-msb") -> ND
         )
 
     if mode == "left-msb":
-        binary_rep = binary_rep[:, ::-1]
+        binary_rep = binary_rep[..., ::-1]
 
     return binary_rep
 
